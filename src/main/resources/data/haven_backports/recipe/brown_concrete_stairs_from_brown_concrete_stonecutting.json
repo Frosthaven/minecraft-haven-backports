@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:brown_concrete"
+  },
+  "result": {
+    "id": "haven_backports:brown_concrete_stairs"
+  }
+}

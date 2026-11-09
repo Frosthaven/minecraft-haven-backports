@@ -1,0 +1,56 @@
+{
+  "block.packed_ice.break": {
+    "sounds": [
+      "haven_backports:block/packed_ice/break1",
+      "haven_backports:block/packed_ice/break2",
+      "haven_backports:block/packed_ice/break3",
+      "haven_backports:block/packed_ice/break4",
+      "haven_backports:block/packed_ice/break5",
+      "haven_backports:block/packed_ice/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.packed_ice.fall": {
+    "sounds": [
+      "haven_backports:block/packed_ice/hit1",
+      "haven_backports:block/packed_ice/hit2",
+      "haven_backports:block/packed_ice/hit3",
+      "haven_backports:block/packed_ice/hit4",
+      "haven_backports:block/packed_ice/hit5",
+      "haven_backports:block/packed_ice/hit6"
+    ]
+  },
+  "block.packed_ice.hit": {
+    "sounds": [
+      "haven_backports:block/packed_ice/hit1",
+      "haven_backports:block/packed_ice/hit2",
+      "haven_backports:block/packed_ice/hit3",
+      "haven_backports:block/packed_ice/hit4",
+      "haven_backports:block/packed_ice/hit5",
+      "haven_backports:block/packed_ice/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.packed_ice.place": {
+    "sounds": [
+      "haven_backports:block/packed_ice/place1",
+      "haven_backports:block/packed_ice/place2",
+      "haven_backports:block/packed_ice/place3",
+      "haven_backports:block/packed_ice/place4",
+      "haven_backports:block/packed_ice/place5",
+      "haven_backports:block/packed_ice/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.packed_ice.step": {
+    "sounds": [
+      "haven_backports:block/packed_ice/step1",
+      "haven_backports:block/packed_ice/step2",
+      "haven_backports:block/packed_ice/step3",
+      "haven_backports:block/packed_ice/step4",
+      "haven_backports:block/packed_ice/step5",
+      "haven_backports:block/packed_ice/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_torch",
+  "textures": {
+    "torch": "haven_backports:block/copper_torch"
+  },
+  "render_type": "minecraft:cutout"
+}

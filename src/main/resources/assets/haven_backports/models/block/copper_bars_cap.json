@@ -1,0 +1,8 @@
+{
+  "parent": "haven_backports:block/template_bars_cap",
+  "textures": {
+    "bars": "haven_backports:block/copper_bars",
+    "edge": "haven_backports:block/copper_bars"
+  },
+  "render_type": "minecraft:cutout_mipped"
+}

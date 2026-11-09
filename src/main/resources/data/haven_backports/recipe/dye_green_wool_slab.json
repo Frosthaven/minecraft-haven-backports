@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "wool_slabs",
+  "ingredients": [
+    {
+      "item": "minecraft:green_dye"
+    },
+    [
+      {
+        "item": "haven_backports:white_wool_slab"
+      },
+      {
+        "item": "haven_backports:orange_wool_slab"
+      },
+      {
+        "item": "haven_backports:magenta_wool_slab"
+      },
+      {
+        "item": "haven_backports:light_blue_wool_slab"
+      },
+      {
+        "item": "haven_backports:yellow_wool_slab"
+      },
+      {
+        "item": "haven_backports:lime_wool_slab"
+      },
+      {
+        "item": "haven_backports:pink_wool_slab"
+      },
+      {
+        "item": "haven_backports:gray_wool_slab"
+      },
+      {
+        "item": "haven_backports:light_gray_wool_slab"
+      },
+      {
+        "item": "haven_backports:cyan_wool_slab"
+      },
+      {
+        "item": "haven_backports:purple_wool_slab"
+      },
+      {
+        "item": "haven_backports:blue_wool_slab"
+      },
+      {
+        "item": "haven_backports:brown_wool_slab"
+      },
+      {
+        "item": "haven_backports:red_wool_slab"
+      },
+      {
+        "item": "haven_backports:black_wool_slab"
+      }
+    ]
+  ],
+  "result": {
+    "id": "haven_backports:green_wool_slab"
+  }
+}

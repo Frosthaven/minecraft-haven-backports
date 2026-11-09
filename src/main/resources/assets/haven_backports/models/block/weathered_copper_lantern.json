@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_lantern",
+  "textures": {
+    "lantern": "haven_backports:block/weathered_copper_lantern"
+  },
+  "render_type": "minecraft:cutout"
+}

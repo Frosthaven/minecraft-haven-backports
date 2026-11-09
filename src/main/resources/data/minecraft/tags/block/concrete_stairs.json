@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:white_concrete_stairs",
+    "haven_backports:orange_concrete_stairs",
+    "haven_backports:magenta_concrete_stairs",
+    "haven_backports:light_blue_concrete_stairs",
+    "haven_backports:yellow_concrete_stairs",
+    "haven_backports:lime_concrete_stairs",
+    "haven_backports:pink_concrete_stairs",
+    "haven_backports:gray_concrete_stairs",
+    "haven_backports:light_gray_concrete_stairs",
+    "haven_backports:cyan_concrete_stairs",
+    "haven_backports:purple_concrete_stairs",
+    "haven_backports:blue_concrete_stairs",
+    "haven_backports:brown_concrete_stairs",
+    "haven_backports:green_concrete_stairs",
+    "haven_backports:red_concrete_stairs",
+    "haven_backports:black_concrete_stairs"
+  ]
+}

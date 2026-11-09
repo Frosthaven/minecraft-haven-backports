@@ -3,6 +3,10 @@
   "values": [
     "haven_backports:calcite_slab",
     "haven_backports:polished_calcite_slab",
-    "haven_backports:polished_calcite_brick_slab"
+    "haven_backports:polished_calcite_brick_slab",
+    "haven_backports:packed_ice_brick_slab",
+    "haven_backports:snow_brick_slab",
+    "#minecraft:wool_slabs",
+    "#minecraft:concrete_slabs"
   ]
 }

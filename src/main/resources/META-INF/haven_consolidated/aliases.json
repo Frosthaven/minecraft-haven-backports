@@ -19,6 +19,191 @@
       "old": "create:calcite_pillar",
       "new": "haven_backports:calcite_pillar",
       "block": true
+    },
+    {
+      "old": "chipped:packed_ice_bricks",
+      "new": "haven_backports:packed_ice_bricks",
+      "block": true
+    },
+    {
+      "old": "create:copper_bars",
+      "new": "haven_backports:waxed_copper_bars",
+      "block": true
+    },
+    {
+      "old": "createdeco:copper_bars",
+      "new": "haven_backports:waxed_copper_bars",
+      "block": true
+    },
+    {
+      "old": "mcwlights:copper_chain",
+      "new": "haven_backports:waxed_copper_chain",
+      "block": true
+    },
+    {
+      "old": "create:copper_nugget",
+      "new": "haven_backports:copper_nugget",
+      "block": false
+    },
+    {
+      "old": "new_slab_variants:white_wool_slab",
+      "new": "haven_backports:white_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:orange_wool_slab",
+      "new": "haven_backports:orange_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:magenta_wool_slab",
+      "new": "haven_backports:magenta_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:light_blue_wool_slab",
+      "new": "haven_backports:light_blue_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:yellow_wool_slab",
+      "new": "haven_backports:yellow_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:lime_wool_slab",
+      "new": "haven_backports:lime_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:pink_wool_slab",
+      "new": "haven_backports:pink_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:gray_wool_slab",
+      "new": "haven_backports:gray_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:light_gray_wool_slab",
+      "new": "haven_backports:light_gray_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:cyan_wool_slab",
+      "new": "haven_backports:cyan_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:purple_wool_slab",
+      "new": "haven_backports:purple_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:blue_wool_slab",
+      "new": "haven_backports:blue_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:brown_wool_slab",
+      "new": "haven_backports:brown_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:green_wool_slab",
+      "new": "haven_backports:green_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:red_wool_slab",
+      "new": "haven_backports:red_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:black_wool_slab",
+      "new": "haven_backports:black_wool_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:white_concrete_slab",
+      "new": "haven_backports:white_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:orange_concrete_slab",
+      "new": "haven_backports:orange_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:magenta_concrete_slab",
+      "new": "haven_backports:magenta_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:light_blue_concrete_slab",
+      "new": "haven_backports:light_blue_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:yellow_concrete_slab",
+      "new": "haven_backports:yellow_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:lime_concrete_slab",
+      "new": "haven_backports:lime_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:pink_concrete_slab",
+      "new": "haven_backports:pink_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:gray_concrete_slab",
+      "new": "haven_backports:gray_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:light_gray_concrete_slab",
+      "new": "haven_backports:light_gray_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:cyan_concrete_slab",
+      "new": "haven_backports:cyan_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:purple_concrete_slab",
+      "new": "haven_backports:purple_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:blue_concrete_slab",
+      "new": "haven_backports:blue_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:brown_concrete_slab",
+      "new": "haven_backports:brown_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:green_concrete_slab",
+      "new": "haven_backports:green_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:red_concrete_slab",
+      "new": "haven_backports:red_concrete_slab",
+      "block": true
+    },
+    {
+      "old": "new_slab_variants:black_concrete_slab",
+      "new": "haven_backports:black_concrete_slab",
+      "block": true
     }
   ]
 }

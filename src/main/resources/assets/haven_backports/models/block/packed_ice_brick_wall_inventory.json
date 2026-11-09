@@ -1,0 +1,6 @@
+{
+  "parent": "haven_backports:block/wall_inventory",
+  "textures": {
+    "wall": "haven_backports:block/packed_ice_bricks"
+  }
+}

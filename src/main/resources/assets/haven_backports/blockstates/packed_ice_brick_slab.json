@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven_backports:block/packed_ice_brick_slab"
+    },
+    "type=double": {
+      "model": "haven_backports:block/packed_ice_bricks"
+    },
+    "type=top": {
+      "model": "haven_backports:block/packed_ice_brick_slab_top"
+    }
+  }
+}

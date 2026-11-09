@@ -1,0 +1,31 @@
+{
+  "values": {
+    "haven_backports:copper_bars": {
+      "next_oxidation_stage": "haven_backports:exposed_copper_bars"
+    },
+    "haven_backports:exposed_copper_bars": {
+      "next_oxidation_stage": "haven_backports:weathered_copper_bars"
+    },
+    "haven_backports:weathered_copper_bars": {
+      "next_oxidation_stage": "haven_backports:oxidized_copper_bars"
+    },
+    "haven_backports:copper_chain": {
+      "next_oxidation_stage": "haven_backports:exposed_copper_chain"
+    },
+    "haven_backports:exposed_copper_chain": {
+      "next_oxidation_stage": "haven_backports:weathered_copper_chain"
+    },
+    "haven_backports:weathered_copper_chain": {
+      "next_oxidation_stage": "haven_backports:oxidized_copper_chain"
+    },
+    "haven_backports:copper_lantern": {
+      "next_oxidation_stage": "haven_backports:exposed_copper_lantern"
+    },
+    "haven_backports:exposed_copper_lantern": {
+      "next_oxidation_stage": "haven_backports:weathered_copper_lantern"
+    },
+    "haven_backports:weathered_copper_lantern": {
+      "next_oxidation_stage": "haven_backports:oxidized_copper_lantern"
+    }
+  }
+}

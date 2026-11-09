@@ -1,0 +1,40 @@
+{
+  "values": {
+    "haven_backports:copper_bars": {
+      "waxed": "haven_backports:waxed_copper_bars"
+    },
+    "haven_backports:exposed_copper_bars": {
+      "waxed": "haven_backports:waxed_exposed_copper_bars"
+    },
+    "haven_backports:weathered_copper_bars": {
+      "waxed": "haven_backports:waxed_weathered_copper_bars"
+    },
+    "haven_backports:oxidized_copper_bars": {
+      "waxed": "haven_backports:waxed_oxidized_copper_bars"
+    },
+    "haven_backports:copper_chain": {
+      "waxed": "haven_backports:waxed_copper_chain"
+    },
+    "haven_backports:exposed_copper_chain": {
+      "waxed": "haven_backports:waxed_exposed_copper_chain"
+    },
+    "haven_backports:weathered_copper_chain": {
+      "waxed": "haven_backports:waxed_weathered_copper_chain"
+    },
+    "haven_backports:oxidized_copper_chain": {
+      "waxed": "haven_backports:waxed_oxidized_copper_chain"
+    },
+    "haven_backports:copper_lantern": {
+      "waxed": "haven_backports:waxed_copper_lantern"
+    },
+    "haven_backports:exposed_copper_lantern": {
+      "waxed": "haven_backports:waxed_exposed_copper_lantern"
+    },
+    "haven_backports:weathered_copper_lantern": {
+      "waxed": "haven_backports:waxed_weathered_copper_lantern"
+    },
+    "haven_backports:oxidized_copper_lantern": {
+      "waxed": "haven_backports:waxed_oxidized_copper_lantern"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven_backports:packed_ice_bricks"
+  },
+  "result": {
+    "id": "haven_backports:packed_ice_brick_wall"
+  }
+}

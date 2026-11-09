@@ -12,9 +12,9 @@ noted, not emulated per block.
 
 ## Pipeline
 
-`python3 -I tools/backport.py` downloads the pinned snapshot client jar (sha1 checked, cached in `.cache/`) and writes
-`src/main/resources`: blockstates, block and item models, textures (and vanilla textures the snapshot changed, under
-`assets/minecraft`), lang, loot tables (snapshot loot format converted key for key), recipes (ingredient shorthand
+`python3 -I tools/backport.py --mods <pack mods folder>` downloads the pinned snapshot client jar (sha1 checked, cached in `.cache/`) and writes
+`src/main/resources`: blockstates, block and item models, textures 1.21.1 lacks (a texture 1.21.1 has keeps its 1.21.1
+look even where 26.x retextured it, the owner's choice, so new blocks match the vanilla blocks around them), lang, loot tables (snapshot loot format converted key for key), recipes (ingredient shorthand
 converted to `{"item": ...}`), tags (only those 1.21.1 has, or that a backported recipe uses), the Chipped and
 Rechiseled tie-ins, and `META-INF/haven_consolidated/aliases.json` (merges). Never hand-edit generated files.
 Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =

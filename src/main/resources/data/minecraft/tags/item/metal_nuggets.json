@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:copper_nugget",
+    "minecraft:iron_nugget",
+    "minecraft:gold_nugget"
+  ]
+}

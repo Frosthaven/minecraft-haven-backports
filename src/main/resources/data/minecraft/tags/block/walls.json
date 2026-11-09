@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:packed_ice_brick_wall",
+    "haven_backports:snow_brick_wall",
     "haven_backports:calcite_wall",
     "haven_backports:polished_calcite_wall",
     "haven_backports:polished_calcite_brick_wall"

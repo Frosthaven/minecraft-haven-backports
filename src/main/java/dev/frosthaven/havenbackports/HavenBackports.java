@@ -17,6 +17,7 @@ public final class HavenBackports {
     public static final Logger LOG = LogUtils.getLogger();
 
     public HavenBackports(IEventBus modBus, ModContainer container) {
-        Calcite.register(modBus);
+        Content.register(modBus);
+        modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }
