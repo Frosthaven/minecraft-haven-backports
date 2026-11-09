@@ -18,7 +18,8 @@
       "haven_backports:block/packed_ice/hit4",
       "haven_backports:block/packed_ice/hit5",
       "haven_backports:block/packed_ice/hit6"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.fall"
   },
   "block.packed_ice.hit": {
     "sounds": [
@@ -52,5 +53,108 @@
       "haven_backports:block/packed_ice/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.shelf.break": {
+    "sounds": [
+      "haven_backports:block/chiseled_bookshelf/break1",
+      "haven_backports:block/chiseled_bookshelf/break2",
+      "haven_backports:block/chiseled_bookshelf/break3",
+      "haven_backports:block/chiseled_bookshelf/break4",
+      "haven_backports:block/chiseled_bookshelf/break5",
+      "haven_backports:block/chiseled_bookshelf/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.shelf.fall": {
+    "sounds": [
+      "haven_backports:block/chiseled_bookshelf/step1",
+      "haven_backports:block/chiseled_bookshelf/step2",
+      "haven_backports:block/chiseled_bookshelf/step3",
+      "haven_backports:block/chiseled_bookshelf/step4",
+      "haven_backports:block/chiseled_bookshelf/step5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.shelf.hit": {
+    "sounds": [
+      "haven_backports:block/chiseled_bookshelf/step1",
+      "haven_backports:block/chiseled_bookshelf/step2",
+      "haven_backports:block/chiseled_bookshelf/step3",
+      "haven_backports:block/chiseled_bookshelf/step4",
+      "haven_backports:block/chiseled_bookshelf/step5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.shelf.place": {
+    "sounds": [
+      "haven_backports:block/chiseled_bookshelf/break1",
+      "haven_backports:block/chiseled_bookshelf/break2",
+      "haven_backports:block/chiseled_bookshelf/break3",
+      "haven_backports:block/chiseled_bookshelf/break4",
+      "haven_backports:block/chiseled_bookshelf/break5",
+      "haven_backports:block/chiseled_bookshelf/break6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.shelf.step": {
+    "sounds": [
+      "haven_backports:block/chiseled_bookshelf/step1",
+      "haven_backports:block/chiseled_bookshelf/step2",
+      "haven_backports:block/chiseled_bookshelf/step3",
+      "haven_backports:block/chiseled_bookshelf/step4",
+      "haven_backports:block/chiseled_bookshelf/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.shelf.activate": {
+    "sounds": [
+      "haven_backports:block/shelf/activate1",
+      "haven_backports:block/shelf/activate2",
+      "haven_backports:block/shelf/activate3"
+    ],
+    "subtitle": "subtitles.block.shelf.activate"
+  },
+  "block.shelf.deactivate": {
+    "sounds": [
+      "haven_backports:block/shelf/deactivate1",
+      "haven_backports:block/shelf/deactivate2",
+      "haven_backports:block/shelf/deactivate3"
+    ],
+    "subtitle": "subtitles.block.shelf.deactivate"
+  },
+  "block.shelf.take_item": {
+    "sounds": [
+      "haven_backports:block/shelf/single_swap1",
+      "haven_backports:block/shelf/single_swap2",
+      "haven_backports:block/shelf/single_swap3",
+      "haven_backports:block/shelf/single_swap4"
+    ],
+    "subtitle": "subtitles.block.shelf.take_item"
+  },
+  "block.shelf.single_swap": {
+    "sounds": [
+      "haven_backports:block/shelf/single_swap1",
+      "haven_backports:block/shelf/single_swap2",
+      "haven_backports:block/shelf/single_swap3",
+      "haven_backports:block/shelf/single_swap4"
+    ],
+    "subtitle": "subtitles.block.shelf.single_swap"
+  },
+  "block.shelf.place_item": {
+    "sounds": [
+      "haven_backports:block/shelf/place_item1",
+      "haven_backports:block/shelf/place_item2",
+      "haven_backports:block/shelf/place_item3",
+      "haven_backports:block/shelf/place_item4"
+    ],
+    "subtitle": "subtitles.block.shelf.place_item"
+  },
+  "block.shelf.multi_swap": {
+    "sounds": [
+      "haven_backports:block/shelf/multi_swap1",
+      "haven_backports:block/shelf/multi_swap2",
+      "haven_backports:block/shelf/multi_swap3"
+    ],
+    "subtitle": "subtitles.block.shelf.multi_swap"
   }
 }

@@ -15,27 +15,28 @@ Downloads the snapshot client jar (sha1-checked, cached in .cache/) and, for eve
 Run: uv run --with pillow python -I tools/backport.py --mods <the pack's mods folder>   (or HAVEN_MODS; then ./gradlew build)
 --mods lets the Amendments tie-in copy that mod's own wall-lantern models for our copper lanterns.
 """
-import hashlib
 import os
 import json
 import shutil
 import sys
-import urllib.request
 import zipfile
 from pathlib import Path
 
-VERSION = "26.4-snapshot-7"
+sys.path.insert(0, str(Path(__file__).resolve().parent))   # -I leaves the script folder off sys.path
+import models   # noqa: E402
+from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
+
 REPO = Path(__file__).resolve().parent.parent
 RES = REPO / "src/main/resources"
-CACHE = REPO / ".cache"
 NS = "haven_backports"
-MANIFEST = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
 VANILLA_1211 = Path.home() / ".local/share/PrismLauncher/libraries/com/mojang/minecraft/1.21.1/minecraft-1.21.1-client.jar"
 
 COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
           "purple", "blue", "brown", "green", "red", "black"]
 STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 COPPER_SETS = ["copper_bars", "copper_chain", "copper_lantern"]
+# Mojang's shelf woods that 1.21.1 grows; pale oak and poplar shelves come with the Pale Garden and Dappled Forest.
+SHELF_WOODS = ["oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "bamboo", "crimson", "warped"]
 
 
 def stairs_slab_wall(prefix):
@@ -51,6 +52,7 @@ CONTENT = {
     "wool": [f"{c}_wool_{s}" for c in COLORS for s in ("stairs", "slab")],
     "concrete": [f"{c}_concrete_{s}" for c in COLORS for s in ("stairs", "slab")],
     "copper": [f"{w}{st}{s}" for s in COPPER_SETS for w in ("", "waxed_") for st in STAGES] + ["copper_torch", "copper_wall_torch"],
+    "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
 }
 ITEMS_ONLY = ["copper_nugget"]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
@@ -66,7 +68,12 @@ COVERED_BY_PACK = {
     "copper_ingot_from_nuggets": "Create's crafting/materials/copper_ingot (9 c:nuggets/copper -> 1)",
 }
 PARTICLES = ["copper_fire_flame"]
-SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"]}   # new sound events 1.21.1 lacks
+# New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
+SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
+              "shelf": ["break", "fall", "hit", "place", "step",
+                        "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
+# Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
+CODE_TAGS = ["wooden_shelves"]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -95,42 +102,6 @@ BLOCKS = [b for family in CONTENT.values() for b in family]
 OURS = set(BLOCKS) | set(ITEMS_ONLY)
 
 
-def get(url: str) -> bytes:
-    with urllib.request.urlopen(url, timeout=300) as r:
-        return r.read()
-
-
-def snapshot() -> tuple[zipfile.ZipFile, dict]:
-    jar_path, index_path = CACHE / f"minecraft-{VERSION}-client.jar", CACHE / f"{VERSION}-assets.json"
-    if not jar_path.exists() or not index_path.exists():
-        manifest = json.loads(get(MANIFEST))
-        version = json.loads(get(next(v["url"] for v in manifest["versions"] if v["id"] == VERSION)))
-        client = version["downloads"]["client"]
-        data = get(client["url"])
-        if hashlib.sha1(data).hexdigest() != client["sha1"]:
-            sys.exit(f"{VERSION} client jar: sha1 mismatch")
-        CACHE.mkdir(exist_ok=True)
-        jar_path.write_bytes(data)
-        index = get(version["assetIndex"]["url"])
-        if hashlib.sha1(index).hexdigest() != version["assetIndex"]["sha1"]:
-            sys.exit(f"{VERSION} asset index: sha1 mismatch")
-        index_path.write_bytes(index)
-    return zipfile.ZipFile(jar_path), json.loads(index_path.read_text())["objects"]
-
-
-def asset(objects: dict, name: str) -> bytes:
-    """A file from Mojang's asset store (sounds live there, not in the jar), checked against the index hash."""
-    entry = objects[name]
-    path = CACHE / "objects" / entry["hash"]
-    if not path.exists():
-        path.parent.mkdir(parents=True, exist_ok=True)
-        data = get(f"https://resources.download.minecraft.net/{entry['hash'][:2]}/{entry['hash']}")
-        if hashlib.sha1(data).hexdigest() != entry["hash"]:
-            sys.exit(f"{name}: sha1 mismatch")
-        path.write_bytes(data)
-    return path.read_bytes()
-
-
 class Port:
     def __init__(self):
         self.jar, self.objects = snapshot()
@@ -157,12 +128,12 @@ class Port:
         name = f"assets/minecraft/models/{path}.json"
         if path in self.ours_models:
             return f"{NS}:{path}"
-        if self.same_as_1211(name):
-            return f"minecraft:{path}"
         if name not in self.new_names:
             sys.exit(f"model {ref} is in neither jar")
+        data = models.convert(self.read(name), name)
+        if name in self.old_names and models.plain(data) == models.plain(json.loads(self.old.read(name))):
+            return f"minecraft:{path}"   # the same model; its on_shelf (if any) comes from the vanilla patches
         self.ours_models.add(path)
-        data = self.read(name)
         if "parent" in data:
             data["parent"] = self.model(data["parent"])
         if "textures" in data:
@@ -299,7 +270,7 @@ class Port:
         path.write_text(json.dumps(data, indent=2) + "\n")
 
     def run(self):
-        for d in (RES / "assets", RES / "data", RES / "META-INF"):
+        for d in (RES / "assets", RES / "data", RES / "META-INF/haven_consolidated"):   # META-INF also holds hand-written files
             shutil.rmtree(d, ignore_errors=True)
         lang_new = self.read("assets/minecraft/lang/en_us.json")
         lang = {}
@@ -322,10 +293,11 @@ class Port:
             item_def = self.read(f"assets/minecraft/items/{i}.json")["model"]
             if item_def.get("type") != "minecraft:model":
                 sys.exit(f"item {i}: item model type {item_def.get('type')} needs porting by hand")
-            self.write(RES / "assets" / NS / "models/item" / f"{i}.json", {"parent": self.model(item_def["model"])})
+            ref = self.model(item_def["model"])
+            if ref != f"{NS}:item/{i}":   # an item model of the same name was just written by model(): it is the model
+                self.write(RES / "assets" / NS / "models/item" / f"{i}.json", {"parent": ref})
             if i in ITEMS_ONLY:
                 lang[f"item.{NS}.{i}"] = lang_new[f"item.minecraft.{i}"]
-        self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
 
         for p in PARTICLES:
             data = self.read(f"assets/minecraft/particles/{p}.json")
@@ -333,7 +305,9 @@ class Port:
             data["textures"] = [self.texture("minecraft:particle/" + t.split(":")[-1]).replace("particle/", "") for t in data["textures"]]
             self.write(RES / "assets" / NS / "particles" / f"{p}.json", data)
 
-        self.sounds()
+        self.sounds(lang, lang_new)
+        self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
+        self.shelf_displays()
         self.recipes()
         self.tags()
         self.tie_ins()
@@ -342,10 +316,18 @@ class Port:
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "
-              f"{len(self.ours_textures)} textures, {self.n_recipes} recipes ({self.n_extra} extra), {self.n_tags} tags, "
+              f"{len(self.ours_textures)} textures, {self.n_shelf_patches} vanilla models given on_shelf, {self.n_recipes} recipes ({self.n_extra} extra), {self.n_tags} tags, "
               f"vanilla textures 26.x really retextured (pixels differ), kept at 1.21.1: {sorted(self.changed_vanilla)}")
 
-    def sounds(self):
+    def shelf_displays(self):
+        patches, notes = models.vanilla_shelf_patches(self.jar, self.old)
+        for path, data in patches.items():
+            self.write(RES / "assets/minecraft/models" / f"{path}.json", data)
+        self.n_shelf_patches = len(patches)
+        if notes:
+            print(f"on_shelf added to vanilla models 26.x also changed otherwise (1.21.1 content kept): {notes}")
+
+    def sounds(self, lang, lang_new):
         mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
         out = {}
         for sset, kinds in SOUND_SETS.items():
@@ -364,7 +346,7 @@ class Port:
                     else:
                         entry["sounds"][entry["sounds"].index(s)] = f"{NS}:{path}"
                 if "subtitle" in entry and entry["subtitle"] not in self.old_lang():
-                    entry.pop("subtitle")   # a subtitle key 1.21.1 lacks would show raw
+                    lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
                 out[event] = entry
         self.write(RES / "assets" / NS / "sounds.json", out)
 
@@ -435,7 +417,7 @@ class Port:
                     return True
             return False
 
-        wanted = [n for n in tag_files if n in self.old_names or
+        wanted = [n for n in tag_files if n in self.old_names or n.split("/")[-1][:-5] in CODE_TAGS or
                   (n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags)]
         written, queue = set(), list(wanted)
         while queue:
@@ -498,46 +480,6 @@ class Port:
                 waxables[f"{NS}:{st}{s}"] = {"waxed": f"{NS}:waxed_{st}{s}"}
         self.write(RES / "data/neoforge/data_maps/block/oxidizables.json", {"values": oxidizables})
         self.write(RES / "data/neoforge/data_maps/block/waxables.json", {"values": waxables})
-
-
-def pixels(png: bytes) -> bytes:
-    """Decoded RGBA pixels: file bytes differ when Mojang only re-saves a PNG."""
-    import io
-    from PIL import Image
-    return Image.open(io.BytesIO(png)).convert("RGBA").tobytes()
-
-
-def models_in(value) -> list[str]:
-    if isinstance(value, dict):
-        return [value["model"]] if "model" in value else [m for v in value.values() for m in models_in(v)]
-    if isinstance(value, list):
-        return [m for v in value for m in models_in(v)]
-    return []
-
-
-def old_format(r):
-    """1.21.1's recipe JSON in the same shape canon() reads."""
-    return r
-
-
-def canon(r: dict) -> str:
-    """Type, result and the ingredient ids of a recipe, in either jar's format, as one comparable string."""
-    def ing(v):
-        if isinstance(v, list):
-            return sorted((ing(x) for x in v), key=lambda x: json.dumps(x))
-        if isinstance(v, dict):
-            return ("#" + v["tag"]) if "tag" in v else v.get("item", json.dumps(v, sort_keys=True))
-        return v
-    res = r.get("result", {})
-    res = (res.get("id") or res.get("item"), res.get("count", 1)) if isinstance(res, dict) else (res, 1)
-    parts = {"type": r.get("type"), "result": res}
-    if "key" in r:
-        parts["pattern"] = r.get("pattern")
-        parts["key"] = {k: ing(v) for k, v in sorted(r["key"].items())}
-    for k in ("ingredient", "ingredients", "base", "addition", "template"):
-        if k in r:
-            parts[k] = json.dumps(sorted((ing(x) for x in r[k]), key=lambda x: json.dumps(x)) if k == "ingredients" else ing(r[k]))
-    return json.dumps(parts, sort_keys=True, default=str)
 
 
 if __name__ == "__main__":

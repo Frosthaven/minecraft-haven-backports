@@ -1,21 +1,55 @@
 {
-  "gui_light": "side",
+  "parent": "builtin/entity",
   "display": {
-    "gui": {
+    "thirdperson_righthand": {
       "rotation": [
         30,
-        225,
+        160,
         0
       ],
       "translation": [
         0,
+        3,
+        -2
+      ],
+      "scale": [
+        0.23,
+        0.23,
+        0.23
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        30,
+        160,
+        0
+      ],
+      "translation": [
         0,
+        3,
         0
       ],
       "scale": [
-        0.625,
-        0.625,
-        0.625
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30,
+        160,
+        0
+      ],
+      "translation": [
+        2,
+        3,
+        0
+      ],
+      "scale": [
+        0.5325,
+        0.5325,
+        0.5325
       ]
     },
     "ground": {
@@ -26,8 +60,8 @@
       ],
       "translation": [
         0,
-        3,
-        0
+        1,
+        2
       ],
       "scale": [
         0.25,
@@ -35,24 +69,7 @@
         0.25
       ]
     },
-    "fixed": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.5,
-        0.5,
-        0.5
-      ]
-    },
-    "on_shelf": {
+    "head": {
       "rotation": [
         0,
         180,
@@ -60,8 +77,8 @@
       ],
       "translation": [
         0,
-        0,
-        0
+        10,
+        -8
       ],
       "scale": [
         1,
@@ -69,55 +86,38 @@
         1
       ]
     },
-    "thirdperson_righthand": {
+    "fixed": {
       "rotation": [
-        75,
-        45,
+        270,
+        0,
         0
       ],
       "translation": [
         0,
-        2.5,
-        0
+        4,
+        -2
       ],
       "scale": [
-        0.375,
-        0.375,
-        0.375
+        0.5,
+        0.5,
+        0.5
       ]
     },
-    "firstperson_righthand": {
+    "haven_backports:on_shelf": {
       "rotation": [
-        0,
-        45,
+        90,
+        180,
         0
       ],
       "translation": [
         0,
-        0,
-        0
+        14.5,
+        2.5
       ],
       "scale": [
-        0.4,
-        0.4,
-        0.4
-      ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [
-        0,
-        225,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.4,
-        0.4,
-        0.4
+        0.9375,
+        0.9375,
+        0.9375
       ]
     }
   }

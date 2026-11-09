@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_right",
+  "textures": {
+    "all": "haven_backports:block/spruce_shelf",
+    "particle": "minecraft:block/stripped_spruce_log"
+  }
+}

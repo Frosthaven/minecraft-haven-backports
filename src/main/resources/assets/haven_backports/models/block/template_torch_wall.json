@@ -24,7 +24,6 @@
         "axis": "z",
         "angle": -22.5
       },
-      "shade_direction_override": "up",
       "faces": {
         "down": {
           "uv": [
@@ -80,7 +79,8 @@
           ],
           "texture": "#torch"
         }
-      }
+      },
+      "shade": false
     }
   ]
 }

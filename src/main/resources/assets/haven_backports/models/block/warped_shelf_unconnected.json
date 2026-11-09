@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_unconnected",
+  "textures": {
+    "all": "haven_backports:block/warped_shelf",
+    "particle": "minecraft:block/stripped_warped_stem"
+  }
+}

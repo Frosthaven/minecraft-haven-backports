@@ -53,6 +53,12 @@ final class Tabs {
             }
             after(e, "soul_lantern", lanterns.toArray(String[]::new));
             after(e, "chain", chains.toArray(String[]::new));
+            // bookshelf, chiseled bookshelf, OAK_SHELF ... WARPED_SHELF (pale oak and poplar come with their woods)
+            after(e, "chiseled_bookshelf", "oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
+                    "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf");
+        } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
+            // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
+            after(e, "chiseled_bookshelf", "oak_shelf");
         } else if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             // WOOL, WOOL_STAIRS, WOOL_SLAB, CARPET ... CONCRETE, CONCRETE_STAIRS, CONCRETE_SLAB, CONCRETE_POWDER
             List<String> wool = new ArrayList<>(), concrete = new ArrayList<>();

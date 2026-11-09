@@ -1,6 +1,7 @@
 {
-  "parent": "haven_backports:block/wall_inventory",
+  "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "haven_backports:block/snow_bricks"
+    "wall": "haven_backports:block/snow_bricks",
+    "particle": "haven_backports:block/snow_bricks"
   }
 }

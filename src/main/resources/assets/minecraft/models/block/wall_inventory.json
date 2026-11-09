@@ -1,5 +1,5 @@
 {
-  "parent": "haven_backports:block/block",
+  "parent": "block/block",
   "display": {
     "gui": {
       "rotation": [
@@ -35,7 +35,7 @@
         0.5
       ]
     },
-    "on_shelf": {
+    "haven_backports:on_shelf": {
       "rotation": [
         0,
         90,

@@ -3,6 +3,7 @@
   "textures": {
     "bottom": "haven_backports:block/snow_bricks",
     "side": "haven_backports:block/snow_bricks",
-    "top": "haven_backports:block/snow_bricks"
+    "top": "haven_backports:block/snow_bricks",
+    "particle": "haven_backports:block/snow_bricks"
   }
 }

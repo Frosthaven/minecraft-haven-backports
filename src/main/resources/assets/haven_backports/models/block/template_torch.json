@@ -15,7 +15,6 @@
         10,
         9
       ],
-      "shade_direction_override": "up",
       "faces": {
         "down": {
           "uv": [
@@ -72,7 +71,8 @@
           ],
           "texture": "#torch"
         }
-      }
+      },
+      "shade": false
     }
   ]
 }

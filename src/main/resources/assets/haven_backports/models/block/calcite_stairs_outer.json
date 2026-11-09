@@ -3,6 +3,7 @@
   "textures": {
     "bottom": "minecraft:block/calcite",
     "side": "minecraft:block/calcite",
-    "top": "minecraft:block/calcite"
+    "top": "minecraft:block/calcite",
+    "particle": "minecraft:block/calcite"
   }
 }

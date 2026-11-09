@@ -18,8 +18,19 @@ vanilla; the generator reports any whose pixels differ in 26.x, so a real retext
 phase 1 families none do: 26.x only re-saved those files), lang, loot tables (snapshot loot format converted key for key), recipes (ingredient shorthand
 converted to `{"item": ...}`), tags (only those 1.21.1 has, or that a backported recipe uses), the Chipped and
 Rechiseled tie-ins, and `META-INF/haven_consolidated/aliases.json` (merges). Never hand-edit generated files.
-Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
+`tools/models.py` converts 26.x model JSON (`shade_direction_override: up` -> `shade: false`; other values stop the
+run; `on_shelf` -> `haven_backports:on_shelf`) and writes the vanilla models 26.x gives an on_shelf transform (1.21.1's
+file plus that one entry). A model equal to 1.21.1's after conversion stays vanilla, so pack resource packs that
+restyle vanilla (Better Lanterns + `haven-fixes`) apply to ours too. `tools/sources.py` holds the jar download and
+format-neutral compares. Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
 `ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
+
+## Ported classes
+
+`block/` holds Mojang's 26.x classes ported to 1.21.1 APIs (ShelfBlock, ShelfBlockEntity, SideChainPartBlock,
+SelectableSlotContainer); each says in its Javadoc where 1.21.1 forced a different form. Decompile with
+`.cache/tools/vineflower-1.11.1.jar` (`-only=<class path>`). Mixins (`haven_backports.mixins.json`) only carry
+behaviour 1.21.1 hard-codes: keep them to a minimum.
 
 ## Merges
 
@@ -30,7 +41,9 @@ block only when it is the same block as Mojang's; keep blocks of a mod's own cro
 ## Test
 
 The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
-"Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family.
+"Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
+inventory icons too (a hotbar shot), not only placed blocks. A server test: `just smoke --serve` in the pack test copy
+with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client.
 
 ## Release
 

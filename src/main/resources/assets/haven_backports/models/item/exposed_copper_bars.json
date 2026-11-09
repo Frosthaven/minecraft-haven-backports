@@ -1,3 +1,6 @@
 {
-  "parent": "haven_backports:item/exposed_copper_bars"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "haven_backports:block/exposed_copper_bars"
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/item/ItemDisplayContext",
+      "name": "HAVEN_BACKPORTS_ON_SHELF",
+      "constructor": "(ILjava/lang/String;Ljava/lang/String;)V",
+      "parameters": [-1, "haven_backports:on_shelf", null]
+    }
+  ]
+}

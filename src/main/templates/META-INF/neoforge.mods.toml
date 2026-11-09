@@ -7,6 +7,7 @@ issueTrackerURL="https://github.com/Frosthaven/minecraft-haven-backports/issues"
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
+enumExtensions="META-INF/enumextensions.json"
 description='''
 Blocks, items and recipes from newer Minecraft versions, backported to 1.21.1 for the Haven pack with Mojang's own
 textures, models, recipes, loot and properties. Required on both sides.
@@ -25,3 +26,6 @@ textures, models, recipes, loot and properties. Required on both sides.
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[mixins]]
+    config="${mod_id}.mixins.json"

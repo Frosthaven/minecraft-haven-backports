@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:acacia_shelf",
+    "haven_backports:bamboo_shelf",
+    "haven_backports:birch_shelf",
+    "haven_backports:cherry_shelf",
+    "haven_backports:crimson_shelf",
+    "haven_backports:dark_oak_shelf",
+    "haven_backports:jungle_shelf",
+    "haven_backports:mangrove_shelf",
+    "haven_backports:oak_shelf",
+    "haven_backports:spruce_shelf",
+    "haven_backports:warped_shelf"
+  ]
+}

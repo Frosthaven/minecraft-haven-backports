@@ -1,5 +1,5 @@
 {
-  "parent": "haven_backports:block/block",
+  "parent": "minecraft:block/block",
   "textures": {
     "particle": "#texture",
     "all": "#texture"
@@ -25,7 +25,6 @@
         "axis": "y",
         "angle": 45
       },
-      "shade_direction_override": "up",
       "faces": {
         "north": {
           "uv": [
@@ -45,7 +44,8 @@
           ],
           "texture": "#all"
         }
-      }
+      },
+      "shade": false
     },
     {
       "from": [
@@ -67,7 +67,6 @@
         "axis": "y",
         "angle": 45
       },
-      "shade_direction_override": "up",
       "faces": {
         "west": {
           "uv": [
@@ -87,7 +86,8 @@
           ],
           "texture": "#all"
         }
-      }
+      },
+      "shade": false
     }
   ]
 }

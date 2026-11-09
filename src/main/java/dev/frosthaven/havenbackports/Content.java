@@ -1,6 +1,8 @@
 package dev.frosthaven.havenbackports;
 
 import dev.frosthaven.havenbackports.block.Access;
+import dev.frosthaven.havenbackports.block.ShelfBlock;
+import dev.frosthaven.havenbackports.block.ShelfBlockEntity;
 import dev.frosthaven.havenbackports.block.WeatheringCopperBarsBlock;
 import dev.frosthaven.havenbackports.block.WeatheringCopperChainBlock;
 import dev.frosthaven.havenbackports.block.WeatheringLanternBlock;
@@ -28,6 +30,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -51,6 +54,7 @@ public final class Content {
     static final DeferredRegister<net.minecraft.core.particles.ParticleType<?>> PARTICLES =
             DeferredRegister.create(Registries.PARTICLE_TYPE, HavenBackports.ID);
     static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, HavenBackports.ID);
+    static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, HavenBackports.ID);
 
     /** Block items by id, in registration order (Tabs places them the way Mojang's CreativeModeTabs does). */
     static final Map<String, DeferredItem<? extends Item>> ITEM = new LinkedHashMap<>();
@@ -61,6 +65,19 @@ public final class Content {
     private static final SimpleParticleType COPPER_FIRE_FLAME_TYPE = new SimpleParticleType(false);
     public static final DeferredHolder<net.minecraft.core.particles.ParticleType<?>, SimpleParticleType> COPPER_FIRE_FLAME =
             PARTICLES.register("copper_fire_flame", () -> COPPER_FIRE_FLAME_TYPE);
+
+    // ShelfBlock's SoundEvents.SHELF_* (sounds.json from Mojang's asset store)
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_ACTIVATE = sound("block.shelf.activate");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_DEACTIVATE = sound("block.shelf.deactivate");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_TAKE_ITEM = sound("block.shelf.take_item");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_SINGLE_SWAP = sound("block.shelf.single_swap");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_PLACE_ITEM = sound("block.shelf.place_item");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHELF_MULTI_SWAP = sound("block.shelf.multi_swap");
+
+    private static final List<DeferredBlock<Block>> SHELVES = new ArrayList<>();
+    /** BlockEntityTypes.SHELF ("shelf"), for every shelf. */
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShelfBlockEntity>> SHELF_ENTITY = BLOCK_ENTITIES.register("shelf",
+            () -> BlockEntityType.Builder.of(ShelfBlockEntity::new, SHELVES.stream().map(DeferredBlock::get).toArray(Block[]::new)).build(null));
 
     private Content() {}
 
@@ -133,10 +150,39 @@ public final class Content {
 
         ITEM.put("copper_nugget", ITEMS.registerSimpleItem("copper_nugget"));
 
+        // Shelves: of().mapColor(<wood>).instrument(BASS).sound(SHELF).ignitedByLava().strength(2, 3); the nether woods
+        // without ignitedByLava. FireBlock: 30/20 for the overworld woods. Map colors as Mojang takes them.
+        DeferredSoundType shelfSound = new DeferredSoundType(1.0F, 1.0F, sound("block.shelf.break"), sound("block.shelf.step"),
+                sound("block.shelf.place"), sound("block.shelf.hit"), sound("block.shelf.fall"));
+        Map<String, Supplier<MapColor>> shelfColors = new LinkedHashMap<>();
+        shelfColors.put("oak", () -> Blocks.OAK_PLANKS.defaultMapColor());
+        shelfColors.put("spruce", () -> Blocks.SPRUCE_LOG.defaultMapColor());
+        shelfColors.put("birch", () -> Blocks.BIRCH_PLANKS.defaultMapColor());
+        shelfColors.put("jungle", () -> Blocks.JUNGLE_LOG.defaultMapColor());
+        shelfColors.put("acacia", () -> Blocks.ACACIA_PLANKS.defaultMapColor());
+        shelfColors.put("dark_oak", () -> Blocks.DARK_OAK_LOG.defaultMapColor());
+        shelfColors.put("mangrove", () -> Blocks.MANGROVE_LOG.defaultMapColor());
+        shelfColors.put("cherry", () -> Blocks.CHERRY_PLANKS.defaultMapColor());
+        shelfColors.put("bamboo", () -> Blocks.BAMBOO_PLANKS.defaultMapColor());
+        shelfColors.put("crimson", () -> MapColor.CRIMSON_STEM);
+        shelfColors.put("warped", () -> MapColor.WARPED_STEM);
+        shelfColors.forEach((wood, color) -> {
+            boolean nether = wood.equals("crimson") || wood.equals("warped");
+            DeferredBlock<Block> shelf = block(wood + "_shelf", ShelfBlock::new, () -> {
+                Properties p = Properties.of().mapColor(color.get()).instrument(NoteBlockInstrument.BASS).sound(shelfSound);
+                return (nether ? p : p.ignitedByLava()).strength(2.0F, 3.0F);
+            });
+            SHELVES.add(shelf);
+            if (!nether) {
+                FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
+            }
+        });
+
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
+        BLOCK_ENTITIES.register(modBus);
         modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(() -> FLAMMABLE.forEach(Runnable::run)));
     }
 

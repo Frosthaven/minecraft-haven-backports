@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/template_wall_side",
   "textures": {
-    "wall": "haven_backports:block/polished_calcite_bricks"
+    "wall": "haven_backports:block/polished_calcite_bricks",
+    "particle": "haven_backports:block/polished_calcite_bricks"
   }
 }

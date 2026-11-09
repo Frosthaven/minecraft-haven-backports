@@ -3,6 +3,7 @@
   "textures": {
     "bottom": "minecraft:block/blue_wool",
     "side": "minecraft:block/blue_wool",
-    "top": "minecraft:block/blue_wool"
+    "top": "minecraft:block/blue_wool",
+    "particle": "minecraft:block/blue_wool"
   }
 }
