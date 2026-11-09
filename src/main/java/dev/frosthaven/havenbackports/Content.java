@@ -205,7 +205,7 @@ public final class Content {
         return (FireBlock) Blocks.FIRE;
     }
 
-    private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
+    static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HavenBackports.ID, name)));
     }
 

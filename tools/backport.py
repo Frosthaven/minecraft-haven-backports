@@ -25,6 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))   # -I leaves the script folder off sys.path
 import models   # noqa: E402
 import modshelves   # noqa: E402
+import gear   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -74,7 +75,7 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves"]
+CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor"]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -87,6 +88,9 @@ ALIASES = [
     ("createdeco:copper_bars", "waxed_copper_bars", True),
     ("mcwlights:copper_chain", "waxed_copper_chain", True),
     ("create:copper_nugget", "copper_nugget", False),
+    # Create Stuff 'N Additions' copper gear is Mojang's concept with its own stats; Mojang's version is the reference.
+    *[(f"create_sa:copper_{p}", f"copper_{p}", False) for p in ("sword", "shovel", "pickaxe", "axe", "hoe",
+                                                                 "helmet", "chestplate", "leggings", "boots")],
     *[(f"new_slab_variants:{c}_wool_slab", f"{c}_wool_slab", True) for c in COLORS],
     *[(f"new_slab_variants:{c}_concrete_slab", f"{c}_concrete_slab", True) for c in COLORS],
 ]
@@ -100,7 +104,7 @@ RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "s
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS)
 
 
 class Port:
@@ -113,6 +117,7 @@ class Port:
         self.ours_textures: set[str] = set()   # paths like "block/copper_bars"
         self.changed_vanilla: set[str] = set()
         self.recipe_tags: set[str] = set()
+        self.loot_changes: dict = {}
 
     def read(self, name):
         return json.loads(self.jar.read(name))
@@ -144,8 +149,8 @@ class Port:
 
     def texture(self, ref: str) -> str:
         ns, path = ref.split(":") if ":" in ref else ("minecraft", ref)
-        if ns != "minecraft":
-            return ref
+        if ns != "minecraft" or path.startswith("trims/items/"):
+            return f"{ns}:{path}"   # trim textures are atlas permutations (gear.py adds copper_darker), not files
         name = f"assets/minecraft/textures/{path}.png"
         if name in self.old_names:
             # 1.21.1 has this texture: keep its look (owner's choice 2026-11-09), even where 26.x retextured it, so a
@@ -200,8 +205,8 @@ class Port:
             return value
         out = {}
         for k, v in value.items():
-            if k == "modifier":
-                out["functions"] = [self.function(f) for f in v]
+            if k == "modifier":   # one function or a list of them
+                out["functions"] = [self.function(f) for f in (v if isinstance(v, list) else [v])]
             elif k == "condition" and isinstance(v, dict):
                 out["conditions"] = [self.condition(v)]
             elif k == "conditions":
@@ -308,13 +313,17 @@ class Port:
 
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
+        gear.run(self, RES, lang_new, lang)
+        for table, change in self.loot_changes.items():
+            print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
         self.shelf_displays()
         self.recipes()
         self.tags()
-        self.tie_ins()
-        self.copper_maps()
-        self.amendments()
+        import tieins   # imported here: it reads this module's constants
+        tieins.tie_ins(self)
+        tieins.copper_maps(self)
+        tieins.amendments(self)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "
@@ -358,9 +367,9 @@ final class ModdedShelves {{
     def sounds(self, lang, lang_new):
         mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
         out = {}
-        for sset, kinds in SOUND_SETS.items():
-            for kind in kinds:
-                event = f"block.{sset}.{kind}"
+        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
+        if True:
+            for event in events:
                 entry = json.loads(json.dumps(mojang[event]))
                 for s in entry["sounds"]:
                     name = s["name"] if isinstance(s, dict) else s
@@ -422,6 +431,9 @@ final class ModdedShelves {{
             for v in tag_files[n].get("values", []):
                 if not isinstance(v, str):
                     continue
+                if v.startswith("#") and n.split("/")[-1][:-5] in CODE_TAGS:
+                    values.append(v)   # a tag only our Java reads keeps Mojang's references as they are
+                    continue
                 if v.startswith("#"):
                     ref = n.rsplit("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
                     if ref in tag_files and ref not in self.old_names and ref not in seen and holds_ours(ref, seen + (n,)):
@@ -431,7 +443,8 @@ final class ModdedShelves {{
                 recipe_tag = n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags
                 # ours always; vanilla entries only in a tag a written recipe needs (metal_nuggets), never in a tag
                 # 1.21.1 has or a sub-tag it would reach (that would change 1.21.1's own tag behaviour)
-                if vid.startswith(f"{NS}:") or (recipe_tag and n not in self.old_names and self.exists_1211_item(vid)):
+                code_tag = n.split("/")[-1][:-5] in CODE_TAGS and n not in self.old_names
+                if vid.startswith(f"{NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_item(vid)):
                     values.append(vid)
             return values
 
@@ -473,52 +486,6 @@ final class ModdedShelves {{
             self.write(f, data)
         self.n_tags = len(written)
 
-    def tie_ins(self):
-        for family, blocks in FULL_CHISEL.items():
-            entries = [{"id": f"{NS}:{b}", "required": False} for b in blocks]
-            for kind in ("block", "item"):
-                self.write(RES / f"data/chipped/tags/{kind}/{family}.json", {"replace": False, "values": entries})
-            self.write(RES / f"data/{NS}/chiseling_recipes/{family}.json", {
-                "type": "rechiseled:chiseling", "overwrite": False,
-                "entries": [{"item": f"minecraft:{family}"}] + [{"item": f"{NS}:{b}"} for b in blocks]})
-
-    def amendments(self):
-        """Amendments hangs every lantern on walls through its own blockstates and bracket models; it ships them for
-        other mods' copper lanterns (its "oxidized" set) and a bracket texture per copper stage. Ours reuse that exact
-        structure from the Amendments jar, each with the bracket of its stage (waxed ones as their stage)."""
-        mods = sys.argv[sys.argv.index("--mods") + 1] if "--mods" in sys.argv else os.environ.get("HAVEN_MODS")
-        jar = next((Path(mods) / f for f in sorted(os.listdir(mods)) if f.startswith("amendments")), None) if mods else None
-        if not jar:
-            print("amendments: no --mods / HAVEN_MODS given, wall lantern tie-in left out")
-            return
-        z = zipfile.ZipFile(jar)
-        base = "assets/amendments/blockstates/oxidized/wall_copper_lantern.json"
-        state = json.loads(z.read(base))
-        models = sorted({v["model"] for v in state["variants"].values()})
-        bracket = {"": "wall_lantern_copper", "exposed_": "wall_lantern_copper_exposed",
-                   "weathered_": "wall_lantern_copper_weathered", "oxidized_": "wall_lantern_copper_oxidized"}
-        for waxed in ("", "waxed_"):
-            for st in STAGES:
-                name = f"{waxed}{st}copper_lantern"
-                ours = lambda m: m.replace("amendments:block/oxidized/wall_copper_lantern", f"amendments:block/{NS}/wall_{name}")
-                self.write(RES / f"assets/amendments/blockstates/{NS}/wall_{name}.json",
-                           {"variants": {k: {**v, "model": ours(v["model"])} for k, v in state["variants"].items()}})
-                for m in models:
-                    data = json.loads(z.read("assets/amendments/models/block/" + m.split("block/", 1)[1] + ".json"))
-                    data["support"]["textures"]["1"] = f"amendments:block/wall_lanterns/{bracket[st]}"
-                    self.write(RES / "assets/amendments/models/block" / f"{ours(m).split('block/', 1)[1]}.json", data)
-
-    def copper_maps(self):
-        """Mojang's WeatheringCopperCollection: unaffected -> exposed -> weathered -> oxidized, each with a waxed twin.
-        NeoForge reads these data maps for random oxidation, honeycomb waxing and axe scraping."""
-        oxidizables, waxables = {}, {}
-        for s in COPPER_SETS:
-            for a, b in zip(STAGES, STAGES[1:]):
-                oxidizables[f"{NS}:{a}{s}"] = {"next_oxidation_stage": f"{NS}:{b}{s}"}
-            for st in STAGES:
-                waxables[f"{NS}:{st}{s}"] = {"waxed": f"{NS}:waxed_{st}{s}"}
-        self.write(RES / "data/neoforge/data_maps/block/oxidizables.json", {"values": oxidizables})
-        self.write(RES / "data/neoforge/data_maps/block/waxables.json", {"values": waxables})
 
 
 if __name__ == "__main__":

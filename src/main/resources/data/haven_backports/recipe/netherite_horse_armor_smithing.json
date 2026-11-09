@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "tag": "minecraft:netherite_tool_materials"
+  },
+  "base": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "result": {
+    "id": "haven_backports:netherite_horse_armor"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

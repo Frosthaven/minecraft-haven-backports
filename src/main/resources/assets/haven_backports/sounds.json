@@ -156,5 +156,16 @@
       "haven_backports:block/shelf/multi_swap3"
     ],
     "subtitle": "subtitles.block.shelf.multi_swap"
+  },
+  "item.armor.equip_copper": {
+    "sounds": [
+      "haven_backports:item/armor/equip_copper1",
+      "haven_backports:item/armor/equip_copper2",
+      "haven_backports:item/armor/equip_copper3",
+      "haven_backports:item/armor/equip_copper4",
+      "haven_backports:item/armor/equip_copper5",
+      "haven_backports:item/armor/equip_copper6"
+    ],
+    "subtitle": "subtitles.item.armor.equip_copper"
   }
 }

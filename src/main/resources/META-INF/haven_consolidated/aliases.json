@@ -46,6 +46,51 @@
       "block": false
     },
     {
+      "old": "create_sa:copper_sword",
+      "new": "haven_backports:copper_sword",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_shovel",
+      "new": "haven_backports:copper_shovel",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_pickaxe",
+      "new": "haven_backports:copper_pickaxe",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_axe",
+      "new": "haven_backports:copper_axe",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_hoe",
+      "new": "haven_backports:copper_hoe",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_helmet",
+      "new": "haven_backports:copper_helmet",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_chestplate",
+      "new": "haven_backports:copper_chestplate",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_leggings",
+      "new": "haven_backports:copper_leggings",
+      "block": false
+    },
+    {
+      "old": "create_sa:copper_boots",
+      "new": "haven_backports:copper_boots",
+      "block": false
+    },
+    {
       "old": "new_slab_variants:white_wool_slab",
       "new": "haven_backports:white_wool_slab",
       "block": true

@@ -72,6 +72,15 @@ final class Tabs {
             for (String c : PALETTE) concrete.add(c + "_concrete_slab");
             after(e, "pink_wool", wool.toArray(String[]::new));
             after(e, "pink_concrete", concrete.toArray(String[]::new));
+        } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
+            after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
+        } else if (tab == CreativeModeTabs.COMBAT) {
+            after(e, "stone_sword", "copper_sword");
+            after(e, "stone_axe", "copper_axe");
+            after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
+            after(e, "leather_horse_armor", "copper_horse_armor");
+            after(e, "diamond_horse_armor", "netherite_horse_armor");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

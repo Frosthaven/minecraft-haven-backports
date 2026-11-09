@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ComparatorBlockMixin"],
+  "mixins": ["ComparatorBlockMixin", "MobMixin"],
   "client": ["ItemRendererMixin"],
   "injectors": {"defaultRequire": 1}
 }

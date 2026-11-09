@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "haven_backports:item/copper_pickaxe"
+  }
+}
