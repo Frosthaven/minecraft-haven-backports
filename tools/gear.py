@@ -114,6 +114,22 @@ def run(port, res, lang_new, lang):
         print(f"loot tables kept at 1.21.1 until these exist: {waiting}")
 
 
+def chest_item(port, res, item, definition):
+    """26.x special chest item -> 1.21.1's chest item model (builtin/entity, drawn by the block entity renderer);
+    the chest textures (single, left, right) go to entity/chest/, which 1.21.1's chest atlas reads in every
+    namespace."""
+    base = port.read(f"assets/minecraft/models/{definition['base'].split(':')[1]}.json")
+    template = port.read(f"assets/minecraft/models/{base['parent'].split(':')[1]}.json")
+    if template["display"] != json.loads(port.old.read("assets/minecraft/models/item/chest.json"))["display"]:
+        raise SystemExit(f"{item}: 26.x chest item transforms differ from 1.21.1's item/chest")
+    port.write(res / "assets" / NS / "models/item" / f"{item}.json",
+               {"parent": "minecraft:item/chest", "textures": {"particle": port.texture(base["textures"]["particle"])}})
+    tex = definition["model"]["texture"].split(":")[1]
+    for part in ("", "_left", "_right"):
+        port.copy_texture(f"assets/minecraft/textures/entity/chest/{tex}{part}.png",
+                          res / "assets" / NS / "textures/entity/chest" / f"{tex}{part}.png")
+
+
 def names_in(value):
     """Item ids of a loot table's item entries."""
     if isinstance(value, list):

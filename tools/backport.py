@@ -36,7 +36,7 @@ VANILLA_1211 = Path.home() / ".local/share/PrismLauncher/libraries/com/mojang/mi
 COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
           "purple", "blue", "brown", "green", "red", "black"]
 STAGES = ["", "exposed_", "weathered_", "oxidized_"]
-COPPER_SETS = ["copper_bars", "copper_chain", "copper_lantern"]
+COPPER_SETS = ["copper_bars", "copper_chain", "copper_lantern", "copper_chest"]
 # Mojang's shelf woods that 1.21.1 grows; pale oak and poplar shelves come with the Pale Garden and Dappled Forest.
 SHELF_WOODS = ["oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "bamboo", "crimson", "warped"]
 
@@ -72,10 +72,11 @@ COVERED_BY_PACK = {
 PARTICLES = ["copper_fire_flame"]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
+              "copper_chest": ["open", "close"], "copper_chest_weathered": ["open", "close"], "copper_chest_oxidized": ["open", "close"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor"]
+CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests"]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -297,6 +298,9 @@ class Port:
             lang[f"block.{NS}.{b}"] = lang_new[f"block.minecraft.{b}"]
         for i in [b for b in BLOCKS if b not in NO_ITEM] + ITEMS_ONLY:
             item_def = self.read(f"assets/minecraft/items/{i}.json")["model"]
+            if item_def.get("type") == "minecraft:special" and item_def["model"]["type"] == "minecraft:chest":
+                gear.chest_item(self, RES, i, item_def)
+                continue
             if item_def.get("type") != "minecraft:model":
                 sys.exit(f"item {i}: item model type {item_def.get('type')} needs porting by hand")
             ref = self.model(item_def["model"])

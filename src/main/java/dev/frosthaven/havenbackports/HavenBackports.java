@@ -19,6 +19,7 @@ public final class HavenBackports {
     public HavenBackports(IEventBus modBus, ModContainer container) {
         Content.register(modBus);
         Gear.register(modBus);
+        Chests.register(modBus);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

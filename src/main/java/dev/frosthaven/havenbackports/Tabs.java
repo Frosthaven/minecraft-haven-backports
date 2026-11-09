@@ -54,6 +54,8 @@ final class Tabs {
             }
             after(e, "soul_lantern", lanterns.toArray(String[]::new));
             after(e, "chain", chains.toArray(String[]::new));
+            // ... chest, COPPER_CHEST (each stage, then waxed), barrel ...
+            after(e, "chest", Chests.ALL.stream().map(c -> c.getId().getPath()).toArray(String[]::new));
             // bookshelf, chiseled bookshelf, OAK_SHELF ... WARPED_SHELF (pale oak and poplar come with their woods)
             // ... then the modded woods' shelves, for the mods that are loaded
             List<String> shelves = new ArrayList<>(List.of("oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
@@ -62,6 +64,7 @@ final class Tabs {
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
+            after(e, "chest", "waxed_copper_chest");
             after(e, "chiseled_bookshelf", "oak_shelf");
         } else if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             // WOOL, WOOL_STAIRS, WOOL_SLAB, CARPET ... CONCRETE, CONCRETE_STAIRS, CONCRETE_SLAB, CONCRETE_POWDER

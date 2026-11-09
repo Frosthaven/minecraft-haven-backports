@@ -28,6 +28,11 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
+    static void chestItems(net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent e) {
+        ChestTextures.items(e);
+    }
+
+    @SubscribeEvent
     static void reload(RegisterClientReloadListenersEvent e) {
         e.registerReloadListener((ResourceManagerReloadListener) manager -> ItemBounds.clear());
     }

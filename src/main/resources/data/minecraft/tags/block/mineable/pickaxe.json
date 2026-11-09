@@ -6,6 +6,7 @@
     "haven_backports:packed_ice_brick_stairs",
     "haven_backports:chiseled_packed_ice",
     "haven_backports:packed_ice_brick_wall",
+    "#minecraft:copper_chests",
     "#minecraft:lanterns",
     "#minecraft:chains",
     "#minecraft:bars",
