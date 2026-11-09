@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_unconnected",
+  "textures": {
+    "all": "haven_backports:block/fir_shelf",
+    "particle": "haven_backports:block/fir_shelf"
+  }
+}

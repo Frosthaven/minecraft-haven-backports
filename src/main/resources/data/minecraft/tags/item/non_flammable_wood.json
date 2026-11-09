@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "haven_backports:warped_shelf",
-    "haven_backports:crimson_shelf"
+    "haven_backports:crimson_shelf",
+    "haven_backports:hellbark_shelf"
   ]
 }

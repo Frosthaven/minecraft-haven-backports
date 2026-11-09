@@ -3,7 +3,6 @@
   "textures": {
     "bottom": "minecraft:block/purple_wool",
     "side": "minecraft:block/purple_wool",
-    "top": "minecraft:block/purple_wool",
-    "particle": "minecraft:block/purple_wool"
+    "top": "minecraft:block/purple_wool"
   }
 }

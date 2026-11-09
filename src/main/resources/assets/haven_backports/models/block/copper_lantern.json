@@ -1,8 +1,7 @@
 {
   "parent": "minecraft:block/template_lantern",
   "textures": {
-    "lantern": "haven_backports:block/copper_lantern",
-    "particle": "haven_backports:block/copper_lantern"
+    "lantern": "haven_backports:block/copper_lantern"
   },
   "render_type": "minecraft:cutout"
 }

@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "haven_backports:block/polished_calcite_bricks",
-    "particle": "haven_backports:block/polished_calcite_bricks"
+    "all": "haven_backports:block/polished_calcite_bricks"
   }
 }

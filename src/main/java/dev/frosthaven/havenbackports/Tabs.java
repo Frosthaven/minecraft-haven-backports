@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 /**
@@ -54,8 +55,11 @@ final class Tabs {
             after(e, "soul_lantern", lanterns.toArray(String[]::new));
             after(e, "chain", chains.toArray(String[]::new));
             // bookshelf, chiseled bookshelf, OAK_SHELF ... WARPED_SHELF (pale oak and poplar come with their woods)
-            after(e, "chiseled_bookshelf", "oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
-                    "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf");
+            // ... then the modded woods' shelves, for the mods that are loaded
+            List<String> shelves = new ArrayList<>(List.of("oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
+                    "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
+            ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
+            after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chiseled_bookshelf", "oak_shelf");

@@ -177,6 +177,21 @@ public final class Content {
                 FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
             }
         });
+        // Modded woods (tools/modshelves.py): Mojang's shelf properties; map color from the wood's planks when its mod
+        // is loaded (MapColor.WOOD otherwise); nether woods as crimson and warped. They load without the wood's mod.
+        for (ModdedShelves.Wood wood : ModdedShelves.WOODS) {
+            ResourceLocation planks = ResourceLocation.parse(wood.planks());
+            DeferredBlock<Block> shelf = block(wood.id(), ShelfBlock::new, () -> {
+                Properties p = Properties.of().mapColor(state -> BuiltInRegistries.BLOCK.getOptional(planks)
+                                .map(Block::defaultMapColor).orElse(MapColor.WOOD))
+                        .instrument(NoteBlockInstrument.BASS).sound(shelfSound);
+                return (wood.nether() ? p : p.ignitedByLava()).strength(2.0F, 3.0F);
+            });
+            SHELVES.add(shelf);
+            if (!wood.nether()) {
+                FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
+            }
+        }
 
         BLOCKS.register(modBus);
         ITEMS.register(modBus);

@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "minecraft:block/calcite",
-    "particle": "minecraft:block/calcite"
+    "wall": "minecraft:block/calcite"
   }
 }

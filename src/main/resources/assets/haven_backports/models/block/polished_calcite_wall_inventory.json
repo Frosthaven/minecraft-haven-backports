@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "haven_backports:block/polished_calcite",
-    "particle": "haven_backports:block/polished_calcite"
+    "wall": "haven_backports:block/polished_calcite"
   }
 }

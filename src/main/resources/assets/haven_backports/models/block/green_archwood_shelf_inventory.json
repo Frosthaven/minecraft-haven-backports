@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_inventory",
+  "textures": {
+    "all": "haven_backports:block/green_archwood_shelf",
+    "particle": "haven_backports:block/green_archwood_shelf"
+  }
+}

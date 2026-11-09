@@ -3,7 +3,6 @@
   "textures": {
     "bottom": "minecraft:block/orange_concrete",
     "side": "minecraft:block/orange_concrete",
-    "top": "minecraft:block/orange_concrete",
-    "particle": "minecraft:block/orange_concrete"
+    "top": "minecraft:block/orange_concrete"
   }
 }

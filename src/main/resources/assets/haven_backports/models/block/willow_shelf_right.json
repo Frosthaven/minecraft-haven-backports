@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_right",
+  "textures": {
+    "all": "haven_backports:block/willow_shelf",
+    "particle": "haven_backports:block/willow_shelf"
+  }
+}

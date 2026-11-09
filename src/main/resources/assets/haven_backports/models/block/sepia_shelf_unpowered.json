@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_unpowered",
+  "textures": {
+    "all": "haven_backports:block/sepia_shelf",
+    "particle": "haven_backports:block/sepia_shelf"
+  }
+}
