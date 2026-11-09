@@ -1,0 +1,37 @@
+# haven-backports (`haven_backports`)
+
+NeoForge 1.21.1 mod, both sides, for the Haven pack: content from newer Minecraft, backported. Read README.md first.
+
+## Rule: Mojang is the source of truth
+
+Every look and behaviour comes from Mojang: assets and data from the snapshot jar, block properties and classes from
+its `Blocks` class (`javap -p -c` on the unobfuscated jar). Do not redraw, approximate or invent a recipe. If a block
+has no Mojang way to obtain it on 1.21.1 (e.g. it only generates in a new biome), backport the source (the biome) or
+leave the block out. Engine-wide changes 1.21.1 lacks for every block (26.x `isViewBlocking` on stairs and slabs) are
+noted, not emulated per block.
+
+## Pipeline
+
+`python3 -I tools/backport.py` downloads the pinned snapshot client jar (sha1 checked, cached in `.cache/`) and writes
+`src/main/resources`: blockstates, block and item models, textures (and vanilla textures the snapshot changed, under
+`assets/minecraft`), lang, loot tables (snapshot loot format converted key for key), recipes (ingredient shorthand
+converted to `{"item": ...}`), tags (only those 1.21.1 has, or that a backported recipe uses), the Chipped and
+Rechiseled tie-ins, and `META-INF/haven_consolidated/aliases.json` (merges). Never hand-edit generated files.
+Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
+`ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
+
+## Merges
+
+Haven Consolidated reads `META-INF/haven_consolidated/aliases.json` from every mod jar at common setup and aliases
+each old id to the new one (items, blocks, chunk palettes, recipes; duplicate recipes are dropped). Merge a mod's
+block only when it is the same block as Mojang's; keep blocks of a mod's own cross-stone style (Create's cut family).
+
+## Test
+
+The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
+"Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family.
+
+## Release
+
+Push to `main`: CI publishes `latest` and `v<mod_version>-<sha7>`; the pack pins one with `just bump-mod
+haven-backports`. Commits: author `Frosthaven <shane@thedragon.dev>`, no Co-Authored-By trailer.

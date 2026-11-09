@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "haven_backports:block/polished_calcite_bricks",
+    "side": "haven_backports:block/polished_calcite_bricks",
+    "top": "haven_backports:block/polished_calcite_bricks"
+  }
+}

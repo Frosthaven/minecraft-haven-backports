@@ -1,0 +1,24 @@
+{
+  "aliases": [
+    {
+      "old": "new_slab_variants:calcite_slab",
+      "new": "haven_backports:calcite_slab",
+      "block": true
+    },
+    {
+      "old": "chipped:calcite_bricks",
+      "new": "haven_backports:polished_calcite_bricks",
+      "block": true
+    },
+    {
+      "old": "chipped:calcite_pillar",
+      "new": "haven_backports:calcite_pillar",
+      "block": true
+    },
+    {
+      "old": "create:calcite_pillar",
+      "new": "haven_backports:calcite_pillar",
+      "block": true
+    }
+  ]
+}

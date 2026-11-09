@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "haven_backports:polished_calcite",
+      "required": false
+    },
+    {
+      "id": "haven_backports:polished_calcite_bricks",
+      "required": false
+    },
+    {
+      "id": "haven_backports:calcite_pillar",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "rechiseled:chiseling",
+  "overwrite": false,
+  "entries": [
+    {
+      "item": "minecraft:calcite"
+    },
+    {
+      "item": "haven_backports:polished_calcite"
+    },
+    {
+      "item": "haven_backports:polished_calcite_bricks"
+    },
+    {
+      "item": "haven_backports:calcite_pillar"
+    }
+  ]
+}

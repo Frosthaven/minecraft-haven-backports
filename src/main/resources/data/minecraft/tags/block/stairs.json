@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:calcite_stairs",
+    "haven_backports:polished_calcite_stairs",
+    "haven_backports:polished_calcite_brick_stairs"
+  ]
+}

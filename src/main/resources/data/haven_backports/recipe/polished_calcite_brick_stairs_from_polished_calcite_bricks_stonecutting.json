@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven_backports:polished_calcite_bricks"
+  },
+  "result": {
+    "id": "haven_backports:polished_calcite_brick_stairs"
+  }
+}
