@@ -18,12 +18,21 @@ one block per concept and it looks the way Mojang made it.
 | Snow and ice | Snow Bricks with Stairs, Slab, Wall; Packed Ice Bricks with Stairs, Slab, Wall; Chiseled Packed Ice (new packed ice sounds) |
 | Wool and concrete | Stairs and Slab for all 16 colors of each; wool ones re-dye with any dye and burn like wool |
 | Copper | Copper Bars, Chain and Lantern in every oxidation stage, waxed or not (honeycomb, axe, rain); Copper Torch; Copper Nugget |
-| Shelves | Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson and Warped Shelf (Pale Oak and Poplar come with their woods) |
+| Shelves | Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson and Warped Shelf; plus one for each of the pack's 21 modded woods (see below). Pale Oak and Poplar come with their woods |
+| Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
+| Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
+| Horse armor | Copper Horse Armor (chest loot, as 26.x), Netherite Horse Armor (smithing) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
 Create's and Create Deco's copper bars and Macaw's Lights' copper chain (into the waxed ones: they never oxidized);
-Create's copper nugget (its nugget and ingot recipes stay, making ours).
+Create's copper nugget (its nugget and ingot recipes stay, making ours); Create Stuff 'N Additions' copper tools and
+armor (CSA: 131 uses, +0 damage, iron mining level, armor 2/6/5/1; Mojang: 190 uses, +1 damage, stone mining level,
+armor 2/4/3/1).
+
+Mobs pick armor as in 26.x (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
+26.x's. 26.x's chest loot that names our items is taken whole (copper horse armor; leather in place of saddles, which
+26.x makes craftable); tables that name spears stay at 1.21.1 until spears are in.
 
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).
@@ -41,6 +50,19 @@ transform 180 degrees: 1.21.1 draws bed items with the bed renderer, which faces
 display entry). Two small mixins carry 26.x behaviour 1.21.1 hard-codes: tridents and spyglasses use their flat model
 on a shelf, and comparators tell the shelf which side they read. Compasses and clocks on a shelf use the shelf as their
 holder, as in 26.x.
+
+### Modded woods
+
+Mojang drew each vanilla shelf texture by hand, so a modded wood has no Mojang shelf art. `tools/modshelves.py`
+recolors Mojang's shelf art from the vanilla wood whose stripped log looks closest: each color moves to the same place
+in the modded stripped log's pixel distribution, and Mojang's extra shadows darken by the same ratio. Recipes need the
+wood's mod (`neoforge:mod_loaded`); without it the shelf still loads (our own texture, map color falls back to wood)
+and stays out of the creative tab. Adding a wood: one line in `MOD_WOODS`, then rerun the generator.
+
+## Copper chest
+
+Mojang's CopperChestBlock on the vanilla chest block entity (as 26.x). Two mixins carry what 1.21.1 hard-codes: the
+hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before the holiday one (Sheets.chooseMaterial).
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
