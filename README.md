@@ -5,8 +5,8 @@ on every client.
 
 Everything comes from Mojang's own files: textures, models, blockstates, recipes, loot tables, tags and block
 properties are read from the newest snapshot's client jar (`tools/backport.py`), and block behaviour follows Mojang's
-code in that jar (it ships unobfuscated). Nothing is redrawn or invented. Vanilla textures that newer versions
-retextured (wool, concrete, copper, calcite...) keep their 1.21.1 look, so new blocks match the blocks around them. Where another mod in the pack already adds the
+code in that jar (it ships unobfuscated). Nothing is redrawn or invented. Vanilla textures the new blocks reuse
+(wool, concrete, copper, calcite...) are the same pixels in 1.21.1 and 26.4, so they come from the game itself. Where another mod in the pack already adds the
 same block in its own art, it is merged into the backported one (Haven Consolidated carries out the merge), so there is
 one block per concept and it looks the way Mojang made it.
 

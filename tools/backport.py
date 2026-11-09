@@ -12,7 +12,7 @@ Downloads the snapshot client jar (sha1-checked, cached in .cache/) and, for eve
   oxidation and waxing data maps (Mojang's WeatheringCopperCollection order), and the merges for Haven Consolidated
   (META-INF/haven_consolidated/aliases.json).
 
-Run: python3 -I tools/backport.py --mods <the pack's mods folder>   (or HAVEN_MODS; then ./gradlew build)
+Run: uv run --with pillow python -I tools/backport.py --mods <the pack's mods folder>   (or HAVEN_MODS; then ./gradlew build)
 --mods lets the Amendments tie-in copy that mod's own wall-lantern models for our copper lanterns.
 """
 import hashlib
@@ -178,8 +178,8 @@ class Port:
         if name in self.old_names:
             # 1.21.1 has this texture: keep its look (owner's choice 2026-11-09), even where 26.x retextured it, so a
             # backported block matches the vanilla blocks it is made from and nothing already placed changes look.
-            if self.old.read(name) != self.jar.read(name):
-                self.changed_vanilla.add(path)
+            if self.old.read(name) != self.jar.read(name) and pixels(self.old.read(name)) != pixels(self.jar.read(name)):
+                self.changed_vanilla.add(path)   # a real retexture, not only a re-saved file
             return f"minecraft:{path}"
         if path not in self.ours_textures:
             self.ours_textures.add(path)
@@ -343,7 +343,7 @@ class Port:
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "
               f"{len(self.ours_textures)} textures, {self.n_recipes} recipes ({self.n_extra} extra), {self.n_tags} tags, "
-              f"vanilla textures 26.x changed, kept at 1.21.1: {len(self.changed_vanilla)}")
+              f"vanilla textures 26.x really retextured (pixels differ), kept at 1.21.1: {sorted(self.changed_vanilla)}")
 
     def sounds(self):
         mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
@@ -498,6 +498,13 @@ class Port:
                 waxables[f"{NS}:{st}{s}"] = {"waxed": f"{NS}:waxed_{st}{s}"}
         self.write(RES / "data/neoforge/data_maps/block/oxidizables.json", {"values": oxidizables})
         self.write(RES / "data/neoforge/data_maps/block/waxables.json", {"values": waxables})
+
+
+def pixels(png: bytes) -> bytes:
+    """Decoded RGBA pixels: file bytes differ when Mojang only re-saves a PNG."""
+    import io
+    from PIL import Image
+    return Image.open(io.BytesIO(png)).convert("RGBA").tobytes()
 
 
 def models_in(value) -> list[str]:
