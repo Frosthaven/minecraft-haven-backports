@@ -1,3 +1,7 @@
 {
-  "values": {}
+  "values": {
+    "haven_backports:straw_bed": {
+      "chance": 0.85
+    }
+  }
 }

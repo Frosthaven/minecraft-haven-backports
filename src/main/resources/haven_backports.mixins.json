@@ -13,7 +13,8 @@
     "ServerPlayerMixin",
     "CarvedPumpkinBlockMixin",
     "ContainerOpenersCounterMixin",
-    "OfferFlowerGoalMixin"
+    "OfferFlowerGoalMixin",
+    "LivingEntityMixin"
   ],
   "client": [
     "ItemRendererMixin",

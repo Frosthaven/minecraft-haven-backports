@@ -992,5 +992,62 @@
       "haven_backports:entity/cushion/sit3"
     ],
     "subtitle": "subtitles.entity.cushion.sit"
+  },
+  "block.straw_bed.break": {
+    "sounds": [
+      "haven_backports:block/straw_bed/break1",
+      "haven_backports:block/straw_bed/break2",
+      "haven_backports:block/straw_bed/break3",
+      "haven_backports:block/straw_bed/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.straw_bed.step": {
+    "sounds": [
+      "haven_backports:block/straw_bed/step1",
+      "haven_backports:block/straw_bed/step2",
+      "haven_backports:block/straw_bed/step3",
+      "haven_backports:block/straw_bed/step4",
+      "haven_backports:block/straw_bed/step5",
+      "haven_backports:block/straw_bed/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.straw_bed.place": {
+    "sounds": [
+      "haven_backports:block/straw_bed/place1",
+      "haven_backports:block/straw_bed/place2",
+      "haven_backports:block/straw_bed/place3",
+      "haven_backports:block/straw_bed/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.straw_bed.hit": {
+    "sounds": [
+      "haven_backports:block/straw_bed/hit1",
+      "haven_backports:block/straw_bed/hit2",
+      "haven_backports:block/straw_bed/hit3",
+      "haven_backports:block/straw_bed/hit4",
+      "haven_backports:block/straw_bed/hit5",
+      "haven_backports:block/straw_bed/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.straw_bed.fall": {
+    "sounds": [
+      "haven_backports:block/straw_bed/hit1",
+      "haven_backports:block/straw_bed/hit2",
+      "haven_backports:block/straw_bed/hit3",
+      "haven_backports:block/straw_bed/hit4",
+      "haven_backports:block/straw_bed/hit5",
+      "haven_backports:block/straw_bed/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.straw_bed.break_leave": {
+    "sounds": [
+      "haven_backports:block/straw_bed/break_leave"
+    ],
+    "subtitle": "subtitles.block.straw_bed.break_leave"
   }
 }

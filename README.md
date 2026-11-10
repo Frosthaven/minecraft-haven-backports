@@ -25,6 +25,7 @@ one block per concept and it looks the way Mojang made it.
 | Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
 | Copper golem | Copper Golem in every oxidation stage, Copper Golem Statue in every stage (waxed or not), Copper Golem Spawn Egg |
 | Cushions | Cushion in all 16 colors (sit on it) |
+| Straw bed | Straw Bed (4 from 3 hay bales) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -117,7 +118,18 @@ differ. The chest's open and close game event has no source entity.
 Mojang's Cushion (`decoration/`): crafted from 3 wool slabs of a color (ours), re-dyed with any dye, placed on top of
 a block (on cauldrons, hoppers and composters, on their rim), sat on by right-clicking. It breaks when its support
 goes, in fire, lava or lightning, or when hit, and drops itself with its name. A different thing from Handcrafted's
-cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn.
+cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn,
+and the cushions in abandoned camp barrels (a structure 1.21.1 lacks).
+
+## Straw bed
+
+Mojang's StrawBedBlock with the AbstractBedBlock newer Minecraft gives every bed (`block/StrawBedBlock`): a low bed
+of block models. In the overworld you sleep in it when it is dark like any bed, but it never sets your spawn point and
+it breaks when you get up; in the nether and the end it breaks when used (newer Minecraft's straw_bed_rule). 1.21.1
+has no bed rules, so NeoForge events carry them (PlayerSetSpawnEvent, PlayerWakeUpEvent) and it is a bed to NeoForge
+(`isBed`), not a BedBlock (no block entity, no bounce, no explosion). You lie at its own height (LivingEntityMixin) and
+it counts "Sleep in a straw bed", not "Sleep in a bed", and not the bed advancement (ServerPlayerMixin). Villagers do
+not claim it, as in newer Minecraft. Not taken: its loot in abandoned camps, a structure 1.21.1 lacks.
 
 Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
 slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do

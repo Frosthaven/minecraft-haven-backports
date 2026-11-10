@@ -75,6 +75,8 @@ final class Tabs {
                     "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
+            // ... respawn anchor, BED (each color), STRAW_BED, candle ...
+            after(e, "pink_bed", "straw_bed");
             // ... end portal frame, vault, ender eye, COPPER_GOLEM_STATUE (each stage, then waxed), infested stone ...
             after(e, "ender_eye", Golems.STATUES.stream().map(b -> b.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {

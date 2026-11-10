@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "haven_backports:straw_bed",
+              "properties": {
+                "part": "head"
+              },
+              "condition": "minecraft:block_state_property"
+            }
+          ],
+          "name": "haven_backports:straw_bed"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "minecraft:blocks/straw_bed"
+}
