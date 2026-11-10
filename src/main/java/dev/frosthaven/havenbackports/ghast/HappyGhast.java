@@ -3,6 +3,7 @@ package dev.frosthaven.havenbackports.ghast;
 import dev.frosthaven.havenbackports.Ghasts;
 import com.mojang.serialization.Dynamic;
 import dev.frosthaven.havenbackports.entity.Leash26;
+import dev.frosthaven.havenbackports.entity.QuadLeash;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -438,6 +439,14 @@ public class HappyGhast extends Animal implements Leash26.Holder, Leash26.Rules 
 
     @Override
     public void notifyLeashHolder(Entity leashee) {
+        if (QuadLeash.supports(leashee)) {
+            this.leashHolderTime = 5;
+        }
+    }
+
+    /** 26.x getQuadLeashHolderOffsets. */
+    public Vec3[] getQuadLeashHolderOffsets() {
+        return QuadLeash.create(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
     @Override

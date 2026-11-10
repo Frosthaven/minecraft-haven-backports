@@ -14,7 +14,8 @@
   ],
   "client": [
     "ItemRendererMixin",
-    "SheetsMixin"
+    "SheetsMixin",
+    "EntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

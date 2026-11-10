@@ -25,6 +25,8 @@ public final class GhastClient {
         e.registerLayerDefinition(HappyGhastRenderer.BABY, () -> HappyGhastModel.createBodyLayer(true, CubeDeformation.NONE));
         e.registerLayerDefinition(HappyGhastRenderer.HARNESS, HappyGhastHarnessModel::createHarnessLayer);
         e.registerLayerDefinition(HappyGhastRenderer.BABY_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
+        e.registerLayerDefinition(HappyGhastRenderer.ROPES, () -> HappyGhastModel.createBodyLayer(false, new CubeDeformation(0.2F)));
+        e.registerLayerDefinition(HappyGhastRenderer.BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
     }
 
     public static void renderers(EntityRenderersEvent.RegisterRenderers e) {

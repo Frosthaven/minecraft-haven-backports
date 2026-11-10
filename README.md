@@ -77,15 +77,19 @@ dries back. A ghastling grows up like any baby animal (snowballs speed it up). H
 recipes) go on an adult by hand or from a dispenser and come off with shears. A harnessed adult carries up to 4
 players; the first one steers (look and move, jump to rise). Players can stand and build on top of it: it holds still
 while one is there. Third person sits 8 blocks back. It heals fast in clouds or rain. Its own lead is newer
-Minecraft's spring lead (elastic at 10, snaps at 16); sneak-clicking it moves the mobs on your leads onto it.
+Minecraft's spring lead (elastic at 10, snaps at 16); sneak-clicking it moves the mobs on your leads onto it. Mobs on
+a lead to a happy ghast use newer Minecraft's spring lead too (elastic at 6, snaps at 12), and horses, donkeys, mules,
+camels, zombie and skeleton horses, sniffers and boats hang from it on four ropes (the quad leash), with the ghast's
+rope harness showing (EntityMixin for the tick, EntityRendererMixin for the ropes; llamas keep one rope, as in newer
+Minecraft).
 
 1.21.1 lacks parts of the engine this uses. Each has a small equivalent: the harness is a 1.21.1 `Equipable` with
 Mojang's equip, dispense and shear rules (no `equippable` component); the camera distance comes from NeoForge's
 `CalculateDetachedCameraDistanceEvent`; the precise position sync while it holds still is a teleport packet per
 tick; the riding statistic, standing on top, the allow-flight kick fix and the dried ghast in fossils are mixins
 (ServerPlayerMixin, EntityMixin, ServerGamePacketListenerImplMixin, NetherFossilPieceMixin); `LivingEntity.jumping` is
-opened by the access transformer. Not taken: newer Minecraft's leash changes for every other mob (spring physics,
-shears cutting leads); sneaking with a lead in hand leashes the ghast (1.21.1 handles leads before the mob does); the
+opened by the access transformer. Not taken: newer Minecraft's leash changes for leashes not tied to a happy ghast
+(spring physics, shears cutting leads, the wider single rope); the plain ghast as a quad-leash holder; sneaking with a lead in hand leashes the ghast (1.21.1 handles leads before the mob does); the
 `place_dried_ghast_in_water` advancement. Clouds are at newer Minecraft's height (192.33 to 196.33) in dimensions
 that draw overworld clouds.
 
