@@ -390,5 +390,362 @@
       "haven_backports:item/armor/equip_copper6"
     ],
     "subtitle": "subtitles.item.armor.equip_copper"
+  },
+  "block.leaf_litter.break": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/break1",
+      "haven_backports:block/leaf_litter/break2",
+      "haven_backports:block/leaf_litter/break3",
+      "haven_backports:block/leaf_litter/break4",
+      "haven_backports:block/leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.leaf_litter.fall": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.leaf_litter.hit": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.leaf_litter.place": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/place1",
+      "haven_backports:block/leaf_litter/place2",
+      "haven_backports:block/leaf_litter/place3",
+      "haven_backports:block/leaf_litter/place4",
+      "haven_backports:block/leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.leaf_litter.step": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.poplar_leaves.break": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/break1",
+      "haven_backports:block/leaf_litter/break2",
+      "haven_backports:block/leaf_litter/break3",
+      "haven_backports:block/leaf_litter/break4",
+      "haven_backports:block/leaf_litter/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.poplar_leaves.fall": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.poplar_leaves.hit": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.poplar_leaves.place": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/place1",
+      "haven_backports:block/leaf_litter/place2",
+      "haven_backports:block/leaf_litter/place3",
+      "haven_backports:block/leaf_litter/place4",
+      "haven_backports:block/leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.poplar_leaves.step": {
+    "sounds": [
+      "haven_backports:block/leaf_litter/step1",
+      "haven_backports:block/leaf_litter/step2",
+      "haven_backports:block/leaf_litter/step3",
+      "haven_backports:block/leaf_litter/step4",
+      "haven_backports:block/leaf_litter/step5",
+      "haven_backports:block/leaf_litter/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.red_shrub.break": {
+    "sounds": [
+      "haven_backports:block/red_shrub/break1",
+      "haven_backports:block/red_shrub/break2",
+      "haven_backports:block/red_shrub/break3",
+      "haven_backports:block/red_shrub/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.red_shrub.place": {
+    "sounds": [
+      "haven_backports:block/red_shrub/place1",
+      "haven_backports:block/red_shrub/place2",
+      "haven_backports:block/red_shrub/place3",
+      "haven_backports:block/red_shrub/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.shelf_mushroom.break": {
+    "sounds": [
+      {
+        "name": "haven_backports:block/shelf_mushroom/break1",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/break2",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/break3",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/break4",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/break5",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/break6",
+        "pitch": 1.2,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.shelf_mushroom.fall": {
+    "sounds": [
+      "haven_backports:block/shelf_mushroom/bounce1",
+      "haven_backports:block/shelf_mushroom/bounce2",
+      "haven_backports:block/shelf_mushroom/bounce3",
+      "haven_backports:block/shelf_mushroom/bounce4",
+      "haven_backports:block/shelf_mushroom/bounce5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.shelf_mushroom.place": {
+    "sounds": [
+      {
+        "name": "haven_backports:block/shelf_mushroom/place1",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/place2",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/place3",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/place4",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/place5",
+        "pitch": 1.2,
+        "volume": 0.8
+      },
+      {
+        "name": "haven_backports:block/shelf_mushroom/place6",
+        "pitch": 1.2,
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.shelf_mushroom.step": {
+    "sounds": [
+      "haven_backports:block/shelf_mushroom/step1",
+      "haven_backports:block/shelf_mushroom/step2",
+      "haven_backports:block/shelf_mushroom/step3",
+      "haven_backports:block/shelf_mushroom/step4",
+      "haven_backports:block/shelf_mushroom/step5",
+      "haven_backports:block/shelf_mushroom/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.poplar_leaves.ambient": {
+    "sounds": [
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient1",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient2",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient3",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient4",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient5",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient6",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient7",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient8",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient9",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient10",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient11",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient12",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient13",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient14",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient15",
+        "volume": 4.0,
+        "weight": 4
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient16",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient17",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient18",
+        "volume": 4.0,
+        "weight": 4
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient19",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient20",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient21",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient22",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient23",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/ambient24",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/wind1",
+        "volume": 2.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/wind2",
+        "volume": 2.0
+      },
+      {
+        "name": "haven_backports:block/poplar_leaves/wind3",
+        "volume": 2.0
+      }
+    ],
+    "subtitle": "subtitles.block.poplar_leaves.ambient"
+  },
+  "block.shelf_mushroom.bounce": {
+    "sounds": [
+      "haven_backports:block/shelf_mushroom/bounce1",
+      "haven_backports:block/shelf_mushroom/bounce2",
+      "haven_backports:block/shelf_mushroom/bounce3",
+      "haven_backports:block/shelf_mushroom/bounce4",
+      "haven_backports:block/shelf_mushroom/bounce5"
+    ],
+    "subtitle": "subtitles.block.shelf_mushroom.bounce"
   }
 }

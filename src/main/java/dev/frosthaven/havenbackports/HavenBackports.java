@@ -20,6 +20,9 @@ public final class HavenBackports {
         Content.register(modBus);
         Gear.register(modBus);
         Chests.register(modBus);
+        dev.frosthaven.havenbackports.worldgen.Worldgen.register(modBus);
+        Woods.setup(modBus);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.neoforge.event.village.WandererTradesEvent.class, Trades::wanderer);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

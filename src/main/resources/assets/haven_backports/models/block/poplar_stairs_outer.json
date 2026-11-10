@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven_backports:block/poplar_planks",
+    "side": "haven_backports:block/poplar_planks",
+    "top": "haven_backports:block/poplar_planks"
+  }
+}

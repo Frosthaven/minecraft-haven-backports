@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:poplar_log",
+    "haven_backports:poplar_wood",
+    "haven_backports:stripped_poplar_log",
+    "haven_backports:stripped_poplar_wood"
+  ]
+}

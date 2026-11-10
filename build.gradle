@@ -25,6 +25,24 @@ neoForge {
     mods {
         "${mod_id}" { sourceSet(sourceSets.main) }
     }
+    // Offline port test (src/test, NeoForge's unit test environment: the game loaded, mixins applied). It compares
+    // with build/porttest/26x.json from tools/porttest.py, so it runs only after that script.
+    unitTest {
+        enable()
+        testedMod = mods."${mod_id}"
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    def fixture = file('build/porttest/26x.json')
+    onlyIf { fixture.exists() }   // tools/porttest.py writes it
+    systemProperty 'haven.porttest', fixture.absolutePath
 }
 
 // Expands ${...} in src/main/templates (neoforge.mods.toml) from gradle.properties.

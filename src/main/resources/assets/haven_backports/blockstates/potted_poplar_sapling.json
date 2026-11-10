@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven_backports:block/potted_poplar_sapling"
+    }
+  }
+}

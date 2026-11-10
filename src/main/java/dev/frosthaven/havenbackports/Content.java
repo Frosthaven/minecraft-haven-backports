@@ -59,6 +59,8 @@ public final class Content {
     /** Block items by id, in registration order (Tabs places them the way Mojang's CreativeModeTabs does). */
     static final Map<String, DeferredItem<? extends Item>> ITEM = new LinkedHashMap<>();
     static final List<Runnable> FLAMMABLE = new ArrayList<>();
+    /** Other work for common setup (flower pots, dispenser behaviours), run after FLAMMABLE. */
+    static final List<Runnable> COMMON_SETUP = new ArrayList<>();
 
     /** Built up front: blocks register before particle types, and the copper torch takes its flame when built
      *  (vanilla's torches take ParticleTypes.FLAME, which exists before blocks). The same instance is registered. */
@@ -153,45 +155,24 @@ public final class Content {
 
         // Shelves: of().mapColor(<wood>).instrument(BASS).sound(SHELF).ignitedByLava().strength(2, 3); the nether woods
         // without ignitedByLava. FireBlock: 30/20 for the overworld woods. Map colors as Mojang takes them.
-        DeferredSoundType shelfSound = new DeferredSoundType(1.0F, 1.0F, sound("block.shelf.break"), sound("block.shelf.step"),
-                sound("block.shelf.place"), sound("block.shelf.hit"), sound("block.shelf.fall"));
-        Map<String, Supplier<MapColor>> shelfColors = new LinkedHashMap<>();
-        shelfColors.put("oak", () -> Blocks.OAK_PLANKS.defaultMapColor());
-        shelfColors.put("spruce", () -> Blocks.SPRUCE_LOG.defaultMapColor());
-        shelfColors.put("birch", () -> Blocks.BIRCH_PLANKS.defaultMapColor());
-        shelfColors.put("jungle", () -> Blocks.JUNGLE_LOG.defaultMapColor());
-        shelfColors.put("acacia", () -> Blocks.ACACIA_PLANKS.defaultMapColor());
-        shelfColors.put("dark_oak", () -> Blocks.DARK_OAK_LOG.defaultMapColor());
-        shelfColors.put("mangrove", () -> Blocks.MANGROVE_LOG.defaultMapColor());
-        shelfColors.put("cherry", () -> Blocks.CHERRY_PLANKS.defaultMapColor());
-        shelfColors.put("bamboo", () -> Blocks.BAMBOO_PLANKS.defaultMapColor());
-        shelfColors.put("crimson", () -> MapColor.CRIMSON_STEM);
-        shelfColors.put("warped", () -> MapColor.WARPED_STEM);
-        shelfColors.forEach((wood, color) -> {
-            boolean nether = wood.equals("crimson") || wood.equals("warped");
-            DeferredBlock<Block> shelf = block(wood + "_shelf", ShelfBlock::new, () -> {
-                Properties p = Properties.of().mapColor(color.get()).instrument(NoteBlockInstrument.BASS).sound(shelfSound);
-                return (nether ? p : p.ignitedByLava()).strength(2.0F, 3.0F);
-            });
-            SHELVES.add(shelf);
-            if (!nether) {
-                FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
-            }
-        });
+        shelf("oak_shelf", () -> Blocks.OAK_PLANKS.defaultMapColor(), false);
+        shelf("spruce_shelf", () -> Blocks.SPRUCE_LOG.defaultMapColor(), false);
+        shelf("birch_shelf", () -> Blocks.BIRCH_PLANKS.defaultMapColor(), false);
+        shelf("jungle_shelf", () -> Blocks.JUNGLE_LOG.defaultMapColor(), false);
+        shelf("acacia_shelf", () -> Blocks.ACACIA_PLANKS.defaultMapColor(), false);
+        shelf("dark_oak_shelf", () -> Blocks.DARK_OAK_LOG.defaultMapColor(), false);
+        shelf("mangrove_shelf", () -> Blocks.MANGROVE_LOG.defaultMapColor(), false);
+        shelf("cherry_shelf", () -> Blocks.CHERRY_PLANKS.defaultMapColor(), false);
+        shelf("bamboo_shelf", () -> Blocks.BAMBOO_PLANKS.defaultMapColor(), false);
+        shelf("crimson_shelf", () -> MapColor.CRIMSON_STEM, true);
+        shelf("warped_shelf", () -> MapColor.WARPED_STEM, true);
+        Woods.register();
+        Dappled.register();
         // Modded woods (tools/modshelves.py): Mojang's shelf properties; map color from the wood's planks when its mod
         // is loaded (MapColor.WOOD otherwise); nether woods as crimson and warped. They load without the wood's mod.
         for (ModdedShelves.Wood wood : ModdedShelves.WOODS) {
             ResourceLocation planks = ResourceLocation.parse(wood.planks());
-            DeferredBlock<Block> shelf = block(wood.id(), ShelfBlock::new, () -> {
-                Properties p = Properties.of().mapColor(state -> BuiltInRegistries.BLOCK.getOptional(planks)
-                                .map(Block::defaultMapColor).orElse(MapColor.WOOD))
-                        .instrument(NoteBlockInstrument.BASS).sound(shelfSound);
-                return (wood.nether() ? p : p.ignitedByLava()).strength(2.0F, 3.0F);
-            });
-            SHELVES.add(shelf);
-            if (!wood.nether()) {
-                FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
-            }
+            shelf(wood.id(), () -> BuiltInRegistries.BLOCK.getOptional(planks).map(Block::defaultMapColor).orElse(MapColor.WOOD), wood.nether());
         }
 
         BLOCKS.register(modBus);
@@ -199,10 +180,33 @@ public final class Content {
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         BLOCK_ENTITIES.register(modBus);
-        modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(() -> FLAMMABLE.forEach(Runnable::run)));
+        modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(() -> {
+            FLAMMABLE.forEach(Runnable::run);
+            COMMON_SETUP.forEach(Runnable::run);
+        }));
     }
 
-    private static FireBlock fire() {
+    private static DeferredSoundType shelfSound;
+
+    /** A shelf as Mojang's Blocks defines each (the map color resolved when first asked, for modded woods). */
+    static DeferredBlock<Block> shelf(String id, Supplier<MapColor> color, boolean nether) {
+        if (shelfSound == null) {
+            shelfSound = new DeferredSoundType(1.0F, 1.0F, sound("block.shelf.break"), sound("block.shelf.step"),
+                    sound("block.shelf.place"), sound("block.shelf.hit"), sound("block.shelf.fall"));
+        }
+        DeferredSoundType sound = shelfSound;
+        DeferredBlock<Block> shelf = block(id, ShelfBlock::new, () -> {
+            Properties p = Properties.of().mapColor(state -> color.get()).instrument(NoteBlockInstrument.BASS).sound(sound);
+            return (nether ? p : p.ignitedByLava()).strength(2.0F, 3.0F);
+        });
+        SHELVES.add(shelf);
+        if (!nether) {
+            FLAMMABLE.add(() -> fire().setFlammable(shelf.get(), 30, 20));
+        }
+        return shelf;
+    }
+
+    static FireBlock fire() {
         return (FireBlock) Blocks.FIRE;
     }
 

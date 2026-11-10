@@ -22,8 +22,14 @@ Rechiseled tie-ins, and `META-INF/haven_consolidated/aliases.json` (merges). Nev
 run; `on_shelf` -> `haven_backports:on_shelf`) and writes the vanilla models 26.x gives an on_shelf transform (1.21.1's
 file plus that one entry). A model equal to 1.21.1's after conversion stays vanilla, so pack resource packs that
 restyle vanilla (Better Lanterns + `haven-fixes`) apply to ours too. `tools/sources.py` holds the jar download and
-format-neutral compares. Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
-`ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
+format-neutral compares; `tools/data.py` sounds, recipes and tags; `tools/woods.py` wood sets (signs remapped from
+26.x's block-model art to 1.21.1's entity layout, proven on every vanilla wood each run; boats; fuel, compost and
+strip data maps from 26.x's data); `tools/biomes.py` biomes (environment attributes -> effects, surface rules into
+1.21.1's noise settings, c: tags, dry foliage table) with `tools/worldgen.py` (26.x feature formats -> 1.21.1; stops
+on any type 1.21.1's data does not use and we have not ported) and `tools/noise_math.py` (a 26.x noise is taken only
+when its octave factors equal 1.21.1's); `tools/trades.py` wandering trader offers. Java registers the blocks the
+way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` = `ofLegacyCopy(base)`, `registerWall` =
+`ofLegacyCopy(base).forceSolidOn()`).
 
 ## Ported classes
 
@@ -32,6 +38,12 @@ SelectableSlotContainer); each says in its Javadoc where 1.21.1 forced a differe
 `.cache/tools/vineflower-1.11.1.jar` (`-only=<class path>`). Mixins (`haven_backports.mixins.json`) only carry
 behaviour 1.21.1 hard-codes: keep them to a minimum.
 
+## Worldgen
+
+Biome placement: OverworldBiomeBuilderMixin sets Mojang's 26.x table cells (`Biomes26`); nothing else moves.
+Ported worldgen types live in `worldgen/` (registered in `Worldgen`), named as Mojang names them. Sapling growth uses
+`TreeGrower26` (26.x's weighted tree lists; 1.21.1's TreeGrower cannot express them).
+
 ## Merges
 
 Haven Consolidated reads `META-INF/haven_consolidated/aliases.json` from every mod jar at common setup and aliases
@@ -39,6 +51,13 @@ each old id to the new one (items, blocks, chunk palettes, recipes; duplicate re
 block only when it is the same block as Mojang's; keep blocks of a mod's own cross-stone style (Create's cut family).
 
 ## Test
+
+Offline port test: `uv run python -I tools/porttest.py` runs Mojang's 26.x code from the snapshot jar (biome
+parameter list, every ported tree for 50 seeds on a flat world, ported block shapes) into `build/porttest/26x.json`;
+then `./gradlew test` (src/test, NeoForge's unit test environment, mixins applied) runs our ports on the same inputs
+and must match. If the default `java` is newer than Gradle supports (Java 27: "Unsupported class file major version
+71" when the build script recompiles), run Gradle with `JAVA_HOME` set to a JDK 21. Dev server: `run/eula.txt`,
+`./gradlew runServer`; enable RCON in `run/server.properties` to drive it (`/locate biome haven_backports:...`).
 
 The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
 "Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check

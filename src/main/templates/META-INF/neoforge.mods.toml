@@ -29,3 +29,6 @@ textures, models, recipes, loot and properties. Required on both sides.
 
 [[mixins]]
     config="${mod_id}.mixins.json"
+
+[[accessTransformers]]
+    file="META-INF/accesstransformer.cfg"

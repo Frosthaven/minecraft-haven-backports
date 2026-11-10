@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_shelf_unpowered",
+  "textures": {
+    "all": "haven_backports:block/poplar_shelf",
+    "particle": "haven_backports:block/stripped_poplar_log"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "values": {
+    "haven_backports:poplar_planks": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_sapling": {
+      "burn_time": 100
+    },
+    "haven_backports:poplar_log": {
+      "burn_time": 300
+    },
+    "haven_backports:stripped_poplar_log": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_wood": {
+      "burn_time": 300
+    },
+    "haven_backports:stripped_poplar_wood": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_sign": {
+      "burn_time": 200
+    },
+    "haven_backports:poplar_hanging_sign": {
+      "burn_time": 800
+    },
+    "haven_backports:poplar_pressure_plate": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_trapdoor": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_button": {
+      "burn_time": 100
+    },
+    "haven_backports:poplar_stairs": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_slab": {
+      "burn_time": 150
+    },
+    "haven_backports:poplar_fence_gate": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_fence": {
+      "burn_time": 300
+    },
+    "haven_backports:poplar_door": {
+      "burn_time": 200
+    },
+    "haven_backports:poplar_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:leaf_litter": {
+      "burn_time": 100
+    },
+    "haven_backports:poplar_boat": {
+      "burn_time": 1200
+    },
+    "haven_backports:poplar_chest_boat": {
+      "burn_time": 1200
+    },
+    "haven_backports:oak_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:spruce_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:birch_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:jungle_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:acacia_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:dark_oak_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:mangrove_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:cherry_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:bamboo_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:glacian_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:yellow_archwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:blue_archwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:green_archwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:purple_archwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:red_archwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:dead_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:empyreal_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:fir_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:jacaranda_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:magic_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:mahogany_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:maple_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:palm_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:pine_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:redwood_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:umbran_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:willow_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:nut_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:sepia_shelf": {
+      "burn_time": 300
+    }
+  }
+}

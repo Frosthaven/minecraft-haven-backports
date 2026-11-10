@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "haven_backports:block/poplar_planks"
+  }
+}

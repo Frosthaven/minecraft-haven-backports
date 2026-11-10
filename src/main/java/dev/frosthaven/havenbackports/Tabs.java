@@ -41,6 +41,12 @@ final class Tabs {
                         n + "_bricks", n + "_brick_stairs", n + "_brick_slab", n + "_brick_wall"));
             }
             after(e, "cut_red_sandstone_slab", stones.toArray(String[]::new));
+            // ... cherry button, [pale oak set], POPLAR log, wood, stripped log and wood, planks ... button
+            for (Woods.Wood w : Woods.all()) {
+                String n = w.name();
+                after(e, "cherry_button", n + "_log", n + "_wood", "stripped_" + n + "_log", "stripped_" + n + "_wood", n + "_planks",
+                        n + "_stairs", n + "_slab", n + "_fence", n + "_fence_gate", n + "_door", n + "_trapdoor", n + "_pressure_plate", n + "_button");
+            }
             // copper rows: ... cut copper slab, COPPER_BARS, door, trapdoor, bulb, COPPER_CHAIN ... for every stage, waxed too
             for (String waxed : new String[]{"", "waxed_"}) {
                 for (WeatherState s : WeatherState.values()) {
@@ -52,6 +58,15 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             // ... pointed dripstone, prismarine, CINNABAR, SULFUR (spike and potent sulfur come with the caves)
             after(e, "prismarine", "cinnabar", "sulfur");
+            // ... cherry log, [pale oak log], POPLAR_LOG, mushroom stem; cherry leaves, ..., poplar leaves; cherry sapling,
+            // ..., POPLAR_SAPLING; red mushroom, SHELF_MUSHROOM; fern, [dry short grass, bush], RED_SHRUB; pink petals,
+            // [wildflowers], LEAF_LITTER (1.21.1 lacks the bracketed anchors: the run follows the nearest one it has)
+            after(e, "cherry_log", "poplar_log");
+            after(e, "cherry_leaves", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves");
+            after(e, "cherry_sapling", "poplar_sapling");
+            after(e, "red_mushroom", "shelf_mushroom");
+            after(e, "fern", "red_shrub");
+            after(e, "pink_petals", "leaf_litter");
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // torch, soul torch, COPPER_TORCH, redstone torch, lantern, soul lantern, COPPER_LANTERN, chain, COPPER_CHAIN
             after(e, "soul_torch", "copper_torch");
@@ -70,9 +85,15 @@ final class Tabs {
             // bookshelf, chiseled bookshelf, OAK_SHELF ... WARPED_SHELF (pale oak and poplar come with their woods)
             // ... then the modded woods' shelves, for the mods that are loaded
             List<String> shelves = new ArrayList<>(List.of("oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
-                    "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
+                    "dark_oak_shelf", "mangrove_shelf", "cherry_shelf"));
+            Woods.all().forEach(w -> shelves.add(w.name() + "_shelf"));
+            shelves.addAll(List.of("bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
+            // ... cherry sign, cherry hanging sign, [pale oak], POPLAR_SIGN, POPLAR_HANGING_SIGN, bamboo sign ...
+            List<String> signs = new ArrayList<>();
+            Woods.all().forEach(w -> signs.addAll(List.of(w.name() + "_sign", w.name() + "_hanging_sign")));
+            after(e, "cherry_hanging_sign", signs.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
@@ -89,6 +110,10 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
+            // ... cherry chest boat, [pale oak boats], POPLAR_BOAT, POPLAR_CHEST_BOAT, bamboo raft ...
+            List<String> boats = new ArrayList<>();
+            Woods.all().forEach(w -> boats.addAll(List.of(w.name() + "_boat", w.name() + "_chest_boat")));
+            after(e, "cherry_chest_boat", boats.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             after(e, "stone_axe", "copper_axe");

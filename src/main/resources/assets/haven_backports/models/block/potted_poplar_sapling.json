@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/flower_pot_cross",
+  "textures": {
+    "plant": "haven_backports:block/poplar_sapling"
+  },
+  "render_type": "minecraft:cutout"
+}

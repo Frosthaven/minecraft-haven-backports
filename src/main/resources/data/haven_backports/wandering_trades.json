@@ -1,0 +1,47 @@
+[
+  {
+    "trade": "minecraft:wandering_trader/emerald_poplar_sapling",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 5
+    },
+    "gives": {
+      "id": "haven_backports:poplar_sapling",
+      "count": 1
+    },
+    "max_uses": 8,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_shelf_mushroom",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:shelf_mushroom",
+      "count": 3
+    },
+    "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_poplar_log",
+    "pool": "rare",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:poplar_log",
+      "count": 8
+    },
+    "max_uses": 4,
+    "xp": 1,
+    "reputation_discount": 0.05
+  }
+]

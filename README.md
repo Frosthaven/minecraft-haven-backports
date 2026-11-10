@@ -22,6 +22,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
+| Dappled Forest | The biome (Mojang's place in the climate table); Poplar Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; red, orange and yellow Poplar Leaves; Poplar Sapling (and potted); Leaf Litter; Red Shrub; Shelf Mushroom |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -64,8 +65,36 @@ and stays out of the creative tab. Adding a wood: one line in `MOD_WOODS`, then 
 Mojang's CopperChestBlock on the vanilla chest block entity (as newer Minecraft). Two mixins carry what 1.21.1 hard-codes: the
 hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before the holiday one (Sheets.chooseMaterial).
 
-Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
-suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
+Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; dyes and stews from
+flowers 1.21.1 lacks, until those flowers are in).
+
+## Biomes
+
+New biomes take Mojang's own place in the overworld's climate table (OverworldBiomeBuilderMixin edits 1.21.1's
+table cells to newer Minecraft's), so they show up where newer Minecraft puts them, with or without TerraBlender, in the
+vanilla region of a TerraBlender world (BOP's regions use BOP's own tables and keep their biomes). Existing worlds get
+them in chunks that were never generated; saved chunks keep their biomes. `/locate biome` and Nature's Compass read
+the biome source, so they can point into an old chunk where the new biome would be now; that chunk keeps its old
+biome. Surface rules (coarse dirt patches...) go into 1.21.1's own overworld noise settings next to the same vanilla
+rule as in newer Minecraft. Biome tags: Mojang's, plus the common `c:` tags NeoForge gives the closest vanilla biome.
+
+### Dappled Forest
+
+Everything as newer Minecraft generates it: the poplar trees with leaf litter, fallen poplar logs with mushrooms,
+spruce, red shrubs, brown mushrooms, coarse dirt patches, the orange grass and foliage. Poplar saplings grow one of
+the three poplar colours at random (one in three each); they drop from poplar leaves. The wandering trader sells
+poplar saplings and shelf mushrooms (common offers) and poplar logs (newer Minecraft's uncommon offers, which 1.21.1's
+trader draws as its one rare offer). Leaf litter is smelted from any leaves and tinted with newer Minecraft's dry
+foliage colours. Shelf mushrooms bounce what lands on them (0.75 of the fall speed for mobs and players, 0.6 for
+other entities, as newer Minecraft) and halve fall damage; they count as a mushroom in suspicious stew (newer
+Minecraft's per-flower stew recipes are taken) and rabbit stew. Poplar leaves rustle near a log and drop leaf
+particles; the Falling Leaves mod adds its own as well.
+
+Not in 1.21.1, so not here: the cold pig, cow and chicken variants newer Minecraft spawns in the biome (1.21.1 has no
+farm animal variants); the abandoned camp structure (it needs blocks and entities not backported yet); the leaves'
+newer mipmap mode. Newer Minecraft names the three poplar leaves only "Poplar Leaves", so all three show that name.
+Signs use newer Minecraft's sign art on 1.21.1's sign models (the same pixels, moved to 1.21.1's texture layout; checked
+on every vanilla wood).
 
 ## Download
 

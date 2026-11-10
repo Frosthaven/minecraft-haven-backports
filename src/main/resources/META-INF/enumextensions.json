@@ -4,7 +4,20 @@
       "enum": "net/minecraft/world/item/ItemDisplayContext",
       "name": "HAVEN_BACKPORTS_ON_SHELF",
       "constructor": "(ILjava/lang/String;Ljava/lang/String;)V",
-      "parameters": [-1, "haven_backports:on_shelf", null]
+      "parameters": [
+        -1,
+        "haven_backports:on_shelf",
+        null
+      ]
+    },
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "HAVEN_BACKPORTS_POPLAR",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "dev/frosthaven/havenbackports/BoatTypes",
+        "field": "POPLAR_PROXY"
+      }
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "haven_backports:block/red_shrub"
+  },
+  "render_type": "minecraft:cutout"
+}

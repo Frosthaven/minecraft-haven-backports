@@ -26,6 +26,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))   # -I leaves the scrip
 import models   # noqa: E402
 import modshelves   # noqa: E402
 import gear   # noqa: E402
+import data   # noqa: E402
+import woods   # noqa: E402
+import biomes   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -57,29 +60,35 @@ CONTENT = {
     "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
     **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
            *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
+    # Dappled Forest: the poplar wood (Blocks.java order) and the forest floor
+    "poplar": [*woods.wood_set("poplar", [f"{c}_poplar_leaves" for c in ("red", "orange", "yellow")]), "poplar_shelf"],
+    "dappled": ["leaf_litter", "red_shrub", "shelf_mushroom"],
 }
-ITEMS_ONLY = ["copper_nugget"]
-NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
+ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat"]
+NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar")   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
 EXTRA_EXCLUDE = {
     "bundle": "1.21.1's bundle sits behind an experimental feature flag; enabling bundles is its own backport",
-    "suspicious_stew_from_": "1.21.1's special suspicious stew recipe already makes every one of these",
 }
 # Snapshot recipes for our own items that a pack mod already provides in the same shape and counts (duplicates in JEI):
 COVERED_BY_PACK = {
     "copper_nugget": "Create's crafting/materials/copper_nugget (1 c:ingots/copper -> 9; Create's nugget merges into ours)",
     "copper_ingot_from_nuggets": "Create's crafting/materials/copper_ingot (9 c:nuggets/copper -> 1)",
 }
-PARTICLES = ["copper_fire_flame"]
+PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves"]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
               "copper_chest": ["open", "close"], "copper_chest_weathered": ["open", "close"], "copper_chest_oxidized": ["open", "close"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
+# 26.x sound sets (data/minecraft/block_sound_set): their events are read from the jar.
+DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom"]
+EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce"]   # AmbientLeavesBlockSoundPlayer, bounceOn
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests"]
+CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests",
+             "required_for_poplar_leaf_ambience"]   # ParticleLeavesBlock's ambient sound (26.x AmbientLeavesBlockSoundPlayer)
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -103,15 +112,18 @@ ALIASES = [
 # 26.x picks the render layer from texture transparency; 1.21.1 needs it set. Each takes its vanilla counterpart's layer
 # from 1.21.1's ItemBlockRenderTypes: iron bars and chain cutout_mipped, torch, wall torch and lantern cutout.
 RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minecraft:cutout_mipped",
-                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout"}
+                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout",
+                # saplings and potted plants, doors, trapdoors, pink petals, bushes: cutout in 1.21.1 (leaves: by class)
+                "_sapling": "minecraft:cutout", "_door": "minecraft:cutout", "_trapdoor": "minecraft:cutout",
+                "leaf_litter": "minecraft:cutout", "red_shrub": "minecraft:cutout", "shelf_mushroom": "minecraft:cutout"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES)
 
 
-class Port:
+class Port(data.DataPort):
     def __init__(self):
         self.jar, self.objects = snapshot()
         self.old = zipfile.ZipFile(VANILLA_1211)
@@ -213,8 +225,10 @@ class Port:
                 out["functions"] = [self.function(f) for f in (v if isinstance(v, list) else [v])]
             elif k == "condition" and isinstance(v, dict):
                 out["conditions"] = [self.condition(v)]
-            elif k == "conditions":
-                out["conditions"] = [self.condition(c) for c in v]
+            elif k == "conditions" or k == "terms":
+                out[k] = [self.condition(c) for c in v]
+            elif k == "term":
+                out[k] = self.condition(v)
             else:
                 out[k] = self.loot(v)
         return out
@@ -225,6 +239,11 @@ class Port:
         return f
 
     def condition(self, c):
+        if isinstance(c, str):   # 26.x named predicate (data/minecraft/predicate), inlined
+            if c == "minecraft:tool/can_shear":
+                # NeoForge rewrites 1.21.1's own shears checks to the shears_dig ability (modded shears count)
+                return {"condition": "neoforge:can_item_perform_ability", "ability": "shears_dig"}
+            c = self.read(f"data/minecraft/predicate/{c.split(':')[-1]}.json")
         c = self.loot(c)
         kind = c.pop("type")
         if kind == "minecraft:match_block":
@@ -284,9 +303,14 @@ class Port:
             shutil.rmtree(d, ignore_errors=True)
         lang_new = self.read("assets/minecraft/lang/en_us.json")
         lang = {}
+        woods.prove_sign_maps(self)
         for b in BLOCKS:
-            state = self.blockstate(self.read(f"assets/minecraft/blockstates/{b}.json"))
-            self.write(RES / "assets" / NS / "blockstates" / f"{b}.json", state)
+            if woods.sign_kind(b):
+                woods.sign_block(self, RES, b)
+                state = {}
+            else:
+                state = self.blockstate(self.read(f"assets/minecraft/blockstates/{b}.json"))
+                self.write(RES / "assets" / NS / "blockstates" / f"{b}.json", state)
             layer = next((t for k, t in RENDER_TYPES.items() if b.endswith(k)), None)
             if layer:
                 for ref in models_in(state):
@@ -298,7 +322,7 @@ class Port:
             loot_name = f"data/minecraft/loot_table/blocks/{b}.json"
             if loot_name in self.new_names:   # wall variants have none: they drop like their standing block (dropsLike)
                 self.write(RES / "data" / NS / "loot_table/blocks" / f"{b}.json", self.ids(self.loot(self.read(loot_name))))
-            lang[f"block.{NS}.{b}"] = lang_new[f"block.minecraft.{b}"]
+            lang[f"block.{NS}.{b}"] = lang_new[woods.LANG_FALLBACK.get(b, f"block.minecraft.{b}")]
         for i in [b for b in BLOCKS if b not in NO_ITEM] + ITEMS_ONLY:
             item_def = self.read(f"assets/minecraft/items/{i}.json")["model"]
             if item_def.get("type") == "minecraft:special" and item_def["model"]["type"] == "minecraft:chest":
@@ -318,8 +342,16 @@ class Port:
             data["textures"] = [self.texture("minecraft:particle/" + t.split(":")[-1]).replace("particle/", "") for t in data["textures"]]
             self.write(RES / "assets" / NS / "particles" / f"{p}.json", data)
 
+        woods.boats(self, RES, "poplar")
+        biomes.Biomes(self, RES, lang_new, lang).run()
+        import trades   # 26.x wandering trader offers of ours
+        trades.run(self, RES)
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
+        # 26.x fuel: every overworld-wood shelf (the nether ones are not fuel), modded ones as Mojang's
+        woods.data_maps(self, RES, [i for i in [*CONTENT["poplar"], *CONTENT["dappled"], *ITEMS_ONLY, *CONTENT["shelf"],
+                                                *(sid for sid, _, _, nether in self.modded_shelves if not nether)]
+                                    if i not in NO_ITEM and i not in ("crimson_shelf", "warped_shelf")])
         gear.run(self, RES, lang_new, lang)
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
@@ -337,163 +369,7 @@ class Port:
               f"{len(self.ours_textures)} textures, {self.n_shelf_patches} vanilla models given on_shelf, {self.n_recipes} recipes ({self.n_extra} extra), {self.n_tags} tags, "
               f"vanilla textures 26.x really retextured (pixels differ), kept at 1.21.1: {sorted(self.changed_vanilla)}")
 
-    def mod_shelves(self, lang):
-        mods = sys.argv[sys.argv.index("--mods") + 1] if "--mods" in sys.argv else os.environ.get("HAVEN_MODS")
-        if not mods:
-            sys.exit("modded shelves need --mods / HAVEN_MODS (the pack's mods folder)")
-        self.modded_shelves, names, base = modshelves.run(self, RES, Path(mods))
-        lang.update(names)
-        print(f"modded shelves: {len(self.modded_shelves)}, art from: {base}")
-        java = REPO / "src/main/java/dev/frosthaven/havenbackports/ModdedShelves.java"
-        rows = ",\n".join(f'            new Wood("{sid}", "{ns}", "{planks}", {str(nether).lower()})'
-                           for sid, ns, planks, nether in self.modded_shelves)
-        java.write_text(f"""package dev.frosthaven.havenbackports;
-
-import java.util.List;
-
-/** Generated by tools/backport.py (tools/modshelves.py): shelves for the pack's modded woods. Do not edit by hand. */
-final class ModdedShelves {{
-    /** id, the wood's mod, that mod's planks (map color), nether wood (not flammable, like crimson and warped). */
-    record Wood(String id, String mod, String planks, boolean nether) {{}}
-
-    static final List<Wood> WOODS = List.of(
-{rows});
-
-    private ModdedShelves() {{}}
-}}
-""")
-
-    def shelf_displays(self):
-        patches, notes = models.vanilla_shelf_patches(self.jar, self.old)
-        for path, data in patches.items():
-            self.write(RES / "assets/minecraft/models" / f"{path}.json", data)
-        self.n_shelf_patches = len(patches)
-        if notes:
-            print(f"on_shelf added to vanilla models 26.x also changed otherwise (1.21.1 content kept): {notes}")
-
-    def sounds(self, lang, lang_new):
-        mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
-        out = {}
-        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
-        if True:
-            for event in events:
-                entry = json.loads(json.dumps(mojang[event]))
-                for s in entry["sounds"]:
-                    name = s["name"] if isinstance(s, dict) else s
-                    path = name.split(":")[-1]
-                    data = asset(self.objects, f"minecraft/sounds/{path}.ogg")
-                    out_file = RES / "assets" / NS / "sounds" / f"{path}.ogg"
-                    out_file.parent.mkdir(parents=True, exist_ok=True)
-                    out_file.write_bytes(data)
-                    if isinstance(s, dict):
-                        s["name"] = f"{NS}:{path}"
-                    else:
-                        entry["sounds"][entry["sounds"].index(s)] = f"{NS}:{path}"
-                if "subtitle" in entry and entry["subtitle"] not in self.old_lang():
-                    lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
-                out[event] = entry
-        self.write(RES / "assets" / NS / "sounds.json", out)
-
-    def old_lang(self):
-        if not hasattr(self, "_old_lang"):
-            self._old_lang = json.loads(self.old.read("assets/minecraft/lang/en_us.json"))
-        return self._old_lang
-
-    def recipes(self):
-        self.old_recipe_keys = set()
-        for n in self.old_names:
-            if n.startswith("data/minecraft/recipe/") and n.endswith(".json"):
-                self.old_recipe_keys.add(canon(old_format(json.loads(self.old.read(n)))))
-        self.n_recipes = self.n_extra = 0
-        for n in sorted(self.new_names):
-            if not (n.startswith("data/minecraft/recipe/") and n.endswith(".json")):
-                continue
-            rid = n.split("/")[-1][:-5]
-            raw = self.read(n)
-            result = raw.get("result", {})
-            result_id = (result.get("id") if isinstance(result, dict) else result) or ""
-            ours = result_id.split(":")[-1] in OURS
-            if rid in COVERED_BY_PACK:
-                continue
-            if not ours:
-                if n in self.old_names or ":" not in result_id or not self.exists_1211_item(result_id):
-                    continue
-                if any(rid == x or (x.endswith("_") and rid.startswith(x)) for x in EXTRA_EXCLUDE):
-                    continue
-            r = self.recipe(raw)
-            if r is None or self.equal_in_1211(r):
-                continue
-            self.write(RES / "data" / NS / "recipe" / f"{rid}.json", r)
-            self.n_recipes += 1
-            self.n_extra += 0 if ours else 1
-
-    def tags(self):
-        """Tags 1.21.1 has, or a written recipe uses, with our ids; plus the snapshot sub-tags they reference
-        (slabs -> #wool_slabs, #concrete_slabs ...) when those hold ours."""
-        tag_files = {n: self.read(n) for n in self.new_names if n.startswith("data/minecraft/tags/") and n.endswith(".json")}
-
-        def own(n, seen=()):
-            """Our values of a tag file, following #references into other snapshot tags (written as references)."""
-            values = []
-            for v in tag_files[n].get("values", []):
-                if not isinstance(v, str):
-                    continue
-                if v.startswith("#") and n.split("/")[-1][:-5] in CODE_TAGS:
-                    values.append(v)   # a tag only our Java reads keeps Mojang's references as they are
-                    continue
-                if v.startswith("#"):
-                    ref = n.rsplit("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
-                    if ref in tag_files and ref not in self.old_names and ref not in seen and holds_ours(ref, seen + (n,)):
-                        values.append(v)
-                    continue
-                vid = self.id(v)
-                recipe_tag = n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags
-                # ours always; vanilla entries only in a tag a written recipe needs (metal_nuggets), never in a tag
-                # 1.21.1 has or a sub-tag it would reach (that would change 1.21.1's own tag behaviour)
-                code_tag = n.split("/")[-1][:-5] in CODE_TAGS and n not in self.old_names
-                if vid.startswith(f"{NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_item(vid)):
-                    values.append(vid)
-            return values
-
-        def holds_ours(n, seen=()):
-            for v in tag_files[n].get("values", []):
-                if isinstance(v, str) and v.startswith("#"):
-                    ref = n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
-                    if ref in tag_files and ref not in seen and holds_ours(ref, seen + (n,)):
-                        return True
-                elif isinstance(v, str) and self.id(v).startswith(f"{NS}:"):
-                    return True
-            return False
-
-        wanted = [n for n in tag_files if n in self.old_names or n.split("/")[-1][:-5] in CODE_TAGS or
-                  (n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags)]
-        written, queue = set(), list(wanted)
-        while queue:
-            n = queue.pop()
-            if n in written:
-                continue
-            values = own(n)
-            if not values:
-                continue
-            written.add(n)
-            self.write(RES / n, {"replace": False, "values": values})
-            for v in values:
-                if v.startswith("#"):
-                    queue.append(n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json")
-        for kind in ("block", "item"):
-            f = RES / f"data/minecraft/tags/{kind}/wooden_shelves.json"
-            data = json.loads(f.read_text())
-            data["values"] += [f"{NS}:{sid}" for sid, *_ in self.modded_shelves]
-            self.write(f, data)
-        nether = [f"{NS}:{sid}" for sid, _, _, n in self.modded_shelves if n]
-        if nether:
-            f = RES / "data/minecraft/tags/item/non_flammable_wood.json"
-            data = json.loads(f.read_text())
-            data["values"] += nether
-            self.write(f, data)
-        self.n_tags = len(written)
-
-
+data.B = sys.modules[__name__]
 
 if __name__ == "__main__":
     Port().run()

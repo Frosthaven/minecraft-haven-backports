@@ -1,0 +1,25 @@
+{
+  "values": {
+    "haven_backports:poplar_sapling": {
+      "chance": 0.3
+    },
+    "haven_backports:red_poplar_leaves": {
+      "chance": 0.3
+    },
+    "haven_backports:orange_poplar_leaves": {
+      "chance": 0.3
+    },
+    "haven_backports:yellow_poplar_leaves": {
+      "chance": 0.3
+    },
+    "haven_backports:leaf_litter": {
+      "chance": 0.3
+    },
+    "haven_backports:red_shrub": {
+      "chance": 0.3
+    },
+    "haven_backports:shelf_mushroom": {
+      "chance": 0.65
+    }
+  }
+}

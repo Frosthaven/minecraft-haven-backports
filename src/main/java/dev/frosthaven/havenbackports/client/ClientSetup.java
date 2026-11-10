@@ -1,18 +1,27 @@
 package dev.frosthaven.havenbackports.client;
 
 import dev.frosthaven.havenbackports.Content;
+import dev.frosthaven.havenbackports.Dappled;
 import dev.frosthaven.havenbackports.HavenBackports;
+import dev.frosthaven.havenbackports.Woods;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
-/** Client: the copper fire flame draws like vanilla's flame (Mojang's 26.x ParticleResources: FlameParticle.Provider);
- *  shelves draw their items (26.x BlockEntityRenderers: SHELF -> ShelfRenderer). */
+/** Client: particle providers (26.x ParticleResources), block entity renderers, sign materials and boat layers for
+ *  the new woods (1.21.1 builds them from WoodType and Boat.Type), and the dry foliage tint (26.x BlockColors:
+ *  leaf litter uses BlockTintSources.dryFoliage). */
 @EventBusSubscriber(modid = HavenBackports.ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class ClientSetup {
     private ClientSetup() {}
@@ -20,11 +29,38 @@ public final class ClientSetup {
     @SubscribeEvent
     static void particles(RegisterParticleProvidersEvent e) {
         e.registerSpriteSet(Content.COPPER_FIRE_FLAME.get(), FlameParticle.Provider::new);
+        e.registerSpriteSet(Dappled.RED_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
+        e.registerSpriteSet(Dappled.ORANGE_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
+        e.registerSpriteSet(Dappled.YELLOW_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
     }
 
     @SubscribeEvent
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Content.SHELF_ENTITY.get(), ShelfRenderer::new);
+    }
+
+    @SubscribeEvent
+    static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {
+        for (Woods.Wood w : Woods.all()) {
+            e.registerLayerDefinition(ModelLayers.createBoatModelName(w.boatType().get()), BoatModel::createBodyModel);
+            e.registerLayerDefinition(ModelLayers.createChestBoatModelName(w.boatType().get()), ChestBoatModel::createBodyModel);
+        }
+    }
+
+    @SubscribeEvent
+    static void setup(FMLClientSetupEvent e) {
+        e.enqueueWork(() -> Woods.all().forEach(w -> Sheets.addWoodType(w.type())));
+    }
+
+    @SubscribeEvent
+    static void colorResolvers(RegisterColorHandlersEvent.ColorResolvers e) {
+        e.register(DryFoliage.RESOLVER);
+    }
+
+    @SubscribeEvent
+    static void blockColors(RegisterColorHandlersEvent.Block e) {
+        e.register((state, level, pos, tint) -> level != null && pos != null ? level.getBlockTint(pos, DryFoliage.RESOLVER) : DryFoliage.DEFAULT,
+                Dappled.LEAF_LITTER.get());
     }
 
     @SubscribeEvent
@@ -35,5 +71,6 @@ public final class ClientSetup {
     @SubscribeEvent
     static void reload(RegisterClientReloadListenersEvent e) {
         e.registerReloadListener((ResourceManagerReloadListener) manager -> ItemBounds.clear());
+        e.registerReloadListener(new DryFoliage());
     }
 }

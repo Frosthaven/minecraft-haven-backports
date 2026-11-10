@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_leaf_litter_4",
+  "textures": {
+    "texture": "haven_backports:block/leaf_litter"
+  },
+  "render_type": "minecraft:cutout"
+}

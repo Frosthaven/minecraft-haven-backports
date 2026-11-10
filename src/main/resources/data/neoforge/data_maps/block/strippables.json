@@ -1,0 +1,10 @@
+{
+  "values": {
+    "haven_backports:poplar_wood": {
+      "stripped_block": "haven_backports:stripped_poplar_wood"
+    },
+    "haven_backports:poplar_log": {
+      "stripped_block": "haven_backports:stripped_poplar_log"
+    }
+  }
+}

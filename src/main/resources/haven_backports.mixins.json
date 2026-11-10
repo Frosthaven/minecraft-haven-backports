@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "MobMixin"],
+  "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "EntityMixin", "MobMixin", "OverworldBiomeBuilderMixin"],
   "client": ["ItemRendererMixin", "SheetsMixin"],
   "injectors": {"defaultRequire": 1}
 }
