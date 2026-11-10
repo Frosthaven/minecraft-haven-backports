@@ -318,7 +318,8 @@ class Port:
             data["textures"] = [self.texture("minecraft:particle/" + t.split(":")[-1]).replace("particle/", "") for t in data["textures"]]
             self.write(RES / "assets" / NS / "particles" / f"{p}.json", data)
 
-        self.sounds(lang, lang_new)
+        import tieins   # imported here: it reads this module's constants
+        tieins.sounds(self, lang, lang_new)
         self.mod_shelves(lang)
         gear.run(self, RES, lang_new, lang)
         for table, change in self.loot_changes.items():
@@ -372,29 +373,6 @@ final class ModdedShelves {{
         self.n_shelf_patches = len(patches)
         if notes:
             print(f"on_shelf added to vanilla models 26.x also changed otherwise (1.21.1 content kept): {notes}")
-
-    def sounds(self, lang, lang_new):
-        mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
-        out = {}
-        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
-        if True:
-            for event in events:
-                entry = json.loads(json.dumps(mojang[event]))
-                for s in entry["sounds"]:
-                    name = s["name"] if isinstance(s, dict) else s
-                    path = name.split(":")[-1]
-                    data = asset(self.objects, f"minecraft/sounds/{path}.ogg")
-                    out_file = RES / "assets" / NS / "sounds" / f"{path}.ogg"
-                    out_file.parent.mkdir(parents=True, exist_ok=True)
-                    out_file.write_bytes(data)
-                    if isinstance(s, dict):
-                        s["name"] = f"{NS}:{path}"
-                    else:
-                        entry["sounds"][entry["sounds"].index(s)] = f"{NS}:{path}"
-                if "subtitle" in entry and entry["subtitle"] not in self.old_lang():
-                    lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
-                out[event] = entry
-        self.write(RES / "assets" / NS / "sounds.json", out)
 
     def old_lang(self):
         if not hasattr(self, "_old_lang"):

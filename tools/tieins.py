@@ -5,7 +5,8 @@ import sys
 import zipfile
 from pathlib import Path
 
-from backport import COPPER_SETS, FULL_CHISEL, NS, RES, STAGES
+from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, gear
+from sources import asset
 
 
 def tie_ins(port):
@@ -63,3 +64,27 @@ RENAMED = {"block.minecraft.chain": "block.minecraft.iron_chain"}
 
 def renames(port, lang_new):
     port.write(RES / "assets/minecraft/lang/en_us.json", {old: lang_new[new] for old, new in RENAMED.items()})
+
+
+def sounds(port, lang, lang_new):
+    mojang = json.loads(asset(port.objects, "minecraft/sounds.json"))
+    out = {}
+    events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
+    if True:
+        for event in events:
+            entry = json.loads(json.dumps(mojang[event]))
+            for s in entry["sounds"]:
+                name = s["name"] if isinstance(s, dict) else s
+                path = name.split(":")[-1]
+                data = asset(port.objects, f"minecraft/sounds/{path}.ogg")
+                out_file = RES / "assets" / NS / "sounds" / f"{path}.ogg"
+                out_file.parent.mkdir(parents=True, exist_ok=True)
+                out_file.write_bytes(data)
+                if isinstance(s, dict):
+                    s["name"] = f"{NS}:{path}"
+                else:
+                    entry["sounds"][entry["sounds"].index(s)] = f"{NS}:{path}"
+            if "subtitle" in entry and entry["subtitle"] not in port.old_lang():
+                lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
+            out[event] = entry
+    port.write(RES / "assets" / NS / "sounds.json", out)
