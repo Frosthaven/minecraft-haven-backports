@@ -97,6 +97,12 @@ Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps,
 Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
 sells no maps in newer Minecraft, so it is unchanged.
 
+## Not ported
+
+The mannequin (newer Minecraft's `minecraft:mannequin` entity): a player-shaped figure for map makers that Mojang gives
+no item, spawn egg, recipe, loot or structure; it exists only through `/summon`. With no way to obtain it in
+survival, it is left out.
+
 ## Download
 
 The Haven pack delivers it (`mods/haven-backports.pw.toml`).
