@@ -24,6 +24,7 @@ one block per concept and it looks the way Mojang made it.
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Music discs | Tears (a ghast killed by a player with its own fireball), Lava Chicken (a player kills a baby zombie riding a chicken), Bounce (mineshaft chests in the Sulfur Caves: the chest entry waits for that biome); Mojang's songs, lengths and comparator values |
 | Banner patterns | Field Masoned (paper + bricks) and Bordure Indented (paper + vines) Banner Patterns; as in newer Minecraft, the loom offers those two patterns only with their pattern item |
+| Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer) and the Buried Treasure Map (shipwreck and underwater ruin chests) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -68,6 +69,21 @@ hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before 
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
+
+## Explorer maps and the cartographer
+
+The cartographer trades as in newer Minecraft: Mojang's trade set read from the snapshot (`tools/maps.py`), each trade
+one 1.21.1 trade listing (`map/CartographerTrades`, NeoForge's VillagerTradesEvent at the highest priority, so other
+mods' cartographer trades still add to it). Village maps depend on the villager's own type, banners too; levels 2, 3
+and 5 sell the explorer maps. The maps are filled by Mojang's 26.x loot functions, ported under our ids
+(`haven_backports:exploration_map`, `filtered`, `discard`, the `map_id` item predicate), with the villager or chest as
+the origin; a map that finds no structure is not offered. Three mixins open 1.21.1's map hard-codes to every map item
+as newer Minecraft does: the cartography table and item frame (any item with a map id) and map cloning
+(`#minecraft:clonable_maps`). Shipwreck and underwater ruin chests keep 1.21.1's tables with newer Minecraft's Buried
+Treasure Map entry until the nautilus armor and spears they also name are in. Left out: the Abandoned Camp Map and the
+Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps, whose only source is the Abandoned
+Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
+sells no maps in newer Minecraft, so it is unchanged.
 
 ## Download
 

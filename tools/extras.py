@@ -6,19 +6,21 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
 - Banner patterns Field Masoned and Bordure Indented: 26.x gives the loom's bricks and curly_border patterns an item
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
+- Explorer maps and the cartographer's trades: tools/maps.py.
 """
 import json
 
 import lootfmt
+import maps
 
 NS = "haven_backports"
 # disc item -> its jukebox song (data/minecraft/jukebox_song/<song>.json). music_disc_flurry comes with the Ice Caves.
 DISCS = {"music_disc_tears": "tears", "music_disc_lava_chicken": "lava_chicken", "music_disc_bounce": "bounce"}
 # banner pattern item -> its pattern_item tag (data/minecraft/tags/banner_pattern/pattern_item/<tag>.json)
 PATTERNS = {"field_masoned_banner_pattern": "field_masoned", "bordure_indented_banner_pattern": "bordure_indented"}
-ITEMS_ONLY = list(DISCS) + list(PATTERNS)
+ITEMS_ONLY = list(DISCS) + list(PATTERNS) + maps.MAPS
 SOUNDS = [f"music_disc.{s}" for s in DISCS.values()]
-CODE_TAGS = []
+CODE_TAGS = ["clonable_maps"]
 # 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
 LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft"]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
@@ -38,6 +40,7 @@ def run(port, res, lang_new, lang):
     conv = lootfmt.Converter(port.ids, biomes)
     for table in LOOT:
         take_loot(port, res, conv, table)
+    maps.run(port, res, conv)
     for d in conv.dropped:
         print(f"loot entry left out until its source is backported: {d}")
 

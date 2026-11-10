@@ -1,0 +1,770 @@
+{
+  "source": "26.x trade_set/cartographer",
+  "levels": {
+    "1": [
+      {
+        "id": "minecraft:cartographer/1/paper_emerald",
+        "wants": {
+          "id": "minecraft:paper",
+          "count": 24
+        },
+        "gives": {
+          "id": "minecraft:emerald",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 2,
+        "reputation_discount": 0.05
+      },
+      {
+        "id": "minecraft:cartographer/1/emerald_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 7
+        },
+        "gives": {
+          "id": "minecraft:map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 1,
+        "reputation_discount": 0.05
+      }
+    ],
+    "2": [
+      {
+        "id": "minecraft:cartographer/2/glass_pane_emerald",
+        "wants": {
+          "id": "minecraft:glass_pane",
+          "count": 11
+        },
+        "gives": {
+          "id": "minecraft:emerald",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 10,
+        "reputation_discount": 0.05
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_village_taiga_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:taiga_village_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:swamp",
+          "minecraft:snow",
+          "minecraft:plains"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:village_taiga",
+            "destination": "#minecraft:on_taiga_village_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_explorer_swamp_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:swamp_hut_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:taiga",
+          "minecraft:snow",
+          "minecraft:jungle"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:swamp_hut",
+            "destination": "#minecraft:on_swamp_hut_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_village_snowy_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:snowy_village_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:taiga",
+          "minecraft:swamp"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:village_snowy",
+            "destination": "#minecraft:on_snowy_village_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_village_savanna_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:savanna_village_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:plains",
+          "minecraft:jungle",
+          "minecraft:desert"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:village_savanna",
+            "destination": "#minecraft:on_savanna_village_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_village_plains_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:plains_village_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:taiga",
+          "minecraft:snow",
+          "minecraft:savanna",
+          "minecraft:desert"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:village_plains",
+            "destination": "#minecraft:on_plains_village_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_explorer_jungle_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:jungle_pyramid_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:swamp",
+          "minecraft:savanna",
+          "minecraft:desert"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:jungle_temple",
+            "destination": "#minecraft:on_jungle_pyramid_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/2/emerald_and_compass_village_desert_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:desert_village_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 5,
+        "reputation_discount": 0.2,
+        "villager_types": [
+          "minecraft:savanna",
+          "minecraft:jungle"
+        ],
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:village_desert",
+            "destination": "#minecraft:on_desert_village_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      }
+    ],
+    "3": [
+      {
+        "id": "minecraft:cartographer/3/compass_emerald",
+        "wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "minecraft:emerald",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 20,
+        "reputation_discount": 0.05
+      },
+      {
+        "id": "minecraft:cartographer/3/emerald_and_compass_ocean_monument_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 13
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:ocean_monument_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 10,
+        "reputation_discount": 0.2,
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:monument",
+            "destination": "#minecraft:on_ocean_monument_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/3/emerald_and_compass_buried_trial_chambers_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 12
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:buried_trial_chambers_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 10,
+        "reputation_discount": 0.2,
+        "given_item_modifier": [
+          {
+            "decoration": "minecraft:trial_chambers",
+            "destination": "#minecraft:on_buried_trial_chambers_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      }
+    ],
+    "4": [
+      {
+        "id": "minecraft:cartographer/4/emerald_item_frame",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 7
+        },
+        "gives": {
+          "id": "minecraft:item_frame",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_white_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:white_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:snow",
+          "minecraft:plains"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_orange_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:orange_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:savanna",
+          "minecraft:desert"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_magenta_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:magenta_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:savanna"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_blue_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:blue_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:snow",
+          "minecraft:taiga"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_light_blue_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:light_blue_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:snow",
+          "minecraft:swamp"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_yellow_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:yellow_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:plains",
+          "minecraft:jungle"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_lime_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:lime_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:desert",
+          "minecraft:taiga"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_pink_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:pink_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:taiga",
+          "minecraft:plains"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_gray_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:gray_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:desert"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_cyan_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:cyan_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:desert",
+          "minecraft:snow"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_purple_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:purple_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:taiga",
+          "minecraft:swamp"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_brown_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:brown_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:plains",
+          "minecraft:jungle"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_green_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:green_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:desert",
+          "minecraft:savanna",
+          "minecraft:jungle"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_red_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:red_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:snow",
+          "minecraft:savanna"
+        ]
+      },
+      {
+        "id": "minecraft:cartographer/4/emerald_black_banner",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 2
+        },
+        "gives": {
+          "id": "minecraft:black_banner",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 15,
+        "reputation_discount": 0.05,
+        "villager_types": [
+          "minecraft:swamp"
+        ]
+      }
+    ],
+    "5": [
+      {
+        "id": "minecraft:cartographer/5/emerald_globe_banner_pattern",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 8
+        },
+        "gives": {
+          "id": "minecraft:globe_banner_pattern",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 30,
+        "reputation_discount": 0.05
+      },
+      {
+        "id": "minecraft:cartographer/5/emerald_and_compass_woodland_mansion_map",
+        "wants": {
+          "id": "minecraft:emerald",
+          "count": 14
+        },
+        "additional_wants": {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        "gives": {
+          "id": "haven_backports:woodland_mansion_map",
+          "count": 1
+        },
+        "max_uses": 12,
+        "xp": 30,
+        "reputation_discount": 0.2,
+        "given_item_modifier": [
+          {
+            "destination": "#minecraft:on_woodland_mansion_maps",
+            "search_radius": 100,
+            "function": "haven_backports:exploration_map"
+          },
+          {
+            "item_filter": {
+              "predicates": {
+                "haven_backports:map_id": {}
+              }
+            },
+            "on_fail": {
+              "function": "haven_backports:discard"
+            },
+            "function": "haven_backports:filtered"
+          }
+        ]
+      }
+    ]
+  }
+}

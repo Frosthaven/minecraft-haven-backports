@@ -3,7 +3,19 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "MobMixin"],
-  "client": ["ItemRendererMixin", "SheetsMixin"],
-  "injectors": {"defaultRequire": 1}
+  "mixins": [
+    "CartographyTableMenuMixin",
+    "ChestBlockEntityMixin",
+    "ComparatorBlockMixin",
+    "ItemFrameMixin",
+    "MapCloningRecipeMixin",
+    "MobMixin"
+  ],
+  "client": [
+    "ItemRendererMixin",
+    "SheetsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
