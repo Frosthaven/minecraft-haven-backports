@@ -30,12 +30,22 @@ TYPES = {
     "minecraft:place_on_ground": f"{NS}:place_on_ground",
     "minecraft:attached_to_logs": f"{NS}:attached_to_logs",
     "minecraft:shelf_mushroom": f"{NS}:shelf_mushroom",
+    # 1.21.1 has lake and root_system without 26.x's new fields; the rest are new
+    "minecraft:lake": f"{NS}:lake",
+    "minecraft:root_system": f"{NS}:root_system",
+    "minecraft:sequence": f"{NS}:sequence",
+    "minecraft:template": f"{NS}:template",
+    "minecraft:speleothem": f"{NS}:speleothem",
+    "minecraft:speleothem_cluster": f"{NS}:speleothem_cluster",
+    "minecraft:matching_fluids": f"{NS}:matching_fluids",   # 26.x adds the fluid state check
+    "minecraft:offset": f"{NS}:offset",
+    "minecraft:trapezoid": f"{NS}:trapezoid",   # the int provider (1.21.1's trapezoid is a height provider only)
 }
 # Keys whose value is a block state provider.
 PROVIDER_KEYS = {"trunk_provider", "foliage_provider", "block_state_provider", "block_provider", "to_place",
-                 "state_provider", "provider"}
+                 "state_provider", "provider", "fluid", "barrier", "root_state_provider", "hanging_root_state_provider"}
 # Keys whose value is a plain block state.
-STATE_KEYS = {"state", "default_state", "result_state", "body_state", "head_state"}
+STATE_KEYS = {"default_state", "result_state", "body_state", "head_state", "base_block", "pointed_block"}
 
 
 class Worldgen:
@@ -126,8 +136,8 @@ class Worldgen:
     def value(self, v, where, key=None):
         if key in PROVIDER_KEYS:
             return self.provider(v, where)
-        if key in STATE_KEYS:
-            return self.state(v, where)
+        if key in STATE_KEYS or key == "state" and (isinstance(v, str) or isinstance(v, dict) and "id" in v):
+            return self.state(v, where)   # a block state ("state" of matching_fluids is a property map: kept)
         if isinstance(v, dict):
             out = {}
             for k, x in v.items():
@@ -156,7 +166,13 @@ class Worldgen:
         config = {}
         for k, x in raw.items():
             if t == "minecraft:weighted_random_selector" and k == "features":
-                config[k] = [{"data": self.placed_ref(e["data"]), "weight": e["weight"]} for e in x]
+                config[k] = [{"data": self.placed_any(e["data"]), "weight": e["weight"]} for e in x]
+            elif k == "features" and t in ("minecraft:sequence", "minecraft:simple_random_selector"):
+                config[k] = [self.placed_any(e) for e in x]
+            elif k == "feature" and t == "minecraft:root_system":
+                config[k] = self.placed_any(x)
+            elif k == "templates" and t == "minecraft:template":
+                config[k] = [{"data": {**e["data"], "id": self.template(e["data"]["id"])}, "weight": e["weight"]} for e in x]
             elif k == "dirt_provider":
                 config[k] = x
             else:
@@ -178,12 +194,44 @@ class Worldgen:
             self.done[key] = f"{NS}:{name}"
         return self.done[key]
 
-    def placement(self, mods: list, inner_fid: str, where: str):
+    def configured_any(self, v):
+        """A feature reference (id) or inline 26.x feature, as 1.21.1 takes it in a placed feature."""
+        return self.configured(v) if isinstance(v, str) else self.configured_body(v)
+
+    def placed_any(self, v):
+        """A placed feature reference (id) or inline placed feature, as 1.21.1 takes it."""
+        if isinstance(v, str):
+            return self.placed_ref(v)
+        mods, patch = self.placement(v.get("placement", []), v["feature"], "inline placed feature")
+        return {"feature": patch if patch is not None else self.configured_any(v["feature"]), "placement": mods}
+
+    def template(self, tid: str) -> str:
+        """A 26.x structure template a feature places: converted to 1.21.1's format, under our namespace."""
+        import nbt
+        name = tid.split(":")[-1]
+        data = nbt.convert_template(self.jar.read(f"data/minecraft/structure/{name}.nbt"), self.block_id, f"structure {tid}")
+        out = self.res / "data" / NS / "structure" / f"{name}.nbt"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(data)
+        return f"{NS}:{name}"
+
+    def offset(self, m, where):
+        """26.x offset placement: a constant offset with x == z is 1.21.1's random_offset; any other is our port."""
+        x, y, z = m["x"], m["y"], m["z"]
+        if all(isinstance(p, int) for p in (x, y, z)) and x == z:
+            return {"type": "minecraft:random_offset", "xz_spread": x, "y_spread": y}
+        return {"type": f"{NS}:offset", "x": self.value(x, where), "y": self.value(y, where), "z": self.value(z, where)}
+
+    def placement(self, mods: list, inner_fid, where: str):
         """Placement modifiers and the feature they place; a count + trapezoid offset run becomes random_patch."""
         for i, m in enumerate(mods):
             if m["type"] == "minecraft:offset":
-                if i == 0 or mods[i - 1]["type"] != "minecraft:count" or not isinstance(mods[i - 1]["count"], int):
-                    sys.exit(f"{where}: offset without a constant count before it has no 1.21.1 form")
+                rest = mods[i + 1:]
+                patch = (i > 0 and mods[i - 1]["type"] == "minecraft:count" and isinstance(mods[i - 1]["count"], int)
+                         and all(r["type"] == "minecraft:block_predicate_filter" for r in rest)
+                         and all(isinstance(p, dict) for p in (m["x"], m["y"], m["z"])))
+                if not patch:
+                    continue   # converted in order below (value() -> offset())
                 x, y, z = m["x"], m["y"], m["z"]
                 for p in (x, y, z):
                     if p.get("type") != "minecraft:trapezoid" or p.get("plateau", 0) != 0 or p["min"] != -p["max"]:
@@ -193,11 +241,11 @@ class Worldgen:
                 rest = mods[i + 1:]
                 if any(r["type"] != "minecraft:block_predicate_filter" for r in rest):
                     sys.exit(f"{where}: after the offset only filters convert exactly; got {[r['type'] for r in rest]}")
-                inner = {"feature": self.configured_body(inner_fid), "placement": [self.value(r, where) for r in rest]}
+                inner = {"feature": self.configured_any(inner_fid), "placement": [self.value(r, where) for r in rest]}
                 patch = {"type": "minecraft:random_patch", "config": {
                     "feature": inner, "tries": mods[i - 1]["count"], "xz_spread": x["max"], "y_spread": y["max"]}}
                 return [self.value(r, where) for r in mods[:i - 1]], patch
-        return [self.value(m, where) for m in mods], None
+        return [self.offset(m, where) if m["type"] == "minecraft:offset" else self.value(m, where) for m in mods], None
 
     def placed_body(self, pid: str):
         where = f"placed feature {pid}"

@@ -1427,6 +1427,76 @@
                                   "Name": "minecraft:stone"
                                 }
                               }
+                            },
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:biome",
+                                "biome_is": [
+                                  "haven_backports:sulfur_caves"
+                                ]
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": -0.10000000149011612,
+                                          "min_threshold": -0.4000000059604645,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:cinnabar"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": 0.4000000059604645,
+                                          "min_threshold": 0.0,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:sulfur"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": 1.7976931348623157e+308,
+                                          "min_threshold": 0.4000000059604645,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:cinnabar"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:stone"
+                                    }
+                                  }
+                                ]
+                              }
                             }
                           ]
                         },
@@ -2227,6 +2297,76 @@
                                   "Name": "minecraft:stone"
                                 }
                               }
+                            },
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:biome",
+                                "biome_is": [
+                                  "haven_backports:sulfur_caves"
+                                ]
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": -0.10000000149011612,
+                                          "min_threshold": -0.4000000059604645,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:cinnabar"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": 0.4000000059604645,
+                                          "min_threshold": 0.0,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:sulfur"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "haven_backports:noise_threshold_3d",
+                                          "max_threshold": 1.7976931348623157e+308,
+                                          "min_threshold": 0.4000000059604645,
+                                          "noise": "minecraft:sulfur_cave_gradient"
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "haven_backports:cinnabar"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:stone"
+                                    }
+                                  }
+                                ]
+                              }
                             }
                           ]
                         },
@@ -2534,6 +2674,65 @@
                     ]
                   }
                 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "haven_backports:sulfur_caves"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:sequence",
+          "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "haven_backports:noise_threshold_3d",
+                "max_threshold": -0.10000000149011612,
+                "min_threshold": -0.4000000059604645,
+                "noise": "minecraft:sulfur_cave_gradient"
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": {
+                  "Name": "haven_backports:cinnabar"
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "haven_backports:noise_threshold_3d",
+                "max_threshold": 0.4000000059604645,
+                "min_threshold": 0.0,
+                "noise": "minecraft:sulfur_cave_gradient"
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": {
+                  "Name": "haven_backports:sulfur"
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "haven_backports:noise_threshold_3d",
+                "max_threshold": 1.7976931348623157e+308,
+                "min_threshold": 0.4000000059604645,
+                "noise": "minecraft:sulfur_cave_gradient"
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": {
+                  "Name": "haven_backports:cinnabar"
+                }
               }
             }
           ]

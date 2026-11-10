@@ -15,6 +15,21 @@
     "reputation_discount": 0.05
   },
   {
+    "trade": "minecraft:wandering_trader/emerald_sulfur_spike",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:sulfur_spike",
+      "count": 2
+    },
+    "max_uses": 5,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
     "trade": "minecraft:wandering_trader/emerald_shelf_mushroom",
     "pool": "generic",
     "wants": {

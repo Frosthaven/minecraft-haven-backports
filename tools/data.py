@@ -58,13 +58,29 @@ final class ModdedShelves {{
         for sset in B.DATA_SOUND_SETS:   # 26.x sound sets: the events their data names
             events += [e.split(":")[-1] for e in self.read(f"data/minecraft/block_sound_set/{sset}.json").values()]
         events += B.EXTRA_SOUNDS
+        # sound files 1.21.1 ships with the same hash stay vanilla; so do music tracks 1.21.1 ships (26.x re-encoded
+        # the same recordings smaller: the cave music's 11 shared tracks play 1.21.1's files, its 3 new ones ship here)
+        old_index = Path.home() / ".local/share/PrismLauncher/assets/indexes/17.json"
+        old_objects = json.loads(old_index.read_text())["objects"] if old_index.exists() else {}
         if True:
             for event in events:
                 entry = json.loads(json.dumps(mojang[event]))
                 for s in entry["sounds"]:
                     name = s["name"] if isinstance(s, dict) else s
                     path = name.split(":")[-1]
-                    data = asset(self.objects, f"minecraft/sounds/{path}.ogg")
+                    if isinstance(s, dict) and s.get("type") == "event":
+                        if path not in events:
+                            sys.exit(f"sound event {event} names event {path}, which is not ported")
+                        s["name"] = f"{B.NS}:{path}"
+                        continue
+                    key = f"minecraft/sounds/{path}.ogg"
+                    if key in old_objects and (old_objects[key]["hash"] == self.objects[key]["hash"] or path.startswith("music/")):
+                        if isinstance(s, dict):
+                            s["name"] = f"minecraft:{path}"
+                        else:
+                            entry["sounds"][entry["sounds"].index(s)] = f"minecraft:{path}"
+                        continue
+                    data = asset(self.objects, key)
                     out_file = B.RES / "assets" / B.NS / "sounds" / f"{path}.ogg"
                     out_file.parent.mkdir(parents=True, exist_ok=True)
                     out_file.write_bytes(data)
@@ -76,6 +92,22 @@ final class ModdedShelves {{
                     lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
                 out[event] = entry
         self.write(B.RES / "assets" / B.NS / "sounds.json", out)
+
+    def sound_id(self, event: str) -> str:
+        """A sound event id: ours when this mod ships the event (1.21.1 lacks it), else vanilla."""
+        name = event.split(":")[-1]
+        return f"{B.NS}:{name}" if name in B.EXTRA_SOUNDS else event
+
+    def exists_1211_id(self, vid, tag_file) -> bool:
+        """A vanilla id a new tag may hold: what the tag's registry has in 1.21.1."""
+        ns, path = vid.split(":")
+        if ns != "minecraft":
+            return False
+        if "/tags/block/" in tag_file:
+            return f"assets/minecraft/blockstates/{path}.json" in self.old_names
+        if "/tags/entity_type/" in tag_file:
+            return f"entity.minecraft.{path}" in self.old_lang()
+        return self.exists_1211_item(vid)
 
     def old_lang(self):
         if not hasattr(self, "_old_lang"):
@@ -134,7 +166,7 @@ final class ModdedShelves {{
                 # ours always; vanilla entries only in a tag a written recipe needs (metal_nuggets), never in a tag
                 # 1.21.1 has or a sub-tag it would reach (that would change 1.21.1's own tag behaviour)
                 code_tag = n.split("/")[-1][:-5] in B.CODE_TAGS and n not in self.old_names
-                if vid.startswith(f"{B.NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_item(vid)):
+                if vid.startswith(f"{B.NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_id(vid, n)):
                     values.append(vid)
             return values
 

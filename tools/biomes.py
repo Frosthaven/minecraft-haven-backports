@@ -28,6 +28,16 @@ BIOMES = {
         "noises": ["small_patch"],
         "configured": ["red_poplar", "orange_poplar", "yellow_poplar"],   # TreeGrower.POPLAR (the sapling)
     },
+    "sulfur_caves": {
+        "c": ["is_cave"],   # as minecraft:dripstone_caves (c:is_underground follows from c:is_cave)
+        # the shared surface-and-under rules (floor and under floor) after dripstone caves; the underground bands
+        # before the deepslate gradient (26.x material_rule/overworld/underground)
+        "surface": [("overworld/biome_surface", "after", "minecraft:dripstone_caves"),
+                    ("overworld/underground", "before_deepslate", None)],
+        "noises": ["sulfur_cave_gradient"],
+        # 26.x glow lichen grows on sulfur and cinnabar too (its only change): 1.21.1's feature with ours added
+        "additions": [("configured_feature/glow_lichen", ["config", "can_be_placed_on"], ["can_be_placed_on"])],
+    },
 }
 NOISE_SETTINGS = ["overworld", "large_biomes", "amplified"]   # the overworld presets sharing 1.21.1's surface rule
 
@@ -51,6 +61,7 @@ class Biomes:
             for n in BIOMES[b].get("noises", []):
                 self.wg.noise(n, "minecraft")   # Mojang's key: the noise is seeded from it
         self.surface_rules()
+        self.additions()
         self.c_tags()
         self.dry_foliage()
         if self.wg.differs:
@@ -78,7 +89,7 @@ class Biomes:
         volume = attrs.pop("minecraft:audio/music_volume", None)
         if music and "default" in music:
             m = music["default"]
-            effects["music"] = {"sound": m["sound"], "min_delay": m["min_delay"], "max_delay": m["max_delay"],
+            effects["music"] = {"sound": self.port.sound_id(m["sound"]), "min_delay": m["min_delay"], "max_delay": m["max_delay"],
                                 "replace_current_music": False}
         elif music == {} and volume == 0.0:
             # 26.x: no biome music and music volume 0 (silence). 1.21.1 has no music volume: the nearest form is
@@ -93,6 +104,10 @@ class Biomes:
         for cat, entries in spawns["spawns_by_category"].items():
             out = []
             for e in entries:
+                if not self.port.exists_1211_id(self.port.id(e["type"]), "data/minecraft/tags/entity_type/") \
+                        and not self.port.id(e["type"]).startswith(f"{NS}:"):
+                    print(f"biome {name}: spawner {e['type']} left out (not ported)")
+                    continue
                 c = e["count"]
                 lo, hi = (c, c) if isinstance(c, int) else (c["min_inclusive"], c["max_inclusive"])
                 out.append({"type": self.port.id(e["type"]), "weight": e["weight"], "minCount": lo, "maxCount": hi})
@@ -199,6 +214,25 @@ class Biomes:
             for x in list(v):
                 n += self.insert_after(x, anchor, rule)
         return n
+
+    def additions(self):
+        """1.21.1 worldgen files whose 26.x version only adds our blocks to a list: 1.21.1's file with ours added."""
+        for spec in BIOMES.values():
+            for path, old_keys, new_keys in spec.get("additions", []):
+                data = json.loads(self.port.old.read(f"data/minecraft/worldgen/{path}.json"))
+                new = self.port.read(f"data/minecraft/worldgen/{path.replace('configured_feature', 'feature')}.json")
+                target = data
+                for k in old_keys[:-1]:
+                    target = target[k]
+                src = new
+                for k in new_keys:
+                    src = src[k]
+                ours = [self.port.id(v) for v in src if self.port.id(v).startswith(f"{NS}:")]
+                rest = [v for v in src if not self.port.id(v).startswith(f"{NS}:")]
+                if rest != target[old_keys[-1]]:
+                    sys.exit(f"{path}: 26.x changes more than adding our blocks; port it by hand")
+                target[old_keys[-1]] = target[old_keys[-1]] + ours
+                self.port.write(self.res / f"data/minecraft/worldgen/{path}.json", data)
 
     # ---------- tags and tints ----------
     def c_tags(self):

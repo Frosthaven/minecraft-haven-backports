@@ -49,18 +49,18 @@ import net.neoforged.neoforge.registries.DeferredRegister;
  * registerWall = ofLegacyCopy(base).forceSolidOn(). 26.x's PushReaction.POPPED is 1.21.1's DESTROY.
  */
 public final class Content {
-    static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HavenBackports.ID);
-    static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(HavenBackports.ID);
-    static final DeferredRegister<net.minecraft.core.particles.ParticleType<?>> PARTICLES =
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HavenBackports.ID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(HavenBackports.ID);
+    public static final DeferredRegister<net.minecraft.core.particles.ParticleType<?>> PARTICLES =
             DeferredRegister.create(Registries.PARTICLE_TYPE, HavenBackports.ID);
-    static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, HavenBackports.ID);
-    static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, HavenBackports.ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, HavenBackports.ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, HavenBackports.ID);
 
     /** Block items by id, in registration order (Tabs places them the way Mojang's CreativeModeTabs does). */
-    static final Map<String, DeferredItem<? extends Item>> ITEM = new LinkedHashMap<>();
-    static final List<Runnable> FLAMMABLE = new ArrayList<>();
+    public static final Map<String, DeferredItem<? extends Item>> ITEM = new LinkedHashMap<>();
+    public static final List<Runnable> FLAMMABLE = new ArrayList<>();
     /** Other work for common setup (flower pots, dispenser behaviours), run after FLAMMABLE. */
-    static final List<Runnable> COMMON_SETUP = new ArrayList<>();
+    public static final List<Runnable> COMMON_SETUP = new ArrayList<>();
 
     /** Built up front: blocks register before particle types, and the copper torch takes its flame when built
      *  (vanilla's torches take ParticleTypes.FLAME, which exists before blocks). The same instance is registered. */
@@ -152,6 +152,7 @@ public final class Content {
 
         ITEM.put("copper_nugget", ITEMS.registerSimpleItem("copper_nugget"));
         Stones.register();
+        Sulfur.register();
 
         // Shelves: of().mapColor(<wood>).instrument(BASS).sound(SHELF).ignitedByLava().strength(2, 3); the nether woods
         // without ignitedByLava. FireBlock: 30/20 for the overworld woods. Map colors as Mojang takes them.
@@ -206,11 +207,11 @@ public final class Content {
         return shelf;
     }
 
-    static FireBlock fire() {
+    public static FireBlock fire() {
         return (FireBlock) Blocks.FIRE;
     }
 
-    static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
+    public static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HavenBackports.ID, name)));
     }
 
@@ -229,7 +230,7 @@ public final class Content {
         return block(name, SlabBlock::new, () -> Properties.ofLegacyCopy(base.get()));
     }
 
-    static DeferredBlock<Block> block(String name, Function<Properties, ? extends Block> make, Supplier<Properties> properties) {
+    public static DeferredBlock<Block> block(String name, Function<Properties, ? extends Block> make, Supplier<Properties> properties) {
         DeferredBlock<Block> b = BLOCKS.register(name, () -> make.apply(properties.get()));
         ITEM.put(name, ITEMS.registerSimpleBlockItem(b));
         return b;

@@ -11,6 +11,7 @@ import net.minecraft.world.level.biome.Biome;
  */
 public final class Biomes26 {
     public static final ResourceKey<Biome> DAPPLED_FOREST = key("dappled_forest");
+    public static final ResourceKey<Biome> SULFUR_CAVES = key("sulfur_caves");
 
     private Biomes26() {}
 

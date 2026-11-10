@@ -2,17 +2,7 @@
   "type": "minecraft:random_patch",
   "config": {
     "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "haven_backports:red_shrub"
-            }
-          }
-        }
-      },
+      "feature": "haven_backports:red_shrub",
       "placement": [
         {
           "type": "minecraft:block_predicate_filter",

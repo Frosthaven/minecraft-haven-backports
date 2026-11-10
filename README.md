@@ -23,6 +23,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Dappled Forest | The biome (Mojang's place in the climate table); Poplar Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; red, orange and yellow Poplar Leaves; Poplar Sapling (and potted); Leaf Litter; Red Shrub; Shelf Mushroom |
+| Sulfur Caves | The cave biome (Mojang's place in the climate table); Potent Sulfur (geysers, noxious gas); Sulfur Spike; the Sulfur Cube, its bucket and spawn egg; the Sulfur and Cinnabar stone sets come from it |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -95,6 +96,36 @@ farm animal variants); the abandoned camp structure (it needs blocks and entitie
 newer mipmap mode. Newer Minecraft names the three poplar leaves only "Poplar Leaves", so all three show that name.
 Signs use newer Minecraft's sign art on 1.21.1's sign models (the same pixels, moved to 1.21.1's texture layout; checked
 on every vanilla wood).
+
+### Sulfur Caves
+
+An underground biome under coasts and inland areas, as newer Minecraft generates it: sulfur and cinnabar bands in the
+stone (newer Minecraft's 3D noise), sulfur springs (Mojang's structure templates) with roots of sulfur, sulfur pools
+with potent sulfur at the bottom, sulfur spike clusters and single spikes, glow lichen (which grows on sulfur and
+cinnabar too, everywhere). Its music is newer Minecraft's: the eleven tracks 1.21.1 already has play 1.21.1's files,
+the three new ones (Ebb, Nightly, Shores) ship here.
+
+Potent sulfur under a water source is wet: it bubbles and gives nausea to whoever breathes the gas above it. Over a
+magma block it is a periodic geyser (dormant, then erupting, timed per position and world seed); over lava it erupts
+all the time. An eruption pushes mobs, items and players up, higher with more water above (up to 4 blocks), and
+shows the geyser plume. Sulfur spikes grow under sulfur and fall like pointed dripstone. The wandering trader sells
+sulfur spikes.
+
+With Create and Haven Consolidated, sulfur, polished sulfur, sulfur bricks and chiseled sulfur crush into the pack's
+Sulfur Dust exactly as sulfur ore does (create_mf's crushing: 1, then 75% and 30% chances).
+
+The Sulfur Cube spawns in the caves. It swallows a block or an item you give it (or one dropped near it) and takes
+on that block's archetype (newer Minecraft's 13: bouncy, cold, explosive, hot, sticky...): its bounce, friction, air
+drag, speed and damage change, a hot one burns what touches it, a cold one freezes water it slides over, one with TNT
+primes from fire, flint and steel or redstone and explodes. Shears pop the block out; a bucket catches the cube with
+its block; babies grow on slime balls; dispensers feed cubes in front of them. Its physics (bounciness, friction and
+air drag attributes) are newer Minecraft's and apply to the cube only: no other mob moves differently.
+
+Not in 1.21.1, so not here: the tempt range attribute (the cube's own range 8 is fixed), the TNT-explodes game rule,
+the sheared-equipment advancement trigger, knockback that knows it came from an effect, the bounce game event.
+
+1.21.1 has no level event for a landing sulfur spike: the server plays the same sound. Dripstone caves keep 1.21.1's
+humidity range (newer Minecraft narrowed it; no new biome takes that space).
 
 ## Download
 

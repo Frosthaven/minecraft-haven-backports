@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/pointed_dripstone",
+  "textures": {
+    "cross": "haven_backports:block/sulfur_spike_down_tip"
+  },
+  "render_type": "minecraft:cutout"
+}

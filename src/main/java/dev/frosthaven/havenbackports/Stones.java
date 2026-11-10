@@ -14,14 +14,17 @@ import net.neoforged.neoforge.registries.DeferredBlock;
  * Sulfur Caves biome, ported with it.
  */
 final class Stones {
+    static DeferredBlock<Block> CINNABAR;
+    static DeferredBlock<Block> SULFUR;
+
     private Stones() {}
 
     static void register() {
-        set("cinnabar", MapColor.COLOR_RED);
-        set("sulfur", MapColor.COLOR_YELLOW);
+        CINNABAR = set("cinnabar", MapColor.COLOR_RED);
+        SULFUR = set("sulfur", MapColor.COLOR_YELLOW);
     }
 
-    private static void set(String name, MapColor color) {
+    private static DeferredBlock<Block> set(String name, MapColor color) {
         DeferredSoundType sound = new DeferredSoundType(1.0F, 1.0F, Content.sound("block." + name + ".break"),
                 Content.sound("block." + name + ".step"), Content.sound("block." + name + ".place"),
                 Content.sound("block." + name + ".hit"), Content.sound("block." + name + ".fall"));
@@ -33,5 +36,6 @@ final class Stones {
         DeferredBlock<Block> bricks = Content.block(name + "_bricks", Block::new, () -> Properties.ofLegacyCopy(base.get()));
         Content.family(name + "_brick", bricks);
         Content.block("chiseled_" + name, Block::new, () -> Properties.ofLegacyCopy(base.get()));
+        return base;
     }
 }

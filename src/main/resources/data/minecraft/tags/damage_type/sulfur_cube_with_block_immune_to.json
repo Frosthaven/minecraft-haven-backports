@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:arrow",
+    "minecraft:cactus",
+    "minecraft:dry_out",
+    "minecraft:fall",
+    "minecraft:falling_anvil",
+    "minecraft:falling_block",
+    "minecraft:falling_stalactite",
+    "minecraft:freeze",
+    "minecraft:hot_floor",
+    "minecraft:mob_attack",
+    "minecraft:mob_attack_no_aggro",
+    "minecraft:mob_projectile",
+    "minecraft:player_attack",
+    "minecraft:spit",
+    "minecraft:stalagmite",
+    "minecraft:sting",
+    "haven_backports:sulfur_cube_hot",
+    "minecraft:sweet_berry_bush",
+    "minecraft:thrown",
+    "minecraft:trident",
+    "minecraft:wind_charge",
+    "#minecraft:is_explosion"
+  ]
+}

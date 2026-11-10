@@ -29,6 +29,7 @@ import gear   # noqa: E402
 import data   # noqa: E402
 import woods   # noqa: E402
 import biomes   # noqa: E402
+import cube   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -63,8 +64,9 @@ CONTENT = {
     # Dappled Forest: the poplar wood (Blocks.java order) and the forest floor
     "poplar": [*woods.wood_set("poplar", [f"{c}_poplar_leaves" for c in ("red", "orange", "yellow")]), "poplar_shelf"],
     "dappled": ["leaf_litter", "red_shrub", "shelf_mushroom"],
+    "sulfur_caves": ["potent_sulfur", "sulfur_spike"],   # (the stone sets above come from the caves too)
 }
-ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat"]
+ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", *cube.ITEMS]
 NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar")   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
@@ -76,7 +78,8 @@ COVERED_BY_PACK = {
     "copper_nugget": "Create's crafting/materials/copper_nugget (1 c:ingots/copper -> 9; Create's nugget merges into ours)",
     "copper_ingot_from_nuggets": "Create's crafting/materials/copper_ingot (9 c:nuggets/copper -> 1)",
 }
-PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves"]
+PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves",
+             "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume"]   # (geyser, gas cloud: no sprites)
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
@@ -84,11 +87,18 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # 26.x sound sets (data/minecraft/block_sound_set): their events are read from the jar.
-DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom"]
-EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce"]   # AmbientLeavesBlockSoundPlayer, bounceOn
+DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom", "potent_sulfur", "sulfur_spike"]
+EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce",   # AmbientLeavesBlockSoundPlayer, bounceOn
+                "block.sulfur_spike.land", "block.potent_sulfur.geyser_eruption", "block.potent_sulfur.geyser_eruption_active",
+                "block.potent_sulfur.geyser_continuous_eruption", "block.potent_sulfur.geyser_continuous_eruption_active",
+                "block.potent_sulfur.noxious_gas", "music.overworld.sulfur_caves",   # PotentSulfurBlock(Entity), Musics
+                *cube.SOUNDS]
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
 CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests",
-             "required_for_poplar_leaf_ambience"]   # ParticleLeavesBlock's ambient sound (26.x AmbientLeavesBlockSoundPlayer)
+             "required_for_poplar_leaf_ambience",   # ParticleLeavesBlock's ambient sound (26.x AmbientLeavesBlockSoundPlayer)
+             "causes_continuous_geyser_eruptions", "causes_periodic_geyser_eruptions", "speleothems",   # Sulfur
+             "sulfur_spike_replaceable_blocks", "not_affected_by_geysers",
+             *cube.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -115,12 +125,13 @@ RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minec
                 "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout",
                 # saplings and potted plants, doors, trapdoors, pink petals, bushes: cutout in 1.21.1 (leaves: by class)
                 "_sapling": "minecraft:cutout", "_door": "minecraft:cutout", "_trapdoor": "minecraft:cutout",
-                "leaf_litter": "minecraft:cutout", "red_shrub": "minecraft:cutout", "shelf_mushroom": "minecraft:cutout"}
+                "leaf_litter": "minecraft:cutout", "red_shrub": "minecraft:cutout", "shelf_mushroom": "minecraft:cutout",
+                "sulfur_spike": "minecraft:cutout"}   # as pointed dripstone
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES)
 
 
 class Port(data.DataPort):
@@ -344,6 +355,7 @@ class Port(data.DataPort):
 
         woods.boats(self, RES, "poplar")
         biomes.Biomes(self, RES, lang_new, lang).run()
+        cube.run(self, RES, lang_new, lang)
         import trades   # 26.x wandering trader offers of ours
         trades.run(self, RES)
         self.sounds(lang, lang_new)
@@ -363,6 +375,7 @@ class Port(data.DataPort):
         tieins.tie_ins(self)
         tieins.copper_maps(self)
         tieins.amendments(self)
+        tieins.sulfur_dust(self)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:packed_ice",
+    "haven_backports:packed_ice_bricks",
+    "haven_backports:chiseled_packed_ice",
+    "minecraft:snow_block",
+    "haven_backports:snow_bricks"
+  ]
+}

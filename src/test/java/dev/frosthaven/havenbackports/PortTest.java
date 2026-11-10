@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
 class PortTest {
     static final Path FIXTURE = Path.of(System.getProperty("haven.porttest", "build/porttest/26x.json"));
     /** 26.x overworld points of biomes not ported yet, or kept at 1.21.1 on purpose (README). */
-    static final Set<String> NOT_PORTED = Set.of("minecraft:pale_garden", "minecraft:sulfur_caves", "minecraft:ice_caves");
+    static final Set<String> NOT_PORTED = Set.of("minecraft:pale_garden", "minecraft:ice_caves");
     /** 26.x narrowed dripstone caves to humidity -1..0.7 (making room for nothing new: lush caves already won there);
      *  kept at 1.21.1 so no existing biome moves. */
     static final Set<String> KEPT_1211 = Set.of("minecraft:dripstone_caves");

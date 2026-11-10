@@ -56,8 +56,8 @@ final class Tabs {
                 }
             }
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
-            // ... pointed dripstone, prismarine, CINNABAR, SULFUR (spike and potent sulfur come with the caves)
-            after(e, "prismarine", "cinnabar", "sulfur");
+            // ... pointed dripstone, prismarine, CINNABAR, SULFUR, SULFUR_SPIKE, POTENT_SULFUR, magma block ...
+            after(e, "prismarine", "cinnabar", "sulfur", "sulfur_spike", "potent_sulfur");
             // ... cherry log, [pale oak log], POPLAR_LOG, mushroom stem; cherry leaves, ..., poplar leaves; cherry sapling,
             // ..., POPLAR_SAPLING; red mushroom, SHELF_MUSHROOM; fern, [dry short grass, bush], RED_SHRUB; pink petals,
             // [wildflowers], LEAF_LITTER (1.21.1 lacks the bracketed anchors: the run follows the nearest one it has)
@@ -114,12 +114,17 @@ final class Tabs {
             List<String> boats = new ArrayList<>();
             Woods.all().forEach(w -> boats.addAll(List.of(w.name() + "_boat", w.name() + "_chest_boat")));
             after(e, "cherry_chest_boat", boats.toArray(String[]::new));
+            // ... axolotl bucket, tadpole bucket, SULFUR_CUBE_BUCKET ...
+            after(e, "tadpole_bucket", "sulfur_cube_bucket");
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             after(e, "stone_axe", "copper_axe");
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+        } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
+            // ... sniffer spawn egg, SULFUR_CUBE_SPAWN_EGG ... (26.4 lists eggs by name)
+            after(e, "sniffer_spawn_egg", "sulfur_cube_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

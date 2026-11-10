@@ -54,3 +54,27 @@ def copper_maps(port):
             waxables[f"{NS}:{st}{s}"] = {"waxed": f"{NS}:waxed_{st}{s}"}
     port.write(RES / "data/neoforge/data_maps/block/oxidizables.json", {"values": oxidizables})
     port.write(RES / "data/neoforge/data_maps/block/waxables.json", {"values": waxables})
+
+
+def sulfur_dust(port):
+    """Mojang's sulfur blocks crush into the pack's shared sulfur dust, as the pack crushes sulfur ore: create_mf's
+    sulfur ore crushing (its results and processing time, read from its jar) with the output named
+    haven_consolidated:sulfur_dust (the dust Haven Consolidated merges create_mf's sulfur into). Only the four full
+    blocks; slabs, stairs and walls do not crush. Each recipe needs Create and Haven Consolidated. The pack has no
+    milling or Mekanism recipe for sulfur ore, so neither is added."""
+    mods = sys.argv[sys.argv.index("--mods") + 1] if "--mods" in sys.argv else os.environ.get("HAVEN_MODS")
+    jar = next((Path(mods) / f for f in sorted(os.listdir(mods)) if f.startswith("create_mf")), None) if mods else None
+    if not jar:
+        print("sulfur dust: no create_mf jar in --mods / HAVEN_MODS, crushing tie-in left out")
+        return
+    ore = json.loads(zipfile.ZipFile(jar).read("data/create_mf/recipe/sulfurfromorerecipe.json"))
+    if ore["type"] != "create:crushing" or any(r["id"] != "create_mf:sulfur" for r in ore["results"]):
+        sys.exit("create_mf's sulfur ore crushing changed shape; check the sulfur dust tie-in by hand")
+    for block in ("sulfur", "polished_sulfur", "sulfur_bricks", "chiseled_sulfur"):
+        port.write(RES / f"data/{NS}/recipe/crushing/{block}.json", {
+            "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "create"},
+                                    {"type": "neoforge:mod_loaded", "modid": "haven_consolidated"}],
+            "type": "create:crushing",
+            "ingredients": [{"item": f"{NS}:{block}"}],
+            "processing_time": ore["processing_time"],
+            "results": [{**r, "id": "haven_consolidated:sulfur_dust"} for r in ore["results"]]})

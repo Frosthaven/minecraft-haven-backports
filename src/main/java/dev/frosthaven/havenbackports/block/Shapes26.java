@@ -29,6 +29,29 @@ public final class Shapes26 {
         return out;
     }
 
+    /** 26.x Block.boxZ(sizeX, minY, maxY, minZ, maxZ) and boxZ(sizeXY, minZ, maxZ). */
+    public static VoxelShape boxZ(double sizeX, double minY, double maxY, double minZ, double maxZ) {
+        return Block.box(8.0 - sizeX / 2.0, minY, minZ, 8.0 + sizeX / 2.0, maxY, maxZ);
+    }
+
+    public static VoxelShape boxZ(double sizeXY, double minZ, double maxZ) {
+        return boxZ(sizeXY, 8.0 - sizeXY / 2.0, 8.0 + sizeXY / 2.0, minZ, maxZ);
+    }
+
+    /** 26.x Shapes.rotateAll: the four horizontal turns, and up / down (the north face turned to the top / bottom). */
+    public static Map<Direction, VoxelShape> rotateAll(VoxelShape north) {
+        Map<Direction, VoxelShape> out = rotateHorizontal(north);
+        VoxelShape up = Shapes.empty();
+        VoxelShape down = Shapes.empty();
+        for (AABB b : north.toAabbs()) {
+            up = Shapes.or(up, Shapes.box(b.minX, 1.0 - b.maxZ, b.minY, b.maxX, 1.0 - b.minZ, b.maxY));
+            down = Shapes.or(down, Shapes.box(b.minX, b.minZ, 1.0 - b.maxY, b.maxX, b.maxZ, 1.0 - b.minY));
+        }
+        out.put(Direction.UP, up.optimize());
+        out.put(Direction.DOWN, down.optimize());
+        return out;
+    }
+
     /** Turns a shape clockwise (seen from above) by quarter turns about the block centre. */
     private static VoxelShape turn(VoxelShape shape, int quarters) {
         VoxelShape out = Shapes.empty();

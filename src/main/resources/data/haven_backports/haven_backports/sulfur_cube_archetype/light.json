@@ -1,0 +1,46 @@
+{
+  "attribute_modifiers": [
+    {
+      "amount": -1.0,
+      "attribute": "minecraft:generic.knockback_resistance",
+      "id": "haven_backports:light_add_knockback_resistance",
+      "operation": "add_value"
+    },
+    {
+      "amount": -1.0,
+      "attribute": "minecraft:generic.explosion_knockback_resistance",
+      "id": "haven_backports:light_add_explosion_knockback_resistance",
+      "operation": "add_value"
+    },
+    {
+      "amount": 1.0,
+      "attribute": "haven_backports:bounciness",
+      "id": "haven_backports:light_add_bounciness",
+      "operation": "add_value"
+    },
+    {
+      "amount": -0.699999988079071,
+      "attribute": "haven_backports:friction_modifier",
+      "id": "haven_backports:light_mul_friction_modifier",
+      "operation": "add_multiplied_total"
+    },
+    {
+      "amount": 0.7999999523162842,
+      "attribute": "haven_backports:air_drag_modifier",
+      "id": "haven_backports:light_mul_air_drag_modifier",
+      "operation": "add_multiplied_total"
+    }
+  ],
+  "buoyant": true,
+  "items": "#minecraft:sulfur_cube_archetype/light",
+  "knockback_modifiers": {
+    "horizontal_power": 0.4125,
+    "vertical_power": 0.18
+  },
+  "sound_settings": {
+    "hit_sound": "haven_backports:entity.sulfur_cube.light.hit",
+    "push_sound": "haven_backports:entity.sulfur_cube.light.push",
+    "push_sound_cooldown": 0.7,
+    "push_sound_impulse_threshold": 0.2
+  }
+}

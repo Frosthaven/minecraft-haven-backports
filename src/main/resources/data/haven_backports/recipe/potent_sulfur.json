@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    },
+    {
+      "item": "haven_backports:sulfur"
+    }
+  ],
+  "result": {
+    "id": "haven_backports:potent_sulfur"
+  }
+}

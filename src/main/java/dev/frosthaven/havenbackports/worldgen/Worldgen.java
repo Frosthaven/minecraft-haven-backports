@@ -21,6 +21,12 @@ public final class Worldgen {
     private static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE = DeferredRegister.create(Registries.FOLIAGE_PLACER_TYPE, HavenBackports.ID);
     private static final DeferredRegister<TreeDecoratorType<?>> DECORATORS = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, HavenBackports.ID);
     private static final DeferredRegister<BlockPredicateType<?>> PREDICATES = DeferredRegister.create(Registries.BLOCK_PREDICATE_TYPE, HavenBackports.ID);
+    private static final DeferredRegister<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>> PLACEMENTS =
+            DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, HavenBackports.ID);
+    private static final DeferredRegister<net.minecraft.util.valueproviders.IntProviderType<?>> INT_PROVIDERS =
+            DeferredRegister.create(Registries.INT_PROVIDER_TYPE, HavenBackports.ID);
+    private static final DeferredRegister<com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.levelgen.SurfaceRules.ConditionSource>>
+            CONDITIONS = DeferredRegister.create(Registries.MATERIAL_CONDITION, HavenBackports.ID);
 
     public static final DeferredHolder<Feature<?>, WeightedRandomSelectorFeature> WEIGHTED_RANDOM_SELECTOR =
             FEATURES.register("weighted_random_selector", WeightedRandomSelectorFeature::new);
@@ -38,6 +44,25 @@ public final class Worldgen {
     public static final DeferredHolder<BlockPredicateType<?>, BlockPredicateType<BelowHeightmapPredicate>> BELOW_HEIGHTMAP =
             PREDICATES.register("below_heightmap", () -> () -> BelowHeightmapPredicate.CODEC);
 
+    public static final DeferredHolder<Feature<?>, LakeFeature> LAKE = FEATURES.register("lake", LakeFeature::new);
+    public static final DeferredHolder<Feature<?>, RootSystemFeature> ROOT_SYSTEM = FEATURES.register("root_system", RootSystemFeature::new);
+    public static final DeferredHolder<Feature<?>, SequenceFeature> SEQUENCE = FEATURES.register("sequence", SequenceFeature::new);
+    public static final DeferredHolder<Feature<?>, TemplateFeature> TEMPLATE = FEATURES.register("template", TemplateFeature::new);
+    public static final DeferredHolder<Feature<?>, SpeleothemFeature> SPELEOTHEM = FEATURES.register("speleothem", SpeleothemFeature::new);
+    public static final DeferredHolder<Feature<?>, SpeleothemClusterFeature> SPELEOTHEM_CLUSTER =
+            FEATURES.register("speleothem_cluster", SpeleothemClusterFeature::new);
+    public static final DeferredHolder<BlockPredicateType<?>, BlockPredicateType<MatchingFluidsPredicate>> MATCHING_FLUIDS =
+            PREDICATES.register("matching_fluids", () -> () -> MatchingFluidsPredicate.CODEC);
+    public static final DeferredHolder<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>,
+            net.minecraft.world.level.levelgen.placement.PlacementModifierType<OffsetPlacement>> OFFSET =
+            PLACEMENTS.register("offset", () -> () -> OffsetPlacement.CODEC);
+    public static final DeferredHolder<net.minecraft.util.valueproviders.IntProviderType<?>,
+            net.minecraft.util.valueproviders.IntProviderType<TrapezoidInt>> TRAPEZOID = INT_PROVIDERS.register("trapezoid", () -> () -> TrapezoidInt.CODEC);
+
+    static {
+        CONDITIONS.register("noise_threshold_3d", () -> NoiseThreshold3d.CODEC.codec());
+    }
+
     private Worldgen() {}
 
     public static void register(IEventBus modBus) {
@@ -46,5 +71,8 @@ public final class Worldgen {
         FOLIAGE.register(modBus);
         DECORATORS.register(modBus);
         PREDICATES.register(modBus);
+        PLACEMENTS.register(modBus);
+        INT_PROVIDERS.register(modBus);
+        CONDITIONS.register(modBus);
     }
 }

@@ -3,6 +3,7 @@ package dev.frosthaven.havenbackports.client;
 import dev.frosthaven.havenbackports.Content;
 import dev.frosthaven.havenbackports.Dappled;
 import dev.frosthaven.havenbackports.HavenBackports;
+import dev.frosthaven.havenbackports.Sulfur;
 import dev.frosthaven.havenbackports.Woods;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
@@ -32,6 +33,14 @@ public final class ClientSetup {
         e.registerSpriteSet(Dappled.RED_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
         e.registerSpriteSet(Dappled.ORANGE_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
         e.registerSpriteSet(Dappled.YELLOW_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
+        // 26.x ParticleResources: sulfur bubbles, noxious gas (and its cloud emitter), geyser emitter, base, poof, plume
+        e.registerSpriteSet(Sulfur.SULFUR_BUBBLES.get(), GasParticles.Bubble.Provider::new);
+        e.registerSpriteSet(Sulfur.NOXIOUS_GAS.get(), GasParticles.Gas.Provider::new);
+        e.registerSpecial(Sulfur.NOXIOUS_GAS_CLOUD.get(), GasParticles.Cloud.provider());
+        e.registerSpecial(Sulfur.GEYSER.get(), GeyserParticles.Eruption.provider());
+        e.registerSpriteSet(Sulfur.GEYSER_BASE.get(), GeyserParticles.Base.Provider::new);
+        e.registerSpriteSet(Sulfur.GEYSER_POOF.get(), GeyserParticles.Base.Provider::new);
+        e.registerSpriteSet(Sulfur.GEYSER_PLUME.get(), GeyserParticles.Plume.Provider::new);
     }
 
     @SubscribeEvent
