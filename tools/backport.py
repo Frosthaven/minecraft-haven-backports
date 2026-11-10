@@ -59,6 +59,7 @@ CONTENT = {
     **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
            *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
     "lightning_rod": extras.RODS,
+    "soulshale": ["chiseled_soulshale"],
 }
 ITEMS_ONLY = ["copper_nugget", *extras.ITEMS_ONLY]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch

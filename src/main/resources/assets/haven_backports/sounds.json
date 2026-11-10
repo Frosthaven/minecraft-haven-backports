@@ -414,5 +414,55 @@
         "stream": true
       }
     ]
+  },
+  "block.chiseled_soulshale.break": {
+    "sounds": [
+      "haven_backports:block/chiseled_soulshale/break1",
+      "haven_backports:block/chiseled_soulshale/break2",
+      "haven_backports:block/chiseled_soulshale/break3",
+      "haven_backports:block/chiseled_soulshale/break4",
+      "haven_backports:block/chiseled_soulshale/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.chiseled_soulshale.fall": {
+    "sounds": [
+      "haven_backports:block/chiseled_soulshale/step1",
+      "haven_backports:block/chiseled_soulshale/step2",
+      "haven_backports:block/chiseled_soulshale/step3",
+      "haven_backports:block/chiseled_soulshale/step4",
+      "haven_backports:block/chiseled_soulshale/step5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.chiseled_soulshale.hit": {
+    "sounds": [
+      "haven_backports:block/chiseled_soulshale/hit1",
+      "haven_backports:block/chiseled_soulshale/hit2",
+      "haven_backports:block/chiseled_soulshale/hit3",
+      "haven_backports:block/chiseled_soulshale/hit4",
+      "haven_backports:block/chiseled_soulshale/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.chiseled_soulshale.place": {
+    "sounds": [
+      "haven_backports:block/chiseled_soulshale/place1",
+      "haven_backports:block/chiseled_soulshale/place2",
+      "haven_backports:block/chiseled_soulshale/place3",
+      "haven_backports:block/chiseled_soulshale/place4",
+      "haven_backports:block/chiseled_soulshale/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.chiseled_soulshale.step": {
+    "sounds": [
+      "haven_backports:block/chiseled_soulshale/step1",
+      "haven_backports:block/chiseled_soulshale/step2",
+      "haven_backports:block/chiseled_soulshale/step3",
+      "haven_backports:block/chiseled_soulshale/step4",
+      "haven_backports:block/chiseled_soulshale/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

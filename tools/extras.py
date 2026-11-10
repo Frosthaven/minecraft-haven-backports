@@ -6,6 +6,7 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
 - Banner patterns Field Masoned and Bordure Indented: 26.x gives the loom's bricks and curly_border patterns an item
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
+- Chiseled Soulshale: its sound set (26.x block_sound_set/chiseled_soulshale) and the ancient city chests that hold it.
 - Explorer maps and the cartographer's trades: tools/maps.py.
 - Lightning rods in every copper stage (26.x WeatheringCopperCollection LIGHTNING_ROD, whose unaffected stage is still
   minecraft:lightning_rod): the vanilla rod heads the oxidation and waxing data maps, and 26.x's channeling, which
@@ -25,10 +26,10 @@ DISCS = {"music_disc_tears": "tears", "music_disc_lava_chicken": "lava_chicken",
 # banner pattern item -> its pattern_item tag (data/minecraft/tags/banner_pattern/pattern_item/<tag>.json)
 PATTERNS = {"field_masoned_banner_pattern": "field_masoned", "bordure_indented_banner_pattern": "bordure_indented"}
 ITEMS_ONLY = list(DISCS) + list(PATTERNS) + maps.MAPS
-SOUNDS = [f"music_disc.{s}" for s in DISCS.values()]
+SOUNDS = [f"music_disc.{s}" for s in DISCS.values()] + [f"block.chiseled_soulshale.{k}" for k in ("break", "fall", "hit", "place", "step")]
 CODE_TAGS = ["clonable_maps", "lightning_rods"]
 # 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
-LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft"]
+LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft", "chests/ancient_city"]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
 BIOMES = {"minecraft:sulfur_caves": (f"{NS}:sulfur_caves", "data/haven_backports/worldgen/biome/sulfur_caves.json")}
 
