@@ -2,6 +2,9 @@
   "values": {
     "haven_backports:creaking": {
       "sound": "haven_backports:entity.parrot.imitate.creaking"
+    },
+    "haven_backports:frostbite": {
+      "sound": "haven_backports:entity.parrot.imitate.frostbite"
     }
   }
 }

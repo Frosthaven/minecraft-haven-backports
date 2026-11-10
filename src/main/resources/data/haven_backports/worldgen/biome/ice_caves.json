@@ -1,0 +1,169 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.0,
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 1332635,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "haven_backports:music.overworld.sulfur_caves",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    },
+    "sky_color": 8364543,
+    "water_color": 1332635,
+    "water_fog_color": 1332635
+  },
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 10,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ],
+    "monster": [
+      {
+        "type": "minecraft:creeper",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:skeleton",
+        "weight": 90,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:stray",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "haven_backports:frostbite",
+        "weight": 50,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:slime",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:spider",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:zombie",
+        "weight": 50,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:enderman",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:witch",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_lava_underground",
+      "minecraft:lake_lava_surface"
+    ],
+    [
+      "minecraft:amethyst_geode",
+      "haven_backports:large_icicle"
+    ],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    [],
+    [],
+    [
+      "minecraft:ore_tuff",
+      "haven_backports:ice_cave_ore_coal_upper",
+      "haven_backports:ice_cave_ore_coal_lower",
+      "haven_backports:ice_cave_ore_iron_upper",
+      "haven_backports:ice_cave_ore_iron_middle",
+      "haven_backports:ice_cave_ore_iron_small",
+      "haven_backports:ice_cave_ore_gold",
+      "haven_backports:ice_cave_ore_gold_lower",
+      "haven_backports:ice_cave_ore_redstone",
+      "haven_backports:ice_cave_ore_redstone_lower",
+      "haven_backports:ice_cave_ore_diamond",
+      "haven_backports:ice_cave_ore_diamond_medium",
+      "haven_backports:ice_cave_ore_diamond_large",
+      "haven_backports:ice_cave_ore_diamond_buried",
+      "haven_backports:ice_cave_ore_lapis",
+      "haven_backports:ice_cave_ore_lapis_buried",
+      "haven_backports:ice_cave_ore_copper",
+      "haven_backports:ice_cave_ore_gravel",
+      "haven_backports:ice_cave_ore_diorite_upper",
+      "haven_backports:ice_cave_ore_diorite_lower",
+      "haven_backports:ice_cave_ore_andesite_upper",
+      "haven_backports:ice_cave_ore_andesite_lower",
+      "minecraft:disk_sand",
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel"
+    ],
+    [
+      "haven_backports:snow_layers",
+      "haven_backports:ice_crystals",
+      "haven_backports:icicle_cluster",
+      "haven_backports:ice_crevasse"
+    ],
+    [
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

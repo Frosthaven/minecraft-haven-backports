@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:icicle",
     "minecraft:pointed_dripstone",
     "haven_backports:sulfur_spike"
   ]

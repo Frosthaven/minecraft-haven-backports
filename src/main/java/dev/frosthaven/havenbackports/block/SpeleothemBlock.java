@@ -7,6 +7,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,10 +31,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -55,6 +58,7 @@ public abstract class SpeleothemBlock extends Block implements SimpleWaterlogged
     private static final VoxelShape SHAPE_FRUSTUM = Shapes26.column(8.0, 8.0, 0.0, 16.0);
     private static final VoxelShape SHAPE_MIDDLE = Shapes26.column(10.0, 10.0, 0.0, 16.0);
     private static final VoxelShape SHAPE_BASE = Shapes26.column(12.0, 12.0, 0.0, 16.0);
+    private static final double STALACTITE_DRIP_START_PIXEL = SHAPE_TIP_DOWN.min(Direction.Axis.Y);
     private static final float MAX_HORIZONTAL_OFFSET = (float) SHAPE_BASE.min(Direction.Axis.X);
     protected final BlockState blockToGrowOn;
 
@@ -250,6 +254,35 @@ public abstract class SpeleothemBlock extends Block implements SimpleWaterlogged
 
     protected static boolean isStalactiteStartPos(BlockState state, LevelReader level, BlockPos pos) {
         return isStalactite(state) && !level.getBlockState(pos.above()).is(state.getBlock());
+    }
+
+    protected static boolean isStalagmiteStartPos(BlockState state, LevelReader level, BlockPos pos) {
+        return isStalagmite(state) && !level.getBlockState(pos.below()).is(state.getBlock());
+    }
+
+    /** A drip particle under a stalactite tip; 26.x's subclasses pick the particle (getDripParticle). */
+    protected void spawnDripParticle(Level level, BlockPos tipPos, BlockState tipState, BlockPos posAbove, @Nullable Fluid fluidAbove) {
+        ParticleOptions particle = this.getDripParticle(level, fluidAbove, posAbove);
+        if (particle != null) {
+            Vec3 offset = tipState.getOffset(level, tipPos);
+            level.addParticle(particle, tipPos.getX() + 0.5 + offset.x, tipPos.getY() + STALACTITE_DRIP_START_PIXEL - 0.0625,
+                    tipPos.getZ() + 0.5 + offset.z, 0.0, 0.0, 0.0);
+        }
+    }
+
+    @Nullable
+    protected ParticleOptions getDripParticle(Level level, @Nullable Fluid fluidAbove, BlockPos posAbove) {
+        return null;
+    }
+
+    /** 26.x fallOnDamage: a stalagmite tip hurts more (fall + 2.5, x2, stalagmite damage); subclasses that want it
+     *  call this from fallOn (the icicle does; the sulfur spike keeps the plain fall). */
+    protected void fallOnDamage(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        if (state.getValue(TIP_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
+            entity.causeFallDamage(fallDistance + 2.5F, 2.0F, level.damageSources().stalagmite());
+        } else {
+            super.fallOn(level, state, pos, entity, fallDistance);
+        }
     }
 
     public void growStalactiteOrStalagmiteIfPossible(BlockState startState, ServerLevel level, BlockPos startPos, RandomSource random) {

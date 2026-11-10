@@ -43,6 +43,12 @@ abstract class OverworldBiomeBuilderMixin {
     @Shadow
     @Final
     private Climate.Parameter inlandContinentalness;
+    @Shadow
+    @Final
+    private Climate.Parameter deepOceanContinentalness;
+    @Shadow
+    @Final
+    private Climate.Parameter oceanContinentalness;
 
     @Shadow
     private void addUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, Climate.Parameter temperature,
@@ -60,6 +66,17 @@ abstract class OverworldBiomeBuilderMixin {
             this.addUndergroundBiome(consumer, this.FULL_RANGE, Climate.Parameter.span(-1.0F, 0.7F),
                     Climate.Parameter.span(this.coastContinentalness, this.inlandContinentalness),
                     Climate.Parameter.span(this.erosions[5], this.erosions[6]), Climate.Parameter.span(-1.1F, -0.85F), 0.0F, Biomes26.SULFUR_CAVES);
+        }
+    }
+
+    /** 26.x addUndergroundBiomes: the Ice Caves point comes last, after the deep dark. */
+    @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
+    private void haven_backports$iceCaves(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
+        if (!Biomes26.inVanillaBootstrap()) {
+            // 26.x: temperature -1..-0.8; humidity -1..0.7; continentalness deep ocean..ocean; erosion full; weirdness 0.5..1.1
+            this.addUndergroundBiome(consumer, Climate.Parameter.span(-1.0F, -0.8F), Climate.Parameter.span(-1.0F, 0.7F),
+                    Climate.Parameter.span(this.deepOceanContinentalness, this.oceanContinentalness), this.FULL_RANGE,
+                    Climate.Parameter.span(0.5F, 1.1F), 0.0F, Biomes26.ICE_CAVES);
         }
     }
 

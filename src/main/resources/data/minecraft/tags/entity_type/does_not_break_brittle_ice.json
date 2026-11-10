@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:frostbite",
+    "minecraft:stray"
+  ]
+}

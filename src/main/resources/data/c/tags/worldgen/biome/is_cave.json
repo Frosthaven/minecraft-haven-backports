@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven_backports:sulfur_caves"
+    "haven_backports:sulfur_caves",
+    "haven_backports:ice_caves"
   ]
 }

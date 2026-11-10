@@ -51,6 +51,10 @@ public final class Worldgen {
     public static final DeferredHolder<Feature<?>, SpeleothemFeature> SPELEOTHEM = FEATURES.register("speleothem", SpeleothemFeature::new);
     public static final DeferredHolder<Feature<?>, SpeleothemClusterFeature> SPELEOTHEM_CLUSTER =
             FEATURES.register("speleothem_cluster", SpeleothemClusterFeature::new);
+    public static final DeferredHolder<Feature<?>, LargeSpeleothemFeature> LARGE_SPELEOTHEM =
+            FEATURES.register("large_speleothem", LargeSpeleothemFeature::new);
+    public static final DeferredHolder<Feature<?>, CrevasseFeature> CREVASSE = FEATURES.register("crevasse", CrevasseFeature::new);
+    public static final DeferredHolder<Feature<?>, OreFeature26> ORE = FEATURES.register("ore", OreFeature26::new);
     public static final DeferredHolder<BlockPredicateType<?>, BlockPredicateType<MatchingFluidsPredicate>> MATCHING_FLUIDS =
             PREDICATES.register("matching_fluids", () -> () -> MatchingFluidsPredicate.CODEC);
     public static final DeferredHolder<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>,

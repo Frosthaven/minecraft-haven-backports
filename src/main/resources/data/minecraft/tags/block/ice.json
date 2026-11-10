@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "haven_backports:packed_ice_bricks",
-    "haven_backports:chiseled_packed_ice"
+    "haven_backports:chiseled_packed_ice",
+    "haven_backports:brittle_ice"
   ]
 }

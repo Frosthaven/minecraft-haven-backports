@@ -75,6 +75,21 @@
     "reputation_discount": 0.05
   },
   {
+    "trade": "minecraft:wandering_trader/emerald_icicle",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:icicle",
+      "count": 2
+    },
+    "max_uses": 5,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
     "trade": "minecraft:wandering_trader/emerald_pale_moss_block",
     "pool": "generic",
     "wants": {
@@ -101,6 +116,21 @@
       "count": 3
     },
     "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_ice_crystal",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 2
+    },
+    "gives": {
+      "id": "haven_backports:ice_crystal",
+      "count": 1
+    },
+    "max_uses": 5,
     "xp": 1,
     "reputation_discount": 0.05
   },

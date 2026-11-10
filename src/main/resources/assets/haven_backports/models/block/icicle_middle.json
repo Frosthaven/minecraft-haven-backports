@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_icicle",
+  "textures": {
+    "cross": "haven_backports:block/icicle_middle"
+  },
+  "render_type": "minecraft:cutout"
+}

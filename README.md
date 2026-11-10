@@ -25,6 +25,7 @@ one block per concept and it looks the way Mojang made it.
 | Dappled Forest | The biome (Mojang's place in the climate table); Poplar Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; red, orange and yellow Poplar Leaves; Poplar Sapling (and potted); Leaf Litter; Red Shrub; Shelf Mushroom |
 | Sulfur Caves | The cave biome (Mojang's place in the climate table); Potent Sulfur (geysers, noxious gas); Sulfur Spike; the Sulfur Cube, its bucket and spawn egg; the Sulfur and Cinnabar stone sets come from it |
 | Pale Garden | The biome (Mojang's place in the climate table); Pale Oak Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; Pale Oak Leaves; Pale Oak Sapling (and potted); Pale Moss Block, Carpet, Hanging Moss; Open and Closed Eyeblossom (and potted); Resin Clump, Block of Resin, Resin Bricks with Stairs, Slab, Wall, Chiseled Resin Bricks, Resin Brick; Creaking Heart; the Creaking and its spawn egg |
+| Ice Caves | The cave biome (Mojang's place in the climate table); Icicle, Brittle Ice, Ice Crystal; the Frostbite, its spawn egg, the Ice Ball; the Freezing effect and potions (and arrows); Music Disc Flurry |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -154,6 +155,39 @@ added to them, as for the Sulfur Cube).
 
 Not in 1.21.1, so not here: resin armor trims (1.21.1's trim materials need an item model index Mojang never gave
 resin, and the pack's armor models have no overrides for it); the firefly bush near water (added with the newer flora).
+
+### Ice Caves
+
+An underground biome under frozen oceans, as newer Minecraft generates it: packed ice and calcite bands in the stone
+(newer Minecraft's 3D noise), large icicle columns, icicle clusters on the ceilings, ice crystals on packed ice, snow,
+its own ores (coal, iron, gold, redstone, diamond, lapis, copper) and water crevasses capped with brittle ice. Its music
+is the Sulfur Caves' (newer Minecraft shares it).
+
+Icicles grow down from packed ice (up to 4 long), drip snow dust, melt and fall near light above 4, in ultra-warm
+dimensions or over magma, and hurt more to land on (as pointed dripstone). Brittle ice cracks under living things that
+walk on it (not strays and frostbites; mobs only with mob griefing; not in spawn protection) and breaks at the fourth
+stage with no drop; water flowing next to blue ice turns into it; silk touch keeps it. Ice crystals give light 4 and
+chime over packed ice. The wandering trader sells icicles and ice crystals.
+
+The Frostbite spawns in the caves and, as newer Minecraft adds it, in the frozen biomes (snowy plains, snowy slopes,
+jagged peaks at weight 10; ice spikes, frozen peaks, frozen river, frozen and deep frozen ocean at 25), through NeoForge
+biome modifiers, so other mods' biome edits stay. It is a zombie that throws ice balls when it holds them (one in four
+spawns with some) and freezes what it hits; it walks on powder snow, drowns into a zombie, and villagers flee it. A
+zombie that stands in powder snow for 7 seconds shakes and becomes a frostbite; a husk or a drowned becomes a zombie the
+same way. Strays now spawn under a roof in the ice caves as newer Minecraft lets them (its cold-variant spawn rule).
+
+Ice balls drop from frostbites; thrown, they hurt by speed. Freezing builds frost every tick, stops thawing and hurts
+1.5 when frozen through. Brewing: water + ice ball gives a mundane potion, awkward + ice ball Freezing, + redstone the
+long one; splash, lingering and tipped arrows as usual. Music Disc Flurry: igloo chests (30%, newer Minecraft's loot).
+
+1.21.1 draws baby frostbites as small adults (newer Minecraft has a new baby zombie model for all of them); a
+frostbite calls plain zombies as reinforcements (1.21.1 hard-codes the type); only vanilla zombies, husks and drowned
+freeze-convert, so other mods' zombies are left alone. Newer Minecraft's other changes to these biomes (strays in frozen
+oceans, zombie horses) are not newer content of this mod.
+
+Not in 1.21.1, so not here: a shulker on brittle ice does not crack it; iron golems can still be built on brittle ice
+(1.21.1 hard-codes that check); newer Minecraft's ambient sound for all ice and its face culling between ice blocks
+(brittle ice hides its faces toward ice; vanilla ice still draws its face toward brittle ice).
 
 ## Download
 

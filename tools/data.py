@@ -147,13 +147,28 @@ final class ModdedShelves {{
         (slabs -> #wool_slabs, #concrete_slabs ...) when those hold ours."""
         tag_files = {n: self.read(n) for n in self.new_names if n.startswith("data/minecraft/tags/") and n.endswith(".json")}
 
+        def ref_file(n, v):
+            return n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
+
+        # code tags (our Java or our worldgen reads them) and every snapshot-only tag they reach: written whole, with
+        # their vanilla members, since 1.21.1 has no such tag (blocks_motion -> #blocks_motion_no_leaves -> #ores ...)
+        code, queue = set(), [n for n in tag_files if n.split("/")[-1][:-5] in B.CODE_TAGS]
+        while queue:
+            n = queue.pop()
+            if n in code:
+                continue
+            code.add(n)
+            for v in tag_files[n].get("values", []):
+                if isinstance(v, str) and v.startswith("#") and ref_file(n, v) in tag_files and ref_file(n, v) not in self.old_names:
+                    queue.append(ref_file(n, v))
+
         def own(n, seen=()):
             """Our values of a tag file, following #references into other snapshot tags (written as references)."""
             values = []
             for v in tag_files[n].get("values", []):
                 if not isinstance(v, str):
                     continue
-                if v.startswith("#") and n.split("/")[-1][:-5] in B.CODE_TAGS:
+                if v.startswith("#") and n in code:
                     values.append(v)   # a tag only our Java reads keeps Mojang's references as they are
                     continue
                 if v.startswith("#"):
@@ -165,7 +180,7 @@ final class ModdedShelves {{
                 recipe_tag = n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags
                 # ours always; vanilla entries only in a tag a written recipe needs (metal_nuggets), never in a tag
                 # 1.21.1 has or a sub-tag it would reach (that would change 1.21.1's own tag behaviour)
-                code_tag = n.split("/")[-1][:-5] in B.CODE_TAGS and n not in self.old_names
+                code_tag = n in code and n not in self.old_names
                 if vid.startswith(f"{B.NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_id(vid, n)):
                     values.append(vid)
             return values
@@ -215,7 +230,7 @@ final class ModdedShelves {{
                 print(f"tag {n.split('/tags/', 1)[1]}: 26.x moved {sorted(gone)} into new family tags; adds {out}")
             return out
 
-        wanted = [n for n in tag_files if n in self.old_names or n.split("/")[-1][:-5] in B.CODE_TAGS or
+        wanted = [n for n in tag_files if n in self.old_names or n in code or
                   (n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags)]
         written, queue = set(), list(wanted)
         while queue:

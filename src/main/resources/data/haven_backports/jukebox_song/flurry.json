@@ -1,0 +1,8 @@
+{
+  "comparator_output": 7,
+  "description": {
+    "translate": "jukebox_song.haven_backports.flurry"
+  },
+  "length_in_seconds": 154.0,
+  "sound_event": "haven_backports:music_disc.flurry"
+}

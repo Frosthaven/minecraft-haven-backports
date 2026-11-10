@@ -31,6 +31,7 @@ import woods   # noqa: E402
 import biomes   # noqa: E402
 import cube   # noqa: E402
 import creaking   # noqa: E402
+import frostbite   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -73,8 +74,9 @@ CONTENT = {
                     *stairs_slab_wall("resin_brick"),
                     "chiseled_resin_bricks"],
     "creaking": creaking.BLOCKS,
+    "ice_caves": ["brittle_ice", "icicle", "ice_crystal"],
 }
-ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS, *creaking.ITEMS]
+ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS, *creaking.ITEMS, *frostbite.ITEMS]
 NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar") | woods.no_item("pale_oak") | {"potted_open_eyeblossom", "potted_closed_eyeblossom"}   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
@@ -88,7 +90,7 @@ COVERED_BY_PACK = {
 }
 PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves",
              "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume",   # (geyser, gas cloud: no sprites)
-             "pale_oak_leaves", "trail", *creaking.PARTICLES]
+             "pale_oak_leaves", "trail", *creaking.PARTICLES, *frostbite.PARTICLES]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
@@ -97,23 +99,28 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # 26.x sound sets (data/minecraft/block_sound_set): their events are read from the jar.
 DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom", "potent_sulfur", "sulfur_spike",
-                   "resin", "resin_bricks"]
+                   "resin", "resin_bricks", "brittle_ice", "icicle", "ice_crystal"]
 EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce",   # AmbientLeavesBlockSoundPlayer, bounceOn
                 "block.sulfur_spike.land", "block.potent_sulfur.geyser_eruption", "block.potent_sulfur.geyser_eruption_active",
                 "block.potent_sulfur.geyser_continuous_eruption", "block.potent_sulfur.geyser_continuous_eruption_active",
                 "block.potent_sulfur.noxious_gas", "music.overworld.sulfur_caves",   # PotentSulfurBlock(Entity), Musics
                 "block.pale_hanging_moss.idle", "block.eyeblossom.open_long", "block.eyeblossom.open",   # HangingMoss-,
                 "block.eyeblossom.close_long", "block.eyeblossom.close", "block.eyeblossom.idle",    # EyeblossomBlock
-                *cube.SOUNDS, *creaking.SOUNDS]
+                "block.ice_crystal.ambient", "block.icicle.land", "block.brittle_ice.crack",   # IceCaves
+                *cube.SOUNDS, *creaking.SOUNDS, *frostbite.SOUNDS]
 # Snapshot tags that took over their vanilla members' place in 1.21.1's tags (26.x dirt no longer lists moss_block,
 # #moss_blocks holds it and pale_moss_block): ours in them join each 1.21.1 tag 26.x took those members out of.
 FAMILY_TAGS = ["moss_blocks", "grass_blocks", "mud"]
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests",
+CODE_TAGS = ["wooden_shelves", "overrides_mushroom_light_requirement", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests",
              "required_for_poplar_leaf_ambience",   # ParticleLeavesBlock's ambient sound (26.x AmbientLeavesBlockSoundPlayer)
              "causes_continuous_geyser_eruptions", "causes_periodic_geyser_eruptions", "speleothems",   # Sulfur
              "sulfur_spike_replaceable_blocks", "not_affected_by_geysers",
-             *cube.CODE_TAGS, *creaking.CODE_TAGS]
+             "melts_icicle_above", "face_occluding_ice_blocks", "does_not_break_brittle_ice",   # IceCaves
+             # tags the ported Ice Caves features match (26.x data; 1.21.1 has none of them): written in full
+             "large_icicle_replaceable", "ice_crevasse_replaceables", "ice_cave_ore_replaceables",
+             "height_specific_ore_replaceables", "blocks_fluid_flow", "blocks_motion", "blocks_motion_no_leaves",
+             *cube.CODE_TAGS, *creaking.CODE_TAGS, *frostbite.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -142,12 +149,14 @@ RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minec
                 "_sapling": "minecraft:cutout", "_door": "minecraft:cutout", "_trapdoor": "minecraft:cutout",
                 "leaf_litter": "minecraft:cutout", "red_shrub": "minecraft:cutout", "shelf_mushroom": "minecraft:cutout",
                 "sulfur_spike": "minecraft:cutout",   # as pointed dripstone
-                "eyeblossom": "minecraft:cutout", "pale_hanging_moss": "minecraft:cutout", "resin_clump": "minecraft:cutout"}
+                "eyeblossom": "minecraft:cutout", "pale_hanging_moss": "minecraft:cutout", "resin_clump": "minecraft:cutout",
+                # icicle as pointed dripstone, ice crystal as amethyst cluster, brittle ice as ice
+                "icicle": "minecraft:cutout", "ice_crystal": "minecraft:cutout", "brittle_ice": "minecraft:translucent"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES) | set(frostbite.ENTITIES)
 
 
 class Port(data.DataPort):
@@ -374,6 +383,7 @@ class Port(data.DataPort):
         biomes.Biomes(self, RES, lang_new, lang).run()
         cube.run(self, RES, lang_new, lang)
         creaking.run(self, RES, lang_new, lang)
+        frostbite.run(self, RES, lang_new, lang)   # after creaking: merges the parrot data map
         import trades   # 26.x wandering trader offers of ours
         trades.run(self, RES)
         self.sounds(lang, lang_new)

@@ -1,0 +1,141 @@
+{
+  "type": "haven_backports:sequence",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "haven_backports:ore",
+          "config": {
+            "discard_chance_on_air_exposure": 0.0,
+            "size": 20,
+            "targets": [
+              {
+                "state": {
+                  "Name": "minecraft:stone"
+                },
+                "target": {
+                  "predicate_type": "minecraft:tag_match",
+                  "tag": "minecraft:stone_ore_replaceables"
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:deepslate"
+                },
+                "target": {
+                  "predicate_type": "minecraft:tag_match",
+                  "tag": "minecraft:deepslate_ore_replaceables"
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:stone"
+                },
+                "target": {
+                  "predicate_type": "haven_backports:all_of",
+                  "rules": [
+                    {
+                      "max_inclusive": 2031,
+                      "min_inclusive": 4,
+                      "predicate_type": "haven_backports:height_match"
+                    },
+                    {
+                      "predicate_type": "haven_backports:any_of",
+                      "rules": [
+                        {
+                          "predicate_type": "minecraft:tag_match",
+                          "tag": "minecraft:height_specific_ore_replaceables"
+                        },
+                        {
+                          "predicate_type": "minecraft:tag_match",
+                          "tag": "minecraft:ice_cave_ore_replaceables"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:deepslate"
+                },
+                "target": {
+                  "predicate_type": "haven_backports:any_of",
+                  "rules": [
+                    {
+                      "predicate_type": "minecraft:tag_match",
+                      "tag": "minecraft:height_specific_ore_replaceables"
+                    },
+                    {
+                      "predicate_type": "minecraft:tag_match",
+                      "tag": "minecraft:ice_cave_ore_replaceables"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "placement": []
+      },
+      {
+        "feature": {
+          "type": "haven_backports:ore",
+          "config": {
+            "discard_chance_on_air_exposure": 0.0,
+            "size": 8,
+            "targets": [
+              {
+                "state": {
+                  "Name": "minecraft:redstone_ore"
+                },
+                "target": {
+                  "predicate_type": "minecraft:tag_match",
+                  "tag": "minecraft:stone_ore_replaceables"
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:deepslate_redstone_ore"
+                },
+                "target": {
+                  "predicate_type": "minecraft:tag_match",
+                  "tag": "minecraft:deepslate_ore_replaceables"
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:redstone_ore"
+                },
+                "target": {
+                  "predicate_type": "haven_backports:all_of",
+                  "rules": [
+                    {
+                      "max_inclusive": 2031,
+                      "min_inclusive": 4,
+                      "predicate_type": "haven_backports:height_match"
+                    },
+                    {
+                      "predicate_type": "minecraft:tag_match",
+                      "tag": "minecraft:height_specific_ore_replaceables"
+                    }
+                  ]
+                }
+              },
+              {
+                "state": {
+                  "Name": "minecraft:deepslate_redstone_ore"
+                },
+                "target": {
+                  "predicate_type": "minecraft:tag_match",
+                  "tag": "minecraft:height_specific_ore_replaceables"
+                }
+              }
+            ]
+          }
+        },
+        "placement": []
+      }
+    ]
+  }
+}

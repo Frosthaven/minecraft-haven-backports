@@ -15,6 +15,7 @@ the client's dry foliage tints. Called from Port.run.
 import json
 import sys
 
+import biome_mods
 from worldgen import Worldgen
 
 NS = "haven_backports"
@@ -44,6 +45,14 @@ BIOMES = {
         # pale moss block's bonemeal, PaleMossDecorator's ground patch
         "skip": ["minecraft:patch_firefly_bush_near_water"],   # until the firefly bush is in (newer flora, a later part)
     },
+    "ice_caves": {
+        "c": ["is_cave", "is_cold/overworld", "is_icy"],   # as dripstone_caves (cave) and ice_spikes (cold, icy)
+        # after sulfur caves in the floor and under-floor rules; its bands after sulfur's, before the deepslate
+        # gradient (26.x material_rule/overworld/biome_surface, under_biome_surface, underground)
+        "surface": [("overworld/biome_surface", "after", f"{NS}:sulfur_caves"),
+                    ("overworld/underground", "before_deepslate", None)],
+        "noises": ["ice_cave_gradient"],
+    },
 }
 NOISE_SETTINGS = ["overworld", "large_biomes", "amplified"]   # the overworld presets sharing 1.21.1's surface rule
 
@@ -68,6 +77,7 @@ class Biomes:
                 self.wg.noise(n, "minecraft")   # Mojang's key: the noise is seeded from it
         self.check_order()
         self.surface_rules()
+        biome_mods.spawns(self.port, self.res)
         self.additions()
         self.c_tags()
         self.dry_foliage()

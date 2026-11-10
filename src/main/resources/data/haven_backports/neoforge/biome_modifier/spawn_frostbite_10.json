@@ -1,0 +1,16 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:jagged_peaks",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_slopes"
+  ],
+  "spawners": [
+    {
+      "type": "haven_backports:frostbite",
+      "weight": 10,
+      "minCount": 4,
+      "maxCount": 4
+    }
+  ]
+}

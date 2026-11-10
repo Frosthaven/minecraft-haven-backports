@@ -37,6 +37,8 @@ TYPES = {
     "minecraft:template": f"{NS}:template",
     "minecraft:speleothem": f"{NS}:speleothem",
     "minecraft:speleothem_cluster": f"{NS}:speleothem_cluster",
+    "minecraft:large_speleothem": f"{NS}:large_speleothem",
+    "minecraft:crevasse": f"{NS}:crevasse",
     "minecraft:matching_fluids": f"{NS}:matching_fluids",   # 26.x adds the fluid state check
     "minecraft:offset": f"{NS}:offset",
     "minecraft:trapezoid": f"{NS}:trapezoid",   # the int provider (1.21.1's trapezoid is a height provider only)
@@ -47,7 +49,7 @@ TYPES = {
 # Keys whose value is a block state provider.
 PROVIDER_KEYS = {"trunk_provider", "foliage_provider", "block_state_provider", "block_provider", "to_place",
                  "state_provider", "provider", "fluid", "barrier", "root_state_provider", "hanging_root_state_provider",
-                 "ground_state"}
+                 "ground_state", "surface_block", "fill_block"}
 # Keys whose value is a plain block state.
 STATE_KEYS = {"default_state", "result_state", "body_state", "head_state", "base_block", "pointed_block"}
 
@@ -145,7 +147,10 @@ class Worldgen:
         if isinstance(v, dict):
             out = {}
             for k, x in v.items():
-                out[k] = self.typ(x, where) if k == "type" and isinstance(x, str) else self.value(x, where, k)
+                if k == "type" and x == "minecraft:trapezoid" and "min_inclusive" in v:
+                    out[k] = x   # the height provider (vertical anchors): 1.21.1 has it
+                else:
+                    out[k] = self.typ(x, where) if k == "type" and isinstance(x, str) else self.value(x, where, k)
             return out
         if isinstance(v, list):
             return [self.value(x, where, key) for x in v]
@@ -183,6 +188,13 @@ class Worldgen:
                 config[k] = x
             else:
                 config[k] = self.value(x, where, k)
+        rule_tests = ("minecraft:all_of", "minecraft:any_of", "minecraft:height_match")
+        if t == "minecraft:ore" and any(f'"predicate_type": "{r}"' in json.dumps(raw) for r in rule_tests):
+            # 26.x position-aware rule tests (1.21.1's RuleTest has no position): our port of 26.x's ore feature
+            text = json.dumps(config)
+            for r in rule_tests:
+                text = text.replace(f'"predicate_type": "{r}"', f'"predicate_type": "{NS}:{r[10:]}"')
+            return {"type": f"{NS}:ore", "config": json.loads(text)}
         if t == "minecraft:simple_block" and (raw.get("schedule_tick") or "pale_moss_carpet" in json.dumps(raw)):
             # 26.x's simple_block with a scheduled tick or the mossy carpet branch: our port (1.21.1's lacks both)
             return {"type": f"{NS}:simple_block", "config": config}

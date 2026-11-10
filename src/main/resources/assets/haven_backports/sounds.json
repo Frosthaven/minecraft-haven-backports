@@ -805,6 +805,164 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.brittle_ice.break": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/break1",
+      "haven_backports:block/brittle_ice/break2",
+      "haven_backports:block/brittle_ice/break3",
+      "haven_backports:block/brittle_ice/break4",
+      "haven_backports:block/brittle_ice/break5",
+      "haven_backports:block/brittle_ice/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.brittle_ice.fall": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/break1",
+      "haven_backports:block/brittle_ice/break2",
+      "haven_backports:block/brittle_ice/break3",
+      "haven_backports:block/brittle_ice/break4",
+      "haven_backports:block/brittle_ice/break5",
+      "haven_backports:block/brittle_ice/break6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.brittle_ice.hit": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/hit1",
+      "haven_backports:block/brittle_ice/hit2",
+      "haven_backports:block/brittle_ice/hit3",
+      "haven_backports:block/brittle_ice/hit4",
+      "haven_backports:block/brittle_ice/hit5",
+      "haven_backports:block/brittle_ice/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.brittle_ice.place": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/place1",
+      "haven_backports:block/brittle_ice/place2",
+      "haven_backports:block/brittle_ice/place3",
+      "haven_backports:block/brittle_ice/place4",
+      "haven_backports:block/brittle_ice/place5",
+      "haven_backports:block/brittle_ice/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.brittle_ice.step": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/step1",
+      "haven_backports:block/brittle_ice/step2",
+      "haven_backports:block/brittle_ice/step3",
+      "haven_backports:block/brittle_ice/step4",
+      "haven_backports:block/brittle_ice/step5",
+      "haven_backports:block/brittle_ice/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.icicle.break": {
+    "sounds": [
+      "haven_backports:block/icicle/break1",
+      "haven_backports:block/icicle/break2",
+      "haven_backports:block/icicle/break3",
+      "haven_backports:block/icicle/break4",
+      "haven_backports:block/icicle/break5",
+      "haven_backports:block/icicle/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.icicle.fall": {
+    "sounds": [
+      "haven_backports:block/icicle/hit1",
+      "haven_backports:block/icicle/hit2",
+      "haven_backports:block/icicle/hit3",
+      "haven_backports:block/icicle/hit4",
+      "haven_backports:block/icicle/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.icicle.hit": {
+    "sounds": [
+      "haven_backports:block/icicle/hit1",
+      "haven_backports:block/icicle/hit2",
+      "haven_backports:block/icicle/hit3",
+      "haven_backports:block/icicle/hit4",
+      "haven_backports:block/icicle/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.icicle.place": {
+    "sounds": [
+      "haven_backports:block/icicle/place1",
+      "haven_backports:block/icicle/place2",
+      "haven_backports:block/icicle/place3",
+      "haven_backports:block/icicle/place4",
+      "haven_backports:block/icicle/place5",
+      "haven_backports:block/icicle/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.icicle.step": {
+    "sounds": [
+      "haven_backports:block/icicle/step1",
+      "haven_backports:block/icicle/step2",
+      "haven_backports:block/icicle/step3",
+      "haven_backports:block/icicle/step4",
+      "haven_backports:block/icicle/step5",
+      "haven_backports:block/icicle/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.ice_crystal.break": {
+    "sounds": [
+      "haven_backports:block/ice_crystal/break1",
+      "haven_backports:block/ice_crystal/break2",
+      "haven_backports:block/ice_crystal/break3",
+      "haven_backports:block/ice_crystal/break4",
+      "haven_backports:block/ice_crystal/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.ice_crystal.fall": {
+    "sounds": [
+      "haven_backports:block/ice_crystal/hit1",
+      "haven_backports:block/ice_crystal/hit2",
+      "haven_backports:block/ice_crystal/hit3",
+      "haven_backports:block/ice_crystal/hit4",
+      "haven_backports:block/ice_crystal/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.ice_crystal.hit": {
+    "sounds": [
+      "haven_backports:block/ice_crystal/hit1",
+      "haven_backports:block/ice_crystal/hit2",
+      "haven_backports:block/ice_crystal/hit3",
+      "haven_backports:block/ice_crystal/hit4",
+      "haven_backports:block/ice_crystal/hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.ice_crystal.place": {
+    "sounds": [
+      "haven_backports:block/ice_crystal/place1",
+      "haven_backports:block/ice_crystal/place2",
+      "haven_backports:block/ice_crystal/place3",
+      "haven_backports:block/ice_crystal/place4",
+      "haven_backports:block/ice_crystal/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.ice_crystal.step": {
+    "sounds": [
+      "haven_backports:block/ice_crystal/step1",
+      "haven_backports:block/ice_crystal/step2",
+      "haven_backports:block/ice_crystal/step3",
+      "haven_backports:block/ice_crystal/step4",
+      "haven_backports:block/ice_crystal/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.poplar_leaves.ambient": {
     "sounds": [
       {
@@ -1200,6 +1358,166 @@
       "haven_backports:block/eyeblossom/eyeblossom_idle6"
     ],
     "subtitle": "subtitles.ambient.sound"
+  },
+  "block.ice_crystal.ambient": {
+    "sounds": [
+      {
+        "name": "haven_backports:block/ice_crystal/ambient1",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient2",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient3",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient4",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient5",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient6",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient7",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient8",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient9",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient10",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient11",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient12",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient13",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient14",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient15",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient16",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient17",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient18",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient19",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient20",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient21",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient22",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient23",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient24",
+        "volume": 4.0
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient25",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient26",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient27",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:block/ice_crystal/ambient28",
+        "volume": 4.0,
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.block.ice_crystal.ambient"
+  },
+  "block.icicle.land": {
+    "sounds": [
+      "haven_backports:block/icicle/land1",
+      "haven_backports:block/icicle/land2",
+      "haven_backports:block/icicle/land3",
+      "haven_backports:block/icicle/land4",
+      "haven_backports:block/icicle/land5",
+      "haven_backports:block/icicle/land6"
+    ],
+    "subtitle": "subtitles.block.icicle.land"
+  },
+  "block.brittle_ice.crack": {
+    "sounds": [
+      "haven_backports:block/brittle_ice/crack1",
+      "haven_backports:block/brittle_ice/crack2",
+      "haven_backports:block/brittle_ice/crack3",
+      "haven_backports:block/brittle_ice/crack4",
+      "haven_backports:block/brittle_ice/crack5"
+    ],
+    "subtitle": "subtitles.block.brittle_ice.crack"
   },
   "item.bucket.empty_sulfur_cube": {
     "sounds": [
@@ -1730,5 +2048,126 @@
       "haven_backports:block/creaking_heart/step/creaking_heart_step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.frostbite.ambient": {
+    "sounds": [
+      "haven_backports:mob/frostbite/ambient1",
+      "haven_backports:mob/frostbite/ambient2",
+      "haven_backports:mob/frostbite/ambient3",
+      "haven_backports:mob/frostbite/ambient4"
+    ],
+    "subtitle": "subtitles.entity.frostbite.ambient"
+  },
+  "entity.frostbite.death": {
+    "sounds": [
+      "haven_backports:mob/frostbite/death"
+    ],
+    "subtitle": "subtitles.entity.frostbite.death"
+  },
+  "entity.frostbite.hurt": {
+    "sounds": [
+      "haven_backports:mob/frostbite/hurt1",
+      "haven_backports:mob/frostbite/hurt2",
+      "haven_backports:mob/frostbite/hurt3",
+      "haven_backports:mob/frostbite/hurt4"
+    ],
+    "subtitle": "subtitles.entity.frostbite.hurt"
+  },
+  "entity.frostbite.step": {
+    "sounds": [
+      "haven_backports:mob/frostbite/step1",
+      "haven_backports:mob/frostbite/step2",
+      "haven_backports:mob/frostbite/step3",
+      "haven_backports:mob/frostbite/step4",
+      "haven_backports:mob/frostbite/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.frostbite.converted_to_zombie": {
+    "sounds": [
+      "haven_backports:mob/frostbite/convert1",
+      "haven_backports:mob/frostbite/convert2"
+    ],
+    "subtitle": "subtitles.entity.frostbite.converted_to_zombie"
+  },
+  "entity.zombie.converted_to_frostbite": {
+    "sounds": [
+      "haven_backports:mob/zombie/convert1",
+      "haven_backports:mob/zombie/convert2"
+    ],
+    "subtitle": "subtitles.entity.zombie.converted_to_frostbite"
+  },
+  "entity.drowned.converted_to_zombie": {
+    "sounds": [
+      "haven_backports:mob/drowned/convert_to_zombie1",
+      "haven_backports:mob/drowned/convert_to_zombie2"
+    ],
+    "subtitle": "subtitles.entity.drowned.converted_to_zombie"
+  },
+  "entity.ice_ball.break": {
+    "sounds": [
+      {
+        "name": "haven_backports:entity/ice_ball/hit1",
+        "pitch": 2.0
+      },
+      {
+        "name": "haven_backports:entity/ice_ball/hit2",
+        "pitch": 2.0
+      },
+      {
+        "name": "haven_backports:entity/ice_ball/hit3",
+        "pitch": 2.0
+      },
+      {
+        "name": "haven_backports:entity/ice_ball/hit4",
+        "pitch": 2.0
+      }
+    ],
+    "subtitle": "subtitles.entity.ice_ball.break"
+  },
+  "entity.ice_ball.throw": {
+    "sounds": [
+      "haven_backports:entity/ice_ball/bow"
+    ],
+    "subtitle": "subtitles.entity.ice_ball.throw"
+  },
+  "event.mob_effect.freezing": {
+    "sounds": [
+      "haven_backports:event/mob_effects/freezing"
+    ],
+    "subtitle": "subtitles.event.mob_effect.freezing"
+  },
+  "entity.parrot.imitate.frostbite": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/frostbite/ambient1",
+        "pitch": 1.8,
+        "volume": 0.7
+      },
+      {
+        "name": "haven_backports:mob/frostbite/ambient2",
+        "pitch": 1.8,
+        "volume": 0.7
+      },
+      {
+        "name": "haven_backports:mob/frostbite/ambient3",
+        "pitch": 1.8,
+        "volume": 0.7
+      },
+      {
+        "name": "haven_backports:mob/frostbite/ambient4",
+        "pitch": 1.8,
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.frostbite"
+  },
+  "music_disc.flurry": {
+    "sounds": [
+      {
+        "name": "haven_backports:records/flurry",
+        "stream": true
+      }
+    ]
   }
 }

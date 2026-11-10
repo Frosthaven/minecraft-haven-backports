@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
     "haven_backports:copper_lantern",
     "haven_backports:exposed_copper_lantern",
     "haven_backports:weathered_copper_lantern",

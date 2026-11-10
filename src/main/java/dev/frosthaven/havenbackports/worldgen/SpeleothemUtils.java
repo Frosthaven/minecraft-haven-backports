@@ -6,6 +6,7 @@ import java.util.function.UnaryOperator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
+import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -71,6 +72,45 @@ final class SpeleothemUtils {
 
     static boolean isEmptyOrWater(BlockState state) {
         return state.isAir() || state.is(Blocks.WATER);
+    }
+
+    static boolean isEmptyOrWaterOrLava(BlockState state) {
+        return state.isAir() || state.is(Blocks.WATER) || state.is(Blocks.LAVA);
+    }
+
+    static boolean isEmptyOrWaterOrLava(LevelAccessor level, BlockPos pos) {
+        return level.isStateAtPosition(pos, SpeleothemUtils::isEmptyOrWaterOrLava);
+    }
+
+    static boolean isBaseOrLava(BlockState state, Block baseBlock, HolderSet<Block> replaceable) {
+        return isBase(state, baseBlock, replaceable) || state.is(Blocks.LAVA);
+    }
+
+    static double getSpeleothemHeight(double xzDistanceFromCenter, double speleothemRadius, double scale, double bluntness) {
+        if (xzDistanceFromCenter < bluntness) {
+            xzDistanceFromCenter = bluntness;
+        }
+        double r = xzDistanceFromCenter / speleothemRadius * 0.384;
+        double part1 = 0.75 * Math.pow(r, 1.3333333333333333);
+        double part2 = Math.pow(r, 0.6666666666666666);
+        double part3 = 0.3333333333333333 * Math.log(r);
+        double heightRelativeToMaxRadius = Math.max(scale * (part1 - part2 - part3), 0.0);
+        return heightRelativeToMaxRadius / 0.384 * speleothemRadius;
+    }
+
+    static boolean isCircleMostlyEmbeddedInStone(LevelAccessor level, BlockPos center, int xzRadius) {
+        if (isEmptyOrWaterOrLava(level, center)) {
+            return false;
+        }
+        float angleIncrement = 6.0F / xzRadius;
+        for (float angle = 0.0F; angle < (float) (Math.PI * 2); angle += angleIncrement) {
+            int dx = (int) (Mth.cos(angle) * xzRadius);
+            int dz = (int) (Mth.sin(angle) * xzRadius);
+            if (isEmptyOrWaterOrLava(level, center.offset(dx, 0, dz))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static boolean isNeitherEmptyNorWater(BlockState state) {

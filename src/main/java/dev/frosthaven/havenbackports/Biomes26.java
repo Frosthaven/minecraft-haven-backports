@@ -13,6 +13,7 @@ public final class Biomes26 {
     public static final ResourceKey<Biome> DAPPLED_FOREST = key("dappled_forest");
     public static final ResourceKey<Biome> SULFUR_CAVES = key("sulfur_caves");
     public static final ResourceKey<Biome> PALE_GARDEN = key("pale_garden");
+    public static final ResourceKey<Biome> ICE_CAVES = key("ice_caves");
 
     private Biomes26() {}
 

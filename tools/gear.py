@@ -19,7 +19,7 @@ ARMOR = ["copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots"
 HORSE = ["copper_horse_armor", "netherite_horse_armor"]
 ITEMS = TOOLS + ARMOR + HORSE
 SOUNDS = ["item.armor.equip_copper"]
-LOOT = ["chests/nether_bridge", "chests/desert_pyramid", "chests/simple_dungeon", "chests/jungle_temple",
+LOOT = ["chests/nether_bridge", "chests/igloo_chest", "chests/desert_pyramid", "chests/simple_dungeon", "chests/jungle_temple",
         "chests/end_city_treasure", "chests/stronghold_corridor", "chests/village/village_weaponsmith",
         "chests/woodland_mansion"]   # resin clumps (Pale Garden)
 # chests/abandoned_camp_common_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.

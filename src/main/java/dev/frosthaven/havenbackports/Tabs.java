@@ -60,6 +60,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             // ... pointed dripstone, prismarine, CINNABAR, SULFUR, SULFUR_SPIKE, POTENT_SULFUR, magma block ...
             after(e, "prismarine", "cinnabar", "sulfur", "sulfur_spike", "potent_sulfur");
+            // ... packed ice, blue ice, BRITTLE_ICE, ICICLE, ICE_CRYSTAL ...
+            after(e, "blue_ice", "brittle_ice", "icicle", "ice_crystal");
             // ... cherry log, [pale oak log], POPLAR_LOG, mushroom stem; cherry leaves, ..., poplar leaves; cherry sapling,
             // ..., POPLAR_SAPLING; red mushroom, SHELF_MUSHROOM; fern, [dry short grass, bush], RED_SHRUB; pink petals,
             // [wildflowers], LEAF_LITTER (1.21.1 lacks the bracketed anchors: the run follows the nearest one it has)
@@ -118,6 +120,7 @@ final class Tabs {
             after(e, "pink_wool", wool.toArray(String[]::new));
             after(e, "pink_concrete", concrete.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            after(e, "music_disc_pigstep", "music_disc_flurry");   // 26.x: after tears, lava chicken, bounce (not in 1.21.1)
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
             // ... cherry chest boat, [pale oak boats], POPLAR_BOAT, POPLAR_CHEST_BOAT, bamboo raft ...
@@ -127,18 +130,21 @@ final class Tabs {
             // ... axolotl bucket, tadpole bucket, SULFUR_CUBE_BUCKET ...
             after(e, "tadpole_bucket", "sulfur_cube_bucket");
         } else if (tab == CreativeModeTabs.COMBAT) {
+            after(e, "snowball", "ice_ball");
             after(e, "stone_sword", "copper_sword");
             after(e, "stone_axe", "copper_axe");
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
+            after(e, "drowned_spawn_egg", "frostbite_spawn_egg");
             // ... trial spawner, CREAKING_HEART ...; ... breeze, CREAKING_SPAWN_EGG ...; ... sniffer,
             // SULFUR_CUBE_SPAWN_EGG ... (26.4 lists eggs by name)
             after(e, "trial_spawner", "creaking_heart");
             after(e, "breeze_spawn_egg", "creaking_spawn_egg");
             after(e, "sniffer_spawn_egg", "sulfur_cube_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
+            after(e, "snowball", "ice_ball");
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...; honeycomb, RESIN_CLUMP; nether brick, RESIN_BRICK
             after(e, "ancient_debris", "copper_nugget");
             after(e, "honeycomb", "resin_clump");
