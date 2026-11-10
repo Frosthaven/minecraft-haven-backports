@@ -1,5 +1,7 @@
 package dev.frosthaven.havenbackports.cube;
 
+import dev.frosthaven.havenbackports.agelock.AgeLock;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -65,8 +67,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
     int fuse = -1;
     final List<SulfurCubeArchetype.ContactDamage> contactDamages = new ArrayList<>();
     final Set<EnchantmentLocationBasedEffect> activeLocationDependentEffects = new HashSet<>();
-    /** 26.x AgeableMob age lock (1.21.1 has none; kept here so a bucketed cube keeps it). */
-    boolean ageLocked = false;
     @Nullable
     DamageSource knockbackSource;
     float knockbackDamage;
@@ -149,7 +149,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
         }
         net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.BUCKET_ENTITY_DATA, bucket, tag -> {
             tag.putInt("age", this.getAge());
-            tag.putBoolean("age_locked", this.ageLocked);
+            tag.putBoolean("age_locked", AgeLock.isAgeLocked(this));
         });
     }
 
@@ -157,7 +157,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
     public void loadFromBucketTag(CompoundTag tag) {
         Bucketable.loadDefaultDataFromBucketTag(this, tag);
         this.setAge(tag.getInt("age"));
-        this.ageLocked = tag.getBoolean("age_locked");
+        ((AgeLock.Lockable) this).haven_backports$setAgeLocked(tag.getBoolean("age_locked"));
     }
 
     @Override
@@ -419,17 +419,9 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
         return cube;
     }
 
-    /** 26.x canAgeUp: a baby whose age is not locked. */
+    /** 26.x canAgeUp: a baby whose age is not locked (the shared golden dandelion age lock, agelock/). */
     boolean canAgeUp() {
-        return this.isBaby() && !this.ageLocked;
-    }
-
-    @Override
-    public void setAge(int age) {
-        if (this.ageLocked && this.getAge() < 0 && age > this.getAge()) {
-            return;   // 26.x AgeableMob.aiStep ages only when canAgeUp
-        }
-        super.setAge(age);
+        return AgeLock.canAgeUp(this);
     }
 
     @Override
@@ -446,7 +438,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
         tag.putInt("pickup_timer", this.pickupTimer);
         tag.putBoolean("from_bucket", this.fromBucket());
         tag.putInt("fuse", this.getFuse());
-        tag.putBoolean("AgeLocked", this.ageLocked);
     }
 
     @Override
@@ -455,7 +446,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, net.minec
         this.setFromBucket(tag.getBoolean("from_bucket"));
         this.setFuse(tag.contains("fuse") ? tag.getInt("fuse") : -1);
         this.entityData.set(MAX_FUSE, this.getFuse());
-        this.ageLocked = tag.getBoolean("AgeLocked");
         super.readAdditionalSaveData(tag);
     }
 

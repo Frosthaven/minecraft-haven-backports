@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "block": "haven_backports:wildflowers",
+                  "properties": {
+                    "flower_amount": "1"
+                  },
+                  "condition": "minecraft:block_state_property"
+                }
+              ],
+              "count": 1,
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "haven_backports:wildflowers",
+                  "properties": {
+                    "flower_amount": "2"
+                  },
+                  "condition": "minecraft:block_state_property"
+                }
+              ],
+              "count": 2,
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "haven_backports:wildflowers",
+                  "properties": {
+                    "flower_amount": "3"
+                  },
+                  "condition": "minecraft:block_state_property"
+                }
+              ],
+              "count": 3,
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "block": "haven_backports:wildflowers",
+                  "properties": {
+                    "flower_amount": "4"
+                  },
+                  "condition": "minecraft:block_state_property"
+                }
+              ],
+              "count": 4,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "haven_backports:wildflowers"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "minecraft:blocks/wildflowers"
+}

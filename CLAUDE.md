@@ -29,7 +29,9 @@ strip data maps from 26.x's data); `tools/biomes.py` biomes (environment attribu
 on any type 1.21.1's data does not use and we have not ported) and `tools/noise_math.py` (a 26.x noise is taken only
 when its octave factors equal 1.21.1's); `tools/trades.py` wandering trader offers; `tools/nbt.py` structure templates
 (26.x palette format -> 1.21.1); `tools/cube.py` the Sulfur Cube (archetype registry data, its tags, damage type); `tools/creaking.py` the creaking; `tools/frostbite.py` the frostbite, ice ball, freezing and the Flurry disc;
-`tools/biome_mods.py` NeoForge biome modifiers for what 26.x's vanilla biomes have of ours (spawns now).
+`tools/biome_mods.py` NeoForge biome modifiers for what 26.x's vanilla biomes have of ours: spawns (add_spawns) and features
+(`PlaceFeaturesModifier`: before the first 26.x successor still in the step, or in the place of the 1.21.1 feature 26.x
+replaced; a vanilla feature 26.x made place ours becomes our copy); the feature order test runs on the result.
 Tags: where 26.x moved vanilla blocks out of a 1.21.1 tag into a new family tag (`FAMILY_TAGS`: dirt lost
 moss_block to #moss_blocks), ours in the family join the 1.21.1 tag. Code tags (`CODE_TAGS`, read by our Java or
 worldgen) and every snapshot-only tag they reach are written whole, vanilla members too. Java registers the blocks the
@@ -51,7 +53,7 @@ some vanilla features; `biomes.py` puts the vanilla features of each step in 1.2
 test over every biome before it writes. Ported worldgen types live in `worldgen/` (registered in `Worldgen`), named as Mojang names them. Sapling growth uses
 `TreeGrower26` (26.x's weighted tree lists; 1.21.1's TreeGrower cannot express them). The Sulfur Cube (`cube/`) carries
 26.x's movement physics in its own base class (`Physics26Mob`): new physics never go into a global mixin. 26.x rule tests take the block position (`height_match`); ores that use them run `OreFeature26` (26.x's ore
-feature), the others stay 1.21.1's. The frostbite (`frostbite/`) and the creaking and its heart (`creaking/`) port 26.x's Creaking, its brain and
+feature), the others stay 1.21.1's. The golden dandelion age lock (`agelock/`, AgeLock* mixins; the Sulfur Cube uses it too), the frostbite (`frostbite/`) and the creaking and its heart (`creaking/`) port 26.x's Creaking, its brain and
 the heart's block entity without mixins.
 
 ## Merges

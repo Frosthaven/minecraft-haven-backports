@@ -75,9 +75,12 @@ CONTENT = {
                     "chiseled_resin_bricks"],
     "creaking": creaking.BLOCKS,
     "ice_caves": ["brittle_ice", "icicle", "ice_crystal"],
+    # newer flora of existing biomes (Flora.java)
+    "flora": ["bush", "firefly_bush", "wildflowers", "short_dry_grass", "tall_dry_grass", "cactus_flower", "golden_dandelion",
+              "potted_golden_dandelion"],
 }
 ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS, *creaking.ITEMS, *frostbite.ITEMS]
-NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar") | woods.no_item("pale_oak") | {"potted_open_eyeblossom", "potted_closed_eyeblossom"}   # copper torch item; wall signs, potted plants as vanilla
+NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar") | woods.no_item("pale_oak") | {"potted_open_eyeblossom", "potted_closed_eyeblossom", "potted_golden_dandelion"}   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
 EXTRA_EXCLUDE = {
@@ -90,7 +93,7 @@ COVERED_BY_PACK = {
 }
 PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves",
              "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume",   # (geyser, gas cloud: no sprites)
-             "pale_oak_leaves", "trail", *creaking.PARTICLES, *frostbite.PARTICLES]
+             "pale_oak_leaves", "trail", "firefly", *creaking.PARTICLES, *frostbite.PARTICLES]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
@@ -99,7 +102,8 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # 26.x sound sets (data/minecraft/block_sound_set): their events are read from the jar.
 DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom", "potent_sulfur", "sulfur_spike",
-                   "resin", "resin_bricks", "brittle_ice", "icicle", "ice_crystal"]
+                   "resin", "resin_bricks", "brittle_ice", "icicle", "ice_crystal",
+                   "cactus_flower"]
 EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce",   # AmbientLeavesBlockSoundPlayer, bounceOn
                 "block.sulfur_spike.land", "block.potent_sulfur.geyser_eruption", "block.potent_sulfur.geyser_eruption_active",
                 "block.potent_sulfur.geyser_continuous_eruption", "block.potent_sulfur.geyser_continuous_eruption_active",
@@ -107,6 +111,7 @@ EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce",   
                 "block.pale_hanging_moss.idle", "block.eyeblossom.open_long", "block.eyeblossom.open",   # HangingMoss-,
                 "block.eyeblossom.close_long", "block.eyeblossom.close", "block.eyeblossom.idle",    # EyeblossomBlock
                 "block.ice_crystal.ambient", "block.icicle.land", "block.brittle_ice.crack",   # IceCaves
+                "block.firefly_bush.idle", "block.dry_grass.ambient",   # FireflyBushBlock, AmbientDesertBlockSoundsPlayer
                 *cube.SOUNDS, *creaking.SOUNDS, *frostbite.SOUNDS]
 # Snapshot tags that took over their vanilla members' place in 1.21.1's tags (26.x dirt no longer lists moss_block,
 # #moss_blocks holds it and pale_moss_block): ours in them join each 1.21.1 tag 26.x took those members out of.
@@ -120,6 +125,8 @@ CODE_TAGS = ["wooden_shelves", "overrides_mushroom_light_requirement", "incorrec
              # tags the ported Ice Caves features match (26.x data; 1.21.1 has none of them): written in full
              "large_icicle_replaceable", "ice_crevasse_replaceables", "ice_cave_ore_replaceables",
              "height_specific_ore_replaceables", "blocks_fluid_flow", "blocks_motion", "blocks_motion_no_leaves",
+             "supports_dry_vegetation", "triggers_ambient_desert_dry_vegetation_block_sounds",   # Flora
+             "support_override_cactus_flower",
              *cube.CODE_TAGS, *creaking.CODE_TAGS, *frostbite.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
@@ -151,7 +158,12 @@ RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minec
                 "sulfur_spike": "minecraft:cutout",   # as pointed dripstone
                 "eyeblossom": "minecraft:cutout", "pale_hanging_moss": "minecraft:cutout", "resin_clump": "minecraft:cutout",
                 # icicle as pointed dripstone, ice crystal as amethyst cluster, brittle ice as ice
-                "icicle": "minecraft:cutout", "ice_crystal": "minecraft:cutout", "brittle_ice": "minecraft:translucent"}
+                "icicle": "minecraft:cutout", "ice_crystal": "minecraft:cutout", "brittle_ice": "minecraft:translucent",
+                # flora: cutout as 1.21.1's plants (short grass, pink petals, sweet berry bush, dandelion and its pot)
+                "bush": "minecraft:cutout", "wildflowers": "minecraft:cutout", "dry_grass": "minecraft:cutout",
+                "cactus_flower": "minecraft:cutout", "golden_dandelion": "minecraft:cutout"}
+# 26.x item definitions with tints: 1.21.1 tints items in code (ItemColors), so each one needs its Java registration
+TINTED_ITEMS = {"bush": "ClientSetup.itemColors (26.x minecraft:grass tint, temperature 0.5, downfall 1.0)"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
@@ -188,7 +200,17 @@ class Port(data.DataPort):
             return f"{NS}:{path}"
         if name not in self.new_names:
             sys.exit(f"model {ref} is in neither jar")
-        data = models.convert(self.read(name), name)
+        raw = self.read(name)
+        if name in self.old_names and models.plain({**raw, "elements": [{k: v for k, v in e.items() if k != "shade_direction_override"}
+                                                                      for e in raw.get("elements", [])]} if "elements" in raw else raw) \
+                == models.plain(json.loads(self.old.read(name))):
+            # 26.x only added element shade directions 1.21.1 lacks (flowerbed stems shade as north): an engine-wide
+            # look change for every block using the model (pink petals too), kept at 1.21.1
+            if any("shade_direction_override" in e for e in raw.get("elements", [])) and path not in self.ours_models:
+                self.ours_models.discard(path)
+                print(f"model {path}: 26.x adds shade_direction_override only; 1.21.1's kept")
+            return f"minecraft:{path}"
+        data = models.convert(raw, name)
         if name in self.old_names and models.plain(data) == models.plain(json.loads(self.old.read(name))):
             return f"minecraft:{path}"   # the same model; its on_shelf (if any) comes from the vanilla patches
         self.ours_models.add(path)
@@ -364,6 +386,8 @@ class Port(data.DataPort):
             if item_def.get("type") == "minecraft:special" and item_def["model"]["type"] == "minecraft:chest":
                 gear.chest_item(self, RES, i, item_def)
                 continue
+            if item_def.get("tints") and i not in TINTED_ITEMS:
+                sys.exit(f"item {i}: tinted item model needs an ItemColors registration (TINTED_ITEMS)")
             if item_def.get("type") != "minecraft:model":
                 sys.exit(f"item {i}: item model type {item_def.get('type')} needs porting by hand")
             ref = self.model(item_def["model"])
@@ -386,11 +410,12 @@ class Port(data.DataPort):
         frostbite.run(self, RES, lang_new, lang)   # after creaking: merges the parrot data map
         import trades   # 26.x wandering trader offers of ours
         trades.run(self, RES)
+        __import__("agelock").run(self, RES, lang_new, lang)   # golden dandelion age lock: before the sound and tag passes
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
         # 26.x fuel: every overworld-wood shelf (the nether ones are not fuel), modded ones as Mojang's
         woods.data_maps(self, RES, [i for i in [*CONTENT["poplar"], *CONTENT["dappled"], *ITEMS_ONLY, *CONTENT["shelf"],
-                                                *CONTENT["pale_oak"], *CONTENT["pale_garden"],
+                                                *CONTENT["pale_oak"], *CONTENT["pale_garden"], *CONTENT["flora"],
                                                 *(sid for sid, _, _, nether in self.modded_shelves if not nether)]
                                     if i not in NO_ITEM and i not in ("crimson_shelf", "warped_shelf")])
         gear.run(self, RES, lang_new, lang)

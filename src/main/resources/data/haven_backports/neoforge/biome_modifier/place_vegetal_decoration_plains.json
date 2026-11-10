@@ -1,0 +1,17 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:plains"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_bush",
+      "after": "minecraft:patch_tall_grass_2"
+    },
+    {
+      "feature": "haven_backports:patch_firefly_bush_near_water",
+      "after": "minecraft:patch_pumpkin"
+    }
+  ]
+}

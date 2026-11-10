@@ -204,18 +204,25 @@ class Worldgen:
 
     def configured(self, fid: str) -> str:
         """Id of the configured feature to reference: 1.21.1's own, or ours (written)."""
-        key = f"configured_feature/{fid}"
+        key = f"configured_feature/{fid}" + ("#ours" if self.copying(fid, "feature") else "")
         if key in self.done:
             return self.done[key]
         name = fid.split(":")[-1]
         old = f"data/minecraft/worldgen/configured_feature/{name}.json"
-        if old in self.old_names:
+        if old in self.old_names and not self.copying(fid, "feature"):
             self.compare(key, lambda: self.configured_body(fid), json.loads(self.old.read(old)))
             self.done[key] = f"minecraft:{name}"
         else:
             self.write(f"configured_feature/{name}", self.configured_body(fid))
             self.done[key] = f"{NS}:{name}"
         return self.done[key]
+
+    def copying(self, fid, kind):
+        """Inside an our-copy run (placed_ref ours=True): this vanilla feature places ours in 26.x, so ours too."""
+        import biome_mods
+        old = "configured_feature" if kind == "feature" else kind   # 26.x's feature/ is 1.21.1's configured_feature/
+        return getattr(self, "ours_copy", False) and f"data/minecraft/worldgen/{old}/{fid.split(':')[-1]}.json" in self.old_names \
+            and biome_mods.has_ours(self.port, fid)
 
     def configured_any(self, v):
         """A feature reference (id) or inline 26.x feature, as 1.21.1 takes it in a placed feature."""
@@ -278,13 +285,21 @@ class Worldgen:
             return {"feature": self.configured(raw["feature"]), "placement": mods}, None
         return {"placement": mods}, patch
 
-    def placed_ref(self, pid: str) -> str:
-        key = f"placed_feature/{pid}"
+    def placed_ref(self, pid: str, ours=False) -> str:
+        """ours: our copy even where 1.21.1 has the id (26.x made it place blocks of ours); the vanilla features it
+        references that 26.x also made place ours become our copies too."""
+        if ours:
+            outer, self.ours_copy = getattr(self, "ours_copy", False), True
+            try:
+                return self.placed_ref(pid)
+            finally:
+                self.ours_copy = outer
+        key = f"placed_feature/{pid}" + ("#ours" if self.copying(pid, "placed_feature") else "")
         if key in self.done:
             return self.done[key]
         name = pid.split(":")[-1]
         old = f"data/minecraft/worldgen/placed_feature/{name}.json"
-        if old in self.old_names:
+        if old in self.old_names and not self.copying(pid, "placed_feature"):
             self.compare(key, lambda: self.placed_body(pid)[0].get("placement"), json.loads(self.old.read(old))["placement"])
             self.done[key] = f"minecraft:{name}"
             return self.done[key]

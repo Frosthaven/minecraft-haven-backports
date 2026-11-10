@@ -154,6 +154,7 @@ public final class Content {
         Stones.register();
         Sulfur.register();
         IceCaves.register();
+        Flora.register();
 
         // Shelves: of().mapColor(<wood>).instrument(BASS).sound(SHELF).ignitedByLava().strength(2, 3); the nether woods
         // without ignitedByLava. FireBlock: 30/20 for the overworld woods. Map colors as Mojang takes them.

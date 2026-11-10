@@ -4,7 +4,10 @@
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "EntityMixin", "MobMixin", "OverworldBiomeBuilderMixin", "CubeDispenserBlockMixin", "FrostbiteZombieMixin",
-    "FreezingLivingEntityMixin", "FrostbiteVillagerHostilesSensorMixin"],
+    "FreezingLivingEntityMixin", "FrostbiteVillagerHostilesSensorMixin", "FloraCactusMixin",
+    "AgeLockAgeableMobMixin", "AgeLockMobMixin", "AgeLockFeedingMixin", "AgeLockEatingMixin", "AgeLockLlamaMixin", "AgeLockSheepMixin",
+    "AgeLockHorseInteractMixin", "AgeLockCamelMixin", "AgeLockPandaMixin", "AgeLockTadpoleMixin", "AgeLockAxolotlMixin",
+    "AgeLockBeehiveMixin", "AgeLockTraderLlamaMixin"],
   "client": ["ItemRendererMixin", "SheetsMixin", "FrostbiteZombieRendererMixin"],
   "injectors": {"defaultRequire": 1}
 }

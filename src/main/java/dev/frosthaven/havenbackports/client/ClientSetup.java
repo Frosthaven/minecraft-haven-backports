@@ -44,6 +44,7 @@ public final class ClientSetup {
         e.registerSpriteSet(Sulfur.GEYSER_BASE.get(), GeyserParticles.Base.Provider::new);
         e.registerSpriteSet(Sulfur.GEYSER_POOF.get(), GeyserParticles.Base.Provider::new);
         e.registerSpriteSet(Sulfur.GEYSER_PLUME.get(), GeyserParticles.Plume.Provider::new);
+        e.registerSpriteSet(dev.frosthaven.havenbackports.Flora.FIREFLY.get(), FireflyParticle.Provider::new);
     }
 
     @SubscribeEvent
@@ -62,6 +63,14 @@ public final class ClientSetup {
     @SubscribeEvent
     static void setup(FMLClientSetupEvent e) {
         e.enqueueWork(() -> Woods.all().forEach(w -> Sheets.addWoodType(w.type())));
+        // 26.x ClientLevel.playPlayerSound (the dry grasses' ambient sound): a sound bound to the local player
+        dev.frosthaven.havenbackports.block.DryVegetationBlock.PLAYER_SOUND = (sound, source) -> {
+            var mc = net.minecraft.client.Minecraft.getInstance();
+            if (mc.player != null && mc.level != null) {
+                mc.getSoundManager().play(new net.minecraft.client.resources.sounds.EntityBoundSoundInstance(sound, source, 1.0F, 1.0F,
+                        mc.player, mc.level.random.nextLong()));
+            }
+        };
     }
 
     @SubscribeEvent
@@ -73,6 +82,19 @@ public final class ClientSetup {
     static void blockColors(RegisterColorHandlersEvent.Block e) {
         e.register((state, level, pos, tint) -> level != null && pos != null ? level.getBlockTint(pos, DryFoliage.RESOLVER) : DryFoliage.DEFAULT,
                 Dappled.LEAF_LITTER.get());
+        // 26.x BlockColors: the bush takes the grass tint (as short grass); wildflowers' stems (tint 1) as pink petals'
+        e.register((state, level, pos, tint) -> level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(level, pos)
+                : net.minecraft.world.level.GrassColor.getDefaultColor(), dev.frosthaven.havenbackports.Flora.BUSH.get());
+        e.register((state, level, pos, tint) -> tint == 0 ? -1 : level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(level, pos)
+                : net.minecraft.world.level.GrassColor.getDefaultColor(), dev.frosthaven.havenbackports.Flora.WILDFLOWERS.get());
+    }
+
+    /** 26.x items/bush.json: a minecraft:grass tint at temperature 0.5, downfall 1.0 (1.21.1 tints items in code). */
+    @SubscribeEvent
+    static void itemColors(RegisterColorHandlersEvent.Item e) {
+        e.register((stack, tint) -> net.minecraft.util.FastColor.ARGB32.opaque(net.minecraft.world.level.GrassColor.get(0.5, 1.0)), dev.frosthaven.havenbackports.Flora.BUSH.get());
     }
 
     @SubscribeEvent

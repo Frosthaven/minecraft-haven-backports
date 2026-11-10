@@ -63,8 +63,8 @@ final class Tabs {
             // ... packed ice, blue ice, BRITTLE_ICE, ICICLE, ICE_CRYSTAL ...
             after(e, "blue_ice", "brittle_ice", "icicle", "ice_crystal");
             // ... cherry log, [pale oak log], POPLAR_LOG, mushroom stem; cherry leaves, ..., poplar leaves; cherry sapling,
-            // ..., POPLAR_SAPLING; red mushroom, SHELF_MUSHROOM; fern, [dry short grass, bush], RED_SHRUB; pink petals,
-            // [wildflowers], LEAF_LITTER (1.21.1 lacks the bracketed anchors: the run follows the nearest one it has)
+            // ..., POPLAR_SAPLING; red mushroom, SHELF_MUSHROOM; fern, SHORT_DRY_GRASS, BUSH, RED_SHRUB; pink petals,
+            // WILDFLOWERS, LEAF_LITTER; spore blossom, FIREFLY_BUSH; large fern, TALL_DRY_GRASS
             after(e, "cherry_log", "poplar_log");
             after(e, "cherry_leaves", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves");
             after(e, "cherry_sapling", "poplar_sapling");
@@ -72,13 +72,17 @@ final class Tabs {
             after(e, "cherry_leaves", "pale_oak_leaves");
             after(e, "cherry_sapling", "pale_oak_sapling");
             // ... moss carpet, PALE_MOSS_BLOCK, PALE_MOSS_CARPET, PALE_HANGING_MOSS, stone ...; torchflower,
-            // [cactus flower], CLOSED_EYEBLOSSOM, OPEN_EYEBLOSSOM, wither rose; honey block, RESIN_BLOCK, froglights
+            // CACTUS_FLOWER, CLOSED_EYEBLOSSOM, OPEN_EYEBLOSSOM, wither rose; honey block, RESIN_BLOCK, froglights
             after(e, "moss_carpet", "pale_moss_block", "pale_moss_carpet", "pale_hanging_moss");
-            after(e, "torchflower", "closed_eyeblossom", "open_eyeblossom");
+            after(e, "torchflower", "cactus_flower", "closed_eyeblossom", "open_eyeblossom");
             after(e, "honey_block", "resin_block");
             after(e, "red_mushroom", "shelf_mushroom");
-            after(e, "fern", "red_shrub");
-            after(e, "pink_petals", "leaf_litter");
+            after(e, "fern", "short_dry_grass", "bush", "red_shrub");
+            after(e, "pink_petals", "wildflowers", "leaf_litter");
+            after(e, "spore_blossom", "firefly_bush");
+            after(e, "large_fern", "tall_dry_grass");
+        } else if (tab == CreativeModeTabs.FOOD_AND_DRINKS) {
+            after(e, "beetroot", "golden_dandelion");   // 26.x: ... poisonous potato, beetroot, GOLDEN_DANDELION, dried kelp ...
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // torch, soul torch, COPPER_TORCH, redstone torch, lantern, soul lantern, COPPER_LANTERN, chain, COPPER_CHAIN
             after(e, "soul_torch", "copper_torch");

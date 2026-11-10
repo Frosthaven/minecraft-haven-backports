@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "yellow_dye",
+  "ingredients": [
+    {
+      "item": "haven_backports:wildflowers"
+    }
+  ],
+  "result": {
+    "id": "minecraft:yellow_dye"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:bamboo_jungle",
+    "minecraft:beach",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:deep_ocean",
+    "minecraft:flower_forest",
+    "minecraft:frozen_ocean",
+    "minecraft:ice_spikes",
+    "minecraft:jungle",
+    "minecraft:lukewarm_ocean",
+    "minecraft:mushroom_fields",
+    "minecraft:ocean",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:snowy_beach",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_taiga",
+    "minecraft:sparse_jungle",
+    "minecraft:stony_shore",
+    "minecraft:sunflower_plains",
+    "minecraft:taiga",
+    "minecraft:warm_ocean",
+    "minecraft:windswept_savanna"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_firefly_bush_near_water",
+      "after": "minecraft:patch_pumpkin"
+    }
+  ]
+}

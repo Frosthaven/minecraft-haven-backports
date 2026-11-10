@@ -1,0 +1,17 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:windswept_forest"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_bush",
+      "after": "minecraft:trees_windswept_forest"
+    },
+    {
+      "feature": "haven_backports:patch_firefly_bush_near_water",
+      "after": "minecraft:patch_pumpkin"
+    }
+  ]
+}

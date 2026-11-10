@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:moss_blocks"
+    "#minecraft:moss_blocks",
+    "haven_backports:cactus_flower"
   ]
 }

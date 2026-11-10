@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "haven_backports:short_dry_grass"
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "haven_backports:tall_dry_grass"
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

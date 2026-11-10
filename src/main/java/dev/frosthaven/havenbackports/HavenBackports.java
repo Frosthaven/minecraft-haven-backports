@@ -26,6 +26,7 @@ public final class HavenBackports {
         dev.frosthaven.havenbackports.cube.Cube.register(modBus);
         dev.frosthaven.havenbackports.creaking.CreakingContent.register(modBus);
         dev.frosthaven.havenbackports.frostbite.FrostbiteContent.register(modBus);
+        dev.frosthaven.havenbackports.agelock.AgeLock.register();
         Content.ITEM.put("sulfur_cube_bucket", dev.frosthaven.havenbackports.cube.Cube.SULFUR_CUBE_BUCKET);
         Content.ITEM.put("sulfur_cube_spawn_egg", dev.frosthaven.havenbackports.cube.Cube.SULFUR_CUBE_SPAWN_EGG);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.neoforge.event.village.WandererTradesEvent.class, Trades::wanderer);

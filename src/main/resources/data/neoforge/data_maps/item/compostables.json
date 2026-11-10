@@ -41,6 +41,24 @@
     },
     "haven_backports:closed_eyeblossom": {
       "chance": 0.65
+    },
+    "haven_backports:bush": {
+      "chance": 0.3
+    },
+    "haven_backports:firefly_bush": {
+      "chance": 0.3
+    },
+    "haven_backports:wildflowers": {
+      "chance": 0.3
+    },
+    "haven_backports:short_dry_grass": {
+      "chance": 0.3
+    },
+    "haven_backports:tall_dry_grass": {
+      "chance": 0.3
+    },
+    "haven_backports:cactus_flower": {
+      "chance": 0.3
     }
   }
 }

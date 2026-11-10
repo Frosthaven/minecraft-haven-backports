@@ -1,0 +1,21 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:birch_forest"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:wildflowers_birch_forest",
+      "after": "minecraft:forest_flowers"
+    },
+    {
+      "feature": "haven_backports:patch_bush",
+      "after": "minecraft:trees_birch"
+    },
+    {
+      "feature": "haven_backports:patch_firefly_bush_near_water",
+      "after": "minecraft:patch_pumpkin"
+    }
+  ]
+}

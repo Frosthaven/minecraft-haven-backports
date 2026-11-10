@@ -10,6 +10,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import com.mojang.serialization.MapCodec;
 
 /**
  * Worldgen types 26.x has and 1.21.1 lacks, each Mojang's class ported (tools/worldgen.py maps the 26.x type ids to
@@ -75,6 +78,11 @@ public final class Worldgen {
         CONDITIONS.register("noise_threshold_3d", () -> NoiseThreshold3d.CODEC.codec());
     }
 
+    private static final DeferredRegister<MapCodec<? extends BiomeModifier>> BIOME_MODIFIERS =
+            DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, HavenBackports.ID);
+    public static final DeferredHolder<MapCodec<? extends BiomeModifier>, MapCodec<PlaceFeaturesModifier>> PLACE_FEATURES =
+            BIOME_MODIFIERS.register("place_features", () -> PlaceFeaturesModifier.CODEC);
+
     private Worldgen() {}
 
     public static void register(IEventBus modBus) {
@@ -86,5 +94,6 @@ public final class Worldgen {
         PLACEMENTS.register(modBus);
         INT_PROVIDERS.register(modBus);
         CONDITIONS.register(modBus);
+        BIOME_MODIFIERS.register(modBus);
     }
 }

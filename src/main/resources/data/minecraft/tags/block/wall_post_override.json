@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven_backports:copper_torch"
+    "haven_backports:copper_torch",
+    "haven_backports:cactus_flower"
   ]
 }

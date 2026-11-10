@@ -26,6 +26,7 @@ one block per concept and it looks the way Mojang made it.
 | Sulfur Caves | The cave biome (Mojang's place in the climate table); Potent Sulfur (geysers, noxious gas); Sulfur Spike; the Sulfur Cube, its bucket and spawn egg; the Sulfur and Cinnabar stone sets come from it |
 | Pale Garden | The biome (Mojang's place in the climate table); Pale Oak Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; Pale Oak Leaves; Pale Oak Sapling (and potted); Pale Moss Block, Carpet, Hanging Moss; Open and Closed Eyeblossom (and potted); Resin Clump, Block of Resin, Resin Bricks with Stairs, Slab, Wall, Chiseled Resin Bricks, Resin Brick; Creaking Heart; the Creaking and its spawn egg |
 | Ice Caves | The cave biome (Mojang's place in the climate table); Icicle, Brittle Ice, Ice Crystal; the Frostbite, its spawn egg, the Ice Ball; the Freezing effect and potions (and arrows); Music Disc Flurry |
+| Newer flora | Bush, Firefly Bush, Wildflowers, Short and Tall Dry Grass, Cactus Flower, Golden Dandelion (and potted) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -188,6 +189,28 @@ oceans, zombie horses) are not newer content of this mod.
 Not in 1.21.1, so not here: a shulker on brittle ice does not crack it; iron golems can still be built on brittle ice
 (1.21.1 hard-codes that check); newer Minecraft's ambient sound for all ice and its face culling between ice blocks
 (brittle ice hides its faces toward ice; vanilla ice still draws its face toward brittle ice).
+
+### Newer flora in vanilla biomes
+
+Newer Minecraft's flora goes into the vanilla biomes it adds them to, at the place in each biome's list where newer
+Minecraft has it (a small biome modifier of ours; NeoForge's own only appends, and the order decides which feature sees
+the other's blocks): bushes in plains, forests, birch forests, rivers and windswept hills; firefly bushes near water
+in most overworld biomes and in swamps (and the Pale Garden); wildflowers in birch forests and meadows (meadow's grass
+patch becomes newer Minecraft's); dry grass in deserts and badlands; cactus flowers on generated cacti; leaf litter
+under the trees of forests, dark forests and wooded badlands (newer Minecraft's trees with leaf litter, and its fallen
+logs in forests). Other mods' biome changes stay. Chunks already generated keep their old flora.
+
+Bushes and firefly bushes spread with bone meal; fireflies glow around firefly bushes in the dark and buzz at night under
+the sky. Wildflowers stack to four per block and take the grass colour. Short dry grass grows tall with bone meal, tall
+dry grass spreads; on sand or terracotta they make the desert's windy sound. Cacti grow a flower on top (more often when
+three tall). The golden dandelion is crafted (a dandelion and gold nuggets, newer Minecraft's recipe); used on a baby
+animal it stops it growing up (used again, it grows on from newborn); it keeps that through buckets and reloads.
+Villagers and skeleton or zombie horses cannot be locked. The wandering trader sells wildflowers, firefly bushes,
+golden dandelions and tall dry grass. Dyes and suspicious stew as newer Minecraft.
+
+Not in 1.21.1, so not here: newer Minecraft's vegetation tag (these plants stand on 1.21.1's dirt, as other plants
+do); the flower bed and flower pot shading change (engine-wide, kept at 1.21.1); bees still follow a player who holds a
+golden dandelion (1.21.1's bee food is every flower); the dead bush and sand ambient sounds (engine-wide).
 
 ## Download
 

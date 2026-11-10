@@ -2,7 +2,11 @@
   "replace": false,
   "values": [
     "haven_backports:pale_moss_carpet",
+    "haven_backports:bush",
+    "haven_backports:firefly_bush",
     "haven_backports:leaf_litter",
+    "haven_backports:short_dry_grass",
+    "haven_backports:tall_dry_grass",
     "haven_backports:shelf_mushroom"
   ]
 }

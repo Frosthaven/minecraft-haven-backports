@@ -150,6 +150,12 @@
     "haven_backports:resin_brick_slab": {
       "burn_time": 150
     },
+    "haven_backports:short_dry_grass": {
+      "burn_time": 100
+    },
+    "haven_backports:tall_dry_grass": {
+      "burn_time": 100
+    },
     "haven_backports:glacian_shelf": {
       "burn_time": 300
     },

@@ -105,6 +105,66 @@
     "reputation_discount": 0.05
   },
   {
+    "trade": "minecraft:wandering_trader/emerald_wildflowers",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:wildflowers",
+      "count": 1
+    },
+    "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_dry_tall_grass",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:tall_dry_grass",
+      "count": 1
+    },
+    "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_firefly_bush",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 3
+    },
+    "gives": {
+      "id": "haven_backports:firefly_bush",
+      "count": 1
+    },
+    "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_golden_dandelion",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 2
+    },
+    "gives": {
+      "id": "haven_backports:golden_dandelion",
+      "count": 1
+    },
+    "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
     "trade": "minecraft:wandering_trader/emerald_shelf_mushroom",
     "pool": "generic",
     "wants": {

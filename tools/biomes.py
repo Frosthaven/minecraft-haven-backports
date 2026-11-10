@@ -43,7 +43,6 @@ BIOMES = {
         "c": ["is_dense_vegetation/overworld", "is_spooky", "is_temperate/overworld", "is_tree/deciduous"],   # as dark_forest
         "configured": ["pale_oak_bonemeal", "pale_moss_patch_bonemeal", "pale_moss_patch"],   # TreeGrower.PALE_OAK, the
         # pale moss block's bonemeal, PaleMossDecorator's ground patch
-        "skip": ["minecraft:patch_firefly_bush_near_water"],   # until the firefly bush is in (newer flora, a later part)
     },
     "ice_caves": {
         "c": ["is_cave", "is_cold/overworld", "is_icy"],   # as dripstone_caves (cave) and ice_spikes (cold, icy)
@@ -75,7 +74,9 @@ class Biomes:
                 self.wg.configured(f"minecraft:{f}")
             for n in BIOMES[b].get("noises", []):
                 self.wg.noise(n, "minecraft")   # Mojang's key: the noise is seeded from it
-        self.check_order()
+        modified = biome_mods.features(self.port, self.res, self.wg, patched={f"minecraft:{a[0].split('/')[-1]}"
+                                       for spec in BIOMES.values() for a in spec.get("additions", [])})
+        self.check_order(modified)
         self.surface_rules()
         biome_mods.spawns(self.port, self.res)
         self.additions()
@@ -167,10 +168,10 @@ class Biomes:
         it = iter(done)
         return [next(it) if f.startswith("minecraft:") else f for f in feats]
 
-    def check_order(self):
-        """1.21.1's FeatureSorter test on 1.21.1's biomes plus ours: consecutive features (step, id) must form no
-        cycle, or chunk generation stops at the first chunk."""
-        lists = [json.loads(self.port.old.read(n))["features"] for n in self.port.old_names
+    def check_order(self, modified):
+        """1.21.1's FeatureSorter test on 1.21.1's biomes (as our biome modifiers leave them) plus ours: consecutive
+        features (step, id) must form no cycle, or chunk generation stops at the first chunk."""
+        lists = [modified.get(n.split("/")[-1][:-5]) or json.loads(self.port.old.read(n))["features"] for n in self.port.old_names
                  if n.startswith("data/minecraft/worldgen/biome/") and n.endswith(".json")]
         lists += [json.loads((self.res / "data" / NS / "worldgen" / "biome" / f"{b}.json").read_text())["features"] for b in BIOMES]
         edges = {}

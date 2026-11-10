@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "haven_backports:block/bush"
+  },
+  "render_type": "minecraft:cutout"
+}

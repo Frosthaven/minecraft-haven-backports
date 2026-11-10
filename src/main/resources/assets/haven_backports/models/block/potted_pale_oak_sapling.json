@@ -1,5 +1,5 @@
 {
-  "parent": "haven_backports:block/flower_pot_cross",
+  "parent": "minecraft:block/flower_pot_cross",
   "textures": {
     "plant": "haven_backports:block/pale_oak_sapling"
   },
