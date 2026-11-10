@@ -6,9 +6,6 @@ import dev.frosthaven.havenbackports.HavenBackports;
 import dev.frosthaven.havenbackports.PaleGarden;
 import dev.frosthaven.havenbackports.Sulfur;
 import dev.frosthaven.havenbackports.Woods;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -82,13 +79,7 @@ public final class ClientSetup {
         dev.frosthaven.havenbackports.client.nautilus.NautilusClient.init();
     }
 
-    @SubscribeEvent
-    static void boatLayers(EntityRenderersEvent.RegisterLayerDefinitions e) {
-        for (Woods.Wood w : Woods.all()) {
-            e.registerLayerDefinition(ModelLayers.createBoatModelName(w.boatType().get()), BoatModel::createBodyModel);
-            e.registerLayerDefinition(ModelLayers.createChestBoatModelName(w.boatType().get()), ChestBoatModel::createBodyModel);
-        }
-    }
+    // Boat and chest boat layers: 1.21.1's LayerDefinitions registers one per Boat.Type value, our extended types too.
 
     @SubscribeEvent
     static void woodSetup(FMLClientSetupEvent e) {
