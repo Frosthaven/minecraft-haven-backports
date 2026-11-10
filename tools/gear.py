@@ -25,7 +25,7 @@ LOOT = ["chests/nether_bridge", "chests/desert_pyramid", "chests/simple_dungeon"
         "chests/bastion_treasure", "chests/buried_treasure", "chests/underwater_ruin_big", "chests/underwater_ruin_small"]
 # chests/abandoned_camp_common_chest, abandoned_camp_secret_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
 # 1.21.1 items behind an experimental feature flag (off in the pack): a table naming one counts as incomplete.
-FEATURE_FLAGGED = {"minecraft:bundle"}
+FEATURE_FLAGGED = set()   # bundles are available since tools/extras.py (no 1.21.1 feature flag on the item)
 TEXTURES = {  # 26.x equipment texture -> ours
     "entity/equipment/humanoid/copper": "models/armor/copper_layer_1",
     "entity/equipment/humanoid_leggings/copper": "models/armor/copper_layer_2",
