@@ -47,7 +47,8 @@ def copper_maps(port):
     """Mojang's WeatheringCopperCollection: unaffected -> exposed -> weathered -> oxidized, each with a waxed twin.
     NeoForge reads these data maps for random oxidation, honeycomb waxing and axe scraping."""
     oxidizables, waxables = {}, {}
-    for s in COPPER_SETS:
+    import mobs
+    for s in COPPER_SETS + mobs.COPPER_SETS:
         for a, b in zip(STAGES, STAGES[1:]):
             oxidizables[f"{NS}:{a}{s}"] = {"next_oxidation_stage": f"{NS}:{b}{s}"}
         for st in STAGES:

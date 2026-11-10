@@ -23,6 +23,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
+| Copper golem | Copper Golem in every oxidation stage, Copper Golem Statue in every stage (waxed or not), Copper Golem Spawn Egg |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -92,6 +93,23 @@ opened by the access transformer. Not taken: newer Minecraft's leash changes for
 (spring physics, shears cutting leads, the wider single rope); the plain ghast as a quad-leash holder; sneaking with a lead in hand leashes the ghast (1.21.1 handles leads before the mob does); the
 `place_dried_ghast_in_water` advancement. Clouds are at newer Minecraft's height (192.33 to 196.33) in dimensions
 that draw overworld clouds.
+
+## Copper golem
+
+Mojang's CopperGolem, method for method (`golem/`). A carved pumpkin or jack o'lantern on any copper block (waxed or
+not) makes one, in that block's age; the block becomes the matching copper chest (CarvedPumpkinBlockMixin, and
+dispensers place pumpkins for it). It carries up to 16 items at a time from copper chests to chests and trapped chests
+that already hold that item or are empty (Mojang's rule: no other containers), opening the lid as it works
+(ContainerOpenersCounterMixin) and waiting while someone else has it open. It ages like copper unless waxed
+(honeycomb); an axe takes off the wax or a stage, lightning a stage. A fully oxidized golem may become a statue in a
+random pose that keeps its name; any item but an axe changes the pose (comparators read it), an axe on an unaffected
+statue wakes it. Statues age, wax and scrape like copper blocks. Iron golems give poppies to copper golems too
+(OfferFlowerGoalMixin); shears take the poppy off its antenna. Its walk, idle and chest animations are Mojang's
+CopperGolemAnimation, converted by the generator (`tools/animations.py`) into NeoForge JSON animations.
+
+1.21.1 lacks the SADDLE equipment slot newer Minecraft keeps the antenna item in: it is the golem's own synced stack,
+saved as `antenna` and always dropped (only the gift fills it, a guaranteed drop in newer Minecraft), so `/data` paths
+differ. The chest's open and close game event has no source entity.
 
 ## Download
 

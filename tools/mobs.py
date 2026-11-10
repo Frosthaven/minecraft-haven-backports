@@ -14,20 +14,30 @@ from sources import COLORS
 NS = "haven_backports"
 
 HARNESSES = [f"{c}_harness" for c in COLORS]
-BLOCKS = {"ghast": ["dried_ghast"]}
-ITEMS = [*HARNESSES, "happy_ghast_spawn_egg"]
-ENTITIES = ["happy_ghast"]
+STAGES = ["", "exposed_", "weathered_", "oxidized_"]
+STATUES = [f"{w}{st}copper_golem_statue" for w in ("", "waxed_") for st in STAGES]
+BLOCKS = {"ghast": ["dried_ghast"], "golem": STATUES}
+ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg"]
+ENTITIES = ["happy_ghast", "copper_golem"]
+COPPER_SETS = ["copper_golem_statue"]   # oxidation and waxing data maps (tieins.copper_maps)
 ENTITY_TEXTURES = ["entity/ghast/happy_ghast", "entity/ghast/happy_ghast_baby", "entity/ghast/happy_ghast_ropes",
-                   *[f"entity/equipment/happy_ghast_body/{h}" for h in HARNESSES]]
+                   *[f"entity/equipment/happy_ghast_body/{h}" for h in HARNESSES],
+                   *[f"entity/copper_golem/copper_golem{e}{s}" for e in ("", "_eyes") for s in ("", "_exposed", "_weathered", "_oxidized")]]
+# Keyframe animation classes converted to NeoForge JSON (animations.py): class -> (folder, field prefix)
+ANIMATIONS = {"net/minecraft/client/animation/definitions/CopperGolemAnimation": ("copper_golem", "COPPER_GOLEM_")}
 SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "riding", "equip", "unequip",
                                                "harness_goggles_up", "harness_goggles_down")] \
     + [f"entity.ghastling.{s}" for s in ("ambient", "death", "hurt", "spawn")] \
     + [f"block.dried_ghast.{s}" for s in ("break", "step", "fall", "ambient", "ambient_water", "place",
                                           "place_in_water", "transition")] \
-    + ["item.lead.tied", "item.lead.break"]   # 26.x lead sounds the happy ghast leash plays
+    + ["item.lead.tied", "item.lead.break"] \
+    + [f"entity.copper_golem{st}.{s}" for st in ("", "_weathered", "_oxidized") for s in ("spin", "hurt", "death", "step")] \
+    + [f"entity.copper_golem.{s}" for s in ("spawn", "shear", "no_item_get", "no_item_no_get", "item_drop", "item_no_drop")] \
+    + ["entity.copper_golem_become_statue"] + [f"block.copper_golem_statue.{s}" for s in ("break", "step", "place", "hit", "fall")]
 # 26.x tags our Java reads (written under minecraft:, with our ids; see tags.py)
 CODE_TAGS = ["happy_ghast_food", "happy_ghast_tempt_items", "harnesses", "can_equip_harness", "followable_friendly_mobs",
-             "triggers_ambient_dried_ghast_block_sounds", "happy_ghast_avoids"]
+             "triggers_ambient_dried_ghast_block_sounds", "happy_ghast_avoids",
+             "copper", "copper_golem_statues", "shearable_from_copper_golem", "accepts_iron_golem_gift", "candidate_for_iron_golem_gift"]
 
 
 STATS = ["happy_ghast_one_cm"]   # custom stats (lang stat.<ns>.<id>)
@@ -37,7 +47,9 @@ LOOT = ["gameplay/piglin_bartering"]
 
 def run(port, res, lang_new, lang):
     import gear
+    import animations
     gear.take_loot(port, res, LOOT)
+    port.n_animations = animations.run(port, res, NS, ANIMATIONS)
     for path in ENTITY_TEXTURES:
         port.copy_texture(f"assets/minecraft/textures/{path}.png", res / "assets" / NS / "textures" / f"{path}.png")
     for st in STATS:
@@ -46,6 +58,20 @@ def run(port, res, lang_new, lang):
         lang[f"entity.{NS}.{e}"] = lang_new[f"entity.minecraft.{e}"]
         name = f"data/minecraft/loot_table/entities/{e}.json"
         port.write(res / "data" / NS / "loot_table/entities" / f"{e}.json", port.ids(port.loot(port.read(name))))
+
+
+def special_item(port, res, item, definition) -> bool:
+    """26.x special item models 1.21.1 draws through a block entity renderer (builtin/entity): the copper golem statue
+    (a select on its pose; Java draws the pose). The item model keeps the special model's base transforms."""
+    if definition.get("type") != "minecraft:select" or definition.get("block_state_property") != "copper_golem_pose":
+        return False
+    import models
+    base = definition["fallback"]["base"].split(":")[-1]
+    data = models.convert(port.read(f"assets/minecraft/models/{base}.json"), base)
+    data["parent"] = "minecraft:builtin/entity"
+    data["textures"] = {k: port.texture(v) for k, v in data.get("textures", {}).items()}
+    port.write(res / "assets" / NS / "models/item" / f"{item}.json", data)
+    return True
 
 
 def layer(port, block, state):

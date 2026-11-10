@@ -210,6 +210,13 @@ public final class Content {
         return (FireBlock) Blocks.FIRE;
     }
 
+    private static final Map<String, DeferredHolder<SoundEvent, SoundEvent>> SOUND_BY_NAME = new java.util.HashMap<>();
+
+    /** A sound event registered once however many callers name it (stages that share Mojang's events). */
+    static DeferredHolder<SoundEvent, SoundEvent> soundOnce(String entityEvent) {
+        return SOUND_BY_NAME.computeIfAbsent("entity." + entityEvent, Content::sound);
+    }
+
     static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(HavenBackports.ID, name)));
     }

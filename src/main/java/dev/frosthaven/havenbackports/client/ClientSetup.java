@@ -26,11 +26,14 @@ public final class ClientSetup {
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Content.SHELF_ENTITY.get(), ShelfRenderer::new);
         dev.frosthaven.havenbackports.client.ghast.GhastClient.renderers(e);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Golems.COPPER_GOLEM.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemRenderer::new);
+        e.registerBlockEntityRenderer(dev.frosthaven.havenbackports.Golems.STATUE_ENTITY.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer::new);
     }
 
     @SubscribeEvent
     static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {
         dev.frosthaven.havenbackports.client.ghast.GhastClient.layers(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemLayers.register(e);
     }
 
     @SubscribeEvent
@@ -41,6 +44,7 @@ public final class ClientSetup {
     @SubscribeEvent
     static void chestItems(net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent e) {
         ChestTextures.items(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer.items(e);
     }
 
     @SubscribeEvent

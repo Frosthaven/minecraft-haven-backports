@@ -52,10 +52,26 @@ public final class Navigations {
         }
     }
 
-    /** CopperGolem's ground navigation with the required path length. */
+    /** CopperGolem's ground navigation with the required path length, and 26.x's setCanPathToTargetsBelowSurface
+     *  (a target block is not moved up to the surface above it; 1.21.1's GroundPathNavigation always moves it). */
     public static class Ground extends GroundPathNavigation {
+        private boolean canPathToTargetsBelowSurface;
+
         public Ground(Mob mob, Level level) {
             super(mob, level);
+        }
+
+        public void setCanPathToTargetsBelowSurface(boolean value) {
+            this.canPathToTargetsBelowSurface = value;
+        }
+
+        @Override
+        @Nullable
+        public Path createPath(BlockPos pos, int accuracy) {
+            if (canPathToTargetsBelowSurface && this.level.getChunkSource().getChunkNow(pos.getX() >> 4, pos.getZ() >> 4) != null) {
+                return this.createPath(com.google.common.collect.ImmutableSet.of(pos), 8, false, accuracy);
+            }
+            return super.createPath(pos, accuracy);
         }
 
         @Override

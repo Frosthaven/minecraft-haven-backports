@@ -75,6 +75,8 @@ final class Tabs {
                     "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
+            // ... end portal frame, vault, ender eye, COPPER_GOLEM_STATUE (each stage, then waxed), infested stone ...
+            after(e, "ender_eye", Golems.STATUES.stream().map(b -> b.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
@@ -102,6 +104,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
             // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
             after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
+            // ... sniffer, (sulfur cube,) COPPER_GOLEM_SPAWN_EGG, iron golem ...
+            after(e, "sniffer_spawn_egg", "copper_golem_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

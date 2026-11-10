@@ -301,6 +301,8 @@ class Port:
             lang[f"block.{NS}.{b}"] = lang_new[f"block.minecraft.{b}"]
         for i in [b for b in BLOCKS if b not in NO_ITEM] + ITEMS_ONLY:
             item_def = self.read(f"assets/minecraft/items/{i}.json")["model"]
+            if mobs.special_item(self, RES, i, item_def):
+                continue
             if item_def.get("type") == "minecraft:special" and item_def["model"]["type"] == "minecraft:chest":
                 gear.chest_item(self, RES, i, item_def)
                 continue

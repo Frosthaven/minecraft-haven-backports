@@ -10,7 +10,10 @@
     "EntityMixin",
     "NetherFossilPieceMixin",
     "ServerGamePacketListenerImplMixin",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "CarvedPumpkinBlockMixin",
+    "ContainerOpenersCounterMixin",
+    "OfferFlowerGoalMixin"
   ],
   "client": [
     "ItemRendererMixin",

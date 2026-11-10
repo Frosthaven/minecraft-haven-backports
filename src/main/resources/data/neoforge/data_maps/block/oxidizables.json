@@ -35,6 +35,15 @@
     },
     "haven_backports:weathered_copper_chest": {
       "next_oxidation_stage": "haven_backports:oxidized_copper_chest"
+    },
+    "haven_backports:copper_golem_statue": {
+      "next_oxidation_stage": "haven_backports:exposed_copper_golem_statue"
+    },
+    "haven_backports:exposed_copper_golem_statue": {
+      "next_oxidation_stage": "haven_backports:weathered_copper_golem_statue"
+    },
+    "haven_backports:weathered_copper_golem_statue": {
+      "next_oxidation_stage": "haven_backports:oxidized_copper_golem_statue"
     }
   }
 }
