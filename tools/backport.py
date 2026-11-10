@@ -460,6 +460,8 @@ final class ModdedShelves {{
             for v in values:
                 if v.startswith("#"):
                     queue.append(n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json")
+        import tieins   # imported here: it reads this module's constants
+        tieins.prune_tags(self, written)
         for kind in ("block", "item"):
             f = RES / f"data/minecraft/tags/{kind}/wooden_shelves.json"
             data = json.loads(f.read_text())

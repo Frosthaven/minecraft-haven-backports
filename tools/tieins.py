@@ -88,3 +88,25 @@ def sounds(port, lang, lang_new):
                 lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
             out[event] = entry
     port.write(RES / "assets" / NS / "sounds.json", out)
+
+
+def prune_tags(port, written):
+    """Drops references to snapshot sub-tags that were left unwritten (their values went into the 1.21.1 tags they
+    name, e.g. #minecraft:melee_weapon -> #swords): a dangling reference makes 1.21.1 reject the whole tag."""
+    changed = True
+    while changed:
+        changed = False
+        for n in sorted(written):
+            f = RES / n
+            data = json.loads(f.read_text())
+            base = n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/"
+            keep = [v for v in data["values"] if not v.startswith("#") or
+                    (ref := base + v[1:].split(":")[-1] + ".json") in written or ref in port.old_names]
+            if keep == data["values"]:
+                continue
+            changed = True
+            if keep:
+                port.write(f, {**data, "values": keep})
+            else:
+                f.unlink()
+                written.discard(n)
