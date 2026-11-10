@@ -59,7 +59,9 @@ import org.jetbrains.annotations.Nullable;
  * Mojang's 26.x AbstractNautilus, method for method, on 1.21.1 APIs: a tamable swimmer that a player rides with a
  * saddle (steering by look, the jump key charging a dash along the look, 40 ticks cooldown), wears nautilus armor,
  * opens its inventory screen on sneak-use, gives its rider Breath of the Nautilus, and stays near its home (16 or 32
- * blocks) when tame. Interactions are in {@link NautilusInteraction}. 1.21.1 forced these forms:
+ * blocks) when tame. As in 26.x its face (mouth and tentacles, model +z) is at its back: it looks and swims shell first,
+ * and spawnBubbles puts the mouth at minus the view vector, so at yaw 0 (south) its face points north. Interactions are in
+ * {@link NautilusInteraction}. 1.21.1 forced these forms:
  * <ul>
  * <li>No SADDLE equipment slot: the saddle is the nautilus's own synced stack (saved as "saddle"), a 1.21.1 Saddleable,
  * dropped on death; body armor is 1.21.1's BODY slot.</li>

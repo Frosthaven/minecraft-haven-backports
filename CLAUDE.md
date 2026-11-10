@@ -58,7 +58,7 @@ The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitech
 "Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
 inventory icons too (a hotbar shot), not only placed blocks. Mob screenshots: the proof mod's `mobscene <ghast|golem|decor|variants> <x> <y> <z>` builds a 40 x 40 plains scene
 (noon, clear, frozen) with the subjects still (`mobscene2 <desert|nautilus> <x> <y> <z>` the same for the desert mobs and
-nautiluses, facing south: shoot from the south); then `look near <eye x y z> <target x y z>` and `shot`. A server test:
+nautiluses, faces to the south: shoot from the south; a nautilus's face is at its back, so it is summoned at yaw 180); then `look near <eye x y z> <target x y z>` and `shot`. A server test:
 `just smoke --serve` in the pack test copy
 with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client.
 
