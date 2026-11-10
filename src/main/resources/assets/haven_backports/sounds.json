@@ -390,5 +390,204 @@
       "haven_backports:item/armor/equip_copper6"
     ],
     "subtitle": "subtitles.item.armor.equip_copper"
+  },
+  "entity.happy_ghast.ambient": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/ambient1",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient2",
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient3",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient4",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient5",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient6",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient7",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient8",
+      "haven_backports:mob/happy_ghast/ambient9",
+      "haven_backports:mob/happy_ghast/ambient10",
+      "haven_backports:mob/happy_ghast/ambient11",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient12",
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient13",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient14"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.ambient"
+  },
+  "entity.happy_ghast.death": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/death"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.death"
+  },
+  "entity.happy_ghast.hurt": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/hurt1",
+      "haven_backports:mob/happy_ghast/hurt2",
+      "haven_backports:mob/happy_ghast/hurt3",
+      "haven_backports:mob/happy_ghast/hurt4",
+      "haven_backports:mob/happy_ghast/hurt5",
+      "haven_backports:mob/happy_ghast/hurt6"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.hurt"
+  },
+  "entity.happy_ghast.riding": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/ghast_ride"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.riding"
+  },
+  "entity.happy_ghast.equip": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/harness_equip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.equip"
+  },
+  "entity.happy_ghast.unequip": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/harness_unequip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.unequip"
+  },
+  "entity.happy_ghast.harness_goggles_up": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/goggles_up"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_up"
+  },
+  "entity.happy_ghast.harness_goggles_down": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/goggles_down"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_down"
+  },
+  "entity.ghastling.ambient": {
+    "sounds": [
+      "haven_backports:mob/ghastling/ghastling1",
+      "haven_backports:mob/ghastling/ghastling2",
+      "haven_backports:mob/ghastling/ghastling3",
+      "haven_backports:mob/ghastling/ghastling4",
+      "haven_backports:mob/ghastling/ghastling5",
+      "haven_backports:mob/ghastling/ghastling6",
+      "haven_backports:mob/ghastling/ghastling7"
+    ],
+    "subtitle": "subtitles.entity.ghastling.ambient"
+  },
+  "entity.ghastling.death": {
+    "sounds": [
+      "haven_backports:mob/ghastling/death"
+    ],
+    "subtitle": "subtitles.entity.ghastling.death"
+  },
+  "entity.ghastling.hurt": {
+    "sounds": [
+      "haven_backports:mob/ghastling/hurt1",
+      "haven_backports:mob/ghastling/hurt2",
+      "haven_backports:mob/ghastling/hurt3",
+      "haven_backports:mob/ghastling/hurt4",
+      "haven_backports:mob/ghastling/hurt5"
+    ],
+    "subtitle": "subtitles.entity.ghastling.hurt"
+  },
+  "entity.ghastling.spawn": {
+    "sounds": [
+      "haven_backports:mob/ghastling/spawn"
+    ],
+    "subtitle": "subtitles.entity.ghastling.spawn"
+  },
+  "block.dried_ghast.break": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dried_ghast.step": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/step1",
+      "haven_backports:block/dried_ghast/step2",
+      "haven_backports:block/dried_ghast/step3",
+      "haven_backports:block/dried_ghast/step4",
+      "haven_backports:block/dried_ghast/step5",
+      "haven_backports:block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.dried_ghast.fall": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/step1",
+      "haven_backports:block/dried_ghast/step2",
+      "haven_backports:block/dried_ghast/step3",
+      "haven_backports:block/dried_ghast/step4",
+      "haven_backports:block/dried_ghast/step5",
+      "haven_backports:block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.dried_ghast.ambient": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/ambient1",
+      "haven_backports:block/dried_ghast/ambient2",
+      "haven_backports:block/dried_ghast/ambient3",
+      "haven_backports:block/dried_ghast/ambient4"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient"
+  },
+  "block.dried_ghast.ambient_water": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/ambient_water1",
+      "haven_backports:block/dried_ghast/ambient_water2"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient_water"
+  },
+  "block.dried_ghast.place": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/place1",
+      "haven_backports:block/dried_ghast/place2",
+      "haven_backports:block/dried_ghast/place3",
+      "haven_backports:block/dried_ghast/place4",
+      "haven_backports:block/dried_ghast/place5",
+      "haven_backports:block/dried_ghast/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dried_ghast.place_in_water": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/placeinwater"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.place_in_water"
+  },
+  "block.dried_ghast.transition": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/transition"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.transition"
+  },
+  "item.lead.tied": {
+    "sounds": [
+      "haven_backports:entity/leashknot/leash1",
+      "haven_backports:entity/leashknot/leash2",
+      "haven_backports:entity/leashknot/leash3"
+    ],
+    "subtitle": "subtitles.item.lead.tied"
+  },
+  "item.lead.break": {
+    "sounds": [
+      "haven_backports:entity/leashknot/break"
+    ],
+    "subtitle": "subtitles.item.lead.break"
   }
 }

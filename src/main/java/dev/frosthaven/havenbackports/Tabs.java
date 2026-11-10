@@ -52,6 +52,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             // ... pointed dripstone, prismarine, CINNABAR, SULFUR (spike and potent sulfur come with the caves)
             after(e, "prismarine", "cinnabar", "sulfur");
+            // ... turtle egg, sniffer egg, DRIED_GHAST, wheat seeds ...
+            after(e, "sniffer_egg", "dried_ghast");
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // torch, soul torch, COPPER_TORCH, redstone torch, lantern, soul lantern, COPPER_LANTERN, chain, COPPER_CHAIN
             after(e, "soul_torch", "copper_torch");
@@ -89,12 +91,17 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
+            // ... saddle, HARNESS (each color, DyeColor order), carrot on a stick ...
+            after(e, "saddle", Ghasts.HARNESS.stream().map(h -> h.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             after(e, "stone_axe", "copper_axe");
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+        } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
+            // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
+            after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

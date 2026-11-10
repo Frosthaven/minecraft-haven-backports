@@ -8,6 +8,9 @@ from pathlib import Path
 
 VERSION = "26.4-snapshot-7"
 CACHE = Path(__file__).resolve().parent.parent / ".cache"
+# Mojang's DyeColor order (ColorCollection, item and block registration order).
+COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
+          "purple", "blue", "brown", "green", "red", "black"]
 MANIFEST = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
 
 

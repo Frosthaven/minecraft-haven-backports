@@ -1,0 +1,13 @@
+{
+  "parent": "haven_backports:block/dried_ghast",
+  "textures": {
+    "bottom": "haven_backports:block/dried_ghast_hydration_2_bottom",
+    "east": "haven_backports:block/dried_ghast_hydration_2_east",
+    "north": "haven_backports:block/dried_ghast_hydration_2_north",
+    "particle": "haven_backports:block/dried_ghast_hydration_2_north",
+    "south": "haven_backports:block/dried_ghast_hydration_2_south",
+    "tentacles": "haven_backports:block/dried_ghast_hydration_2_tentacles",
+    "top": "haven_backports:block/dried_ghast_hydration_2_top",
+    "west": "haven_backports:block/dried_ghast_hydration_2_west"
+  }
+}

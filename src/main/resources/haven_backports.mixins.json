@@ -3,7 +3,20 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "MobMixin"],
-  "client": ["ItemRendererMixin", "SheetsMixin"],
-  "injectors": {"defaultRequire": 1}
+  "mixins": [
+    "ChestBlockEntityMixin",
+    "ComparatorBlockMixin",
+    "MobMixin",
+    "EntityMixin",
+    "NetherFossilPieceMixin",
+    "ServerGamePacketListenerImplMixin",
+    "ServerPlayerMixin"
+  ],
+  "client": [
+    "ItemRendererMixin",
+    "SheetsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

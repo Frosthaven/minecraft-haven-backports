@@ -22,7 +22,9 @@ Rechiseled tie-ins, and `META-INF/haven_consolidated/aliases.json` (merges). Nev
 run; `on_shelf` -> `haven_backports:on_shelf`) and writes the vanilla models 26.x gives an on_shelf transform (1.21.1's
 file plus that one entry). A model equal to 1.21.1's after conversion stays vanilla, so pack resource packs that
 restyle vanilla (Better Lanterns + `haven-fixes`) apply to ours too. `tools/sources.py` holds the jar download and
-format-neutral compares. Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
+format-neutral compares. `tools/mobs.py` adds the mobs' blocks, items, sounds, tags, entity textures, names and loot
+to the same paths; `tools/tags.py` writes tags (a reference to a 26.x-only tag is inlined in a tag our Java reads and
+left out elsewhere when it holds nothing of ours). Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
 `ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
 
 ## Ported classes
@@ -31,6 +33,11 @@ format-neutral compares. Java registers the blocks the way Mojang's helpers do (
 SelectableSlotContainer); each says in its Javadoc where 1.21.1 forced a different form. Decompile with
 `.cache/tools/vineflower-1.11.1.jar` (`-only=<class path>`). Mixins (`haven_backports.mixins.json`) only carry
 behaviour 1.21.1 hard-codes: keep them to a minimum.
+
+Mobs (`ghast/`, `entity/`, `client/ghast/`) are Mojang's 26.x classes the same way; 26.x engine helpers they need
+(`entity/Traversal`, `entity/Leash26`, `entity/Navigations`) are copied once and shared. 1.21.1 lacks
+TEMPT_RANGE and CAMERA_DISTANCE attributes: the values are constants. A test run of the dev server (`./gradlew
+runServer`) loads every mixin target at start only when a temporary audit hook is added; do not commit one.
 
 ## Merges
 

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:enchantable/melee_weapon"
+    "minecraft:snowball"
   ]
 }

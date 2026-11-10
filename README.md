@@ -22,6 +22,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
+| Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -66,6 +67,27 @@ hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before 
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
+
+## Happy ghast
+
+Mojang's HappyGhast, method for method (`ghast/`). How to get one, as in newer Minecraft: a Dried Ghast (crafted from 8
+ghast tears around soul sand; piglin bartering, weight 10, from newer Minecraft's table; lying in half of all nether
+fossils, NetherFossilPieceMixin) in water hydrates every 5000 ticks and at level 3 becomes a ghastling; out of water it
+dries back. A ghastling grows up like any baby animal (snowballs speed it up). Harnesses (leather, glass, wool; dye
+recipes) go on an adult by hand or from a dispenser and come off with shears. A harnessed adult carries up to 4
+players; the first one steers (look and move, jump to rise). Players can stand and build on top of it: it holds still
+while one is there. Third person sits 8 blocks back. It heals fast in clouds or rain. Its own lead is newer
+Minecraft's spring lead (elastic at 10, snaps at 16); sneak-clicking it moves the mobs on your leads onto it.
+
+1.21.1 lacks parts of the engine this uses. Each has a small equivalent: the harness is a 1.21.1 `Equipable` with
+Mojang's equip, dispense and shear rules (no `equippable` component); the camera distance comes from NeoForge's
+`CalculateDetachedCameraDistanceEvent`; the precise position sync while it holds still is a teleport packet per
+tick; the riding statistic, standing on top, the allow-flight kick fix and the dried ghast in fossils are mixins
+(ServerPlayerMixin, EntityMixin, ServerGamePacketListenerImplMixin, NetherFossilPieceMixin); `LivingEntity.jumping` is
+opened by the access transformer. Not taken: newer Minecraft's leash changes for every other mob (spring physics,
+shears cutting leads); sneaking with a lead in hand leashes the ghast (1.21.1 handles leads before the mob does); the
+`place_dried_ghast_in_water` advancement. Clouds are at newer Minecraft's height (192.33 to 196.33) in dimensions
+that draw overworld clouds.
 
 ## Download
 

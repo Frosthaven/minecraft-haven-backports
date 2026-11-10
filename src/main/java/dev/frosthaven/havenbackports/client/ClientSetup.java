@@ -25,6 +25,17 @@ public final class ClientSetup {
     @SubscribeEvent
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Content.SHELF_ENTITY.get(), ShelfRenderer::new);
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.renderers(e);
+    }
+
+    @SubscribeEvent
+    static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.layers(e);
+    }
+
+    @SubscribeEvent
+    static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.init();
     }
 
     @SubscribeEvent

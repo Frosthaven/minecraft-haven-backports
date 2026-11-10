@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "harness",
+  "key": {
+    "#": {
+      "item": "minecraft:purple_wool"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "G#G"
+  ],
+  "result": {
+    "id": "haven_backports:purple_harness"
+  }
+}

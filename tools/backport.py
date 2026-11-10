@@ -26,15 +26,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))   # -I leaves the scrip
 import models   # noqa: E402
 import modshelves   # noqa: E402
 import gear   # noqa: E402
-from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
+import mobs   # noqa: E402
+from sources import COLORS, VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 RES = REPO / "src/main/resources"
 NS = "haven_backports"
 VANILLA_1211 = Path.home() / ".local/share/PrismLauncher/libraries/com/mojang/minecraft/1.21.1/minecraft-1.21.1-client.jar"
 
-COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
-          "purple", "blue", "brown", "green", "red", "black"]
 STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 COPPER_SETS = ["copper_bars", "copper_chain", "copper_lantern", "copper_chest"]
 # Mojang's shelf woods that 1.21.1 grows; pale oak and poplar shelves come with the Pale Garden and Dappled Forest.
@@ -57,8 +56,9 @@ CONTENT = {
     "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
     **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
            *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
+    **mobs.BLOCKS,
 }
-ITEMS_ONLY = ["copper_nugget"]
+ITEMS_ONLY = ["copper_nugget", *mobs.ITEMS]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
@@ -79,7 +79,7 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests"]
+CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests", *mobs.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -108,7 +108,7 @@ RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "s
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(mobs.ENTITIES)
 
 
 class Port:
@@ -287,7 +287,7 @@ class Port:
         for b in BLOCKS:
             state = self.blockstate(self.read(f"assets/minecraft/blockstates/{b}.json"))
             self.write(RES / "assets" / NS / "blockstates" / f"{b}.json", state)
-            layer = next((t for k, t in RENDER_TYPES.items() if b.endswith(k)), None)
+            layer = next((t for k, t in RENDER_TYPES.items() if b.endswith(k)), None) or mobs.layer(self, b, state)
             if layer:
                 for ref in models_in(state):
                     if ref.startswith(f"{NS}:"):
@@ -321,6 +321,7 @@ class Port:
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
         gear.run(self, RES, lang_new, lang)
+        mobs.run(self, RES, lang_new, lang)
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
@@ -374,7 +375,7 @@ final class ModdedShelves {{
     def sounds(self, lang, lang_new):
         mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
         out = {}
-        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
+        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + mobs.SOUNDS
         if True:
             for event in events:
                 entry = json.loads(json.dumps(mojang[event]))
@@ -428,71 +429,8 @@ final class ModdedShelves {{
             self.n_extra += 0 if ours else 1
 
     def tags(self):
-        """Tags 1.21.1 has, or a written recipe uses, with our ids; plus the snapshot sub-tags they reference
-        (slabs -> #wool_slabs, #concrete_slabs ...) when those hold ours."""
-        tag_files = {n: self.read(n) for n in self.new_names if n.startswith("data/minecraft/tags/") and n.endswith(".json")}
-
-        def own(n, seen=()):
-            """Our values of a tag file, following #references into other snapshot tags (written as references)."""
-            values = []
-            for v in tag_files[n].get("values", []):
-                if not isinstance(v, str):
-                    continue
-                if v.startswith("#") and n.split("/")[-1][:-5] in CODE_TAGS:
-                    values.append(v)   # a tag only our Java reads keeps Mojang's references as they are
-                    continue
-                if v.startswith("#"):
-                    ref = n.rsplit("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
-                    if ref in tag_files and ref not in self.old_names and ref not in seen and holds_ours(ref, seen + (n,)):
-                        values.append(v)
-                    continue
-                vid = self.id(v)
-                recipe_tag = n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags
-                # ours always; vanilla entries only in a tag a written recipe needs (metal_nuggets), never in a tag
-                # 1.21.1 has or a sub-tag it would reach (that would change 1.21.1's own tag behaviour)
-                code_tag = n.split("/")[-1][:-5] in CODE_TAGS and n not in self.old_names
-                if vid.startswith(f"{NS}:") or ((recipe_tag or code_tag) and n not in self.old_names and self.exists_1211_item(vid)):
-                    values.append(vid)
-            return values
-
-        def holds_ours(n, seen=()):
-            for v in tag_files[n].get("values", []):
-                if isinstance(v, str) and v.startswith("#"):
-                    ref = n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
-                    if ref in tag_files and ref not in seen and holds_ours(ref, seen + (n,)):
-                        return True
-                elif isinstance(v, str) and self.id(v).startswith(f"{NS}:"):
-                    return True
-            return False
-
-        wanted = [n for n in tag_files if n in self.old_names or n.split("/")[-1][:-5] in CODE_TAGS or
-                  (n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags)]
-        written, queue = set(), list(wanted)
-        while queue:
-            n = queue.pop()
-            if n in written:
-                continue
-            values = own(n)
-            if not values:
-                continue
-            written.add(n)
-            self.write(RES / n, {"replace": False, "values": values})
-            for v in values:
-                if v.startswith("#"):
-                    queue.append(n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json")
-        for kind in ("block", "item"):
-            f = RES / f"data/minecraft/tags/{kind}/wooden_shelves.json"
-            data = json.loads(f.read_text())
-            data["values"] += [f"{NS}:{sid}" for sid, *_ in self.modded_shelves]
-            self.write(f, data)
-        nether = [f"{NS}:{sid}" for sid, _, _, n in self.modded_shelves if n]
-        if nether:
-            f = RES / "data/minecraft/tags/item/non_flammable_wood.json"
-            data = json.loads(f.read_text())
-            data["values"] += nether
-            self.write(f, data)
-        self.n_tags = len(written)
-
+        import tags   # imported here: it reads this module's constants
+        tags.run(self)
 
 
 if __name__ == "__main__":
