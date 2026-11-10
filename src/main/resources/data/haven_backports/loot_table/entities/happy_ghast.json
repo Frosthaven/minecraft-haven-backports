@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:entity",
+  "random_sequence": "minecraft:entities/happy_ghast",
+  "pools": []
+}

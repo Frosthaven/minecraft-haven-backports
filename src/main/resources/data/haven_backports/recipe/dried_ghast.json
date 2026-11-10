@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "dry_ghast",
+  "key": {
+    "#": {
+      "item": "minecraft:ghast_tear"
+    },
+    "X": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "id": "haven_backports:dried_ghast"
+  }
+}

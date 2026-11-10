@@ -78,7 +78,6 @@ class Biomes:
                                        for spec in BIOMES.values() for a in spec.get("additions", [])})
         self.check_order(modified)
         self.surface_rules()
-        biome_mods.spawns(self.port, self.res)
         self.additions()
         self.c_tags()
         self.dry_foliage()

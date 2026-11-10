@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:nautilus",
+    "haven_backports:zombie_nautilus",
     "haven_backports:sulfur_cube"
   ]
 }

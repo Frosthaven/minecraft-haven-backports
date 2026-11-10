@@ -1,0 +1,6 @@
+{
+  "parent": "haven_backports:item/template_bundle_open_back",
+  "textures": {
+    "layer0": "haven_backports:item/bundle_open_back"
+  }
+}

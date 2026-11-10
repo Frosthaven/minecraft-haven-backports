@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven_backports:sulfur_cube_hot"
+    "haven_backports:sulfur_cube_hot",
+    "haven_backports:spear"
   ]
 }

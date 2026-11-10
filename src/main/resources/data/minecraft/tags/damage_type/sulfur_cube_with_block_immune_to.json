@@ -14,6 +14,7 @@
     "minecraft:mob_attack_no_aggro",
     "minecraft:mob_projectile",
     "minecraft:player_attack",
+    "haven_backports:spear",
     "minecraft:spit",
     "minecraft:stalagmite",
     "minecraft:sting",

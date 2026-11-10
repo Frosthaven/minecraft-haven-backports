@@ -1,0 +1,149 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.minecraft.lunge"
+  },
+  "effects": {
+    "haven_backports:post_piercing_attack": [
+      {
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:damage_item",
+              "amount": 1.0
+            },
+            {
+              "type": "haven_backports:apply_exhaustion",
+              "amount": {
+                "type": "minecraft:linear",
+                "base": 4.0,
+                "per_level_above_first": 4.0
+              }
+            },
+            {
+              "type": "haven_backports:apply_impulse",
+              "coordinate_scale": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "magnitude": {
+                "type": "minecraft:linear",
+                "base": 0.458,
+                "per_level_above_first": 0.458
+              }
+            },
+            {
+              "type": "haven_backports:play_sound",
+              "pitch": 1.0,
+              "sound": [
+                "haven_backports:item.spear.lunge_1",
+                "haven_backports:item.spear.lunge_2",
+                "haven_backports:item.spear.lunge_3"
+              ],
+              "volume": 1.0
+            }
+          ]
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "vehicle": {}
+                }
+              }
+            },
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type_specific": {
+                  "type": "haven_backports:flags",
+                  "is_fall_flying": false
+                }
+              }
+            },
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type_specific": {
+                  "type": "haven_backports:flags",
+                  "is_in_water": false
+                }
+              }
+            },
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "type_specific": {
+                        "type": "minecraft:player"
+                      }
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "minecraft:player",
+                      "gamemode": [
+                        "creative"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "haven_backports:player_food",
+                      "food": {
+                        "level": {
+                          "min": 7
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 8
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/lunge",
+  "weight": 5
+}

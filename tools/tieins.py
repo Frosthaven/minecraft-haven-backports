@@ -5,7 +5,8 @@ import sys
 import zipfile
 from pathlib import Path
 
-from backport import COPPER_SETS, FULL_CHISEL, NS, RES, STAGES
+from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, extras, gear, mobs, spear
+from sources import asset
 
 
 def tie_ins(port):
@@ -47,7 +48,7 @@ def copper_maps(port):
     """Mojang's WeatheringCopperCollection: unaffected -> exposed -> weathered -> oxidized, each with a waxed twin.
     NeoForge reads these data maps for random oxidation, honeycomb waxing and axe scraping."""
     oxidizables, waxables = {}, {}
-    for s in COPPER_SETS:
+    for s in COPPER_SETS + mobs.COPPER_SETS:
         for a, b in zip(STAGES, STAGES[1:]):
             oxidizables[f"{NS}:{a}{s}"] = {"next_oxidation_stage": f"{NS}:{b}{s}"}
         for st in STAGES:
@@ -78,3 +79,62 @@ def sulfur_dust(port):
             "ingredients": [{"item": f"{NS}:{block}"}],
             "processing_time": ore["processing_time"],
             "results": [{**r, "id": "haven_consolidated:sulfur_dust"} for r in ore["results"]]})
+
+
+# Vanilla items newer Minecraft renamed (id kept: changing it would break every mod naming the old id). Mojang's new
+# name from its own lang file is written over 1.21.1's key.
+RENAMED = {"block.minecraft.chain": "block.minecraft.iron_chain"}
+
+
+def renames(port, lang_new):
+    port.write(RES / "assets/minecraft/lang/en_us.json", {old: lang_new[new] for old, new in RENAMED.items()})
+
+
+def sounds(port, lang, lang_new):
+    """Every sound event of ours, Mojang's entries and files; variants.EXTRA_SOUNDS is filled by variants.collect."""
+    import variants
+    mojang = json.loads(asset(port.objects, "minecraft/sounds.json"))
+    out = {}
+    import backport
+    events = ([f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + spear.SOUNDS + extras.SOUNDS +
+              mobs.SOUNDS + variants.EXTRA_SOUNDS)
+    for sset in backport.DATA_SOUND_SETS:   # 26.x sound sets: the events their data names
+        events += [e.split(":")[-1] for e in port.read(f"data/minecraft/block_sound_set/{sset}.json").values()]
+    events += [e for e in backport.EXTRA_SOUNDS if e not in events]
+    events = list(dict.fromkeys(events))
+    # sound files 1.21.1 ships with the same hash stay vanilla; so do music tracks 1.21.1 ships (26.x re-encoded the
+    # same recordings smaller: the cave music's 11 shared tracks play 1.21.1's files, its 3 new ones ship here)
+    old_index = Path.home() / ".local/share/PrismLauncher/assets/indexes/17.json"
+    old_objects = json.loads(old_index.read_text())["objects"] if old_index.exists() else {}
+    if True:
+        for event in events:
+            entry = json.loads(json.dumps(mojang[event]))
+            for s in entry["sounds"]:
+                name = s["name"] if isinstance(s, dict) else s
+                if isinstance(s, dict) and s.get("type") == "event":   # a reference to another sound event
+                    name = name.split(":")[-1]
+                    if name in events:
+                        s["name"] = f"{NS}:{name}"
+                    elif name not in port.old_sound_events:
+                        raise SystemExit(f"sound {event}: refers to {name}, which is neither ours nor in 1.21.1")
+                    continue
+                path = name.split(":")[-1]
+                key = f"minecraft/sounds/{path}.ogg"
+                if key in old_objects and (old_objects[key]["hash"] == port.objects[key]["hash"] or path.startswith("music/")):
+                    if isinstance(s, dict):
+                        s["name"] = f"minecraft:{path}"
+                    else:
+                        entry["sounds"][entry["sounds"].index(s)] = f"minecraft:{path}"
+                    continue
+                data = asset(port.objects, key)
+                out_file = RES / "assets" / NS / "sounds" / f"{path}.ogg"
+                out_file.parent.mkdir(parents=True, exist_ok=True)
+                out_file.write_bytes(data)
+                if isinstance(s, dict):
+                    s["name"] = f"{NS}:{path}"
+                else:
+                    entry["sounds"][entry["sounds"].index(s)] = f"{NS}:{path}"
+            if "subtitle" in entry and entry["subtitle"] not in port.old_lang():
+                lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
+            out[event] = entry
+    port.write(RES / "assets" / NS / "sounds.json", out)

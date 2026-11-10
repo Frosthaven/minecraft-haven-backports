@@ -27,6 +27,15 @@
         "class": "dev/frosthaven/havenbackports/BoatTypes",
         "field": "PALE_OAK_PROXY"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "HAVEN_BACKPORTS_SPEAR",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "dev/frosthaven/havenbackports/client/spear/SpearArmPose",
+        "field": "PARAMETERS"
+      }
     }
   ]
 }

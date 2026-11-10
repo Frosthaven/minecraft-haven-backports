@@ -9,9 +9,8 @@
   transparent). Blockstates and the particle model are 1.21.1's sign form (one model with the particle texture).
 - Boats: 26.x boat entity textures keep 1.21.1's layout (checked each run: 26.x oak equals 1.21.1's oak in every
   visible pixel; the files differ only under alpha 0).
-- Fuel and compost values: 26.x Items gives each item a ContextIntProvider key (ITEM_DATA, from Items.java); the
-  values are read from those data files (cooking time, compost chance), into NeoForge's furnace_fuels / compostables
-  data maps. Stripping comes from 26.x's block_transformer/axe.json, into NeoForge's strippables data map.
+- Fuel and compost values come from tools/fuels.py (26.x Items.java); the pack's modded shelves burn as Mojang's
+  shelves (data_maps). Stripping comes from 26.x's block_transformer/axe.json, into NeoForge's strippables data map.
 """
 import io
 import json
@@ -34,21 +33,6 @@ HANGING_MAP = {(0, 0, 16, 4): (0, 4, 0), (0, 4, 16, 6): (0, 4, 4), (0, 7, 16, 9)
                (22, 7, 25, 13): (0, 0, 6), (28, 8, 31, 12): (0, 6, 7)}
 STICK_TOP = {(2, 14), (3, 14), (2, 15), (3, 15)}
 
-# 26.x Items.java: (item suffix or id) -> (cookingFuel key, compostable key)
-ITEM_DATA = {
-    "planks": ("time_wood_blocks", None), "log": ("time_wood_blocks", None), "wood": ("time_wood_blocks", None),
-    "fence": ("time_wood_blocks", None), "fence_gate": ("time_wood_blocks", None), "stairs": ("time_wood_blocks", None),
-    "pressure_plate": ("time_wood_blocks", None), "trapdoor": ("time_wood_blocks", None),
-    "shelf": ("time_wood_blocks", None), "slab": ("time_wood_slabs", None), "button": ("time_wood_items_extra_small", None),
-    "door": ("time_wood_items_large", None), "sign": ("time_wood_items_large", None),
-    "hanging_sign": ("time_hanging_signs", None), "boat": ("time_boats", None), "chest_boat": ("time_boats", None),
-    "sapling": ("time_dry_plants", "low"), "leaves": (None, "low"),
-    "leaf_litter": ("time_dry_plants", "low"), "red_shrub": (None, "low"), "shelf_mushroom": (None, "medium"),
-    "pale_moss_block": (None, "medium"), "pale_moss_carpet": (None, "low"), "pale_hanging_moss": (None, "low"),
-    "eyeblossom": (None, "medium"),
-    "bush": (None, "low"), "firefly_bush": (None, "low"), "wildflowers": (None, "low"), "cactus_flower": (None, "low"),
-    "short_dry_grass": ("time_dry_plants", "low"), "tall_dry_grass": ("time_dry_plants", "low"),   # golden dandelion: none
-}
 # 26.x has no name for the three poplar leaves (no lang key); its only poplar leaves name is "Poplar Leaves".
 LANG_FALLBACK = {"red_poplar_leaves": "block.minecraft.poplar_leaves", "orange_poplar_leaves": "block.minecraft.poplar_leaves",
                  "yellow_poplar_leaves": "block.minecraft.poplar_leaves"}
@@ -130,23 +114,14 @@ def boats(port, res, wood):
         out.write_bytes(port.jar.read(f"assets/minecraft/textures/entity/{kind}/{wood}.png"))
 
 
-def item_data(name):
-    for suffix in sorted(ITEM_DATA, key=len, reverse=True):
-        if name == suffix or name.endswith("_" + suffix):
-            return ITEM_DATA[suffix]
-    return None, None
-
-
-def data_maps(port, res, items):
-    fuels, compost = {}, {}
-    for i in items:
-        fuel, comp = item_data(i)
-        if fuel:
-            fuels[f"{NS}:{i}"] = {"burn_time": port.read(f"data/minecraft/context_int_provider/cooking/{fuel}.json")["left"]}
-        if comp:
-            dist = port.read(f"data/minecraft/context_int_provider/compostable/{comp}.json")["default"]["distribution"]
-            chance = sum(d["weight"] for d in dist if d["data"] == 1) / sum(d["weight"] for d in dist)
-            compost[f"{NS}:{i}"] = {"chance": chance}
+def data_maps(port, res, modded_shelves):
+    """The pack's modded overworld-wood shelves burn as Mojang's shelves do (26.x Items: SHELF cookingFuel
+    time_wood_blocks), merged into fuels.py's furnace_fuels; and 26.x's axe stripping (block_transformer/axe.json)."""
+    path = res / "data/neoforge/data_maps/item/furnace_fuels.json"
+    fuels = json.loads(path.read_text()) if path.exists() else {"values": {}}
+    burn = port.read("data/minecraft/context_int_provider/cooking/time_wood_blocks.json")["left"]
+    fuels["values"].update({f"{NS}:{sid}": {"burn_time": burn} for sid in modded_shelves})
+    port.write(path, fuels)
     strip = {}
     for transformer in port.read("data/minecraft/block_transformer/axe.json"):
         if transformer["sound"] != "minecraft:item.axe.strip":
@@ -156,6 +131,4 @@ def data_maps(port, res, items):
             then = rule["then"]
             if src.startswith(f"{NS}:") and then.get("type") == "minecraft:copy_properties":
                 strip[src] = {"stripped_block": port.id(then["source"]["id"])}
-    port.write(res / "data/neoforge/data_maps/item/furnace_fuels.json", {"values": fuels})
-    port.write(res / "data/neoforge/data_maps/item/compostables.json", {"values": compost})
     port.write(res / "data/neoforge/data_maps/block/strippables.json", {"values": strip})

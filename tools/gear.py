@@ -7,11 +7,13 @@
   haven_backports:netherite; the latter only for the horse: 1.21.1's netherite gives a horse 11 armor, 26.x 19).
 - Copper trims on copper armor use Mojang's darker copper palette, as iron on iron does in 1.21.1: the palette,
   atlas permutations and the trim material's override.
-- Loot tables that 26.x gives our items are written as Mojang's 26.x table when every item in it exists in 1.21.1 or
-  is ours. 26.x's other changes to those tables come with them (saddle -> leather: saddles are craftable in 26.x, a
+- Loot tables that 26.x gives our items get 26.x's changes as a patch (lootpatch) when every item in the 26.x table
+  exists in 1.21.1 or is ours. 26.x's other changes to those tables come with them (saddle -> leather: saddles are craftable in 26.x, a
   recipe this mod backports); the run prints them. Tables naming items not backported yet stay at 1.21.1.
 """
 import json
+
+import lootpatch
 
 NS = "haven_backports"
 TOOLS = ["copper_sword", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe"]
@@ -21,8 +23,13 @@ ITEMS = TOOLS + ARMOR + HORSE
 SOUNDS = ["item.armor.equip_copper"]
 LOOT = ["chests/nether_bridge", "chests/igloo_chest", "chests/desert_pyramid", "chests/simple_dungeon", "chests/jungle_temple",
         "chests/end_city_treasure", "chests/stronghold_corridor", "chests/village/village_weaponsmith",
-        "chests/woodland_mansion"]   # resin clumps (Pale Garden)
-# chests/abandoned_camp_common_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
+        "chests/woodland_mansion",   # resin clumps (Pale Garden); igloo_chest: the Flurry disc (Ice Caves)
+        # tables 26.x gives spears (tools/spear.py); buried treasure and the underwater ruins also name nautilus armor and
+        # the buried treasure map: tools/nautilus.py and tools/maps.py take them (lootfmt converts their map functions)
+        "chests/bastion_treasure"]
+# chests/abandoned_camp_common_chest, abandoned_camp_secret_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
+# 1.21.1 items behind an experimental feature flag (off in the pack): a table naming one counts as incomplete.
+FEATURE_FLAGGED = set()   # bundles are available since tools/extras.py (no 1.21.1 feature flag on the item)
 TEXTURES = {  # 26.x equipment texture -> ours
     "entity/equipment/humanoid/copper": "models/armor/copper_layer_1",
     "entity/equipment/humanoid_leggings/copper": "models/armor/copper_layer_2",
@@ -101,16 +108,22 @@ def run(port, res, lang_new, lang):
     copper["override_armor_materials"] = {f"{NS}:copper": "copper_darker"}
     port.write(res / "data/minecraft/trim_material/copper.json", copper)
 
+    take_loot(port, res, LOOT)
+
+
+def take_loot(port, res, tables):
+    """Mojang's 26.x loot tables as patches (lootpatch), when every item they name exists in 1.21.1 or is ours (the run
+    prints what 26.x changed in each); the others stay at 1.21.1 and are reported."""
     waiting = {}
-    for table in LOOT:
+    for table in tables:
         name = f"data/minecraft/loot_table/{table}.json"
-        new = port.ids(port.loot(json.loads(jar.read(name))))
-        missing = sorted({n for n in names_in(new) if not port.exists_1211_item(n)})
-        if missing:   # e.g. spears, until they are backported
+        new = port.ids(port.loot(json.loads(port.jar.read(name))))
+        missing = sorted({n for n in names_in(new) if not port.exists_1211_item(n) or n in FEATURE_FLAGGED})
+        if missing:   # e.g. nautilus armor, until it is backported
             waiting[table] = missing
             continue
-        port.write(res / name, new)
-        port.loot_changes[table] = changes(plain(json.loads(old.read(name))), plain(new))
+        lootpatch.write(port, res, table, new)
+        port.loot_changes[table] = changes(plain(json.loads(port.old.read(name))), plain(new))
     if waiting:
         print(f"loot tables kept at 1.21.1 until these exist: {waiting}")
 

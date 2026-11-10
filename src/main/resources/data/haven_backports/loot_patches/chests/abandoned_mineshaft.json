@@ -1,0 +1,92 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:enchanted_golden_apple",
+        "minecraft:item minecraft:golden_apple",
+        "minecraft:item minecraft:iron_pickaxe",
+        "minecraft:item minecraft:name_tag"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:beetroot_seeds",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:glow_berries",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:lapis_lazuli",
+        "minecraft:item minecraft:melon_seeds",
+        "minecraft:item minecraft:pumpkin_seeds",
+        "minecraft:item minecraft:redstone"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:activator_rail",
+        "minecraft:item minecraft:detector_rail",
+        "minecraft:item minecraft:powered_rail",
+        "minecraft:item minecraft:rail",
+        "minecraft:item minecraft:torch"
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "count": {
+                  "max": 16,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:torch",
+            "type": "minecraft:item",
+            "weight": 15
+          },
+          "entry": {
+            "conditions": [
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": "haven_backports:sulfur_caves"
+                }
+              }
+            ],
+            "name": "haven_backports:music_disc_bounce",
+            "type": "minecraft:item",
+            "weight": 10
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": 3,
+        "entries": [
+          {
+            "conditions": [
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "biomes": "haven_backports:sulfur_caves"
+                }
+              }
+            ],
+            "name": "haven_backports:music_disc_bounce",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 50
+          }
+        ]
+      }
+    }
+  ]
+}

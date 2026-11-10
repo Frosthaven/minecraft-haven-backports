@@ -112,6 +112,7 @@
     "minecraft:piston_head",
     "minecraft:cake",
     "minecraft:turtle_egg",
+    "haven_backports:dried_ghast",
     "minecraft:dead_tube_coral_block",
     "minecraft:dead_brain_coral_block",
     "minecraft:dead_bubble_coral_block",
@@ -339,7 +340,9 @@
     "minecraft:decorated_pot",
     "minecraft:crafter",
     "minecraft:trial_spawner",
+    "haven_backports:chiseled_soulshale",
     "minecraft:vault",
-    "haven_backports:pale_moss_block"
+    "haven_backports:pale_moss_block",
+    "haven_backports:straw_bed"
   ]
 }

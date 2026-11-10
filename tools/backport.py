@@ -32,15 +32,16 @@ import biomes   # noqa: E402
 import cube   # noqa: E402
 import creaking   # noqa: E402
 import frostbite   # noqa: E402
-from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
+import spear   # noqa: E402
+import extras   # noqa: E402
+import mobs   # noqa: E402
+from sources import COLORS, VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 RES = REPO / "src/main/resources"
 NS = "haven_backports"
 VANILLA_1211 = Path.home() / ".local/share/PrismLauncher/libraries/com/mojang/minecraft/1.21.1/minecraft-1.21.1-client.jar"
 
-COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
-          "purple", "blue", "brown", "green", "red", "black"]
 STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 COPPER_SETS = ["copper_bars", "copper_chain", "copper_lantern", "copper_chest"]
 # Mojang's shelf woods that 1.21.1 grows; pale oak and poplar shelves come with the Pale Garden and Dappled Forest.
@@ -78,13 +79,18 @@ CONTENT = {
     # newer flora of existing biomes (Flora.java)
     "flora": ["bush", "firefly_bush", "wildflowers", "short_dry_grass", "tall_dry_grass", "cactus_flower", "golden_dandelion",
               "potted_golden_dandelion"],
+    "lightning_rod": extras.RODS,
+    "soulshale": ["chiseled_soulshale"],
+    **mobs.BLOCKS,
 }
-ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS, *creaking.ITEMS, *frostbite.ITEMS]
+ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS,
+              *creaking.ITEMS, *frostbite.ITEMS, *extras.ITEMS_ONLY, *mobs.ITEMS]
 NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar") | woods.no_item("pale_oak") | {"potted_open_eyeblossom", "potted_closed_eyeblossom", "potted_golden_dandelion"}   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
+# (none now: bundles are in (tools/extras.py); newer Minecraft's per-flower suspicious stew recipes are taken, an
+# owner decision, so the shelf mushroom counts as a mushroom)
 EXTRA_EXCLUDE = {
-    "bundle": "1.21.1's bundle sits behind an experimental feature flag; enabling bundles is its own backport",
 }
 # Snapshot recipes for our own items that a pack mod already provides in the same shape and counts (duplicates in JEI):
 COVERED_BY_PACK = {
@@ -127,7 +133,8 @@ CODE_TAGS = ["wooden_shelves", "overrides_mushroom_light_requirement", "incorrec
              "height_specific_ore_replaceables", "blocks_fluid_flow", "blocks_motion", "blocks_motion_no_leaves",
              "supports_dry_vegetation", "triggers_ambient_desert_dry_vegetation_block_sounds",   # Flora
              "support_override_cactus_flower",
-             *cube.CODE_TAGS, *creaking.CODE_TAGS, *frostbite.CODE_TAGS]
+             *cube.CODE_TAGS, *creaking.CODE_TAGS, *frostbite.CODE_TAGS,
+             *spear.CODE_TAGS, *extras.CODE_TAGS, *mobs.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -161,14 +168,16 @@ RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minec
                 "icicle": "minecraft:cutout", "ice_crystal": "minecraft:cutout", "brittle_ice": "minecraft:translucent",
                 # flora: cutout as 1.21.1's plants (short grass, pink petals, sweet berry bush, dandelion and its pot)
                 "bush": "minecraft:cutout", "wildflowers": "minecraft:cutout", "dry_grass": "minecraft:cutout",
-                "cactus_flower": "minecraft:cutout", "golden_dandelion": "minecraft:cutout"}
+                "cactus_flower": "minecraft:cutout", "golden_dandelion": "minecraft:cutout",
+                "lightning_rod": "minecraft:cutout"}
 # 26.x item definitions with tints: 1.21.1 tints items in code (ItemColors), so each one needs its Java registration
 TINTED_ITEMS = {"bush": "ClientSetup.itemColors (26.x minecraft:grass tint, temperature 0.5, downfall 1.0)"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES) | set(frostbite.ENTITIES)
+OURS = (set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES)
+        | set(frostbite.ENTITIES) | set(spear.ITEMS) | set(spear.IDS) | set(extras.OTHER_ITEMS) | set(mobs.ENTITIES))
 
 
 class Port(data.DataPort):
@@ -369,7 +378,7 @@ class Port(data.DataPort):
             else:
                 state = self.blockstate(self.read(f"assets/minecraft/blockstates/{b}.json"))
                 self.write(RES / "assets" / NS / "blockstates" / f"{b}.json", state)
-            layer = next((t for k, t in RENDER_TYPES.items() if b.endswith(k)), None)
+            layer = next((t for k, t in RENDER_TYPES.items() if b.endswith(k)), None) or mobs.layer(self, b, state)
             if layer:
                 for ref in models_in(state):
                     if ref.startswith(f"{NS}:"):
@@ -383,6 +392,8 @@ class Port(data.DataPort):
             lang[f"block.{NS}.{b}"] = lang_new[woods.LANG_FALLBACK.get(b, f"block.minecraft.{b}")]
         for i in [b for b in BLOCKS if b not in NO_ITEM] + ITEMS_ONLY:
             item_def = self.read(f"assets/minecraft/items/{i}.json")["model"]
+            if mobs.special_item(self, RES, i, item_def):
+                continue
             if item_def.get("type") == "minecraft:special" and item_def["model"]["type"] == "minecraft:chest":
                 gear.chest_item(self, RES, i, item_def)
                 continue
@@ -411,25 +422,33 @@ class Port(data.DataPort):
         import trades   # 26.x wandering trader offers of ours
         trades.run(self, RES)
         __import__("agelock").run(self, RES, lang_new, lang)   # golden dandelion age lock: before the sound and tag passes
-        self.sounds(lang, lang_new)
+        import tieins   # imported here: it reads this module's constants
+        import variants
+        self.old_sound_events = variants.collect(self)   # before tieins.sounds: it fills variants.EXTRA_SOUNDS
+        tieins.sounds(self, lang, lang_new)
         self.mod_shelves(lang)
-        # 26.x fuel: every overworld-wood shelf (the nether ones are not fuel), modded ones as Mojang's
-        woods.data_maps(self, RES, [i for i in [*CONTENT["poplar"], *CONTENT["dappled"], *ITEMS_ONLY, *CONTENT["shelf"],
-                                                *CONTENT["pale_oak"], *CONTENT["pale_garden"], *CONTENT["flora"],
-                                                *(sid for sid, _, _, nether in self.modded_shelves if not nether)]
-                                    if i not in NO_ITEM and i not in ("crimson_shelf", "warped_shelf")])
         gear.run(self, RES, lang_new, lang)
+        spear.run(self, RES, lang_new, lang)
+        extras.run(self, RES, lang_new, lang)
+        mobs.run(self, RES, lang_new, lang)
+        import fuels   # imported here: it reads this module's constants
+        fuels.run(self, RES, OURS)
+        woods.data_maps(self, RES, [sid for sid, _, _, nether in self.modded_shelves if not nether])
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
+        import lootpatch
+        lootpatch.report()
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
+        tieins.renames(self, lang_new)
         self.shelf_displays()
         self.recipes()
         self.tags()
-        import tieins   # imported here: it reads this module's constants
+        spear.tags(self, RES)
         tieins.tie_ins(self)
         tieins.copper_maps(self)
         tieins.amendments(self)
         tieins.sulfur_dust(self)
+        extras.finish(self, RES)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "

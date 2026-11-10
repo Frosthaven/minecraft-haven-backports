@@ -23,7 +23,8 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 /** Client: particle providers (26.x ParticleResources), block entity renderers, sign materials and boat layers for
  *  the new woods (1.21.1 builds them from WoodType and Boat.Type), and the dry foliage tint (26.x BlockColors:
- *  leaf litter uses BlockTintSources.dryFoliage). */
+ *  leaf litter uses BlockTintSources.dryFoliage). The copper fire flame draws like vanilla's flame (26.x
+ *  ParticleResources: FlameParticle.Provider); shelves draw their items (26.x BlockEntityRenderers: SHELF -> ShelfRenderer); spears' hands and arm pose. */
 @EventBusSubscriber(modid = HavenBackports.ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class ClientSetup {
     private ClientSetup() {}
@@ -50,10 +51,39 @@ public final class ClientSetup {
     @SubscribeEvent
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Content.SHELF_ENTITY.get(), ShelfRenderer::new);
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.renderers(e);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Golems.COPPER_GOLEM.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemRenderer::new);
+        e.registerBlockEntityRenderer(dev.frosthaven.havenbackports.Golems.STATUE_ENTITY.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer::new);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Cushions.CUSHION.get(), dev.frosthaven.havenbackports.client.decoration.CushionRenderer::new);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.renderers(e);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Husks.CAMEL_HUSK.get(), dev.frosthaven.havenbackports.client.husk.CamelHuskRenderer::new);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Husks.PARCHED.get(), dev.frosthaven.havenbackports.client.husk.ParchedRenderer::new);
+        dev.frosthaven.havenbackports.client.nautilus.NautilusRenderer.renderers(e);
     }
 
     @SubscribeEvent
     static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.layers(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemLayers.register(e);
+        e.registerLayerDefinition(dev.frosthaven.havenbackports.client.decoration.CushionRenderer.LAYER, dev.frosthaven.havenbackports.client.decoration.CushionRenderer::createBodyLayer);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.layers(e);
+        e.registerLayerDefinition(dev.frosthaven.havenbackports.client.husk.ParchedRenderer.LAYER, dev.frosthaven.havenbackports.client.husk.ParchedRenderer::createBodyLayer);
+        dev.frosthaven.havenbackports.client.nautilus.NautilusRenderer.layers(e);
+    }
+
+    @SubscribeEvent
+    static void screens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent e) {
+        dev.frosthaven.havenbackports.client.nautilus.NautilusClient.screens(e);
+    }
+
+    @SubscribeEvent
+    static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.init();
+        dev.frosthaven.havenbackports.client.nautilus.NautilusClient.init();
+    }
+
+    @SubscribeEvent
+    static void boatLayers(EntityRenderersEvent.RegisterLayerDefinitions e) {
         for (Woods.Wood w : Woods.all()) {
             e.registerLayerDefinition(ModelLayers.createBoatModelName(w.boatType().get()), BoatModel::createBodyModel);
             e.registerLayerDefinition(ModelLayers.createChestBoatModelName(w.boatType().get()), ChestBoatModel::createBodyModel);
@@ -61,7 +91,7 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
-    static void setup(FMLClientSetupEvent e) {
+    static void woodSetup(FMLClientSetupEvent e) {
         e.enqueueWork(() -> Woods.all().forEach(w -> Sheets.addWoodType(w.type())));
         // 26.x ClientLevel.playPlayerSound (the dry grasses' ambient sound): a sound bound to the local player
         dev.frosthaven.havenbackports.block.DryVegetationBlock.PLAYER_SOUND = (sound, source) -> {
@@ -100,6 +130,8 @@ public final class ClientSetup {
     @SubscribeEvent
     static void chestItems(net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent e) {
         ChestTextures.items(e);
+        dev.frosthaven.havenbackports.client.spear.SpearClient.register(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer.items(e);
     }
 
     @SubscribeEvent

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven_backports:block/exposed_copper_golem_statue"
+    }
+  }
+}

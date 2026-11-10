@@ -1,6 +1,9 @@
 package dev.frosthaven.havenbackports;
 
 import com.mojang.logging.LogUtils;
+import dev.frosthaven.havenbackports.bundle.Bundles;
+import dev.frosthaven.havenbackports.loot.LootPatches;
+import dev.frosthaven.havenbackports.map.ExplorerMaps;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -19,6 +22,7 @@ public final class HavenBackports {
     public HavenBackports(IEventBus modBus, ModContainer container) {
         Content.register(modBus);
         Gear.register(modBus);
+        Spears.register(modBus);
         Chests.register(modBus);
         dev.frosthaven.havenbackports.worldgen.Worldgen.register(modBus);
         dev.frosthaven.havenbackports.net.LevelEvent26.register(modBus);
@@ -30,6 +34,27 @@ public final class HavenBackports {
         Content.ITEM.put("sulfur_cube_bucket", dev.frosthaven.havenbackports.cube.Cube.SULFUR_CUBE_BUCKET);
         Content.ITEM.put("sulfur_cube_spawn_egg", dev.frosthaven.havenbackports.cube.Cube.SULFUR_CUBE_SPAWN_EGG);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.neoforge.event.village.WandererTradesEvent.class, Trades::wanderer);
+        Rods.register(modBus);
+        Soulshale.register();
+        Discs.register();
+        BannerPatterns.register();
+        for (String id : ExplorerMaps.IDS) {
+            Content.ITEM.put(id, Content.ITEMS.registerItem(id, ExplorerMaps.ExplorerMapItem::new,
+                    ExplorerMaps.properties()));
+        }
+        ExplorerMaps.register(modBus);
+        for (String id : Bundles.DYED) {
+            Content.ITEM.put(id, Content.ITEMS.registerItem(id, Bundles::make, Bundles.properties()));
+        }
+        Bundles.register(modBus);
+        Ghasts.register(modBus);
+        Golems.register(modBus);
+        Cushions.register();
+        StrawBeds.register(modBus);
+        Variants.register(modBus);
+        Husks.register(modBus);
+        Nautiluses.register(modBus);
+        LootPatches.register();
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

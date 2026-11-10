@@ -1,0 +1,32 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "haven_backports:item/golden_spear_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "haven_backports:item/golden_spear"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "haven_backports:item/golden_spear"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "haven_backports:item/golden_spear"
+      }
+    },
+    "haven_backports:on_shelf": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "haven_backports:item/golden_spear"
+      }
+    }
+  }
+}

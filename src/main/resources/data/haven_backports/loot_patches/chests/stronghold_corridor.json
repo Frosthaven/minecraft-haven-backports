@@ -1,0 +1,95 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:apple",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:ender_pearl",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:golden_apple",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:iron_boots",
+        "minecraft:item minecraft:iron_chestplate",
+        "minecraft:item minecraft:iron_helmet",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:iron_leggings",
+        "minecraft:item minecraft:iron_pickaxe",
+        "minecraft:item minecraft:iron_sword",
+        "minecraft:item minecraft:music_disc_otherside",
+        "minecraft:item minecraft:redstone",
+        "minecraft:item minecraft:saddle"
+      ],
+      "change": [
+        {
+          "from": {
+            "name": "minecraft:saddle",
+            "type": "minecraft:item"
+          },
+          "to": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item"
+          }
+        }
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item"
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 3,
+          "min": 2,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 100
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:eye_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

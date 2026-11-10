@@ -1,0 +1,89 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:bamboo",
+        "minecraft:item minecraft:carrot",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:gunpowder",
+        "minecraft:item minecraft:leather_boots",
+        "minecraft:item minecraft:leather_chestplate",
+        "minecraft:item minecraft:leather_helmet",
+        "minecraft:item minecraft:leather_leggings",
+        "minecraft:item minecraft:moss_block",
+        "minecraft:item minecraft:paper",
+        "minecraft:item minecraft:poisonous_potato",
+        "minecraft:item minecraft:potato",
+        "minecraft:item minecraft:pumpkin",
+        "minecraft:item minecraft:rotten_flesh",
+        "minecraft:item minecraft:suspicious_stew",
+        "minecraft:item minecraft:tnt",
+        "minecraft:item minecraft:wheat"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:coast_armor_trim_smithing_template"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 1,
+      "pool": {
+        "entries": [
+          {
+            "type": "minecraft:empty",
+            "weight": 148
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:copper_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 20
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:iron_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:golden_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:diamond_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

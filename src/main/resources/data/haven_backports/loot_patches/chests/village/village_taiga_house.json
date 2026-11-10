@@ -1,0 +1,44 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:fern",
+        "minecraft:item minecraft:iron_nugget",
+        "minecraft:item minecraft:large_fern",
+        "minecraft:item minecraft:potato",
+        "minecraft:item minecraft:pumpkin_pie",
+        "minecraft:item minecraft:pumpkin_seeds",
+        "minecraft:item minecraft:spruce_log",
+        "minecraft:item minecraft:spruce_sapling",
+        "minecraft:item minecraft:spruce_sign",
+        "minecraft:item minecraft:sweet_berries"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

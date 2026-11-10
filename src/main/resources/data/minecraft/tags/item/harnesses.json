@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:white_harness",
+    "haven_backports:orange_harness",
+    "haven_backports:magenta_harness",
+    "haven_backports:light_blue_harness",
+    "haven_backports:yellow_harness",
+    "haven_backports:lime_harness",
+    "haven_backports:pink_harness",
+    "haven_backports:gray_harness",
+    "haven_backports:light_gray_harness",
+    "haven_backports:cyan_harness",
+    "haven_backports:purple_harness",
+    "haven_backports:blue_harness",
+    "haven_backports:brown_harness",
+    "haven_backports:green_harness",
+    "haven_backports:red_harness",
+    "haven_backports:black_harness"
+  ]
+}

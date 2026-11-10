@@ -127,6 +127,7 @@
     "minecraft:calcite",
     "haven_backports:calcite_pillar",
     "haven_backports:polished_calcite",
-    "haven_backports:polished_calcite_bricks"
+    "haven_backports:polished_calcite_bricks",
+    "haven_backports:chiseled_soulshale"
   ]
 }

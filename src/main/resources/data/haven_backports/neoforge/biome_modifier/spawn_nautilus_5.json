@@ -1,0 +1,16 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:deep_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:ocean",
+    "minecraft:warm_ocean"
+  ],
+  "spawners": {
+    "type": "haven_backports:nautilus",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

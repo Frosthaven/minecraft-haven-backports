@@ -1,0 +1,115 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:chainmail_chestplate",
+        "minecraft:item minecraft:diamond_chestplate",
+        "minecraft:item minecraft:diamond_hoe",
+        "minecraft:item minecraft:enchanted_golden_apple",
+        "minecraft:item minecraft:golden_apple",
+        "minecraft:item minecraft:lead",
+        "minecraft:item minecraft:music_disc_13",
+        "minecraft:item minecraft:music_disc_cat",
+        "minecraft:item minecraft:name_tag"
+      ],
+      "remove": [
+        {
+          "name": "minecraft:name_tag",
+          "type": "minecraft:item",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:beetroot_seeds",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:bucket",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:melon_seeds",
+        "minecraft:item minecraft:pumpkin_seeds",
+        "minecraft:item minecraft:redstone",
+        "minecraft:item minecraft:wheat"
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "count": {
+                  "max": 4,
+                  "min": 2,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:beetroot_seeds",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          "entry": {
+            "functions": [
+              {
+                "count": {
+                  "max": 4,
+                  "min": 2,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:resin_clump",
+            "type": "minecraft:item",
+            "weight": 50
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 4,
+          "min": 1,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": {
+                  "max": 4,
+                  "min": 2,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:resin_clump",
+            "type": "minecraft:item",
+            "weight": 50
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 125
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:bone",
+        "minecraft:item minecraft:gunpowder",
+        "minecraft:item minecraft:rotten_flesh",
+        "minecraft:item minecraft:string"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:vex_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

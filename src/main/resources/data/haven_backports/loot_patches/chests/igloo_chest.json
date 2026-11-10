@@ -1,0 +1,40 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:apple",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:gold_nugget",
+        "minecraft:item minecraft:rotten_flesh",
+        "minecraft:item minecraft:stone_axe",
+        "minecraft:item minecraft:wheat"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:golden_apple"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 1,
+      "pool": {
+        "conditions": [
+          {
+            "chance": 0.3,
+            "condition": "minecraft:random_chance"
+          }
+        ],
+        "entries": [
+          {
+            "name": "haven_backports:music_disc_flurry",
+            "type": "minecraft:item"
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:ancient_debris",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_boots",
+        "minecraft:item minecraft:diamond_chestplate",
+        "minecraft:item minecraft:diamond_helmet",
+        "minecraft:item minecraft:diamond_leggings",
+        "minecraft:item minecraft:diamond_sword",
+        "minecraft:item minecraft:enchanted_golden_apple",
+        "minecraft:item minecraft:netherite_ingot",
+        "minecraft:item minecraft:netherite_scrap"
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "damage": {
+                  "max": 1,
+                  "min": 0.8,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_damage"
+              },
+              {
+                "function": "minecraft:enchant_randomly",
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "minecraft:diamond_sword",
+            "type": "minecraft:item",
+            "weight": 6
+          },
+          "entry": {
+            "functions": [
+              {
+                "damage": {
+                  "max": 1,
+                  "min": 0.8,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_damage"
+              },
+              {
+                "function": "minecraft:enchant_randomly",
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 6
+          }
+        },
+        {
+          "after": {
+            "name": "minecraft:diamond_sword",
+            "type": "minecraft:item",
+            "weight": 6
+          },
+          "entry": {
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 6
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": 3,
+        "entries": [
+          {
+            "functions": [
+              {
+                "damage": {
+                  "max": 1,
+                  "min": 0.8,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_damage"
+              },
+              {
+                "function": "minecraft:enchant_randomly",
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 6
+          },
+          {
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 6
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 100
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:crying_obsidian",
+        "minecraft:item minecraft:gilded_blackstone",
+        "minecraft:item minecraft:gold_block",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_block",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:magma_cream",
+        "minecraft:item minecraft:quartz",
+        "minecraft:item minecraft:spectral_arrow"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:snout_armor_trim_smithing_template"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:netherite_upgrade_smithing_template"
+      ]
+    }
+  ]
+}

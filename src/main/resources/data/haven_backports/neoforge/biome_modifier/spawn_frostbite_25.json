@@ -7,12 +7,10 @@
     "minecraft:frozen_river",
     "minecraft:ice_spikes"
   ],
-  "spawners": [
-    {
-      "type": "haven_backports:frostbite",
-      "weight": 25,
-      "minCount": 4,
-      "maxCount": 4
-    }
-  ]
+  "spawners": {
+    "type": "haven_backports:frostbite",
+    "weight": 25,
+    "minCount": 4,
+    "maxCount": 4
+  }
 }

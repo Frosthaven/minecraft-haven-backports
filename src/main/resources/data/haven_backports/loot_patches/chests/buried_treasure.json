@@ -1,0 +1,127 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:heart_of_the_sea"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:tnt"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:prismarine_crystals"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:iron_sword",
+        "minecraft:item minecraft:leather_chestplate"
+      ],
+      "add": [
+        {
+          "after": {
+            "name": "minecraft:iron_sword",
+            "type": "minecraft:item"
+          },
+          "entry": {
+            "name": "haven_backports:iron_spear",
+            "type": "minecraft:item"
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 1,
+          "min": 0,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:iron_spear",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:cooked_cod",
+        "minecraft:item minecraft:cooked_salmon"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:potion"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 5,
+      "pool": {
+        "entries": [
+          {
+            "type": "minecraft:empty",
+            "weight": 148
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:copper_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 20
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:iron_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:golden_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:diamond_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

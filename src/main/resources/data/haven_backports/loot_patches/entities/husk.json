@@ -1,0 +1,99 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:rotten_flesh"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:carrot",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:potato"
+      ],
+      "set": {
+        "conditions": {
+          "from": [
+            {
+              "condition": "minecraft:killed_by_player"
+            },
+            {
+              "condition": "minecraft:random_chance_with_enchanted_bonus",
+              "enchanted_chance": {
+                "base": 0.035,
+                "per_level_above_first": 0.01,
+                "type": "minecraft:linear"
+              },
+              "enchantment": "minecraft:looting",
+              "unenchanted_chance": 0.025
+            }
+          ],
+          "to": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "minecraft:killed_by_player"
+                },
+                {
+                  "condition": "minecraft:random_chance_with_enchanted_bonus",
+                  "enchanted_chance": {
+                    "base": 0.035,
+                    "per_level_above_first": 0.01,
+                    "type": "minecraft:linear"
+                  },
+                  "enchantment": "minecraft:looting",
+                  "unenchanted_chance": 0.025
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "conditions": [
+              {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "vehicle": {
+                    "type": "haven_backports:camel_husk"
+                  }
+                }
+              }
+            ],
+            "functions": [
+              {
+                "count": {
+                  "max": 1,
+                  "min": 0,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              },
+              {
+                "count": {
+                  "max": 1,
+                  "min": 0,
+                  "type": "minecraft:uniform"
+                },
+                "enchantment": "minecraft:looting",
+                "function": "minecraft:enchanted_count_increase"
+              }
+            ],
+            "name": "minecraft:rabbit_foot",
+            "type": "minecraft:item"
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

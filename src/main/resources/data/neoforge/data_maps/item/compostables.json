@@ -1,30 +1,27 @@
 {
   "values": {
-    "haven_backports:poplar_sapling": {
+    "haven_backports:bush": {
       "chance": 0.3
     },
-    "haven_backports:red_poplar_leaves": {
+    "haven_backports:cactus_flower": {
       "chance": 0.3
     },
-    "haven_backports:orange_poplar_leaves": {
-      "chance": 0.3
+    "haven_backports:closed_eyeblossom": {
+      "chance": 0.65
     },
-    "haven_backports:yellow_poplar_leaves": {
+    "haven_backports:firefly_bush": {
       "chance": 0.3
     },
     "haven_backports:leaf_litter": {
       "chance": 0.3
     },
-    "haven_backports:red_shrub": {
-      "chance": 0.3
-    },
-    "haven_backports:shelf_mushroom": {
+    "haven_backports:open_eyeblossom": {
       "chance": 0.65
     },
-    "haven_backports:pale_oak_sapling": {
+    "haven_backports:orange_poplar_leaves": {
       "chance": 0.3
     },
-    "haven_backports:pale_oak_leaves": {
+    "haven_backports:pale_hanging_moss": {
       "chance": 0.3
     },
     "haven_backports:pale_moss_block": {
@@ -33,31 +30,31 @@
     "haven_backports:pale_moss_carpet": {
       "chance": 0.3
     },
-    "haven_backports:pale_hanging_moss": {
+    "haven_backports:pale_oak_leaves": {
       "chance": 0.3
     },
-    "haven_backports:open_eyeblossom": {
+    "haven_backports:pale_oak_sapling": {
+      "chance": 0.3
+    },
+    "haven_backports:poplar_sapling": {
+      "chance": 0.3
+    },
+    "haven_backports:red_poplar_leaves": {
+      "chance": 0.3
+    },
+    "haven_backports:red_shrub": {
+      "chance": 0.3
+    },
+    "haven_backports:shelf_mushroom": {
       "chance": 0.65
     },
-    "haven_backports:closed_eyeblossom": {
-      "chance": 0.65
-    },
-    "haven_backports:bush": {
-      "chance": 0.3
-    },
-    "haven_backports:firefly_bush": {
-      "chance": 0.3
+    "haven_backports:straw_bed": {
+      "chance": 0.85
     },
     "haven_backports:wildflowers": {
       "chance": 0.3
     },
-    "haven_backports:short_dry_grass": {
-      "chance": 0.3
-    },
-    "haven_backports:tall_dry_grass": {
-      "chance": 0.3
-    },
-    "haven_backports:cactus_flower": {
+    "haven_backports:yellow_poplar_leaves": {
       "chance": 0.3
     }
   }

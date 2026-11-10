@@ -1,0 +1,58 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:flint_and_steel",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:golden_chestplate",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:golden_sword",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:nether_wart",
+        "minecraft:item minecraft:obsidian",
+        "minecraft:item minecraft:saddle"
+      ],
+      "add": [
+        {
+          "after": {
+            "name": "minecraft:golden_horse_armor",
+            "type": "minecraft:item",
+            "weight": 8
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item",
+            "weight": 5
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 4,
+          "min": 2,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 73
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:rib_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

@@ -81,6 +81,8 @@ final class Tabs {
             after(e, "pink_petals", "wildflowers", "leaf_litter");
             after(e, "spore_blossom", "firefly_bush");
             after(e, "large_fern", "tall_dry_grass");
+            // ... turtle egg, sniffer egg, DRIED_GHAST, wheat seeds ...
+            after(e, "sniffer_egg", "dried_ghast");
         } else if (tab == CreativeModeTabs.FOOD_AND_DRINKS) {
             after(e, "beetroot", "golden_dandelion");   // 26.x: ... poisonous potato, beetroot, GOLDEN_DANDELION, dried kelp ...
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
@@ -110,10 +112,20 @@ final class Tabs {
             List<String> signs = new ArrayList<>();
             Woods.all().reversed().forEach(w -> signs.addAll(List.of(w.name() + "_sign", w.name() + "_hanging_sign")));
             after(e, "cherry_hanging_sign", signs.toArray(String[]::new));
+            // ... suspicious gravel, LIGHTNING_ROD in every stage, then waxed (Items.LIGHTNING_ROD.forEach) ...
+            after(e, "lightning_rod", "exposed_lightning_rod", "weathered_lightning_rod", "oxidized_lightning_rod", "waxed_lightning_rod",
+                    "waxed_exposed_lightning_rod", "waxed_weathered_lightning_rod", "waxed_oxidized_lightning_rod");
+            // ... respawn anchor, BED (each color), STRAW_BED, candle ...
+            after(e, "pink_bed", "straw_bed");
+            // ... end portal frame, vault, ender eye, COPPER_GOLEM_STATUE (each stage, then waxed), infested stone ...
+            after(e, "ender_eye", Golems.STATUES.stream().map(b -> b.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
             after(e, "chiseled_bookshelf", "oak_shelf");
+            // ... daylight detector, WAXED lightning rod (in the plain rod's place), piston ...
+            after(e, "lightning_rod", "waxed_lightning_rod");
+            e.remove(new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         } else if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             // WOOL, WOOL_STAIRS, WOOL_SLAB, CARPET ... CONCRETE, CONCRETE_STAIRS, CONCRETE_SLAB, CONCRETE_POWDER
             List<String> wool = new ArrayList<>(), concrete = new ArrayList<>();
@@ -123,8 +135,11 @@ final class Tabs {
             for (String c : PALETTE) concrete.add(c + "_concrete_slab");
             after(e, "pink_wool", wool.toArray(String[]::new));
             after(e, "pink_concrete", concrete.toArray(String[]::new));
+            // ... BED (each color), CUSHION (each color), candle ...
+            List<String> cushions = new ArrayList<>();
+            for (String c : PALETTE) cushions.add(c + "_cushion");
+            after(e, "pink_bed", cushions.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            after(e, "music_disc_pigstep", "music_disc_flurry");   // 26.x: after tears, lava chicken, bounce (not in 1.21.1)
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
             // ... cherry chest boat, [pale oak boats], POPLAR_BOAT, POPLAR_CHEST_BOAT, bamboo raft ...
@@ -133,14 +148,47 @@ final class Tabs {
             after(e, "cherry_chest_boat", boats.toArray(String[]::new));
             // ... axolotl bucket, tadpole bucket, SULFUR_CUBE_BUCKET ...
             after(e, "tadpole_bucket", "sulfur_cube_bucket");
+            // ... name tag, lead, BUNDLE, the 16 dyed bundles (Items.DYED_BUNDLE.forEach), compass ...
+            // 1.21.1 lists the bundle only with the experimental "bundle" pack; newer Minecraft always.
+            ItemStack bundle = new ItemStack(net.minecraft.world.item.Items.BUNDLE);
+            if (!e.getParentEntries().contains(bundle)) {
+                e.insertAfter(new ItemStack(net.minecraft.world.item.Items.LEAD), bundle, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            ItemStack previous = bundle;
+            for (String id : dev.frosthaven.havenbackports.bundle.Bundles.DYED) {
+                ItemStack dyed = new ItemStack(Content.ITEM.get(id).get());
+                e.insertAfter(previous, dyed, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                previous = dyed;
+            }
+            // ... relic, 5, pigstep, TEARS, LAVA_CHICKEN, BOUNCE (flurry comes with the Ice Caves)
+            after(e, "music_disc_pigstep", "music_disc_tears", "music_disc_lava_chicken", "music_disc_bounce");
+            after(e, "music_disc_bounce", "music_disc_flurry");   // 26.x: ... tears, lava chicken, bounce, FLURRY
+            // ... saddle, HARNESS (each color, DyeColor order), carrot on a stick ...
+            after(e, "saddle", Ghasts.HARNESS.stream().map(h -> h.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "snowball", "ice_ball");
             after(e, "stone_sword", "copper_sword");
+            // ... golden sword, diamond sword, netherite sword, WOODEN_SPEAR ... NETHERITE_SPEAR, wooden axe ...
+            after(e, "netherite_sword", Spears.IDS.toArray(String[]::new));
             after(e, "stone_axe", "copper_axe");
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+            // ... netherite horse armor, wolf armor, COPPER ... NETHERITE_NAUTILUS_ARMOR, totem of undying ...
+            after(e, "wolf_armor", "copper_nautilus_armor", "iron_nautilus_armor", "golden_nautilus_armor", "diamond_nautilus_armor",
+                    "netherite_nautilus_armor");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... snowball, egg, BROWN_EGG, BLUE_EGG, wind charge ...
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
+            // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
+            after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
+            // ... sniffer, (sulfur cube,) COPPER_GOLEM_SPAWN_EGG, iron golem ...
+            after(e, "sniffer_spawn_egg", "copper_golem_spawn_egg");
+            // ... bogged, CAMEL_HUSK_SPAWN_EGG, drowned ...; ... husk, PARCHED_SPAWN_EGG, skeleton ...
+            after(e, "bogged_spawn_egg", "camel_husk_spawn_egg");
+            after(e, "husk_spawn_egg", "parched_spawn_egg");
+            // ... glow squid, NAUTILUS_SPAWN_EGG, pufferfish ...; ... zombie horse, ZOMBIE_NAUTILUS_SPAWN_EGG, zombie villager ...
+            after(e, "glow_squid_spawn_egg", "nautilus_spawn_egg");
+            after(e, "zombie_horse_spawn_egg", "zombie_nautilus_spawn_egg");
             after(e, "drowned_spawn_egg", "frostbite_spawn_egg");
             // ... trial spawner, CREAKING_HEART ...; ... breeze, CREAKING_SPAWN_EGG ...; ... sniffer,
             // SULFUR_CUBE_SPAWN_EGG ... (26.4 lists eggs by name)
@@ -153,6 +201,9 @@ final class Tabs {
             after(e, "ancient_debris", "copper_nugget");
             after(e, "honeycomb", "resin_clump");
             after(e, "nether_brick", "resin_brick");
+            // ... turtle helmet, phantom membrane, FIELD_MASONED, BORDURE_INDENTED, flower banner pattern ...
+            after(e, "phantom_membrane", "field_masoned_banner_pattern", "bordure_indented_banner_pattern");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... egg, BROWN_EGG, BLUE_EGG, leather ...
         }
     }
 

@@ -55,6 +55,8 @@ public final class Content {
             DeferredRegister.create(Registries.PARTICLE_TYPE, HavenBackports.ID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, HavenBackports.ID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, HavenBackports.ID);
+    static final DeferredRegister<net.minecraft.world.entity.EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, HavenBackports.ID);
+    static final DeferredRegister<net.minecraft.world.entity.ai.sensing.SensorType<?>> SENSOR_TYPES = DeferredRegister.create(Registries.SENSOR_TYPE, HavenBackports.ID);
 
     /** Block items by id, in registration order (Tabs places them the way Mojang's CreativeModeTabs does). */
     public static final Map<String, DeferredItem<? extends Item>> ITEM = new LinkedHashMap<>();
@@ -184,6 +186,8 @@ public final class Content {
         PARTICLES.register(modBus);
         SOUNDS.register(modBus);
         BLOCK_ENTITIES.register(modBus);
+        ENTITY_TYPES.register(modBus);
+        SENSOR_TYPES.register(modBus);
         modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(() -> {
             FLAMMABLE.forEach(Runnable::run);
             COMMON_SETUP.forEach(Runnable::run);
@@ -212,6 +216,13 @@ public final class Content {
 
     public static FireBlock fire() {
         return (FireBlock) Blocks.FIRE;
+    }
+
+    private static final Map<String, DeferredHolder<SoundEvent, SoundEvent>> SOUND_BY_NAME = new java.util.HashMap<>();
+
+    /** A sound event registered once however many callers name it (stages that share Mojang's events). */
+    static DeferredHolder<SoundEvent, SoundEvent> soundOnce(String entityEvent) {
+        return SOUND_BY_NAME.computeIfAbsent("entity." + entityEvent, Content::sound);
     }
 
     public static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {

@@ -1,0 +1,117 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:beetroot_seeds",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_boots",
+        "minecraft:item minecraft:diamond_chestplate",
+        "minecraft:item minecraft:diamond_helmet",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:diamond_leggings",
+        "minecraft:item minecraft:diamond_pickaxe",
+        "minecraft:item minecraft:diamond_shovel",
+        "minecraft:item minecraft:diamond_sword",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:iron_boots",
+        "minecraft:item minecraft:iron_chestplate",
+        "minecraft:item minecraft:iron_helmet",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:iron_leggings",
+        "minecraft:item minecraft:iron_pickaxe",
+        "minecraft:item minecraft:iron_shovel",
+        "minecraft:item minecraft:iron_sword",
+        "minecraft:item minecraft:saddle"
+      ],
+      "add": [
+        {
+          "after": {
+            "name": "minecraft:saddle",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          }
+        },
+        {
+          "after": {
+            "functions": [
+              {
+                "function": "minecraft:enchant_with_levels",
+                "levels": {
+                  "max": 39,
+                  "min": 20,
+                  "type": "minecraft:uniform"
+                },
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "minecraft:diamond_sword",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "entry": {
+            "functions": [
+              {
+                "function": "minecraft:enchant_with_levels",
+                "levels": {
+                  "max": 39,
+                  "min": 20,
+                  "type": "minecraft:uniform"
+                },
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 3
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 6,
+          "min": 2,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          },
+          {
+            "functions": [
+              {
+                "function": "minecraft:enchant_with_levels",
+                "levels": {
+                  "max": 39,
+                  "min": 20,
+                  "type": "minecraft:uniform"
+                },
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "haven_backports:diamond_spear",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 85
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:spire_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

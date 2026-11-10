@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:filled_map",
+    "haven_backports:ocean_monument_map",
+    "haven_backports:woodland_mansion_map",
+    "haven_backports:buried_trial_chambers_map",
+    "haven_backports:jungle_pyramid_map",
+    "haven_backports:swamp_hut_map",
+    "haven_backports:desert_village_map",
+    "haven_backports:plains_village_map",
+    "haven_backports:savanna_village_map",
+    "haven_backports:snowy_village_map",
+    "haven_backports:taiga_village_map",
+    "haven_backports:buried_treasure_map"
+  ]
+}
