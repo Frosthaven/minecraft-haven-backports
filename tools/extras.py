@@ -7,13 +7,14 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
 - Chiseled Soulshale: its sound set (26.x block_sound_set/chiseled_soulshale) and the ancient city chests that hold it.
-- Explorer maps and the cartographer's trades: tools/maps.py.
+- Explorer maps and the cartographer's trades: tools/maps.py. Bundles: tools/bundles.py.
 - Lightning rods in every copper stage (26.x WeatheringCopperCollection LIGHTNING_ROD, whose unaffected stage is still
   minecraft:lightning_rod): the vanilla rod heads the oxidation and waxing data maps, and 26.x's channeling, which
   names #minecraft:lightning_rods, replaces 1.21.1's (that one names minecraft:lightning_rod only).
 """
 import json
 
+import bundles
 import lootfmt
 import maps
 
@@ -26,10 +27,11 @@ DISCS = {"music_disc_tears": "tears", "music_disc_lava_chicken": "lava_chicken",
 # banner pattern item -> its pattern_item tag (data/minecraft/tags/banner_pattern/pattern_item/<tag>.json)
 PATTERNS = {"field_masoned_banner_pattern": "field_masoned", "bordure_indented_banner_pattern": "bordure_indented"}
 ITEMS_ONLY = list(DISCS) + list(PATTERNS) + maps.MAPS
-SOUNDS = [f"music_disc.{s}" for s in DISCS.values()] + [f"block.chiseled_soulshale.{k}" for k in ("break", "fall", "hit", "place", "step")]
-CODE_TAGS = ["clonable_maps", "lightning_rods"]
+OTHER_ITEMS = bundles.DYED   # ours, with item models written by their own module
+SOUNDS = [f"music_disc.{s}" for s in DISCS.values()] + [f"block.chiseled_soulshale.{k}" for k in ("break", "fall", "hit", "place", "step")] + bundles.SOUNDS
+CODE_TAGS = ["clonable_maps", "lightning_rods", "bundles"]
 # 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
-LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft", "chests/ancient_city"]
+LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft", "chests/ancient_city", *bundles.LOOT]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
 BIOMES = {"minecraft:sulfur_caves": (f"{NS}:sulfur_caves", "data/haven_backports/worldgen/biome/sulfur_caves.json")}
 
@@ -43,6 +45,7 @@ def run(port, res, lang_new, lang):
         key = data["description"]["translate"]
         lang[key] = lang_new[key]
     banner_patterns(port, res)
+    bundles.run(port, res, lang_new, lang)
     biomes = {old: (new if (res / path).exists() else None) for old, (new, path) in BIOMES.items()}
     conv = lootfmt.Converter(port.ids, biomes)
     for table in LOOT:

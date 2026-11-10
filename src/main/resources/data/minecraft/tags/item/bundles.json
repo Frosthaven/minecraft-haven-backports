@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bundle",
+    "haven_backports:white_bundle",
+    "haven_backports:orange_bundle",
+    "haven_backports:magenta_bundle",
+    "haven_backports:light_blue_bundle",
+    "haven_backports:yellow_bundle",
+    "haven_backports:lime_bundle",
+    "haven_backports:pink_bundle",
+    "haven_backports:gray_bundle",
+    "haven_backports:light_gray_bundle",
+    "haven_backports:cyan_bundle",
+    "haven_backports:purple_bundle",
+    "haven_backports:blue_bundle",
+    "haven_backports:brown_bundle",
+    "haven_backports:green_bundle",
+    "haven_backports:red_bundle",
+    "haven_backports:black_bundle"
+  ]
+}

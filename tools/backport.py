@@ -66,7 +66,6 @@ NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the van
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
 EXTRA_EXCLUDE = {
-    "bundle": "1.21.1's bundle sits behind an experimental feature flag; enabling bundles is its own backport",
     "suspicious_stew_from_": "1.21.1's special suspicious stew recipe already makes every one of these",
 }
 # Snapshot recipes for our own items that a pack mod already provides in the same shape and counts (duplicates in JEI):
@@ -112,7 +111,7 @@ RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "s
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(extras.OTHER_ITEMS)
 
 
 class Port:

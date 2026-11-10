@@ -4,6 +4,7 @@
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BundleItemMixin",
     "CartographyTableMenuMixin",
     "ChestBlockEntityMixin",
     "ComparatorBlockMixin",
@@ -14,6 +15,8 @@
     "MobMixin"
   ],
   "client": [
+    "AbstractContainerScreenMixin",
+    "ItemRendererBundleMixin",
     "ItemRendererMixin",
     "SheetsMixin"
   ],

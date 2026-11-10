@@ -26,6 +26,7 @@ one block per concept and it looks the way Mojang made it.
 | Banner patterns | Field Masoned (paper + bricks) and Bordure Indented (paper + vines) Banner Patterns; as in newer Minecraft, the loom offers those two patterns only with their pattern item |
 | Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer) and the Buried Treasure Map (shipwreck and underwater ruin chests) |
 | Ancient city | Chiseled Soulshale (ancient city chests, with its own sounds; newer Minecraft's ancient city chest table) |
+| Bundles | The Bundle without the experiment (string over leather; village chests), the 16 dyed Bundles (bundle + dye keeps the contents), newer Minecraft's bundle behaviour and tooltip |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -68,7 +69,7 @@ and stays out of the creative tab. Adding a wood: one line in `MOD_WOODS`, then 
 Mojang's CopperChestBlock on the vanilla chest block entity (as newer Minecraft). Two mixins carry what 1.21.1 hard-codes: the
 hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before the holiday one (Sheets.chooseMaterial).
 
-Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
+Not taken: recipes 1.21.1 cannot run or already has (the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
 
 ## Lightning rods
@@ -96,6 +97,23 @@ Treasure Map entry until the nautilus armor and spears they also name are in. Le
 Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps, whose only source is the Abandoned
 Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
 sells no maps in newer Minecraft, so it is unchanged.
+
+## Bundles
+
+1.21.1's `minecraft:bundle` item has no feature flag (Items.BUNDLE sets no required features); only its creative tab
+place and its recipe live in the experimental "bundle" data pack. So nothing per world is switched on: the item already
+loads in every world and on a dedicated server, and the mod adds newer Minecraft's recipe (`haven_backports:bundle`),
+its tab place (only where 1.21.1 did not already put it), and newer Minecraft's village chests that hold one. Worlds
+made with the experiment keep its rabbit hide recipe as well. Every bundle behaves as newer Minecraft's
+(BundleItemMixin -> `bundle/BundleLogic`, Mojang's 26.x BundleItem): scroll over a bundle in a container to pick the
+item that comes out next (sent to the server, never saved, as in newer Minecraft), right-click takes that one out,
+holding use drops the contents one item at a time, a full bundle shows a red bar and "Full", an item it refuses plays
+its own sound. The tooltip is newer Minecraft's grid with the selected item named and a fullness bar
+(`client/BundleTooltipRenderer`); in the GUI a bundle with a selected item opens around it (`client/BundleRenderer`,
+ItemRendererBundleMixin), and a shift-click or hotbar swap clears the pick (AbstractContainerScreenMixin, newer
+Minecraft's slot-click hook). Dye recipes keep the contents through `haven_backports:crafting_transmute`, a port of
+Mojang's TransmuteRecipe. Kept from 1.21.1: the bundle's texture (newer Minecraft redrew it); the "filled" look is
+gone, as newer Minecraft dropped it; the first-person use animation (newer Minecraft only adds an arm swing).
 
 ## Not ported
 

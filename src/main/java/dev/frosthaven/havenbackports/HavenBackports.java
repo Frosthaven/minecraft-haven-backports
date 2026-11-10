@@ -1,6 +1,7 @@
 package dev.frosthaven.havenbackports;
 
 import com.mojang.logging.LogUtils;
+import dev.frosthaven.havenbackports.bundle.Bundles;
 import dev.frosthaven.havenbackports.map.ExplorerMaps;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -30,6 +31,10 @@ public final class HavenBackports {
                     ExplorerMaps.properties()));
         }
         ExplorerMaps.register(modBus);
+        for (String id : Bundles.DYED) {
+            Content.ITEM.put(id, Content.ITEMS.registerItem(id, Bundles::make, Bundles.properties()));
+        }
+        Bundles.register(modBus);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }
