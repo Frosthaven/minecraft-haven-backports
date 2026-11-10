@@ -49,3 +49,9 @@ with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from 
 
 Push to `main`: CI publishes `latest` and `v<mod_version>-<sha7>`; the pack pins one with `just bump-mod
 haven-backports`. Commits: author `Frosthaven <shane@thedragon.dev>`, no Co-Authored-By trailer.
+
+## Player page
+
+Players read about this mod on the Haven Codex, tab `#tab-backports` (https://claude.ai/artifact/QG2xPPxSAM2BQiovWVoGiF#tab-backports).
+Update that tab when a change alters what players see; publish to that URL in place (never a copy) when the
+maintainer asks. The pack repo's CLAUDE.md, "Haven's own mods and pages", lists what to check on a pack change.
