@@ -4,13 +4,13 @@ Content from newer Minecraft versions, backported to 1.21.1 (NeoForge) for the H
 on every client.
 
 Everything comes from Mojang's own files: textures, models, blockstates, recipes, loot tables, tags and block
-properties are read from the newest snapshot's client jar (`tools/backport.py`), and block behaviour follows Mojang's
+properties are read from the newer version's client jar (`tools/backport.py`), and block behaviour follows Mojang's
 code in that jar (it ships unobfuscated). Nothing is redrawn or invented. Vanilla textures the new blocks reuse
-(wool, concrete, copper, calcite...) are the same pixels in 1.21.1 and 26.4, so they come from the game itself. Where another mod in the pack already adds the
+(wool, concrete, copper, calcite...) are the same pixels in 1.21.1 and the newer version, so they come from the game itself. Where another mod in the pack already adds the
 same block in its own art, it is merged into the backported one (Haven Consolidated carries out the merge), so there is
 one block per concept and it looks the way Mojang made it.
 
-## Content (26.4 snapshot 7)
+## Content
 
 | Set | Blocks and items |
 |---|---|
@@ -21,7 +21,7 @@ one block per concept and it looks the way Mojang made it.
 | Shelves | Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson and Warped Shelf; plus one for each of the pack's 21 modded woods (see below). Pale Oak and Poplar come with their woods |
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
-| Horse armor | Copper Horse Armor (chest loot, as 26.x), Netherite Horse Armor (smithing) |
+| Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -30,9 +30,9 @@ Create's copper nugget (its nugget and ingot recipes stay, making ours); Create 
 armor (CSA: 131 uses, +0 damage, iron mining level, armor 2/6/5/1; Mojang: 190 uses, +1 damage, stone mining level,
 armor 2/4/3/1).
 
-Mobs pick armor as in 26.x (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
-26.x's. 26.x's chest loot that names our items is taken whole (copper horse armor; leather in place of saddles, which
-26.x makes craftable); tables that name spears stay at 1.21.1 until spears are in.
+Mobs pick armor as in newer Minecraft (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
+newer Minecraft's. newer Minecraft's chest loot that names our items is taken whole (copper horse armor; leather in place of saddles, which
+newer Minecraft makes craftable); tables that name spears stay at 1.21.1 until spears are in.
 
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).
@@ -45,11 +45,11 @@ the back only. Items stand in each slot at a quarter size, centred by their mode
 
 1.21.1 has no "on shelf" item display, so the mod adds one (`haven_backports:on_shelf`, a NeoForge enum extension; it
 is checked on join, so server and client need the same build). Mojang's on-shelf transforms come with it: the shelf's
-own, and the vanilla models 26.x gives one (block/block, fences, walls, anvil, skulls, shield, beds). Beds turn the
+own, and the vanilla models newer Minecraft gives one (block/block, fences, walls, anvil, skulls, shield, beds). Beds turn the
 transform 180 degrees: 1.21.1 draws bed items with the bed renderer, which faces the other way (checked on every
-display entry). Two small mixins carry 26.x behaviour 1.21.1 hard-codes: tridents and spyglasses use their flat model
+display entry). Two small mixins carry newer Minecraft behaviour 1.21.1 hard-codes: tridents and spyglasses use their flat model
 on a shelf, and comparators tell the shelf which side they read. Compasses and clocks on a shelf use the shelf as their
-holder, as in 26.x.
+holder, as in newer Minecraft.
 
 ### Modded woods
 
@@ -61,7 +61,7 @@ and stays out of the creative tab. Adding a wood: one line in `MOD_WOODS`, then 
 
 ## Copper chest
 
-Mojang's CopperChestBlock on the vanilla chest block entity (as 26.x). Two mixins carry what 1.21.1 hard-codes: the
+Mojang's CopperChestBlock on the vanilla chest block entity (as newer Minecraft). Two mixins carry what 1.21.1 hard-codes: the
 hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before the holiday one (Sheets.chooseMaterial).
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
