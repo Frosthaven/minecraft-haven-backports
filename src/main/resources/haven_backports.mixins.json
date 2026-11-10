@@ -3,7 +3,10 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ChestBlockEntityMixin", "ComparatorBlockMixin", "MobMixin"],
-  "client": ["ItemRendererMixin", "SheetsMixin"],
+  "mixins": ["AbstractMinecartMixin", "ChestBlockEntityMixin", "ComparatorBlockMixin", "EntityMixin", "LivingEntityInvoker",
+    "LivingEntityMixin", "MeleeAttackMixin", "MobMixin", "PiglinAiMixin", "PiglinMixin", "PlayerAccessor", "PlayerMixin",
+    "ZombieMixin", "ZombifiedPiglinMixin"],
+  "client": ["GameRendererMixin", "GuiMixin", "HumanoidModelMixin", "ItemInHandLayerMixin", "ItemInHandRendererMixin",
+    "ItemRendererMixin", "LocalPlayerMixin", "MinecraftMixin", "MultiPlayerGameModeInvoker", "SheetsMixin", "ZombieArmsMixin"],
   "injectors": {"defaultRequire": 1}
 }

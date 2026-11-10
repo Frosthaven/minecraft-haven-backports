@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:diamond_spear",
+    "haven_backports:stone_spear",
+    "haven_backports:golden_spear",
+    "haven_backports:netherite_spear",
+    "haven_backports:wooden_spear",
+    "haven_backports:iron_spear",
+    "haven_backports:copper_spear"
+  ]
+}

@@ -269,5 +269,67 @@
       "haven_backports:item/armor/equip_copper6"
     ],
     "subtitle": "subtitles.item.armor.equip_copper"
+  },
+  "item.spear.attack": {
+    "sounds": [
+      "haven_backports:item/spear/attack1",
+      "haven_backports:item/spear/attack2",
+      "haven_backports:item/spear/attack3"
+    ],
+    "subtitle": "subtitles.item.spear.attack"
+  },
+  "item.spear.hit": {
+    "sounds": [
+      "haven_backports:item/spear/hit1",
+      "haven_backports:item/spear/hit2",
+      "haven_backports:item/spear/hit3"
+    ],
+    "subtitle": "subtitles.item.spear.hit"
+  },
+  "item.spear.use": {
+    "sounds": [
+      "haven_backports:item/spear/use"
+    ],
+    "subtitle": "subtitles.item.spear.use"
+  },
+  "item.spear.lunge_1": {
+    "sounds": [
+      "haven_backports:item/spear/lunge1"
+    ],
+    "subtitle": "subtitles.item.spear.lunge"
+  },
+  "item.spear.lunge_2": {
+    "sounds": [
+      "haven_backports:item/spear/lunge2"
+    ],
+    "subtitle": "subtitles.item.spear.lunge"
+  },
+  "item.spear.lunge_3": {
+    "sounds": [
+      "haven_backports:item/spear/lunge3"
+    ],
+    "subtitle": "subtitles.item.spear.lunge"
+  },
+  "item.spear_wood.attack": {
+    "sounds": [
+      "haven_backports:item/spear/wood/attack1",
+      "haven_backports:item/spear/wood/attack2",
+      "haven_backports:item/spear/wood/attack3"
+    ],
+    "subtitle": "subtitles.item.spear_wood.attack"
+  },
+  "item.spear_wood.hit": {
+    "sounds": [
+      "haven_backports:item/spear/wood/hit1",
+      "haven_backports:item/spear/wood/hit2",
+      "haven_backports:item/spear/wood/hit3"
+    ],
+    "subtitle": "subtitles.item.spear_wood.hit"
+  },
+  "item.spear_wood.use": {
+    "sounds": [
+      "haven_backports:item/spear/wood/use"
+    ],
+    "subtitle": "subtitles.item.spear_wood.use"
   }
 }

@@ -5,6 +5,15 @@
       "name": "HAVEN_BACKPORTS_ON_SHELF",
       "constructor": "(ILjava/lang/String;Ljava/lang/String;)V",
       "parameters": [-1, "haven_backports:on_shelf", null]
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "HAVEN_BACKPORTS_SPEAR",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "dev/frosthaven/havenbackports/client/spear/SpearArmPose",
+        "field": "PARAMETERS"
+      }
     }
   ]
 }
