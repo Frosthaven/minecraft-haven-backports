@@ -135,6 +135,9 @@ final class Tabs {
             after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
             // ... sniffer, (sulfur cube,) COPPER_GOLEM_SPAWN_EGG, iron golem ...
             after(e, "sniffer_spawn_egg", "copper_golem_spawn_egg");
+            // ... bogged, CAMEL_HUSK_SPAWN_EGG, drowned ...; ... husk, PARCHED_SPAWN_EGG, skeleton ...
+            after(e, "bogged_spawn_egg", "camel_husk_spawn_egg");
+            after(e, "husk_spawn_egg", "parched_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

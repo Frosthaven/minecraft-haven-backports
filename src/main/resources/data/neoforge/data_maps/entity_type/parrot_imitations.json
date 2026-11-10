@@ -1,0 +1,10 @@
+{
+  "values": {
+    "haven_backports:camel_husk": {
+      "sound": "haven_backports:entity.parrot.imitate.camel_husk"
+    },
+    "haven_backports:parched": {
+      "sound": "haven_backports:entity.parrot.imitate.parched"
+    }
+  }
+}

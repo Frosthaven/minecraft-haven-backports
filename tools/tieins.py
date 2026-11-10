@@ -78,6 +78,12 @@ def sounds(port, lang, lang_new):
             entry = json.loads(json.dumps(mojang[event]))
             for s in entry["sounds"]:
                 name = s["name"] if isinstance(s, dict) else s
+                if isinstance(s, dict) and s.get("type") == "event":   # a reference to another sound event
+                    if name in events:
+                        s["name"] = f"{NS}:{name}"
+                    elif name not in port.old_sound_events:
+                        raise SystemExit(f"sound {event}: refers to {name}, which is neither ours nor in 1.21.1")
+                    continue
                 path = name.split(":")[-1]
                 data = asset(port.objects, f"minecraft/sounds/{path}.ogg")
                 out_file = RES / "assets" / NS / "sounds" / f"{path}.ogg"

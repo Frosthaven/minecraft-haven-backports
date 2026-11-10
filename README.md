@@ -33,6 +33,7 @@ one block per concept and it looks the way Mojang made it.
 | Cushions | Cushion in all 16 colors (sit on it) |
 | Straw bed | Straw Bed (4 from 3 hay bales) |
 | Farm animal variants | Warm and cold pigs, cows and chickens; Blue Egg, Brown Egg; wolf sound variants |
+| Desert mobs | Camel Husk, Parched, their Spawn Eggs |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -104,8 +105,8 @@ Spellbooks staves) keep their enchantments.
 1.21.1 has none of newer Minecraft's item components, so a spear is a `SpearItem` holding them; the jab is a payload of its own
 (newer Minecraft adds a STAB player action). Engine-wide newer Minecraft changes are kept for spears only: the first-person hand does not dip
 after a jab (other items keep 1.21.1's dip, owner's choice), and the swing length comes from the spear in the swinging
-hand (1.21.1 sends no swing animation). Not ported: newer Minecraft-only sources (husk camel jockeys, zombie horse jockeys, which
-need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
+hand (1.21.1 sends no swing animation). Husks also ride camel husks with an iron spear (see Desert mobs). Not ported: newer Minecraft-only sources (zombie
+horse jockeys, which need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
 weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears do not smelt into nuggets: newer Minecraft's
 nugget recipes also name nautilus armor.
 
@@ -225,6 +226,21 @@ vanilla mobs through small mixins (AgeableMobMixin, PigMixin, CowMixin, ChickenM
 need the same build. Not taken: newer Minecraft's baby models and baby textures (1.21.1 draws babies as small
 adults), the pig, cow and chicken sound variants (big, mini, moody, picky; their baby sounds), and the spawn tags'
 biomes 1.21.1 lacks (they join when those biomes are backported and the generator reruns).
+
+## Desert mobs
+
+Mojang's CamelHusk and Parched (`husk/`). The parched, a desert skeleton, spawns in deserts as in newer Minecraft
+(weight 50, groups of 4, sky access; the desert skeleton goes from weight 100 to 50 with it: a biome modifier of ours
+changes it only while it is still at 1.21.1's 100, so a pack's own change wins). It does not burn in daylight, cannot
+get Weakness and shoots arrows of Weakness (30 s); it drops arrows, bones and, killed by a player, a tipped arrow of
+Weakness. A naturally spawned husk has a 10% chance to arrive riding a camel husk with an iron spear in hand and a
+parched behind it (HuskMixin, newer Minecraft's Husk.finalizeSpawn); the husk charges with the spear at the camel husk's
+speed (x4), and a husk killed on a camel husk may drop a rabbit's foot. The camel husk is a camel that despawns, never
+breeds or grows up, eats rabbit's feet and can be saddled and ridden by a player when no mob sits in front; it drops
+rotten flesh. Its own sounds come through CamelHusk (and CamelMixin for the dash-ready sound 1.21.1's Camel names
+inline); a mob-ridden camel husk does not panic (CamelPanicMixin). Parrots imitate both (NeoForge's parrot_imitations
+data map). Monster Hunter and Monsters Hunted count them, as in newer Minecraft. Not taken: newer Minecraft's ridden
+camels floating in water (an engine change for every horse and camel).
 
 Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
 slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do
