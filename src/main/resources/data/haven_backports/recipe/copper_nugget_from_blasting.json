@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "haven_backports:copper_pickaxe"
+    },
+    {
+      "item": "haven_backports:copper_shovel"
+    },
+    {
+      "item": "haven_backports:copper_axe"
+    },
+    {
+      "item": "haven_backports:copper_hoe"
+    },
+    {
+      "item": "haven_backports:copper_sword"
+    },
+    {
+      "item": "haven_backports:copper_spear"
+    },
+    {
+      "item": "haven_backports:copper_helmet"
+    },
+    {
+      "item": "haven_backports:copper_chestplate"
+    },
+    {
+      "item": "haven_backports:copper_leggings"
+    },
+    {
+      "item": "haven_backports:copper_boots"
+    },
+    {
+      "item": "haven_backports:copper_horse_armor"
+    },
+    {
+      "item": "haven_backports:copper_nautilus_armor"
+    }
+  ],
+  "result": {
+    "id": "haven_backports:copper_nugget"
+  }
+}

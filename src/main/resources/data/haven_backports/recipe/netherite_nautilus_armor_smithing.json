@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "tag": "minecraft:netherite_tool_materials"
+  },
+  "base": {
+    "item": "haven_backports:diamond_nautilus_armor"
+  },
+  "result": {
+    "id": "haven_backports:netherite_nautilus_armor"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

@@ -21,8 +21,9 @@ ITEMS = TOOLS + ARMOR + HORSE
 SOUNDS = ["item.armor.equip_copper"]
 LOOT = ["chests/nether_bridge", "chests/desert_pyramid", "chests/simple_dungeon", "chests/jungle_temple",
         "chests/end_city_treasure", "chests/stronghold_corridor", "chests/village/village_weaponsmith",
-        # tables 26.x gives spears (tools/spear.py); those still naming items not backported print and stay 1.21.1
-        "chests/bastion_treasure", "chests/buried_treasure", "chests/underwater_ruin_big", "chests/underwater_ruin_small"]
+        # tables 26.x gives spears (tools/spear.py); buried treasure and the underwater ruins also name nautilus armor and
+        # the buried treasure map: tools/nautilus.py and tools/maps.py take them (lootfmt converts their map functions)
+        "chests/bastion_treasure"]
 # chests/abandoned_camp_common_chest, abandoned_camp_secret_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
 # 1.21.1 items behind an experimental feature flag (off in the pack): a table naming one counts as incomplete.
 FEATURE_FLAGGED = set()   # bundles are available since tools/extras.py (no 1.21.1 feature flag on the item)

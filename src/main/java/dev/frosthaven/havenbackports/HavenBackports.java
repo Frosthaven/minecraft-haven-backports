@@ -41,6 +41,8 @@ public final class HavenBackports {
         Cushions.register();
         StrawBeds.register(modBus);
         Variants.register(modBus);
+        Husks.register(modBus);
+        Nautiluses.register(modBus);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

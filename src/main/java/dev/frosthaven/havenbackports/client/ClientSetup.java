@@ -30,6 +30,9 @@ public final class ClientSetup {
         e.registerBlockEntityRenderer(dev.frosthaven.havenbackports.Golems.STATUE_ENTITY.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer::new);
         e.registerEntityRenderer(dev.frosthaven.havenbackports.Cushions.CUSHION.get(), dev.frosthaven.havenbackports.client.decoration.CushionRenderer::new);
         dev.frosthaven.havenbackports.client.variant.FarmRenderers.renderers(e);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Husks.CAMEL_HUSK.get(), dev.frosthaven.havenbackports.client.husk.CamelHuskRenderer::new);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Husks.PARCHED.get(), dev.frosthaven.havenbackports.client.husk.ParchedRenderer::new);
+        dev.frosthaven.havenbackports.client.nautilus.NautilusRenderer.renderers(e);
     }
 
     @SubscribeEvent
@@ -38,11 +41,19 @@ public final class ClientSetup {
         dev.frosthaven.havenbackports.client.golem.CopperGolemLayers.register(e);
         e.registerLayerDefinition(dev.frosthaven.havenbackports.client.decoration.CushionRenderer.LAYER, dev.frosthaven.havenbackports.client.decoration.CushionRenderer::createBodyLayer);
         dev.frosthaven.havenbackports.client.variant.FarmRenderers.layers(e);
+        e.registerLayerDefinition(dev.frosthaven.havenbackports.client.husk.ParchedRenderer.LAYER, dev.frosthaven.havenbackports.client.husk.ParchedRenderer::createBodyLayer);
+        dev.frosthaven.havenbackports.client.nautilus.NautilusRenderer.layers(e);
+    }
+
+    @SubscribeEvent
+    static void screens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent e) {
+        dev.frosthaven.havenbackports.client.nautilus.NautilusClient.screens(e);
     }
 
     @SubscribeEvent
     static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent e) {
         dev.frosthaven.havenbackports.client.ghast.GhastClient.init();
+        dev.frosthaven.havenbackports.client.nautilus.NautilusClient.init();
     }
 
     @SubscribeEvent

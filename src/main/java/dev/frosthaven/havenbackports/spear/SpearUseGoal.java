@@ -34,8 +34,11 @@ public class SpearUseGoal<T extends Monster> extends Goal {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
-    /** 26.x Mob.chargeSpeedModifier of the mount: 1.4 for a zombie horse (camel husks are 26.x-only), else 1.0. */
+    /** 26.x Mob.chargeSpeedModifier of the mount: 1.4 for a zombie horse, 4.0 for a camel husk (CamelHusk), else 1.0. */
     static float chargeSpeedModifier(Entity mount) {
+        if (mount instanceof dev.frosthaven.havenbackports.husk.CamelHusk camelHusk) {
+            return camelHusk.chargeSpeedModifier();
+        }
         return mount instanceof ZombieHorse ? 1.4F : 1.0F;
     }
 

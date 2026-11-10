@@ -1192,6 +1192,544 @@
     ],
     "subtitle": "subtitles.block.straw_bed.break_leave"
   },
+  "entity.camel_husk.ambient": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/ambient1",
+      "haven_backports:mob/camel_husk/ambient2",
+      "haven_backports:mob/camel_husk/ambient3",
+      "haven_backports:mob/camel_husk/ambient4",
+      "haven_backports:mob/camel_husk/ambient5",
+      "haven_backports:mob/camel_husk/ambient6",
+      "haven_backports:mob/camel_husk/ambient7",
+      "haven_backports:mob/camel_husk/ambient8"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.ambient"
+  },
+  "entity.camel_husk.dash": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/dash1",
+      "haven_backports:mob/camel_husk/dash2",
+      "haven_backports:mob/camel_husk/dash3",
+      "haven_backports:mob/camel_husk/dash4",
+      "haven_backports:mob/camel_husk/dash5",
+      "haven_backports:mob/camel_husk/dash6"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.dash"
+  },
+  "entity.camel_husk.dash_ready": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/dash_ready"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.dash_ready"
+  },
+  "entity.camel_husk.death": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/death1",
+      "haven_backports:mob/camel_husk/death2"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.death"
+  },
+  "entity.camel_husk.eat": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/eat1",
+      "haven_backports:mob/camel_husk/eat2",
+      "haven_backports:mob/camel_husk/eat3",
+      "haven_backports:mob/camel_husk/eat4",
+      "haven_backports:mob/camel_husk/eat5"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.eat"
+  },
+  "entity.camel_husk.hurt": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/hurt1",
+      "haven_backports:mob/camel_husk/hurt2",
+      "haven_backports:mob/camel_husk/hurt3",
+      "haven_backports:mob/camel_husk/hurt4"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.hurt"
+  },
+  "entity.camel_husk.saddle": {
+    "sounds": [
+      "haven_backports:mob/horse/leather"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.saddle"
+  },
+  "entity.camel_husk.sit": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/sit1",
+      "haven_backports:mob/camel_husk/sit2",
+      "haven_backports:mob/camel_husk/sit3",
+      "haven_backports:mob/camel_husk/sit4"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.sit"
+  },
+  "entity.camel_husk.stand": {
+    "sounds": [
+      "haven_backports:mob/camel_husk/stand1",
+      "haven_backports:mob/camel_husk/stand2",
+      "haven_backports:mob/camel_husk/stand3",
+      "haven_backports:mob/camel_husk/stand4",
+      "haven_backports:mob/camel_husk/stand5"
+    ],
+    "subtitle": "subtitles.entity.camel_husk.stand"
+  },
+  "entity.camel_husk.step": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/camel_husk/step1",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step2",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step3",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step4",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step5",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step6",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.camel_husk.step_sand": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand1",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand2",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand3",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand4",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand5",
+        "volume": 0.3
+      },
+      {
+        "name": "haven_backports:mob/camel_husk/step_sand6",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.parched.ambient": {
+    "sounds": [
+      "haven_backports:mob/parched/ambient1",
+      "haven_backports:mob/parched/ambient2",
+      "haven_backports:mob/parched/ambient3",
+      "haven_backports:mob/parched/ambient4"
+    ],
+    "subtitle": "subtitles.entity.parched.ambient"
+  },
+  "entity.parched.death": {
+    "sounds": [
+      "haven_backports:mob/parched/death"
+    ],
+    "subtitle": "subtitles.entity.parched.death"
+  },
+  "entity.parched.hurt": {
+    "sounds": [
+      "haven_backports:mob/parched/hurt1",
+      "haven_backports:mob/parched/hurt2",
+      "haven_backports:mob/parched/hurt3",
+      "haven_backports:mob/parched/hurt4"
+    ],
+    "subtitle": "subtitles.entity.parched.hurt"
+  },
+  "entity.parched.step": {
+    "sounds": [
+      "haven_backports:mob/parched/step1",
+      "haven_backports:mob/parched/step2",
+      "haven_backports:mob/parched/step3",
+      "haven_backports:mob/parched/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.parrot.imitate.camel_husk": {
+    "sounds": [
+      {
+        "name": "haven_backports:entity.camel_husk.ambient",
+        "pitch": 2.0,
+        "type": "event",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.camel_husk"
+  },
+  "entity.parrot.imitate.parched": {
+    "sounds": [
+      {
+        "name": "haven_backports:entity.parched.ambient",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.parched"
+  },
+  "entity.nautilus.ambient": {
+    "sounds": [
+      "haven_backports:mob/nautilus/ambient1",
+      "haven_backports:mob/nautilus/ambient2",
+      "haven_backports:mob/nautilus/ambient3",
+      "haven_backports:mob/nautilus/ambient4",
+      "haven_backports:mob/nautilus/ambient5",
+      "haven_backports:mob/nautilus/ambient6",
+      "haven_backports:mob/nautilus/ambient7",
+      "haven_backports:mob/nautilus/ambient8"
+    ],
+    "subtitle": "subtitles.entity.nautilus.ambient"
+  },
+  "entity.nautilus.ambient_land": {
+    "sounds": [
+      "haven_backports:mob/nautilus/ambient_land1",
+      "haven_backports:mob/nautilus/ambient_land2",
+      "haven_backports:mob/nautilus/ambient_land3",
+      "haven_backports:mob/nautilus/ambient_land4",
+      "haven_backports:mob/nautilus/ambient_land5",
+      "haven_backports:mob/nautilus/ambient_land6",
+      "haven_backports:mob/nautilus/ambient_land7"
+    ],
+    "subtitle": "subtitles.entity.nautilus.ambient_land"
+  },
+  "entity.nautilus.dash": {
+    "sounds": [
+      "haven_backports:mob/nautilus/dash1",
+      "haven_backports:mob/nautilus/dash2",
+      "haven_backports:mob/nautilus/dash3",
+      "haven_backports:mob/nautilus/dash4"
+    ],
+    "subtitle": "subtitles.entity.nautilus.dash"
+  },
+  "entity.nautilus.dash_land": {
+    "sounds": [
+      "haven_backports:mob/nautilus/dash_land1",
+      "haven_backports:mob/nautilus/dash_land2",
+      "haven_backports:mob/nautilus/dash_land3",
+      "haven_backports:mob/nautilus/dash_land4"
+    ],
+    "subtitle": "subtitles.entity.nautilus.dash_land"
+  },
+  "entity.nautilus.dash_ready": {
+    "sounds": [
+      "haven_backports:mob/nautilus/dash_ready1",
+      "haven_backports:mob/nautilus/dash_ready2",
+      "haven_backports:mob/nautilus/dash_ready3"
+    ],
+    "subtitle": "subtitles.entity.nautilus.dash_ready"
+  },
+  "entity.nautilus.dash_ready_land": {
+    "sounds": [
+      "haven_backports:mob/nautilus/dash_ready_land1",
+      "haven_backports:mob/nautilus/dash_ready_land2",
+      "haven_backports:mob/nautilus/dash_ready_land3",
+      "haven_backports:mob/nautilus/dash_ready_land4"
+    ],
+    "subtitle": "subtitles.entity.nautilus.dash_ready_land"
+  },
+  "entity.nautilus.death": {
+    "sounds": [
+      "haven_backports:mob/nautilus/death"
+    ],
+    "subtitle": "subtitles.entity.nautilus.death"
+  },
+  "entity.nautilus.death_land": {
+    "sounds": [
+      "haven_backports:mob/nautilus/death_land"
+    ],
+    "subtitle": "subtitles.entity.nautilus.death_land"
+  },
+  "entity.nautilus.eat": {
+    "sounds": [
+      "haven_backports:mob/nautilus/eat1",
+      "haven_backports:mob/nautilus/eat2"
+    ],
+    "subtitle": "subtitles.entity.nautilus.eat"
+  },
+  "entity.nautilus.hurt": {
+    "sounds": [
+      "haven_backports:mob/nautilus/hurt1",
+      "haven_backports:mob/nautilus/hurt2",
+      "haven_backports:mob/nautilus/hurt3",
+      "haven_backports:mob/nautilus/hurt4"
+    ],
+    "subtitle": "subtitles.entity.nautilus.hurt"
+  },
+  "entity.nautilus.hurt_land": {
+    "sounds": [
+      "haven_backports:mob/nautilus/hurt_land1",
+      "haven_backports:mob/nautilus/hurt_land2",
+      "haven_backports:mob/nautilus/hurt_land3",
+      "haven_backports:mob/nautilus/hurt_land4"
+    ],
+    "subtitle": "subtitles.entity.nautilus.hurt_land"
+  },
+  "entity.nautilus.riding": {
+    "sounds": [
+      "haven_backports:mob/nautilus/ride"
+    ],
+    "subtitle": "subtitles.entity.nautilus.riding"
+  },
+  "entity.nautilus.swim": {
+    "sounds": [
+      "haven_backports:mob/nautilus/swim1",
+      "haven_backports:mob/nautilus/swim2",
+      "haven_backports:mob/nautilus/swim3",
+      "haven_backports:mob/nautilus/swim4",
+      "haven_backports:mob/nautilus/swim5",
+      "haven_backports:mob/nautilus/swim6",
+      "haven_backports:mob/nautilus/swim7",
+      "haven_backports:mob/nautilus/swim8",
+      "haven_backports:mob/nautilus/swim9"
+    ],
+    "subtitle": "subtitles.entity.nautilus.swim"
+  },
+  "entity.zombie_nautilus.ambient": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/ambient1",
+      "haven_backports:mob/zombie_nautilus/ambient2",
+      "haven_backports:mob/zombie_nautilus/ambient3",
+      "haven_backports:mob/zombie_nautilus/ambient4",
+      "haven_backports:mob/zombie_nautilus/ambient5"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.ambient"
+  },
+  "entity.zombie_nautilus.ambient_land": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/ambient_land1",
+      "haven_backports:mob/zombie_nautilus/ambient_land2",
+      "haven_backports:mob/zombie_nautilus/ambient_land3",
+      "haven_backports:mob/zombie_nautilus/ambient_land4",
+      "haven_backports:mob/zombie_nautilus/ambient_land5",
+      "haven_backports:mob/zombie_nautilus/ambient_land6"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.ambient_land"
+  },
+  "entity.zombie_nautilus.dash": {
+    "sounds": [
+      {
+        "name": "haven_backports:entity.nautilus.dash",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.dash"
+  },
+  "entity.zombie_nautilus.dash_land": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/dash_land1",
+      "haven_backports:mob/zombie_nautilus/dash_land2",
+      "haven_backports:mob/zombie_nautilus/dash_land3",
+      "haven_backports:mob/zombie_nautilus/dash_land4"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.dash_land"
+  },
+  "entity.zombie_nautilus.dash_ready": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/dash_ready1",
+      "haven_backports:mob/zombie_nautilus/dash_ready2",
+      "haven_backports:mob/zombie_nautilus/dash_ready3"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.dash_ready"
+  },
+  "entity.zombie_nautilus.dash_ready_land": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/dash_ready_land1",
+      "haven_backports:mob/zombie_nautilus/dash_ready_land2",
+      "haven_backports:mob/zombie_nautilus/dash_ready_land3",
+      "haven_backports:mob/zombie_nautilus/dash_ready_land4"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.dash_ready_land"
+  },
+  "entity.zombie_nautilus.death": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/death"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.death"
+  },
+  "entity.zombie_nautilus.death_land": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/death_land"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.death_land"
+  },
+  "entity.zombie_nautilus.eat": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/eat1",
+      "haven_backports:mob/zombie_nautilus/eat2"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.eat"
+  },
+  "entity.zombie_nautilus.hurt": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/hurt1",
+      "haven_backports:mob/zombie_nautilus/hurt2",
+      "haven_backports:mob/zombie_nautilus/hurt3",
+      "haven_backports:mob/zombie_nautilus/hurt4"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.hurt"
+  },
+  "entity.zombie_nautilus.hurt_land": {
+    "sounds": [
+      "haven_backports:mob/zombie_nautilus/hurt_land1",
+      "haven_backports:mob/zombie_nautilus/hurt_land2",
+      "haven_backports:mob/zombie_nautilus/hurt_land3",
+      "haven_backports:mob/zombie_nautilus/hurt_land4"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.hurt_land"
+  },
+  "entity.zombie_nautilus.riding": {
+    "sounds": [
+      "haven_backports:mob/nautilus/ride"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.riding"
+  },
+  "entity.zombie_nautilus.swim": {
+    "sounds": [
+      "haven_backports:mob/nautilus/swim1",
+      "haven_backports:mob/nautilus/swim2",
+      "haven_backports:mob/nautilus/swim3",
+      "haven_backports:mob/nautilus/swim4",
+      "haven_backports:mob/nautilus/swim5",
+      "haven_backports:mob/nautilus/swim6",
+      "haven_backports:mob/nautilus/swim7",
+      "haven_backports:mob/nautilus/swim8",
+      "haven_backports:mob/nautilus/swim9"
+    ],
+    "subtitle": "subtitles.entity.zombie_nautilus.swim"
+  },
+  "entity.baby_nautilus.ambient": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/ambient1",
+      "haven_backports:mob/baby_nautilus/ambient2",
+      "haven_backports:mob/baby_nautilus/ambient3",
+      "haven_backports:mob/baby_nautilus/ambient4",
+      "haven_backports:mob/baby_nautilus/ambient5",
+      "haven_backports:mob/baby_nautilus/ambient6"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.ambient"
+  },
+  "entity.baby_nautilus.ambient_land": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/ambient_land1",
+      "haven_backports:mob/baby_nautilus/ambient_land2",
+      "haven_backports:mob/baby_nautilus/ambient_land3",
+      "haven_backports:mob/baby_nautilus/ambient_land4"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.ambient_land"
+  },
+  "entity.baby_nautilus.death": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/death"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.death"
+  },
+  "entity.baby_nautilus.death_land": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/death_land"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.death_land"
+  },
+  "entity.baby_nautilus.eat": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/eat1",
+      "haven_backports:mob/baby_nautilus/eat2"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.eat"
+  },
+  "entity.baby_nautilus.hurt": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/hurt1",
+      "haven_backports:mob/baby_nautilus/hurt2",
+      "haven_backports:mob/baby_nautilus/hurt3",
+      "haven_backports:mob/baby_nautilus/hurt4"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.hurt"
+  },
+  "entity.baby_nautilus.hurt_land": {
+    "sounds": [
+      "haven_backports:mob/baby_nautilus/hurt_land1",
+      "haven_backports:mob/baby_nautilus/hurt_land2",
+      "haven_backports:mob/baby_nautilus/hurt_land3",
+      "haven_backports:mob/baby_nautilus/hurt_land4"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.hurt_land"
+  },
+  "entity.baby_nautilus.swim": {
+    "sounds": [
+      "haven_backports:mob/nautilus/swim1",
+      "haven_backports:mob/nautilus/swim2",
+      "haven_backports:mob/nautilus/swim3",
+      "haven_backports:mob/nautilus/swim4",
+      "haven_backports:mob/nautilus/swim5",
+      "haven_backports:mob/nautilus/swim6",
+      "haven_backports:mob/nautilus/swim7",
+      "haven_backports:mob/nautilus/swim8",
+      "haven_backports:mob/nautilus/swim9"
+    ],
+    "subtitle": "subtitles.entity.baby_nautilus.swim"
+  },
+  "item.armor.equip_nautilus": {
+    "sounds": [
+      "haven_backports:item/armor/equip_wolf1",
+      "haven_backports:item/armor/equip_wolf2"
+    ],
+    "subtitle": "subtitles.item.armor.equip_nautilus"
+  },
+  "item.armor.unequip_nautilus": {
+    "sounds": [
+      "haven_backports:item/armor/unequip_wolf1",
+      "haven_backports:item/armor/unequip_wolf2"
+    ],
+    "subtitle": "subtitles.item.armor.unequip_nautilus"
+  },
+  "item.nautilus_saddle_equip": {
+    "sounds": [
+      "haven_backports:mob/nautilus/nautilus_saddle_equip"
+    ],
+    "subtitle": "subtitles.item.nautilus_saddle_equip"
+  },
+  "item.nautilus_saddle_underwater_equip": {
+    "sounds": [
+      "haven_backports:mob/nautilus/nautilus_saddle_underwater_equip"
+    ],
+    "subtitle": "subtitles.item.nautilus_saddle_underwater_equip"
+  },
+  "entity.parrot.imitate.zombie_nautilus": {
+    "sounds": [
+      {
+        "name": "haven_backports:entity.zombie_nautilus.ambient",
+        "pitch": 1.8,
+        "type": "event",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.zombie_nautilus"
+  },
+  "item.saddle.unequip": {
+    "sounds": [
+      "haven_backports:mob/horse/saddle_unequip"
+    ],
+    "subtitle": "subtitles.item.saddle.unequip"
+  },
   "entity.wolf_angry.ambient": {
     "sounds": [
       "haven_backports:mob/wolf/angry/bark1",

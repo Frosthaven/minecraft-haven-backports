@@ -11,7 +11,7 @@
 import json
 
 NS = "haven_backports"
-FARM = ["pig_variant", "cow_variant", "chicken_variant"]
+FARM = ["pig_variant", "cow_variant", "chicken_variant", "zombie_nautilus_variant"]
 EXTRA_SOUNDS: list[str] = []   # filled by collect(), read by tieins.sounds
 
 

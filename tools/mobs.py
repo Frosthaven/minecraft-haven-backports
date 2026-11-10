@@ -10,6 +10,7 @@
 import io
 import json
 
+import nautilus
 from sources import COLORS
 
 NS = "haven_backports"
@@ -19,15 +20,19 @@ STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 STATUES = [f"{w}{st}copper_golem_statue" for w in ("", "waxed_") for st in STAGES]
 BLOCKS = {"ghast": ["dried_ghast"], "golem": STATUES, "straw_bed": ["straw_bed"]}
 CUSHIONS = [f"{c}_cushion" for c in COLORS]
-ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg", *CUSHIONS, "blue_egg", "brown_egg"]
-ENTITIES = ["happy_ghast", "copper_golem", "cushion"]
+ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg", *CUSHIONS, "blue_egg", "brown_egg",
+         "camel_husk_spawn_egg", "parched_spawn_egg", *nautilus.ITEMS]
+ENTITIES = ["happy_ghast", "copper_golem", "cushion", "camel_husk", "parched", *nautilus.ENTITIES]
 COPPER_SETS = ["copper_golem_statue"]   # oxidation and waxing data maps (tieins.copper_maps)
 ENTITY_TEXTURES = ["entity/ghast/happy_ghast", "entity/ghast/happy_ghast_baby", "entity/ghast/happy_ghast_ropes",
                    *[f"entity/equipment/happy_ghast_body/{h}" for h in HARNESSES],
                    *[f"entity/copper_golem/copper_golem{e}{s}" for e in ("", "_eyes") for s in ("", "_exposed", "_weathered", "_oxidized")],
-                   *[f"entity/cushion/{c}" for c in CUSHIONS]]
+                   *[f"entity/cushion/{c}" for c in CUSHIONS],
+                   "entity/camel/camel_husk", "entity/equipment/camel_husk_saddle/saddle", "entity/skeleton/parched",
+                   *nautilus.ENTITY_TEXTURES]
 # Keyframe animation classes converted to NeoForge JSON (animations.py): class -> (folder, field prefix)
-ANIMATIONS = {"net/minecraft/client/animation/definitions/CopperGolemAnimation": ("copper_golem", "COPPER_GOLEM_")}
+ANIMATIONS = {"net/minecraft/client/animation/definitions/CopperGolemAnimation": ("copper_golem", "COPPER_GOLEM_"),
+              **nautilus.ANIMATIONS}
 SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "riding", "equip", "unequip",
                                                "harness_goggles_up", "harness_goggles_down")] \
     + [f"entity.ghastling.{s}" for s in ("ambient", "death", "hurt", "spawn")] \
@@ -38,26 +43,48 @@ SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "ridin
     + [f"entity.copper_golem.{s}" for s in ("spawn", "shear", "no_item_get", "no_item_no_get", "item_drop", "item_no_drop")] \
     + ["entity.copper_golem_become_statue"] + [f"block.copper_golem_statue.{s}" for s in ("break", "step", "place", "hit", "fall")] \
     + [f"entity.cushion.{s}" for s in ("break", "get_up", "place", "sit")] \
-    + [f"block.straw_bed.{s}" for s in ("break", "step", "place", "hit", "fall", "break_leave")]
+    + [f"block.straw_bed.{s}" for s in ("break", "step", "place", "hit", "fall", "break_leave")] \
+    + [f"entity.camel_husk.{s}" for s in ("ambient", "dash", "dash_ready", "death", "eat", "hurt", "saddle", "sit", "stand",
+                                          "step", "step_sand")] \
+    + [f"entity.parched.{s}" for s in ("ambient", "death", "hurt", "step")] \
+    + [f"entity.parrot.imitate.{m}" for m in ("camel_husk", "parched")] + nautilus.SOUNDS
 # 26.x tags our Java reads (written under minecraft:, with our ids; see tags.py)
 CODE_TAGS = ["happy_ghast_food", "happy_ghast_tempt_items", "harnesses", "can_equip_harness", "followable_friendly_mobs",
              "triggers_ambient_dried_ghast_block_sounds", "happy_ghast_avoids",
              "copper", "copper_golem_statues", "shearable_from_copper_golem", "accepts_iron_golem_gift", "candidate_for_iron_golem_gift",
              "cushion_uses_collision_shape", "cushions",
-             "spawns_cold_variant_farm_animals", "spawns_warm_variant_farm_animals", "eggs"]
+             "spawns_cold_variant_farm_animals", "spawns_warm_variant_farm_animals", "eggs",
+             "camel_husk_food", "immune_to_weakness", *nautilus.CODE_TAGS]
 # 26.x recipes for items 1.21.1 has that take the new eggs (#eggs), taken whole over 1.21.1's
-OVERRIDE_RECIPES = ["cake", "pumpkin_pie"]
+OVERRIDE_RECIPES = ["cake", "pumpkin_pie", *nautilus.OVERRIDE_RECIPES]
 
 
 STATS = ["happy_ghast_one_cm", "sleep_in_straw_bed"]   # custom stats (lang stat.<ns>.<id>)
 # 26.x loot tables that name our items, taken whole (gear.take_loot): piglin bartering adds the dried ghast (weight 10).
 LOOT = ["gameplay/piglin_bartering"]
+# 26.x tables that name our entities, taken whole through lootfmt (extras.take_loot): a husk riding a camel husk drops
+# a rabbit's foot.
+ENTITY_LOOT = ["entities/husk"]
+# NeoForge's parrot_imitations data map: the 26.x Parrot.MOB_SOUND_MAP entries of our mobs (entity -> sound event).
+PARROT = {"camel_husk": "entity.parrot.imitate.camel_husk", "parched": "entity.parrot.imitate.parched", **nautilus.PARROT}
 
 
 def run(port, res, lang_new, lang):
     import gear
     import animations
     gear.take_loot(port, res, LOOT)
+    import extras
+    import lootfmt
+    conv = lootfmt.Converter(port.ids)
+    for table in ENTITY_LOOT:
+        extras.take_loot(port, res, conv, table)
+    nautilus.run(port, res, lang_new, lang, conv)
+    port.write(res / "data/neoforge/data_maps/entity_type/parrot_imitations.json",
+               {"values": {f"{NS}:{e}": {"sound": f"{NS}:{s}"} for e, s in PARROT.items()}})
+    import spawns
+    spawns.run(port, res, ENTITIES)
+    import advancements
+    advancements.run(port, res, nautilus.EFFECTS)
     port.n_animations = animations.run(port, res, NS, ANIMATIONS)
     import variants
     variants.run(port, res, port.old_sound_events)
@@ -75,7 +102,7 @@ def run(port, res, lang_new, lang):
         name = f"data/minecraft/loot_table/entities/{e}.json"
         if name not in port.new_names:
             continue   # noLootTable (the cushion drops itself)
-        port.write(res / "data" / NS / "loot_table/entities" / f"{e}.json", port.ids(port.loot(port.read(name))))
+        port.write(res / "data" / NS / "loot_table/entities" / f"{e}.json", conv.table(port.read(name)))
 
 
 def special_item(port, res, item, definition) -> bool:

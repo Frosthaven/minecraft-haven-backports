@@ -1,0 +1,7 @@
+{
+  "type": "haven_backports:spawn_weight",
+  "biomes": "minecraft:desert",
+  "entity": "minecraft:skeleton",
+  "old_weight": 100,
+  "weight": 50
+}

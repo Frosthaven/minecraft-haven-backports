@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:nautilus",
+    "haven_backports:zombie_nautilus"
+  ]
+}
