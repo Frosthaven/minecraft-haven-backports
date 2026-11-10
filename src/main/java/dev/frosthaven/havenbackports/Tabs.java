@@ -100,6 +100,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");
+            // ... turtle helmet, phantom membrane, FIELD_MASONED, BORDURE_INDENTED, flower banner pattern ...
+            after(e, "phantom_membrane", "field_masoned_banner_pattern", "bordure_indented_banner_pattern");
         }
     }
 

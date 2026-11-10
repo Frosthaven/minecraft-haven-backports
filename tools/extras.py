@@ -3,6 +3,9 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
 
 - Music discs (26.x JukeboxSongs and Items): the jukebox song files, Mojang's sound events (asset store, streamed),
   and the 26.x loot tables that drop them, taken whole when 1.21.1 has every item they name (lootfmt converts).
+- Banner patterns Field Masoned and Bordure Indented: 26.x gives the loom's bricks and curly_border patterns an item
+  each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
+  the tag keep their entries).
 """
 import json
 
@@ -11,7 +14,9 @@ import lootfmt
 NS = "haven_backports"
 # disc item -> its jukebox song (data/minecraft/jukebox_song/<song>.json). music_disc_flurry comes with the Ice Caves.
 DISCS = {"music_disc_tears": "tears", "music_disc_lava_chicken": "lava_chicken", "music_disc_bounce": "bounce"}
-ITEMS_ONLY = list(DISCS)
+# banner pattern item -> its pattern_item tag (data/minecraft/tags/banner_pattern/pattern_item/<tag>.json)
+PATTERNS = {"field_masoned_banner_pattern": "field_masoned", "bordure_indented_banner_pattern": "bordure_indented"}
+ITEMS_ONLY = list(DISCS) + list(PATTERNS)
 SOUNDS = [f"music_disc.{s}" for s in DISCS.values()]
 CODE_TAGS = []
 # 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
@@ -28,12 +33,22 @@ def run(port, res, lang_new, lang):
         port.write(res / f"data/{NS}/jukebox_song/{song}.json", data)
         key = data["description"]["translate"]
         lang[key] = lang_new[key]
+    banner_patterns(port, res)
     biomes = {old: (new if (res / path).exists() else None) for old, (new, path) in BIOMES.items()}
     conv = lootfmt.Converter(port.ids, biomes)
     for table in LOOT:
         take_loot(port, res, conv, table)
     for d in conv.dropped:
         print(f"loot entry left out until its source is backported: {d}")
+
+
+def banner_patterns(port, res):
+    for tag in PATTERNS.values():
+        name = f"data/minecraft/tags/banner_pattern/pattern_item/{tag}.json"
+        port.write(res / name, {"replace": False, "values": port.read(name)["values"]})
+    name = "data/minecraft/tags/banner_pattern/no_item_required.json"
+    gone = [v for v in json.loads(port.old.read(name))["values"] if v not in port.read(name)["values"]]
+    port.write(res / name, {"replace": False, "values": [], "remove": gone})
 
 
 def take_loot(port, res, conv, table, patch=None):
