@@ -4,6 +4,7 @@
     "haven_backports:calcite_slab",
     "haven_backports:polished_calcite_slab",
     "haven_backports:polished_calcite_brick_slab",
+    "haven_backports:resin_brick_slab",
     "haven_backports:cinnabar_slab",
     "haven_backports:polished_cinnabar_slab",
     "haven_backports:cinnabar_brick_slab",

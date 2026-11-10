@@ -3,6 +3,7 @@ package dev.frosthaven.havenbackports.client;
 import dev.frosthaven.havenbackports.Content;
 import dev.frosthaven.havenbackports.Dappled;
 import dev.frosthaven.havenbackports.HavenBackports;
+import dev.frosthaven.havenbackports.PaleGarden;
 import dev.frosthaven.havenbackports.Sulfur;
 import dev.frosthaven.havenbackports.Woods;
 import net.minecraft.client.model.BoatModel;
@@ -33,6 +34,8 @@ public final class ClientSetup {
         e.registerSpriteSet(Dappled.RED_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
         e.registerSpriteSet(Dappled.ORANGE_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
         e.registerSpriteSet(Dappled.YELLOW_POPLAR_LEAVES.get(), FallingLeavesParticle.PoplarProvider::new);
+        e.registerSpriteSet(PaleGarden.PALE_OAK_LEAVES_PARTICLE.get(), FallingLeavesParticle.PaleOakProvider::new);
+        e.registerSpriteSet(PaleGarden.TRAIL.get(), TrailParticle.Provider::new);
         // 26.x ParticleResources: sulfur bubbles, noxious gas (and its cloud emitter), geyser emitter, base, poof, plume
         e.registerSpriteSet(Sulfur.SULFUR_BUBBLES.get(), GasParticles.Bubble.Provider::new);
         e.registerSpriteSet(Sulfur.NOXIOUS_GAS.get(), GasParticles.Gas.Provider::new);

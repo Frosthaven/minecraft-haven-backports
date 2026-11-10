@@ -728,6 +728,83 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.resin.break": {
+    "sounds": [
+      "haven_backports:block/resin/resin_break1",
+      "haven_backports:block/resin/resin_break2",
+      "haven_backports:block/resin/resin_break3",
+      "haven_backports:block/resin/resin_break4",
+      "haven_backports:block/resin/resin_break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.resin.fall": {
+    "sounds": [
+      "haven_backports:block/resin/resin_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.resin.place": {
+    "sounds": [
+      "haven_backports:block/resin/resin_place1",
+      "haven_backports:block/resin/resin_place2",
+      "haven_backports:block/resin/resin_place3",
+      "haven_backports:block/resin/resin_place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.resin.step": {
+    "sounds": [
+      "haven_backports:block/resin/resin_step1",
+      "haven_backports:block/resin/resin_step2",
+      "haven_backports:block/resin/resin_step3",
+      "haven_backports:block/resin/resin_step4",
+      "haven_backports:block/resin/resin_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.resin_bricks.break": {
+    "sounds": [
+      "haven_backports:block/resin_bricks/resin_brick_break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.resin_bricks.fall": {
+    "sounds": [
+      "haven_backports:block/resin_bricks/resin_brick_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.resin_bricks.hit": {
+    "sounds": [
+      "haven_backports:block/resin_bricks/resin_brick_hit1",
+      "haven_backports:block/resin_bricks/resin_brick_hit2",
+      "haven_backports:block/resin_bricks/resin_brick_hit3",
+      "haven_backports:block/resin_bricks/resin_brick_hit4",
+      "haven_backports:block/resin_bricks/resin_brick_hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.resin_bricks.place": {
+    "sounds": [
+      "haven_backports:block/resin_bricks/resin_brick_place1",
+      "haven_backports:block/resin_bricks/resin_brick_place2",
+      "haven_backports:block/resin_bricks/resin_brick_place3",
+      "haven_backports:block/resin_bricks/resin_brick_place4",
+      "haven_backports:block/resin_bricks/resin_brick_place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.resin_bricks.step": {
+    "sounds": [
+      "haven_backports:block/resin_bricks/resin_brick_step1",
+      "haven_backports:block/resin_bricks/resin_brick_step2",
+      "haven_backports:block/resin_bricks/resin_brick_step3",
+      "haven_backports:block/resin_bricks/resin_brick_step4",
+      "haven_backports:block/resin_bricks/resin_brick_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.poplar_leaves.ambient": {
     "sounds": [
       {
@@ -1063,6 +1140,66 @@
         "volume": 0.4
       }
     ]
+  },
+  "block.pale_hanging_moss.idle": {
+    "sounds": [
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss1",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss2",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss3",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss4",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss5",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss6",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss7",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss8",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss9",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss10",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss11",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss12",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss13",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss14",
+      "haven_backports:block/pale_hanging_moss/pale_hanging_moss15"
+    ],
+    "subtitle": "subtitles.ambient.sound"
+  },
+  "block.eyeblossom.open_long": {
+    "sounds": [
+      "haven_backports:block/eyeblossom/eyeblossom_open_long"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.open"
+  },
+  "block.eyeblossom.open": {
+    "sounds": [
+      "haven_backports:block/eyeblossom/eyeblossom_open1",
+      "haven_backports:block/eyeblossom/eyeblossom_open2",
+      "haven_backports:block/eyeblossom/eyeblossom_open3",
+      "haven_backports:block/eyeblossom/eyeblossom_open4"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.open"
+  },
+  "block.eyeblossom.close_long": {
+    "sounds": [
+      "haven_backports:block/eyeblossom/eyeblossom_close_long"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.close"
+  },
+  "block.eyeblossom.close": {
+    "sounds": [
+      "haven_backports:block/eyeblossom/eyeblossom_close1",
+      "haven_backports:block/eyeblossom/eyeblossom_close2",
+      "haven_backports:block/eyeblossom/eyeblossom_close3"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.close"
+  },
+  "block.eyeblossom.idle": {
+    "sounds": [
+      "haven_backports:block/eyeblossom/eyeblossom_idle1",
+      "haven_backports:block/eyeblossom/eyeblossom_idle2",
+      "haven_backports:block/eyeblossom/eyeblossom_idle3",
+      "haven_backports:block/eyeblossom/eyeblossom_idle4",
+      "haven_backports:block/eyeblossom/eyeblossom_idle5",
+      "haven_backports:block/eyeblossom/eyeblossom_idle6"
+    ],
+    "subtitle": "subtitles.ambient.sound"
   },
   "item.bucket.empty_sulfur_cube": {
     "sounds": [
@@ -1429,5 +1566,169 @@
       "haven_backports:mob/sulfur_cube/ball/sticky_push4"
     ],
     "subtitle": "subtitles.entity.sulfur_cube.push"
+  },
+  "entity.creaking.activate": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_activate"
+    ],
+    "subtitle": "subtitles.entity.creaking.activate"
+  },
+  "entity.creaking.ambient": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_idle1",
+      "haven_backports:mob/creaking/creaking_idle2",
+      "haven_backports:mob/creaking/creaking_idle3",
+      "haven_backports:mob/creaking/creaking_idle4",
+      "haven_backports:mob/creaking/creaking_idle5",
+      "haven_backports:mob/creaking/creaking_idle6"
+    ],
+    "subtitle": "subtitles.entity.creaking.ambient"
+  },
+  "entity.creaking.attack": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_attack1",
+      "haven_backports:mob/creaking/creaking_attack2",
+      "haven_backports:mob/creaking/creaking_attack3",
+      "haven_backports:mob/creaking/creaking_attack4"
+    ],
+    "subtitle": "subtitles.entity.creaking.attack"
+  },
+  "entity.creaking.deactivate": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_deactivate"
+    ],
+    "subtitle": "subtitles.entity.creaking.deactivate"
+  },
+  "entity.creaking.death": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_death"
+    ],
+    "subtitle": "subtitles.entity.creaking.death"
+  },
+  "entity.creaking.freeze": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_freeze1",
+      "haven_backports:mob/creaking/creaking_freeze2",
+      "haven_backports:mob/creaking/creaking_freeze3",
+      "haven_backports:mob/creaking/creaking_freeze4"
+    ],
+    "subtitle": "subtitles.entity.creaking.freeze"
+  },
+  "entity.creaking.spawn": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_spawn"
+    ],
+    "subtitle": "subtitles.entity.creaking.spawn"
+  },
+  "entity.creaking.step": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_step1",
+      "haven_backports:mob/creaking/creaking_step2",
+      "haven_backports:mob/creaking/creaking_step3",
+      "haven_backports:mob/creaking/creaking_step4",
+      "haven_backports:mob/creaking/creaking_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.creaking.sway": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_sway1",
+      "haven_backports:mob/creaking/creaking_sway2",
+      "haven_backports:mob/creaking/creaking_sway3",
+      "haven_backports:mob/creaking/creaking_sway4"
+    ],
+    "subtitle": "subtitles.entity.creaking.sway"
+  },
+  "entity.creaking.twitch": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_twitch"
+    ],
+    "subtitle": "subtitles.entity.creaking.twitch"
+  },
+  "entity.creaking.unfreeze": {
+    "sounds": [
+      "haven_backports:mob/creaking/creaking_unfreeze1",
+      "haven_backports:mob/creaking/creaking_unfreeze2",
+      "haven_backports:mob/creaking/creaking_unfreeze3"
+    ],
+    "subtitle": "subtitles.entity.creaking.unfreeze"
+  },
+  "entity.parrot.imitate.creaking": {
+    "sounds": [
+      "haven_backports:mob/creaking/parrot_imitate_creaking"
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.creaking"
+  },
+  "block.creaking_heart.hurt": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/hurt/trail1",
+      "haven_backports:block/creaking_heart/hurt/trail2",
+      "haven_backports:block/creaking_heart/hurt/trail3",
+      "haven_backports:block/creaking_heart/hurt/trail4",
+      "haven_backports:block/creaking_heart/hurt/trail5",
+      "haven_backports:block/creaking_heart/hurt/trail6",
+      "haven_backports:block/creaking_heart/hurt/trail7"
+    ],
+    "subtitle": "subtitles.block.creaking_heart.hurt"
+  },
+  "block.creaking_heart.idle": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/idle/creaking_heart_idle1",
+      "haven_backports:block/creaking_heart/idle/creaking_heart_idle2",
+      "haven_backports:block/creaking_heart/idle/creaking_heart_idle3",
+      "haven_backports:block/creaking_heart/idle/creaking_heart_idle4"
+    ],
+    "subtitle": "subtitles.ambient.sound"
+  },
+  "block.creaking_heart.spawn": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/spawnmob/creaking_heart_spawnmob"
+    ],
+    "subtitle": "subtitles.block.creaking_heart.spawn"
+  },
+  "block.creaking_heart.break": {
+    "sounds": [
+      {
+        "name": "haven_backports:block/creaking_heart/break/creaking_heart_break",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.creaking_heart.fall": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/fall/creaking_heart_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.creaking_heart.hit": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/hit/creaking_heart_hit1",
+      "haven_backports:block/creaking_heart/hit/creaking_heart_hit2",
+      "haven_backports:block/creaking_heart/hit/creaking_heart_hit3",
+      "haven_backports:block/creaking_heart/hit/creaking_heart_hit4",
+      "haven_backports:block/creaking_heart/hit/creaking_heart_hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.creaking_heart.place": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/place/creaking_heart_place1",
+      "haven_backports:block/creaking_heart/place/creaking_heart_place2",
+      "haven_backports:block/creaking_heart/place/creaking_heart_place3",
+      "haven_backports:block/creaking_heart/place/creaking_heart_place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.creaking_heart.step": {
+    "sounds": [
+      "haven_backports:block/creaking_heart/step/creaking_heart_step1",
+      "haven_backports:block/creaking_heart/step/creaking_heart_step2",
+      "haven_backports:block/creaking_heart/step/creaking_heart_step3",
+      "haven_backports:block/creaking_heart/step/creaking_heart_step4",
+      "haven_backports:block/creaking_heart/step/creaking_heart_step5",
+      "haven_backports:block/creaking_heart/step/creaking_heart_step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

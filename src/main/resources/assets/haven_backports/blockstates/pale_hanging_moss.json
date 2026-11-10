@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "tip=false": {
+      "model": "haven_backports:block/pale_hanging_moss"
+    },
+    "tip=true": {
+      "model": "haven_backports:block/pale_hanging_moss_tip"
+    }
+  }
+}

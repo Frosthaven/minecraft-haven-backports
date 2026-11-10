@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "haven_backports:block/pale_oak_planks"
+  }
+}

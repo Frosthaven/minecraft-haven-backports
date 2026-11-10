@@ -12,12 +12,15 @@ import net.minecraft.world.level.biome.Biome;
 public final class Biomes26 {
     public static final ResourceKey<Biome> DAPPLED_FOREST = key("dappled_forest");
     public static final ResourceKey<Biome> SULFUR_CAVES = key("sulfur_caves");
+    public static final ResourceKey<Biome> PALE_GARDEN = key("pale_garden");
 
     private Biomes26() {}
 
-    /** 26.x OverworldBiomeBuilder: MIDDLE_BIOMES_VARIANT[1][0] = DAPPLED_FOREST (1.21.1: null, so plains). */
-    public static void tables(ResourceKey<Biome>[][] middleVariant) {
+    /** 26.x OverworldBiomeBuilder: MIDDLE_BIOMES_VARIANT[1][0] = DAPPLED_FOREST (1.21.1: null, so plains);
+     *  PLATEAU_BIOMES[2][4] = PALE_GARDEN (1.21.1: dark forest; the middle-biome dark forest stays). */
+    public static void tables(ResourceKey<Biome>[][] middleVariant, ResourceKey<Biome>[][] plateau) {
         middleVariant[1][0] = DAPPLED_FOREST;
+        plateau[2][4] = PALE_GARDEN;
     }
 
     /** True while 1.21.1's built-in registry set is being built (it holds no biome of ours). */

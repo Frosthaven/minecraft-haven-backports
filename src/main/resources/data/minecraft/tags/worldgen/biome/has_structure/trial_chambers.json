@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:pale_garden",
     "haven_backports:dappled_forest",
     "haven_backports:sulfur_caves"
   ]

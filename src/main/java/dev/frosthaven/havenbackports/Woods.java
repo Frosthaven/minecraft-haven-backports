@@ -50,7 +50,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
  */
 public final class Woods {
     /** A leaves block of the set: id, its block, its map color. */
-    public record Leaves(String id, Function<Properties, Block> make, MapColor color) {}
+    public record Leaves(String id, Function<Properties, Block> make, Supplier<Properties> properties) {}
 
     /** The blocks other classes reach (signs for the block entity types, saplings for pots and trades, boats). */
     public record Wood(String name, WoodType type, DeferredBlock<Block> planks, DeferredBlock<Block> sapling, DeferredBlock<Block> log,
@@ -58,7 +58,9 @@ public final class Woods {
                        DeferredItem<Item> boat, DeferredItem<Item> chestBoat, Supplier<Boat.Type> boatType) {}
 
     static final List<Wood> ALL = new ArrayList<>();
+    static final java.util.Map<String, DeferredBlock<Block>> LEAVES = new java.util.HashMap<>();
     public static Wood POPLAR;
+    public static Wood PALE_OAK;
 
     private Woods() {}
 
@@ -72,6 +74,11 @@ public final class Woods {
         // POPLAR_SAPLING of().mapColor(METAL) (Blocks.java 329, as Mojang has it)
         POPLAR = wood("poplar", MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL, MapColor.PODZOL, MapColor.METAL,
                 Dappled.POPLAR_LEAVES, () -> Dappled.POPLAR, BoatTypes::poplar);
+        // PALE_OAK_PLANKS QUARTZ; PALE_OAK_WOOD STONE; PALE_OAK_LOG logProperties(planks, wood); PALE_OAK_SAPLING METAL;
+        // PALE_OAK_LEAVES UntintedParticleLeavesBlock(0.02, PALE_OAK_LEAVES particle, no ambient sound)
+        PALE_OAK = wood("pale_oak", MapColor.QUARTZ, MapColor.QUARTZ, MapColor.STONE, MapColor.STONE, MapColor.METAL,
+                PaleGarden.LEAVES, () -> PaleGarden.PALE_OAK_GROWER, BoatTypes::paleOak);
+        PaleGarden.PALE_OAK_LEAVES = LEAVES.get("pale_oak_leaves");
     }
 
     static Wood wood(String w, MapColor planksColor, MapColor logTop, MapColor logSide, MapColor woodColor, MapColor saplingColor, List<Leaves> leaves,
@@ -90,7 +97,8 @@ public final class Woods {
         DeferredBlock<Block> strippedWood = Content.block("stripped_" + w + "_wood", RotatedPillarBlock::new, () -> Properties.of()
                 .mapColor(planksColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
         for (Leaves l : leaves) {
-            DeferredBlock<Block> b = Content.block(l.id(), l.make(), () -> Dappled.leavesProperties(l.id()).mapColor(l.color()));
+            DeferredBlock<Block> b = Content.block(l.id(), l.make(), l.properties());
+            LEAVES.put(l.id(), b);
             Content.FLAMMABLE.add(() -> Content.fire().setFlammable(b.get(), 30, 60));
         }
         Supplier<Properties> sign = () -> Properties.of().mapColor(planksColor).forceSolidOn().instrument(NoteBlockInstrument.BASS)

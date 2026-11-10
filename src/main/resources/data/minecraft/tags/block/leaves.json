@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:pale_oak_leaves",
     "haven_backports:red_poplar_leaves",
     "haven_backports:orange_poplar_leaves",
     "haven_backports:yellow_poplar_leaves"

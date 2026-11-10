@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "L": {
+      "item": "haven_backports:pale_oak_log"
+    },
+    "R": {
+      "item": "haven_backports:resin_block"
+    }
+  },
+  "pattern": [
+    " L ",
+    " R ",
+    " L "
+  ],
+  "result": {
+    "id": "haven_backports:creaking_heart"
+  }
+}

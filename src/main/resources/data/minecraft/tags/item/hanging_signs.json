@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:pale_oak_hanging_sign",
     "haven_backports:poplar_hanging_sign"
   ]
 }

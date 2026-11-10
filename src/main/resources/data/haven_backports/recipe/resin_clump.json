@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven_backports:resin_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "haven_backports:resin_clump"
+  }
+}

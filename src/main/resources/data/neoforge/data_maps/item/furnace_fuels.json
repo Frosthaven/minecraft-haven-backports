@@ -60,6 +60,12 @@
     "haven_backports:poplar_chest_boat": {
       "burn_time": 1200
     },
+    "haven_backports:pale_oak_boat": {
+      "burn_time": 1200
+    },
+    "haven_backports:pale_oak_chest_boat": {
+      "burn_time": 1200
+    },
     "haven_backports:oak_shelf": {
       "burn_time": 300
     },
@@ -86,6 +92,63 @@
     },
     "haven_backports:bamboo_shelf": {
       "burn_time": 300
+    },
+    "haven_backports:pale_oak_planks": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_sapling": {
+      "burn_time": 100
+    },
+    "haven_backports:pale_oak_log": {
+      "burn_time": 300
+    },
+    "haven_backports:stripped_pale_oak_log": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_wood": {
+      "burn_time": 300
+    },
+    "haven_backports:stripped_pale_oak_wood": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_sign": {
+      "burn_time": 200
+    },
+    "haven_backports:pale_oak_hanging_sign": {
+      "burn_time": 800
+    },
+    "haven_backports:pale_oak_pressure_plate": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_trapdoor": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_button": {
+      "burn_time": 100
+    },
+    "haven_backports:pale_oak_stairs": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_slab": {
+      "burn_time": 150
+    },
+    "haven_backports:pale_oak_fence_gate": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_fence": {
+      "burn_time": 300
+    },
+    "haven_backports:pale_oak_door": {
+      "burn_time": 200
+    },
+    "haven_backports:pale_oak_shelf": {
+      "burn_time": 300
+    },
+    "haven_backports:resin_brick_stairs": {
+      "burn_time": 300
+    },
+    "haven_backports:resin_brick_slab": {
+      "burn_time": 150
     },
     "haven_backports:glacian_shelf": {
       "burn_time": 300

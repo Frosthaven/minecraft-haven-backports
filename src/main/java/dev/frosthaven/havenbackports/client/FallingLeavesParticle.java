@@ -89,6 +89,14 @@ public class FallingLeavesParticle extends TextureSheetParticle {
         }
     }
 
+    /** FallingLeavesParticle.PaleOakProvider: (0.25, 2.0, no swirl, flow away, scale 1.0, start velocity 0). */
+    public record PaleOakProvider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
+        @Override
+        public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
+            return new FallingLeavesParticle(level, x, y, z, this.sprites, 0.25F, 2.0F, false, true, 1.0F, 0.0F);
+        }
+    }
+
     /** FallingLeavesParticle.PoplarProvider: (0.07, 10.0, swirl, no flow away, scale 2.0, start velocity 0.021). */
     public record PoplarProvider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
         @Override

@@ -4,6 +4,7 @@
 - element `shade_direction_override`: shades an element as if it faced that direction. Mojang uses "up" where 1.21.1
   has `"shade": false` (template_lantern, template_torch ...): "up" converts to that. Other directions have no 1.21.1
   form, so they stop the run for a decision.
+- element `light_emission` (emissive eyeblossoms): NeoForge's element `neoforge_data` block_light and sky_light.
 - display `on_shelf`: the item transform for items standing on a shelf (ItemDisplayContext.ON_SHELF). 1.21.1 has no
   such context; Haven Backports adds one through a NeoForge enum extension, and NeoForge requires its name to carry
   the mod id, so the key becomes `haven_backports:on_shelf`. A model without one renders with no transform, as in 26.x
@@ -33,7 +34,10 @@ def convert(model: dict, where: str) -> dict:
                 raise SystemExit(f"{where}: shade_direction_override {d!r} has no 1.21.1 form; decide by hand")
             e["shade"] = False
         if "light_emission" in e:
-            raise SystemExit(f"{where}: element light_emission needs a NeoForge form; decide by hand")
+            # 26.x element light_emission (the element draws at least this light): NeoForge's per-element light data,
+            # block and sky light alike (the packed light is the max of the world's and this)
+            n = e.pop("light_emission")
+            e.setdefault("neoforge_data", {}).update({"block_light": n, "sky_light": n})
     display = m.get("display")
     if display and "on_shelf" in display:
         display[SHELF_KEY] = display.pop("on_shelf")

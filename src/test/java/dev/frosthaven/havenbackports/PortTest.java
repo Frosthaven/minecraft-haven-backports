@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
 class PortTest {
     static final Path FIXTURE = Path.of(System.getProperty("haven.porttest", "build/porttest/26x.json"));
     /** 26.x overworld points of biomes not ported yet, or kept at 1.21.1 on purpose (README). */
-    static final Set<String> NOT_PORTED = Set.of("minecraft:pale_garden", "minecraft:ice_caves");
+    static final Set<String> NOT_PORTED = Set.of("minecraft:ice_caves");
     /** 26.x narrowed dripstone caves to humidity -1..0.7 (making room for nothing new: lush caves already won there);
      *  kept at 1.21.1 so no existing biome moves. */
     static final Set<String> KEPT_1211 = Set.of("minecraft:dripstone_caves");
@@ -108,7 +108,8 @@ class PortTest {
     void shapes() throws Exception {
         JsonObject shapes = fixture().getAsJsonObject("shapes");
         int n = 0;
-        for (Block block : List.of(Dappled.LEAF_LITTER.get(), Dappled.SHELF_MUSHROOM.get())) {
+        for (Block block : List.of(Dappled.LEAF_LITTER.get(), Dappled.SHELF_MUSHROOM.get(),
+                PaleGarden.PALE_MOSS_CARPET.get(), PaleGarden.PALE_HANGING_MOSS.get(), Sulfur.SULFUR_SPIKE.get())) {
             for (BlockState s : block.getStateDefinition().getPossibleStates()) {
                 List<String> boxes = new ArrayList<>();
                 for (AABB b : s.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO, CollisionContext.empty()).toAabbs()) {

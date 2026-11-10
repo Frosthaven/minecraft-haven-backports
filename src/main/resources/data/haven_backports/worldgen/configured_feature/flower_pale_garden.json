@@ -1,0 +1,12 @@
+{
+  "type": "haven_backports:simple_block",
+  "config": {
+    "schedule_tick": true,
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "haven_backports:closed_eyeblossom"
+      }
+    }
+  }
+}

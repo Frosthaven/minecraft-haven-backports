@@ -182,6 +182,39 @@ final class ModdedShelves {{
                     return True
             return False
 
+        def reach(n, seen=()):
+            """Every plain id a snapshot tag file holds, through its references."""
+            out = set()
+            for v in tag_files.get(n, {}).get("values", []):
+                v = v if isinstance(v, str) else v.get("id", "")
+                if v.startswith("#"):
+                    ref = n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json"
+                    if ref not in seen:
+                        out |= reach(ref, seen + (n,))
+                elif v:
+                    out.add(self.id(v))
+            return out
+
+        # a family: a new snapshot tag that took over its vanilla members' place in 1.21.1's tags (B.FAMILY_TAGS)
+        families = {f: reach(f) for f in tag_files if f not in self.old_names and f.split("/")[-1][:-5] in B.FAMILY_TAGS}
+
+        def moved(n):
+            """Ours where 26.x moved a vanilla entry of 1.21.1's tag n into a new family tag next to ours: 26.x
+            dirt no longer lists moss_block, which went to the new #moss_blocks with pale_moss_block; 1.21.1 still
+            checks #dirt (plants, saplings, trees), so pale moss joins 1.21.1's dirt as moss_block is there."""
+            if n not in self.old_names:
+                return []
+            kind = n.split("/tags/", 1)[1].split("/", 1)[0]
+            listed = {v for v in json.loads(self.old.read(n)).get("values", []) if isinstance(v, str) and not v.startswith("#")}
+            gone = {self.id(v) for v in listed} - reach(n)
+            out = []
+            for f, members in families.items():
+                if f.split("/tags/", 1)[1].split("/", 1)[0] == kind and gone & members:
+                    out += sorted(m for m in members if m.startswith(f"{B.NS}:") and m not in out)
+            if out:
+                print(f"tag {n.split('/tags/', 1)[1]}: 26.x moved {sorted(gone)} into new family tags; adds {out}")
+            return out
+
         wanted = [n for n in tag_files if n in self.old_names or n.split("/")[-1][:-5] in B.CODE_TAGS or
                   (n.startswith("data/minecraft/tags/item/") and "minecraft:" + n.split("/", 4)[4][:-5] in self.recipe_tags)]
         written, queue = set(), list(wanted)
@@ -189,7 +222,7 @@ final class ModdedShelves {{
             n = queue.pop()
             if n in written:
                 continue
-            values = own(n)
+            values = own(n) + [v for v in moved(n) if v not in own(n)]
             if not values:
                 continue
             written.add(n)

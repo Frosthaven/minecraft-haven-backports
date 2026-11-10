@@ -27,6 +27,9 @@ abstract class OverworldBiomeBuilderMixin {
     @Shadow
     @Final
     private ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT;
+    @Shadow
+    @Final
+    private ResourceKey<Biome>[][] PLATEAU_BIOMES;
 
     @Shadow
     @Final
@@ -63,7 +66,7 @@ abstract class OverworldBiomeBuilderMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void haven_backports$tables(CallbackInfo ci) {
         if (!Biomes26.inVanillaBootstrap()) {
-            Biomes26.tables(this.MIDDLE_BIOMES_VARIANT);
+            Biomes26.tables(this.MIDDLE_BIOMES_VARIANT, this.PLATEAU_BIOMES);
         }
     }
 }

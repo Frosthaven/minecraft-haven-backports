@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "carpet",
+  "key": {
+    "#": {
+      "item": "haven_backports:pale_moss_block"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "haven_backports:pale_moss_carpet"
+  }
+}

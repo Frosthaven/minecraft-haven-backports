@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:pale_oak_pressure_plate",
     "haven_backports:poplar_pressure_plate"
   ]
 }

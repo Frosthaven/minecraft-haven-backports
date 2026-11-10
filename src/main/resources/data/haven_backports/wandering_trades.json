@@ -1,5 +1,35 @@
 [
   {
+    "trade": "minecraft:wandering_trader/emerald_open_eyeblossom",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:open_eyeblossom",
+      "count": 1
+    },
+    "max_uses": 7,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_pale_oak_sapling",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 5
+    },
+    "gives": {
+      "id": "haven_backports:pale_oak_sapling",
+      "count": 1
+    },
+    "max_uses": 8,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
     "trade": "minecraft:wandering_trader/emerald_poplar_sapling",
     "pool": "generic",
     "wants": {
@@ -11,6 +41,21 @@
       "count": 1
     },
     "max_uses": 8,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_pale_hanging_moss",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:pale_hanging_moss",
+      "count": 3
+    },
+    "max_uses": 4,
     "xp": 1,
     "reputation_discount": 0.05
   },
@@ -30,6 +75,21 @@
     "reputation_discount": 0.05
   },
   {
+    "trade": "minecraft:wandering_trader/emerald_pale_moss_block",
+    "pool": "generic",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:pale_moss_block",
+      "count": 2
+    },
+    "max_uses": 5,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
     "trade": "minecraft:wandering_trader/emerald_shelf_mushroom",
     "pool": "generic",
     "wants": {
@@ -41,6 +101,21 @@
       "count": 3
     },
     "max_uses": 12,
+    "xp": 1,
+    "reputation_discount": 0.05
+  },
+  {
+    "trade": "minecraft:wandering_trader/emerald_pale_oak_log",
+    "pool": "rare",
+    "wants": {
+      "id": "minecraft:emerald",
+      "count": 1
+    },
+    "gives": {
+      "id": "haven_backports:pale_oak_log",
+      "count": 8
+    },
+    "max_uses": 4,
     "xp": 1,
     "reputation_discount": 0.05
   },

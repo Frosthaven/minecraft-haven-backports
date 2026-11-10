@@ -19,7 +19,16 @@ public final class BoatTypes {
             (Supplier<Item>) () -> Woods.POPLAR.boat().get(), (Supplier<Item>) () -> Woods.POPLAR.chestBoat().get(),
             (Supplier<Item>) () -> Items.STICK, false);
 
+    public static final EnumProxy<Boat.Type> PALE_OAK_PROXY = new EnumProxy<>(Boat.Type.class,
+            (Supplier<Block>) () -> Woods.PALE_OAK.planks().get(), HavenBackports.ID + ":pale_oak",
+            (Supplier<Item>) () -> Woods.PALE_OAK.boat().get(), (Supplier<Item>) () -> Woods.PALE_OAK.chestBoat().get(),
+            (Supplier<Item>) () -> Items.STICK, false);
+
     private BoatTypes() {}
+
+    public static Boat.Type paleOak() {
+        return PALE_OAK_PROXY.getValue();
+    }
 
     public static Boat.Type poplar() {
         return POPLAR_PROXY.getValue();

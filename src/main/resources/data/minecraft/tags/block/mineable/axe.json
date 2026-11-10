@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:wooden_shelves"
+    "#minecraft:wooden_shelves",
+    "haven_backports:creaking_heart"
   ]
 }

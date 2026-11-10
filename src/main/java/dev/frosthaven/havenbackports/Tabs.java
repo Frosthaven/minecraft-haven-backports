@@ -41,6 +41,8 @@ final class Tabs {
                         n + "_bricks", n + "_brick_stairs", n + "_brick_slab", n + "_brick_wall"));
             }
             after(e, "cut_red_sandstone_slab", stones.toArray(String[]::new));
+            // ... mud brick wall, RESIN_BRICKS, stairs, slab, wall, CHISELED_RESIN_BRICKS, sandstone ...
+            after(e, "mud_brick_wall", "resin_bricks", "resin_brick_stairs", "resin_brick_slab", "resin_brick_wall", "chiseled_resin_bricks");
             // ... cherry button, [pale oak set], POPLAR log, wood, stripped log and wood, planks ... button
             for (Woods.Wood w : Woods.all()) {
                 String n = w.name();
@@ -64,6 +66,14 @@ final class Tabs {
             after(e, "cherry_log", "poplar_log");
             after(e, "cherry_leaves", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves");
             after(e, "cherry_sapling", "poplar_sapling");
+            after(e, "cherry_log", "pale_oak_log");   // inserted after cherry: before poplar, as 26.4
+            after(e, "cherry_leaves", "pale_oak_leaves");
+            after(e, "cherry_sapling", "pale_oak_sapling");
+            // ... moss carpet, PALE_MOSS_BLOCK, PALE_MOSS_CARPET, PALE_HANGING_MOSS, stone ...; torchflower,
+            // [cactus flower], CLOSED_EYEBLOSSOM, OPEN_EYEBLOSSOM, wither rose; honey block, RESIN_BLOCK, froglights
+            after(e, "moss_carpet", "pale_moss_block", "pale_moss_carpet", "pale_hanging_moss");
+            after(e, "torchflower", "closed_eyeblossom", "open_eyeblossom");
+            after(e, "honey_block", "resin_block");
             after(e, "red_mushroom", "shelf_mushroom");
             after(e, "fern", "red_shrub");
             after(e, "pink_petals", "leaf_litter");
@@ -86,13 +96,13 @@ final class Tabs {
             // ... then the modded woods' shelves, for the mods that are loaded
             List<String> shelves = new ArrayList<>(List.of("oak_shelf", "spruce_shelf", "birch_shelf", "jungle_shelf", "acacia_shelf",
                     "dark_oak_shelf", "mangrove_shelf", "cherry_shelf"));
-            Woods.all().forEach(w -> shelves.add(w.name() + "_shelf"));
+            Woods.all().reversed().forEach(w -> shelves.add(w.name() + "_shelf"));
             shelves.addAll(List.of("bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
             // ... cherry sign, cherry hanging sign, [pale oak], POPLAR_SIGN, POPLAR_HANGING_SIGN, bamboo sign ...
             List<String> signs = new ArrayList<>();
-            Woods.all().forEach(w -> signs.addAll(List.of(w.name() + "_sign", w.name() + "_hanging_sign")));
+            Woods.all().reversed().forEach(w -> signs.addAll(List.of(w.name() + "_sign", w.name() + "_hanging_sign")));
             after(e, "cherry_hanging_sign", signs.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
@@ -112,7 +122,7 @@ final class Tabs {
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
             // ... cherry chest boat, [pale oak boats], POPLAR_BOAT, POPLAR_CHEST_BOAT, bamboo raft ...
             List<String> boats = new ArrayList<>();
-            Woods.all().forEach(w -> boats.addAll(List.of(w.name() + "_boat", w.name() + "_chest_boat")));
+            Woods.all().reversed().forEach(w -> boats.addAll(List.of(w.name() + "_boat", w.name() + "_chest_boat")));
             after(e, "cherry_chest_boat", boats.toArray(String[]::new));
             // ... axolotl bucket, tadpole bucket, SULFUR_CUBE_BUCKET ...
             after(e, "tadpole_bucket", "sulfur_cube_bucket");
@@ -123,13 +133,21 @@ final class Tabs {
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
-            // ... sniffer spawn egg, SULFUR_CUBE_SPAWN_EGG ... (26.4 lists eggs by name)
+            // ... trial spawner, CREAKING_HEART ...; ... breeze, CREAKING_SPAWN_EGG ...; ... sniffer,
+            // SULFUR_CUBE_SPAWN_EGG ... (26.4 lists eggs by name)
+            after(e, "trial_spawner", "creaking_heart");
+            after(e, "breeze_spawn_egg", "creaking_spawn_egg");
             after(e, "sniffer_spawn_egg", "sulfur_cube_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
-            // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
+            // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...; honeycomb, RESIN_CLUMP; nether brick, RESIN_BRICK
             after(e, "ancient_debris", "copper_nugget");
+            after(e, "honeycomb", "resin_clump");
+            after(e, "nether_brick", "resin_brick");
         }
     }
+
+    // Woods.all() is in registration order (poplar, pale oak); 26.4 lists pale oak first, so runs that list every wood
+    // take it reversed, and runs inserted one wood at a time after the same anchor take it as it is.
 
     /** Inserts our items, in order, after the vanilla item; at the tab's end when 1.21.1 lacks that item there. */
     private static void after(BuildCreativeModeTabContentsEvent e, String vanilla, String... ours) {

@@ -168,6 +168,7 @@ public final class Content {
         shelf("crimson_shelf", () -> MapColor.CRIMSON_STEM, true);
         shelf("warped_shelf", () -> MapColor.WARPED_STEM, true);
         Woods.register();
+        PaleGarden.register();
         Dappled.register();
         // Modded woods (tools/modshelves.py): Mojang's shelf properties; map color from the wood's planks when its mod
         // is loaded (MapColor.WOOD otherwise); nether woods as crimson and warped. They load without the wood's mod.

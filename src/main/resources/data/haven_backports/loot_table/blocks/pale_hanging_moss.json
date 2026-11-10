@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "terms": [
+            {
+              "condition": "neoforge:can_item_perform_ability",
+              "ability": "shears_dig"
+            },
+            {
+              "predicate": {
+                "predicates": {
+                  "minecraft:enchantments": [
+                    {
+                      "enchantments": "minecraft:silk_touch",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              "condition": "minecraft:match_tool"
+            }
+          ],
+          "condition": "minecraft:any_of"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "haven_backports:pale_hanging_moss"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "minecraft:blocks/pale_hanging_moss"
+}

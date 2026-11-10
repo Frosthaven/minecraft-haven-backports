@@ -59,6 +59,14 @@ public final class Worldgen {
     public static final DeferredHolder<net.minecraft.util.valueproviders.IntProviderType<?>,
             net.minecraft.util.valueproviders.IntProviderType<TrapezoidInt>> TRAPEZOID = INT_PROVIDERS.register("trapezoid", () -> () -> TrapezoidInt.CODEC);
 
+    public static final DeferredHolder<TrunkPlacerType<?>, TrunkPlacerType<DarkOakTrunkPlacer>> DARK_OAK_TRUNK_PLACER =
+            TRUNKS.register("dark_oak_trunk_placer", () -> new TrunkPlacerType<>(DarkOakTrunkPlacer.CODEC));
+    public static final DeferredHolder<Feature<?>, SimpleBlockFeature> SIMPLE_BLOCK = FEATURES.register("simple_block", SimpleBlockFeature::new);
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PaleMossDecorator>> PALE_MOSS =
+            DECORATORS.register("pale_moss", () -> new TreeDecoratorType<>(PaleMossDecorator.CODEC));
+    public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<CreakingHeartDecorator>> CREAKING_HEART =
+            DECORATORS.register("creaking_heart", () -> new TreeDecoratorType<>(CreakingHeartDecorator.CODEC));
+
     static {
         CONDITIONS.register("noise_threshold_3d", () -> NoiseThreshold3d.CODEC.codec());
     }

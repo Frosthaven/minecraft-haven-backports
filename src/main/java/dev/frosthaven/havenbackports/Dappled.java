@@ -94,7 +94,8 @@ public final class Dappled {
 
     private static Woods.Leaves poplarLeaves(String color, Supplier<SimpleParticleType> particle, MapColor map) {
         return new Woods.Leaves(color + "_poplar_leaves", p -> new ParticleLeavesBlock(0.01F, particle,
-                Optional.of(new AmbientLeavesSound(POPLAR_LEAVES_AMBIENT, REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)), p), map);
+                Optional.of(new AmbientLeavesSound(POPLAR_LEAVES_AMBIENT, REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)), p),
+                () -> leavesProperties(color + "_poplar_leaves").mapColor(map));
     }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> tree(String id) {

@@ -44,6 +44,8 @@ ITEM_DATA = {
     "hanging_sign": ("time_hanging_signs", None), "boat": ("time_boats", None), "chest_boat": ("time_boats", None),
     "sapling": ("time_dry_plants", "low"), "leaves": (None, "low"),
     "leaf_litter": ("time_dry_plants", "low"), "red_shrub": (None, "low"), "shelf_mushroom": (None, "medium"),
+    "pale_moss_block": (None, "medium"), "pale_moss_carpet": (None, "low"), "pale_hanging_moss": (None, "low"),
+    "eyeblossom": (None, "medium"),
 }
 # 26.x has no name for the three poplar leaves (no lang key); its only poplar leaves name is "Poplar Leaves".
 LANG_FALLBACK = {"red_poplar_leaves": "block.minecraft.poplar_leaves", "orange_poplar_leaves": "block.minecraft.poplar_leaves",

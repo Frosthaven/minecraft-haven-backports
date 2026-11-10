@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "haven_backports:block/pale_oak_leaves"
+  }
+}

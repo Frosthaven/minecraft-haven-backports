@@ -24,6 +24,7 @@ one block per concept and it looks the way Mojang made it.
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Dappled Forest | The biome (Mojang's place in the climate table); Poplar Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; red, orange and yellow Poplar Leaves; Poplar Sapling (and potted); Leaf Litter; Red Shrub; Shelf Mushroom |
 | Sulfur Caves | The cave biome (Mojang's place in the climate table); Potent Sulfur (geysers, noxious gas); Sulfur Spike; the Sulfur Cube, its bucket and spawn egg; the Sulfur and Cinnabar stone sets come from it |
+| Pale Garden | The biome (Mojang's place in the climate table); Pale Oak Log, Wood, Stripped Log and Wood, Planks, Stairs, Slab, Fence, Fence Gate, Door, Trapdoor, Pressure Plate, Button, Sign, Hanging Sign, Shelf, Boat, Boat with Chest; Pale Oak Leaves; Pale Oak Sapling (and potted); Pale Moss Block, Carpet, Hanging Moss; Open and Closed Eyeblossom (and potted); Resin Clump, Block of Resin, Resin Bricks with Stairs, Slab, Wall, Chiseled Resin Bricks, Resin Brick; Creaking Heart; the Creaking and its spawn egg |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -126,6 +127,33 @@ the sheared-equipment advancement trigger, knockback that knows it came from an 
 
 1.21.1 has no level event for a landing sulfur spike: the server plays the same sound. Dripstone caves keep 1.21.1's
 humidity range (newer Minecraft narrowed it; no new biome takes that space).
+
+### Pale Garden
+
+Everything as newer Minecraft generates it: pale oak trees (newer Minecraft's dark oak trunk, which also keeps the
+leaves on the branch feet), some with a creaking heart in the trunk and resin clumps on the logs; pale moss on the
+ground and over stone, pale moss carpets, pale hanging moss under the leaves, open and closed eyeblossoms. The biome
+has no music (newer Minecraft fades the track out; 1.21.1 stops it) and its own grey sky, fog and water colours.
+Pale oak saplings grow a 2x2 pale oak (bone meal on pale moss spreads it as newer Minecraft does). Eyeblossoms open at
+night and close at day with their sounds and trail particles; each gives its dye. The wandering trader sells pale oak
+saplings, pale oak logs, pale moss blocks, pale hanging moss and open eyeblossoms. Resin clumps also come from woodland
+mansion chests (newer Minecraft's loot table, which also drops the name tag from them) and smelt into resin bricks;
+nine make a block of resin. Eyeblossoms go into suspicious stew (open: blindness, closed: nausea, as newer Minecraft).
+
+A creaking heart between two pale oak logs on the same axis wakes at night and spawns a creaking. The creaking
+freezes while a player looks at it (a carved pumpkin on the head lets it move), takes no damage while its heart lives
+(each hit sends trail particles to the heart and grows 2 to 3 resin clumps on the logs nearby) and crumbles at day, when
+it strays over 34 blocks from the heart or when the heart breaks. A natural heart gives 20 to 24 experience; silk touch
+keeps it, otherwise it drops resin clumps. Illagers flee creakings and parrots imitate them.
+
+1.21.1 has no tag that keeps a mob out of boats: the creaking refuses to ride a boat at all (so `/ride` cannot seat
+it either). Newer Minecraft took moss out of the dirt tag into a moss tag with pale moss; 1.21.1 still asks the dirt
+tag (plants, saplings), so pale moss joins it as moss is there (one side effect: big dripleaf, which 1.21.1 lets grow
+on any dirt, grows on pale moss too). Vanilla's kill-a-mob advancements stay 1.21.1's files (the creaking is not
+added to them, as for the Sulfur Cube).
+
+Not in 1.21.1, so not here: resin armor trims (1.21.1's trim materials need an item model index Mojang never gave
+resin, and the pack's armor models have no overrides for it); the firefly bush near water (added with the newer flora).
 
 ## Download
 

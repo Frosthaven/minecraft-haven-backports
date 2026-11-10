@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:resin_brick_stairs",
     "haven_backports:cinnabar_stairs",
     "haven_backports:polished_cinnabar_stairs",
     "haven_backports:cinnabar_brick_stairs",

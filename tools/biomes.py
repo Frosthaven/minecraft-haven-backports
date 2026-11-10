@@ -38,6 +38,12 @@ BIOMES = {
         # 26.x glow lichen grows on sulfur and cinnabar too (its only change): 1.21.1's feature with ours added
         "additions": [("configured_feature/glow_lichen", ["config", "can_be_placed_on"], ["can_be_placed_on"])],
     },
+    "pale_garden": {
+        "c": ["is_dense_vegetation/overworld", "is_spooky", "is_temperate/overworld", "is_tree/deciduous"],   # as dark_forest
+        "configured": ["pale_oak_bonemeal", "pale_moss_patch_bonemeal", "pale_moss_patch"],   # TreeGrower.PALE_OAK, the
+        # pale moss block's bonemeal, PaleMossDecorator's ground patch
+        "skip": ["minecraft:patch_firefly_bush_near_water"],   # until the firefly bush is in (newer flora, a later part)
+    },
 }
 NOISE_SETTINGS = ["overworld", "large_biomes", "amplified"]   # the overworld presets sharing 1.21.1's surface rule
 
@@ -60,6 +66,7 @@ class Biomes:
                 self.wg.configured(f"minecraft:{f}")
             for n in BIOMES[b].get("noises", []):
                 self.wg.noise(n, "minecraft")   # Mojang's key: the noise is seeded from it
+        self.check_order()
         self.surface_rules()
         self.additions()
         self.c_tags()
@@ -114,7 +121,9 @@ class Biomes:
             spawners[cat] = out
         if attrs:
             sys.exit(f"biome {name}: attributes with no 1.21.1 form: {sorted(attrs)}")
-        features = [[self.wg.placed_ref(f) for f in step] for step in raw["features"]]
+        skip = BIOMES[name].get("skip", [])
+        features = [self.vanilla_order(name, i, [self.wg.placed_ref(f) for f in step if f not in skip])
+                    for i, step in enumerate(raw["features"])]
         out = {"has_precipitation": raw["has_precipitation"], "temperature": raw["temperature"],
                "downfall": raw["downfall"]}
         if "temperature_modifier" in raw:
@@ -123,6 +132,57 @@ class Biomes:
                     "spawn_costs": spawns.get("spawn_costs", {}), "carvers": {"air": raw["carvers"]},
                     "features": features})
         self.wg.write(f"biome/{name}", out)
+
+    def vanilla_order(self, name, step, feats):
+        """The vanilla features of one step in an order 1.21.1's biomes agree with. 1.21.1 sorts every biome's
+        features into one order per step and stops chunk generation on a cycle ("Feature order cycle found"); 26.x
+        moved some (patch_pumpkin before patch_sugar_cane), so a 26.x list can contradict 1.21.1's biomes. Ours keep
+        their slots; the vanilla slots take the vanilla features, 26.x order where 1.21.1 has no rule. Each feature
+        seeds its own random from its index, so a swap changes only which feature sees the other's blocks."""
+        if not hasattr(self, "_before"):
+            self._before = set()
+            for n in self.port.old_names:
+                if n.startswith("data/minecraft/worldgen/biome/") and n.endswith(".json"):
+                    for i, st in enumerate(json.loads(self.port.old.read(n))["features"]):
+                        self._before.update((i, a, b) for x, a in enumerate(st) for b in st[x + 1:])
+        vanilla = [f for f in feats if f.startswith("minecraft:")]
+        done = []
+        rest = list(vanilla)
+        while rest:
+            f = next(f for f in rest if not any((step, g, f) in self._before for g in rest if g != f))
+            rest.remove(f)
+            done.append(f)
+        if done != vanilla:
+            print(f"biome {name}: step {step} vanilla features in 1.21.1's order {done} (26.x: {vanilla})")
+        it = iter(done)
+        return [next(it) if f.startswith("minecraft:") else f for f in feats]
+
+    def check_order(self):
+        """1.21.1's FeatureSorter test on 1.21.1's biomes plus ours: consecutive features (step, id) must form no
+        cycle, or chunk generation stops at the first chunk."""
+        lists = [json.loads(self.port.old.read(n))["features"] for n in self.port.old_names
+                 if n.startswith("data/minecraft/worldgen/biome/") and n.endswith(".json")]
+        lists += [json.loads((self.res / "data" / NS / "worldgen" / "biome" / f"{b}.json").read_text())["features"] for b in BIOMES]
+        edges = {}
+        for steps in lists:
+            flat = [(i, f) for i, st in enumerate(steps) for f in st]
+            for a, b in zip(flat, flat[1:]):
+                edges.setdefault(a, set()).add(b)
+        state = {}
+        for root in list(edges):
+            stack = [(root, iter(edges.get(root, ())))] if root not in state else []
+            state.setdefault(root, 1)
+            while stack:
+                node, it = stack[-1]
+                m = next(it, None)
+                if m is None:
+                    state[node] = 2
+                    stack.pop()
+                elif state.get(m) == 1:
+                    sys.exit(f"feature order cycle at {node} -> {m}")
+                elif m not in state:
+                    state[m] = 1
+                    stack.append((m, iter(edges.get(m, ()))))
 
     # ---------- surface rules ----------
     def rule(self, v):

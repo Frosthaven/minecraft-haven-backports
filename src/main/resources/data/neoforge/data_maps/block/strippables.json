@@ -1,5 +1,11 @@
 {
   "values": {
+    "haven_backports:pale_oak_wood": {
+      "stripped_block": "haven_backports:stripped_pale_oak_wood"
+    },
+    "haven_backports:pale_oak_log": {
+      "stripped_block": "haven_backports:stripped_pale_oak_log"
+    },
     "haven_backports:poplar_wood": {
       "stripped_block": "haven_backports:stripped_poplar_wood"
     },

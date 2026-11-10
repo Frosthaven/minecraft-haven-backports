@@ -34,7 +34,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  */
 public final class Dump26 {
     static final String[] TREES = {"red_poplar_leaf_litter", "orange_poplar_leaf_litter", "yellow_poplar_leaf_litter", "red_poplar",
-            "orange_poplar", "yellow_poplar", "fallen_poplar_tree"};
+            "orange_poplar", "yellow_poplar", "fallen_poplar_tree",
+            "pale_oak_bonemeal"};
     static final int SEEDS = 50;
 
     public static void main(String[] args) throws Exception {
@@ -65,7 +66,8 @@ public final class Dump26 {
         }
         out.add("trees", trees);
         JsonObject shapes = new JsonObject();
-        for (var block : new net.minecraft.world.level.block.Block[]{Blocks.LEAF_LITTER, Blocks.SHELF_MUSHROOM}) {
+        for (var block : new net.minecraft.world.level.block.Block[]{Blocks.LEAF_LITTER, Blocks.SHELF_MUSHROOM,
+                Blocks.PALE_MOSS_CARPET, Blocks.PALE_HANGING_MOSS, Blocks.SULFUR_SPIKE}) {
             for (BlockState s : block.getStateDefinition().getPossibleStates()) {
                 JsonArray boxes = new JsonArray();
                 for (AABB b : s.getShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO, CollisionContext.empty()).toAabbs()) {

@@ -20,6 +20,27 @@
     },
     "haven_backports:shelf_mushroom": {
       "chance": 0.65
+    },
+    "haven_backports:pale_oak_sapling": {
+      "chance": 0.3
+    },
+    "haven_backports:pale_oak_leaves": {
+      "chance": 0.3
+    },
+    "haven_backports:pale_moss_block": {
+      "chance": 0.65
+    },
+    "haven_backports:pale_moss_carpet": {
+      "chance": 0.3
+    },
+    "haven_backports:pale_hanging_moss": {
+      "chance": 0.3
+    },
+    "haven_backports:open_eyeblossom": {
+      "chance": 0.65
+    },
+    "haven_backports:closed_eyeblossom": {
+      "chance": 0.65
     }
   }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "haven_backports:resin_clump"
+  },
+  "result": {
+    "id": "haven_backports:resin_brick"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "haven_backports:block/mossy_carpet_side",
+  "textures": {
+    "side": "haven_backports:block/pale_moss_carpet_side_tall"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#minecraft:substrate_overworld",
     "haven_backports:sulfur",
     "haven_backports:cinnabar"
   ]

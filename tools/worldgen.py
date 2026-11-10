@@ -40,10 +40,14 @@ TYPES = {
     "minecraft:matching_fluids": f"{NS}:matching_fluids",   # 26.x adds the fluid state check
     "minecraft:offset": f"{NS}:offset",
     "minecraft:trapezoid": f"{NS}:trapezoid",   # the int provider (1.21.1's trapezoid is a height provider only)
+    "minecraft:pale_moss": f"{NS}:pale_moss",
+    "minecraft:dark_oak_trunk_placer": f"{NS}:dark_oak_trunk_placer",   # 26.x moved the side branches' leaves
+    "minecraft:creaking_heart": f"{NS}:creaking_heart",
 }
 # Keys whose value is a block state provider.
 PROVIDER_KEYS = {"trunk_provider", "foliage_provider", "block_state_provider", "block_provider", "to_place",
-                 "state_provider", "provider", "fluid", "barrier", "root_state_provider", "hanging_root_state_provider"}
+                 "state_provider", "provider", "fluid", "barrier", "root_state_provider", "hanging_root_state_provider",
+                 "ground_state"}
 # Keys whose value is a plain block state.
 STATE_KEYS = {"default_state", "result_state", "body_state", "head_state", "base_block", "pointed_block"}
 
@@ -169,14 +173,21 @@ class Worldgen:
                 config[k] = [{"data": self.placed_any(e["data"]), "weight": e["weight"]} for e in x]
             elif k == "features" and t in ("minecraft:sequence", "minecraft:simple_random_selector"):
                 config[k] = [self.placed_any(e) for e in x]
-            elif k == "feature" and t == "minecraft:root_system":
+            elif k == "feature" and t == "minecraft:root_system" or k == "vegetation_feature" or k == "default" and t == "minecraft:random_selector":
                 config[k] = self.placed_any(x)
+            elif k == "features" and t == "minecraft:random_selector":
+                config[k] = [{"chance": e["chance"], "feature": self.placed_any(e["feature"])} for e in x]
             elif k == "templates" and t == "minecraft:template":
                 config[k] = [{"data": {**e["data"], "id": self.template(e["data"]["id"])}, "weight": e["weight"]} for e in x]
             elif k == "dirt_provider":
                 config[k] = x
             else:
                 config[k] = self.value(x, where, k)
+        if t == "minecraft:simple_block" and (raw.get("schedule_tick") or "pale_moss_carpet" in json.dumps(raw)):
+            # 26.x's simple_block with a scheduled tick or the mossy carpet branch: our port (1.21.1's lacks both)
+            return {"type": f"{NS}:simple_block", "config": config}
+        if t == "minecraft:simple_block" and "schedule_tick" in config:
+            config.pop("schedule_tick")
         return {"type": self.typ(t, where), "config": config}
 
     def configured(self, fid: str) -> str:

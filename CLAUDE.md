@@ -28,7 +28,9 @@ strip data maps from 26.x's data); `tools/biomes.py` biomes (environment attribu
 1.21.1's noise settings, c: tags, dry foliage table) with `tools/worldgen.py` (26.x feature formats -> 1.21.1; stops
 on any type 1.21.1's data does not use and we have not ported) and `tools/noise_math.py` (a 26.x noise is taken only
 when its octave factors equal 1.21.1's); `tools/trades.py` wandering trader offers; `tools/nbt.py` structure templates
-(26.x palette format -> 1.21.1); `tools/cube.py` the Sulfur Cube (archetype registry data, its tags, damage type). Java registers the blocks the
+(26.x palette format -> 1.21.1); `tools/cube.py` the Sulfur Cube (archetype registry data, its tags, damage type); `tools/creaking.py` the creaking.
+Tags: where 26.x moved vanilla blocks out of a 1.21.1 tag into a new family tag (`FAMILY_TAGS`: dirt lost
+moss_block to #moss_blocks), ours in the family join the 1.21.1 tag. Java registers the blocks the
 way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` = `ofLegacyCopy(base)`, `registerWall` =
 `ofLegacyCopy(base).forceSolidOn()`).
 
@@ -42,9 +44,12 @@ behaviour 1.21.1 hard-codes: keep them to a minimum.
 ## Worldgen
 
 Biome placement: OverworldBiomeBuilderMixin sets Mojang's 26.x table cells (`Biomes26`); nothing else moves.
-Ported worldgen types live in `worldgen/` (registered in `Worldgen`), named as Mojang names them. Sapling growth uses
+Feature order: 1.21.1 stops chunk generation on any order cycle between biomes' feature lists, and 26.x reordered
+some vanilla features; `biomes.py` puts the vanilla features of each step in 1.21.1's order and runs 1.21.1's cycle
+test over every biome before it writes. Ported worldgen types live in `worldgen/` (registered in `Worldgen`), named as Mojang names them. Sapling growth uses
 `TreeGrower26` (26.x's weighted tree lists; 1.21.1's TreeGrower cannot express them). The Sulfur Cube (`cube/`) carries
-26.x's movement physics in its own base class (`Physics26Mob`): new physics never go into a global mixin.
+26.x's movement physics in its own base class (`Physics26Mob`): new physics never go into a global mixin. The creaking and its heart (`creaking/`) port 26.x's Creaking, its brain and
+the heart's block entity without mixins.
 
 ## Merges
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:pale_oak_door",
     "haven_backports:poplar_door"
   ]
 }

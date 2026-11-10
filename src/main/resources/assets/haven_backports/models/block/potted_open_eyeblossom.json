@@ -1,0 +1,8 @@
+{
+  "parent": "haven_backports:block/flower_pot_cross_emissive",
+  "textures": {
+    "cross_emissive": "haven_backports:block/open_eyeblossom_emissive",
+    "plant": "haven_backports:block/open_eyeblossom"
+  },
+  "render_type": "minecraft:cutout"
+}

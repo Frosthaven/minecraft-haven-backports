@@ -30,6 +30,7 @@ import data   # noqa: E402
 import woods   # noqa: E402
 import biomes   # noqa: E402
 import cube   # noqa: E402
+import creaking   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -65,9 +66,16 @@ CONTENT = {
     "poplar": [*woods.wood_set("poplar", [f"{c}_poplar_leaves" for c in ("red", "orange", "yellow")]), "poplar_shelf"],
     "dappled": ["leaf_litter", "red_shrub", "shelf_mushroom"],
     "sulfur_caves": ["potent_sulfur", "sulfur_spike"],   # (the stone sets above come from the caves too)
+    # Pale Garden: the pale oak wood (Blocks.java order), the moss, eyeblossoms and resin
+    "pale_oak": [*woods.wood_set("pale_oak", ["pale_oak_leaves"]), "pale_oak_shelf"],
+    "pale_garden": ["pale_moss_block", "pale_moss_carpet", "pale_hanging_moss", "open_eyeblossom", "closed_eyeblossom",
+                    "potted_open_eyeblossom", "potted_closed_eyeblossom", "resin_clump", "resin_block", "resin_bricks",
+                    *stairs_slab_wall("resin_brick"),
+                    "chiseled_resin_bricks"],
+    "creaking": creaking.BLOCKS,
 }
-ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", *cube.ITEMS]
-NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar")   # copper torch item; wall signs, potted plants as vanilla
+ITEMS_ONLY = ["copper_nugget", "poplar_boat", "poplar_chest_boat", "pale_oak_boat", "pale_oak_chest_boat", "resin_brick", *cube.ITEMS, *creaking.ITEMS]
+NO_ITEM = {"copper_wall_torch"} | woods.no_item("poplar") | woods.no_item("pale_oak") | {"potted_open_eyeblossom", "potted_closed_eyeblossom"}   # copper torch item; wall signs, potted plants as vanilla
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
 EXTRA_EXCLUDE = {
@@ -79,7 +87,8 @@ COVERED_BY_PACK = {
     "copper_ingot_from_nuggets": "Create's crafting/materials/copper_ingot (9 c:nuggets/copper -> 1)",
 }
 PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves",
-             "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume"]   # (geyser, gas cloud: no sprites)
+             "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume",   # (geyser, gas cloud: no sprites)
+             "pale_oak_leaves", "trail", *creaking.PARTICLES]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
@@ -87,18 +96,24 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # 26.x sound sets (data/minecraft/block_sound_set): their events are read from the jar.
-DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom", "potent_sulfur", "sulfur_spike"]
+DATA_SOUND_SETS = ["leaf_litter", "poplar_leaves", "red_shrub", "shelf_mushroom", "potent_sulfur", "sulfur_spike",
+                   "resin", "resin_bricks"]
 EXTRA_SOUNDS = ["block.poplar_leaves.ambient", "block.shelf_mushroom.bounce",   # AmbientLeavesBlockSoundPlayer, bounceOn
                 "block.sulfur_spike.land", "block.potent_sulfur.geyser_eruption", "block.potent_sulfur.geyser_eruption_active",
                 "block.potent_sulfur.geyser_continuous_eruption", "block.potent_sulfur.geyser_continuous_eruption_active",
                 "block.potent_sulfur.noxious_gas", "music.overworld.sulfur_caves",   # PotentSulfurBlock(Entity), Musics
-                *cube.SOUNDS]
+                "block.pale_hanging_moss.idle", "block.eyeblossom.open_long", "block.eyeblossom.open",   # HangingMoss-,
+                "block.eyeblossom.close_long", "block.eyeblossom.close", "block.eyeblossom.idle",    # EyeblossomBlock
+                *cube.SOUNDS, *creaking.SOUNDS]
+# Snapshot tags that took over their vanilla members' place in 1.21.1's tags (26.x dirt no longer lists moss_block,
+# #moss_blocks holds it and pale_moss_block): ours in them join each 1.21.1 tag 26.x took those members out of.
+FAMILY_TAGS = ["moss_blocks", "grass_blocks", "mud"]
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
 CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests",
              "required_for_poplar_leaf_ambience",   # ParticleLeavesBlock's ambient sound (26.x AmbientLeavesBlockSoundPlayer)
              "causes_continuous_geyser_eruptions", "causes_periodic_geyser_eruptions", "speleothems",   # Sulfur
              "sulfur_spike_replaceable_blocks", "not_affected_by_geysers",
-             *cube.CODE_TAGS]
+             *cube.CODE_TAGS, *creaking.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -126,12 +141,13 @@ RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minec
                 # saplings and potted plants, doors, trapdoors, pink petals, bushes: cutout in 1.21.1 (leaves: by class)
                 "_sapling": "minecraft:cutout", "_door": "minecraft:cutout", "_trapdoor": "minecraft:cutout",
                 "leaf_litter": "minecraft:cutout", "red_shrub": "minecraft:cutout", "shelf_mushroom": "minecraft:cutout",
-                "sulfur_spike": "minecraft:cutout"}   # as pointed dripstone
+                "sulfur_spike": "minecraft:cutout",   # as pointed dripstone
+                "eyeblossom": "minecraft:cutout", "pale_hanging_moss": "minecraft:cutout", "resin_clump": "minecraft:cutout"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES)
 
 
 class Port(data.DataPort):
@@ -234,7 +250,7 @@ class Port(data.DataPort):
         for k, v in value.items():
             if k == "modifier":   # one function or a list of them
                 out["functions"] = [self.function(f) for f in (v if isinstance(v, list) else [v])]
-            elif k == "condition" and isinstance(v, dict):
+            elif k == "condition" and isinstance(v, (dict, str)):
                 out["conditions"] = [self.condition(v)]
             elif k == "conditions" or k == "terms":
                 out[k] = [self.condition(c) for c in v]
@@ -354,14 +370,17 @@ class Port(data.DataPort):
             self.write(RES / "assets" / NS / "particles" / f"{p}.json", data)
 
         woods.boats(self, RES, "poplar")
+        woods.boats(self, RES, "pale_oak")
         biomes.Biomes(self, RES, lang_new, lang).run()
         cube.run(self, RES, lang_new, lang)
+        creaking.run(self, RES, lang_new, lang)
         import trades   # 26.x wandering trader offers of ours
         trades.run(self, RES)
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
         # 26.x fuel: every overworld-wood shelf (the nether ones are not fuel), modded ones as Mojang's
         woods.data_maps(self, RES, [i for i in [*CONTENT["poplar"], *CONTENT["dappled"], *ITEMS_ONLY, *CONTENT["shelf"],
+                                                *CONTENT["pale_oak"], *CONTENT["pale_garden"],
                                                 *(sid for sid, _, _, nether in self.modded_shelves if not nether)]
                                     if i not in NO_ITEM and i not in ("crimson_shelf", "warped_shelf")])
         gear.run(self, RES, lang_new, lang)
