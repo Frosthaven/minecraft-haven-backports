@@ -100,4 +100,57 @@ final class HappyGhastInteraction {
         ghast.playSound(Ghasts.HARNESS_UNEQUIP.get());
         return true;
     }
+
+    /** HappyGhast.getRiddenInput: strafe, forward and up from the look pitch (back at half speed), 0.5 up on jump, x 3.9 flying speed. */
+    static Vec3 riddenInput(HappyGhast ghast, Player controller) {
+        float strafe = controller.xxa, forward = 0.0F, up = 0.0F;
+        if (controller.zza != 0.0F) {
+            float forwardLook = net.minecraft.util.Mth.cos(controller.getXRot() * (float) (Math.PI / 180.0));
+            float upLook = -net.minecraft.util.Mth.sin(controller.getXRot() * (float) (Math.PI / 180.0));
+            if (controller.zza < 0.0F) {
+                forwardLook *= -0.5F;
+                upLook *= -0.5F;
+            }
+            up = upLook;
+            forward = forwardLook;
+        }
+        if (controller.jumping) {
+            up += 0.5F;
+        }
+        return new Vec3(strafe, up, forward).scale(3.9F * ghast.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.FLYING_SPEED));
+    }
+
+    /** 26.x Entity.isInClouds: clouds from 192.33 to 196.33 (overworld.json visual/cloud_height), where 1.21.1 draws them. */
+    static boolean isInClouds(HappyGhast ghast) {
+        if (!ghast.level().dimensionType().effectsLocation().equals(net.minecraft.world.level.dimension.BuiltinDimensionTypes.OVERWORLD_EFFECTS)) {
+            return false;
+        }
+        float bottom = 192.33F;
+        return ghast.getY() + ghast.getBbHeight() >= bottom && ghast.getY() <= bottom + 4.0F;
+    }
+
+    /** 26.x Level.precipitationAt. */
+    static net.minecraft.world.level.biome.Biome.Precipitation precipitationAt(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
+        if (!level.isRaining() || !level.canSeeSky(pos) || level.getHeightmapPos(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING, pos).getY() > pos.getY()) {
+            return net.minecraft.world.level.biome.Biome.Precipitation.NONE;
+        }
+        return level.getBiome(pos).value().getPrecipitationAt(pos);
+    }
+
+
+    /** HappyGhast.scanPlayerAboveGhast: a player (not riding a happy ghast) on or just above the top holds it still. */
+    static boolean playerAbove(HappyGhast ghast) {
+        net.minecraft.world.phys.AABB bb = ghast.getBoundingBox();
+        net.minecraft.world.phys.AABB detection = new net.minecraft.world.phys.AABB(bb.minX - 1.0, bb.maxY - 1.0E-5F, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
+        for (Player player : ghast.level().players()) {
+            if (!player.isSpectator()) {
+                net.minecraft.world.entity.Entity root = player.getRootVehicle();
+                if (!(root instanceof HappyGhast) && detection.contains(root.position())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

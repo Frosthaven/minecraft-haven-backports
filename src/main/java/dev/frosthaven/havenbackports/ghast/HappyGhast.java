@@ -36,7 +36,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -293,21 +292,7 @@ public class HappyGhast extends Animal implements Leash26.Holder, Leash26.Rules 
 
     @Override
     protected Vec3 getRiddenInput(Player controller, Vec3 selfInput) {
-        float strafe = controller.xxa, forward = 0.0F, up = 0.0F;
-        if (controller.zza != 0.0F) {
-            float forwardLook = Mth.cos(controller.getXRot() * (float) (Math.PI / 180.0));
-            float upLook = -Mth.sin(controller.getXRot() * (float) (Math.PI / 180.0));
-            if (controller.zza < 0.0F) {
-                forwardLook *= -0.5F;
-                upLook *= -0.5F;
-            }
-            up = upLook;
-            forward = forwardLook;
-        }
-        if (controller.jumping) {
-            up += 0.5F;
-        }
-        return new Vec3(strafe, up, forward).scale(3.9F * this.getAttributeValue(Attributes.FLYING_SPEED));
+        return HappyGhastInteraction.riddenInput(this, controller);
     }
 
     @Override
@@ -392,28 +377,11 @@ public class HappyGhast extends Animal implements Leash26.Holder, Leash26.Rules 
 
     private void continuousHeal() {
         if (this.level() instanceof ServerLevel level && this.isAlive() && this.deathTime == 0 && this.getMaxHealth() != this.getHealth()) {
-            boolean fast = this.isInClouds() || precipitationAt(level, this.blockPosition()) != Biome.Precipitation.NONE;
+            boolean fast = HappyGhastInteraction.isInClouds(this) || HappyGhastInteraction.precipitationAt(level, this.blockPosition()) != Biome.Precipitation.NONE;
             if (this.tickCount % (fast ? 20 : 600) == 0 && this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth()) {
                 this.setHealth(Math.min(this.getHealth() + 1.0F, this.getMaxHealth()));   // 26.x healNaturally(1)
             }
         }
-    }
-
-    /** 26.x Entity.isInClouds: clouds from 192.33 to 196.33 (overworld.json visual/cloud_height), where 1.21.1 draws them. */
-    private boolean isInClouds() {
-        if (!this.level().dimensionType().effectsLocation().equals(net.minecraft.world.level.dimension.BuiltinDimensionTypes.OVERWORLD_EFFECTS)) {
-            return false;
-        }
-        float bottom = 192.33F;
-        return this.getY() + this.getBbHeight() >= bottom && this.getY() <= bottom + 4.0F;
-    }
-
-    /** 26.x Level.precipitationAt. */
-    static Biome.Precipitation precipitationAt(Level level, BlockPos pos) {
-        if (!level.isRaining() || !level.canSeeSky(pos) || level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos).getY() > pos.getY()) {
-            return Biome.Precipitation.NONE;
-        }
-        return level.getBiome(pos).value().getPrecipitationAt(pos);
     }
 
     @Override
@@ -494,17 +462,7 @@ public class HappyGhast extends Animal implements Leash26.Holder, Leash26.Rules 
     }
 
     private boolean scanPlayerAboveGhast() {
-        AABB bb = this.getBoundingBox();
-        AABB detection = new AABB(bb.minX - 1.0, bb.maxY - 1.0E-5F, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
-        for (Player player : this.level().players()) {
-            if (!player.isSpectator()) {
-                Entity root = player.getRootVehicle();
-                if (!(root instanceof HappyGhast) && detection.contains(root.position())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return HappyGhastInteraction.playerAbove(this);
     }
 
     @Override

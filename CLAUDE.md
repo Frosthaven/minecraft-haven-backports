@@ -51,7 +51,9 @@ block only when it is the same block as Mojang's; keep blocks of a mod's own cro
 
 The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
 "Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
-inventory icons too (a hotbar shot), not only placed blocks. A server test: `just smoke --serve` in the pack test copy
+inventory icons too (a hotbar shot), not only placed blocks. Mob screenshots: the proof mod's `mobscene <ghast|golem|decor|variants> <x> <y> <z>` builds a 40 x 40 plains scene
+(noon, clear, frozen) with the subjects still; then `look near <eye x y z> <target x y z>` and `shot`. A server test:
+`just smoke --serve` in the pack test copy
 with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client.
 
 ## Release
