@@ -63,7 +63,7 @@ def colour(v):
 class Biomes:
     def __init__(self, port, res, lang_new, lang):
         self.port, self.res, self.lang_new, self.lang = port, res, lang_new, lang
-        self.wg = Worldgen(port, res)
+        self.wg = port.wg = Worldgen(port, res)   # shared: tools/camp.py places features through it too
         self.dimension = port.read("data/minecraft/dimension_type/overworld.json")["attributes"]
 
     def run(self):

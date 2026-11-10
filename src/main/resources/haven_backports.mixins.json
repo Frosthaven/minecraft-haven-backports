@@ -58,6 +58,7 @@
     "ServerGamePacketListenerImplMixin",
     "ServerPlayerMixin",
     "StrawBedLivingEntityMixin",
+    "StructureTemplateMixin",
     "WolfMixin",
     "ZombieMixin",
     "ZombifiedPiglinMixin"

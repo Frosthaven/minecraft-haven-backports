@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:abandoned_camp_bamboo_jungle",
+    "haven_backports:abandoned_camp_birch_forest",
+    "haven_backports:abandoned_camp_cherry_grove",
+    "haven_backports:abandoned_camp_dappled_forest",
+    "haven_backports:abandoned_camp_flower_forest",
+    "haven_backports:abandoned_camp_forest",
+    "haven_backports:abandoned_camp_meadow",
+    "haven_backports:abandoned_camp_old_growth_birch_forest",
+    "haven_backports:abandoned_camp_old_growth_pine_taiga",
+    "haven_backports:abandoned_camp_old_growth_spruce_taiga",
+    "haven_backports:abandoned_camp_pale_garden",
+    "haven_backports:abandoned_camp_savanna",
+    "haven_backports:abandoned_camp_snowy_taiga",
+    "haven_backports:abandoned_camp_sparse_jungle",
+    "haven_backports:abandoned_camp_swamp",
+    "haven_backports:abandoned_camp_taiga",
+    "haven_backports:abandoned_camp_windswept_forest",
+    "haven_backports:abandoned_camp_wooded_badlands"
+  ]
+}

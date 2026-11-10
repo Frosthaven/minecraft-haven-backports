@@ -1,23 +1,27 @@
 """Explorer maps (26.x Items: one MapItem per destination) and the cartographer that sells them (split out of
 backport.py; called through extras.run).
 
-- The map items whose Mojang sources 1.21.1 can run: the cartographer's trades, and the shipwreck and underwater ruin
-  chests (buried treasure map). Left out, as their only source is a 26.x structure 1.21.1 lacks (the Abandoned
-  Camp's chests): abandoned_camp_map, buried_ancient_city_map, buried_mineshaft_map, desert_pyramid_map,
-  warm_ocean_ruins_map.
-- 26.x's structure tags those maps search (on_*_maps) that 1.21.1 lacks.
+- The map items with their Mojang sources: the cartographer's trades, the shipwreck and underwater ruin chests (buried
+  treasure map), and the abandoned camp's chests (tools/camp.py: the abandoned camp maps, and the buried ancient city,
+  buried mineshaft, desert pyramid and warm ocean ruins maps, whose only source they are).
+- 26.x's structure tags those maps search (on_*_maps) that 1.21.1 lacks, with our ids.
+- 26.x map decoration types 1.21.1 lacks (DECORATIONS: no texture of that name in 1.21.1): checked against 26.x's
+  MapDecorationTypes, their textures copied for Java (map/ExplorerMaps registers them under our ids).
 - The cartographer's 26.x trade set (data/minecraft/trade_set/cartographer, its #villager_trade tags and the
   villager_trade files), written as one table that Java (CartographerTrades) turns into 1.21.1 ItemListings. Only
   what 1.21.1's MerchantOffer can hold is accepted; any other field stops the run.
 """
+import re
 import sys
+
+import lootfmt
+import sources
 
 NS = "haven_backports"
 MAPS = ["ocean_monument_map", "woodland_mansion_map", "buried_trial_chambers_map", "jungle_pyramid_map", "swamp_hut_map",
         "desert_village_map", "plains_village_map", "savanna_village_map", "snowy_village_map", "taiga_village_map",
-        "buried_treasure_map"]
-NO_SOURCE = {m: "only the Abandoned Camp's chests (a 26.x structure 1.21.1 lacks)" for m in
-             ["abandoned_camp_map", "buried_ancient_city_map", "buried_mineshaft_map", "desert_pyramid_map", "warm_ocean_ruins_map"]}
+        "buried_treasure_map", "abandoned_camp_map", "buried_ancient_city_map", "buried_mineshaft_map",
+        "desert_pyramid_map", "warm_ocean_ruins_map"]
 # 1.21.1 tables that make a buried treasure map from minecraft:map; 26.x makes the buried_treasure_map item.
 TREASURE = {"minecraft:map+exploration_map": f"{NS}:buried_treasure_map"}
 LOOT = ["chests/shipwreck_map", "chests/underwater_ruin_big", "chests/underwater_ruin_small"]
@@ -27,17 +31,29 @@ VILLAGER_KEYS = {"wants", "additional_wants", "gives", "max_uses", "xp", "reputa
 
 
 def run(port, res, conv):
-    structure_tags(port, res)
+    decorations(port, res)
+    structure_tags(port, res, LOOT)
     import extras
     for table in LOOT:
         extras.take_loot(port, res, conv, table, patch=TREASURE)
     for prof in PROFESSIONS:
         trades(port, res, conv, prof)
-    print(f"maps left out (no Mojang source 1.21.1 can run): {sorted(NO_SOURCE)}")
 
 
-def structure_tags(port, res):
-    """The on_*_maps tags our maps and trades search, written as 26.x has them when 1.21.1 lacks them."""
+def decorations(port, res):
+    """26.x's map decoration types whose texture 1.21.1 lacks must be lootfmt.DECORATIONS (ours); copies them."""
+    src = sources.decompile(port.jar.filename, "net/minecraft/world/level/saveddata/maps/MapDecorationTypes")
+    new = {n: a for n, a in re.findall(r'register\("(\w+)", "(\w+)"', src)
+           if f"assets/minecraft/textures/map/decorations/{a}.png" not in port.old_names}
+    if {f"minecraft:{n}" for n in new} != set(lootfmt.DECORATIONS):
+        sys.exit(f"map decorations 1.21.1 lacks: 26.x {sorted(new)}, lootfmt.DECORATIONS {sorted(lootfmt.DECORATIONS)}")
+    for n, asset in sorted(new.items()):
+        port.copy_texture(f"assets/minecraft/textures/map/decorations/{asset}.png",
+                          res / f"assets/{NS}/textures/map/decorations/{asset}.png")
+
+
+def structure_tags(port, res, tables):
+    """The on_*_maps tags our maps and trades search, written as 26.x has them (our ids) when 1.21.1 lacks them."""
     names = set()
     for prof in PROFESSIONS:
         for n in port.new_names:
@@ -45,14 +61,14 @@ def structure_tags(port, res):
                 for f in port.read(n).get("given_item_modifier", []):
                     if f.get("type") == "minecraft:exploration_map":
                         names.add(f["destination"].lstrip("#"))
-    for table in LOOT:
+    for table in tables:
         for f in functions_in(port.read(f"data/minecraft/loot_table/{table}.json")):
             if f.get("type") == "minecraft:exploration_map":
                 names.add(f["destination"].lstrip("#"))
     for tag in sorted(names):
         path = f"data/minecraft/tags/worldgen/structure/{tag.split(':')[1]}.json"
         if path not in port.old_names:
-            port.write(res / path, {"replace": False, "values": port.read(path)["values"]})
+            port.write(res / path, {"replace": False, "values": [port.id(v) for v in port.read(path)["values"]]})
 
 
 def functions_in(value):

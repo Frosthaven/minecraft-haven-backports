@@ -12,6 +12,11 @@
     "haven_backports:savanna_village_map",
     "haven_backports:snowy_village_map",
     "haven_backports:taiga_village_map",
-    "haven_backports:buried_treasure_map"
+    "haven_backports:buried_treasure_map",
+    "haven_backports:buried_ancient_city_map",
+    "haven_backports:buried_mineshaft_map",
+    "haven_backports:desert_pyramid_map",
+    "haven_backports:abandoned_camp_map",
+    "haven_backports:warm_ocean_ruins_map"
   ]
 }

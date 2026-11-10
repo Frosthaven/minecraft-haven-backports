@@ -30,7 +30,8 @@ format-neutral compares; `tools/data.py` recipes and modded shelves; `tools/wood
 1.21.1's noise settings, c: tags, dry foliage table) with `tools/worldgen.py` (26.x feature formats -> 1.21.1; stops
 on any type 1.21.1's data does not use and we have not ported) and `tools/noise_math.py` (a 26.x noise is taken only
 when its octave factors equal 1.21.1's); `tools/trades.py` wandering trader offers; `tools/nbt.py` structure templates
-(26.x palette format -> 1.21.1); `tools/cube.py` the Sulfur Cube (archetype registry data, its tags, damage type); `tools/creaking.py` the creaking; `tools/frostbite.py` the frostbite, ice ball, freezing and the Flurry disc;
+(26.x palette format -> 1.21.1); `tools/camp.py` the abandoned camp (structures, set, pools, templates with their block
+entities and cushions, tags, loot; runs after `mobs.py`); `tools/cube.py` the Sulfur Cube (archetype registry data, its tags, damage type); `tools/creaking.py` the creaking; `tools/frostbite.py` the frostbite, ice ball, freezing and the Flurry disc;
 `tools/biome_mods.py` NeoForge biome modifiers for what 26.x's vanilla biomes have of ours: features
 (`PlaceFeaturesModifier`: before the first 26.x successor still in the step, or in the place of the 1.21.1 feature 26.x
 replaced; a vanilla feature 26.x made place ours becomes our copy); the feature order test runs on the result.

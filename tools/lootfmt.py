@@ -26,6 +26,10 @@ ENTITY_KEYS = {"minecraft:entity_type": "type", "minecraft:vehicle": "vehicle", 
                "minecraft:distance": "distance", "minecraft:movement": "movement", "minecraft:team": "team",
                "minecraft:targeted_entity": "targeted_entity", "minecraft:slots": "slots"}
 ITEM_PREDICATES = {"minecraft:map_id": f"{NS}:map_id"}
+# 26.x map decoration types 1.21.1 lacks (tools/maps.py checks the list against 26.x's MapDecorationTypes; Java:
+# map/ExplorerMaps registers them under our ids)
+DECORATIONS = {f"minecraft:{d}": f"{NS}:{d}" for d in ("abandoned_camp", "ancient_city", "desert_pyramid", "mineshaft",
+                                                       "ocean_ruin_warm")}
 
 
 class Missing(Exception):
@@ -95,6 +99,8 @@ class Converter:
             kind = f"{NS}:filtered"
         elif kind in FUNCTIONS:
             kind = FUNCTIONS[kind]
+            if out.get("decoration") in DECORATIONS:
+                out["decoration"] = DECORATIONS[out["decoration"]]
         elif kind not in SAME_FUNCTIONS:
             sys.exit(f"lootfmt: loot function {kind} has no 1.21.1 conversion")
         out["function"] = kind

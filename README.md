@@ -30,7 +30,8 @@ one block per concept and it looks the way Mojang made it.
 | Spears | Wooden, Stone, Copper, Iron, Golden, Diamond and Netherite Spear; the Lunge enchantment (see below) |
 | Music discs | Tears (a ghast killed by a player with its own fireball), Lava Chicken (a player kills a baby zombie riding a chicken), Bounce (mineshaft chests in the Sulfur Caves); Mojang's songs, lengths and comparator values |
 | Banner patterns | Field Masoned (paper + bricks) and Bordure Indented (paper + vines) Banner Patterns; as in newer Minecraft, the loom offers those two patterns only with their pattern item |
-| Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer) and the Buried Treasure Map (shipwreck and underwater ruin chests) |
+| Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer), the Buried Treasure Map (shipwreck and underwater ruin chests), the Abandoned Camp Map and the Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps (abandoned camp chests) |
+| Abandoned camp | The structure in 18 biome variants (see below), with its barrels and chests |
 | Ancient city | Chiseled Soulshale (ancient city chests, with its own sounds; newer Minecraft's ancient city chest table) |
 | Bundles | The Bundle without the experiment (string over leather; village chests), the 16 dyed Bundles (bundle + dye keeps the contents), newer Minecraft's bundle behaviour and tooltip |
 | Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
@@ -278,9 +279,9 @@ and 5 sell the explorer maps. The maps are filled by Mojang's newer loot functio
 the origin; a map that finds no structure is not offered. Three mixins open 1.21.1's map hard-codes to every map item
 as newer Minecraft does: the cartography table and item frame (any item with a map id) and map cloning
 (`#minecraft:clonable_maps`). Shipwreck and underwater ruin chests are newer Minecraft's tables, with the Buried Treasure
-Map (and nautilus armor and spears). Left out: the Abandoned Camp Map and the
-Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps, whose only source is the Abandoned
-Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
+Map (and nautilus armor and spears). The abandoned camp's chests give the Abandoned Camp Map and the Buried Ancient City,
+Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps (their only source, as in newer Minecraft); their map
+markers are newer Minecraft's decoration types, registered under our ids. Maps made before keep working as 1.21.1 filled maps. The wandering trader
 sells no maps in newer Minecraft, so it is unchanged.
 
 ## Bundles
@@ -347,8 +348,8 @@ differ. The chest's open and close game event has no source entity.
 Mojang's Cushion (`decoration/`): crafted from 3 wool slabs of a color (ours), re-dyed with any dye, placed on top of
 a block (on cauldrons, hoppers and composters, on their rim), sat on by right-clicking. It breaks when its support
 goes, in fire, lava or lightning, or when hit, and drops itself with its name. A different thing from Handcrafted's
-cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn,
-and the cushions in abandoned camp barrels (a structure 1.21.1 lacks).
+cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn. Abandoned
+camps hold cushions (placed, and in their barrels).
 
 ## Straw bed
 
@@ -358,7 +359,7 @@ it breaks when you get up; in the nether and the end it breaks when used (newer 
 has no bed rules, so NeoForge events carry them (PlayerSetSpawnEvent, PlayerWakeUpEvent) and it is a bed to NeoForge
 (`isBed`), not a BedBlock (no block entity, no bounce, no explosion). You lie at its own height (StrawBedLivingEntityMixin) and
 it counts "Sleep in a straw bed", not "Sleep in a bed", and not the bed advancement (ServerPlayerMixin). Villagers do
-not claim it, as in newer Minecraft. Not taken: its loot in abandoned camps, a structure 1.21.1 lacks.
+not claim it, as in newer Minecraft. Abandoned camps hold it (placed, and in their barrels).
 
 ## Farm animal variants
 
@@ -416,6 +417,23 @@ an item component (spawn eggs give the biome's variant).
 Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
 slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do
 not burn).
+
+## Abandoned camp
+
+Newer Minecraft's abandoned camp (`tools/camp.py`): one jigsaw structure per biome, `haven_backports:abandoned_camp_<biome>`
+for bamboo_jungle, birch_forest, cherry_grove, dappled_forest, flower_forest, forest, meadow, old_growth_pine_taiga,
+old_growth_birch_forest, old_growth_spruce_taiga, pale_garden, savanna, snowy_taiga, sparse_jungle, swamp, taiga,
+windswept_forest and wooded_badlands (the Dappled Forest and Pale Garden variants in our biomes). All 18 share one
+structure set (`haven_backports:abandoned_camp`: random spread, spacing 37, separation 8, salt 91231127, weight 1
+each): each grid cell picks one variant and builds it only in that variant's biome
+(`#minecraft:has_structure/abandoned_camp_<biome>`), so a given variant is rare. A camp is a tent (10 per biome)
+joined to a campsite (4 per biome, plus 45 shared default sites with a chest, a barrel or a special piece), with trees
+from newer Minecraft's features, terrain beard_thin, at the surface. Every piece is Mojang's template converted
+block for block (no block substituted); campsite chests, copper chests and barrels hold newer Minecraft's tables
+`minecraft:chests/abandoned_camp_common_chest`, `chests/abandoned_camp_secret_chest` and
+`barrels/abandoned_camp_barrel` (files of their own: 1.21.1 has no such tables). Cushions in the pieces rest on the
+block they are placed on, as in newer Minecraft (StructureTemplateMixin, for our entities only). `/locate structure
+#minecraft:abandoned_camp` finds the nearest of any variant.
 
 ## Not ported
 

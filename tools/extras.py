@@ -7,7 +7,7 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
 - Chiseled Soulshale: its sound set (26.x block_sound_set/chiseled_soulshale) and the ancient city chests that hold it.
-- Explorer maps and the cartographer's trades: tools/maps.py. Bundles: tools/bundles.py.
+- Explorer maps and the cartographer's trades: tools/maps.py. The abandoned camp: tools/camp.py. Bundles: tools/bundles.py.
 - Lightning rods in every copper stage (26.x WeatheringCopperCollection LIGHTNING_ROD, whose unaffected stage is still
   minecraft:lightning_rod): the vanilla rod heads the oxidation and waxing data maps, and 26.x's channeling, which
   names #minecraft:lightning_rods, replaces 1.21.1's (that one names minecraft:lightning_rod only).
@@ -34,7 +34,8 @@ CODE_TAGS = ["clonable_maps", "lightning_rods", "bundles"]
 # 26.x tables that name our items. Patched (lootpatch) when every item in them exists on 1.21.1 or is ours.
 LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft", "chests/ancient_city", *bundles.LOOT]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
-BIOMES = {"minecraft:sulfur_caves": (f"{NS}:sulfur_caves", "data/haven_backports/worldgen/biome/sulfur_caves.json")}
+BIOMES = {f"minecraft:{b}": (f"{NS}:{b}", f"data/haven_backports/worldgen/biome/{b}.json")
+          for b in ("sulfur_caves", "dappled_forest", "pale_garden")}
 
 
 def run(port, res, lang_new, lang):
@@ -52,6 +53,7 @@ def run(port, res, lang_new, lang):
     for table in LOOT:
         take_loot(port, res, conv, table)
     maps.run(port, res, conv)
+    port.loot_conv = conv   # tools/camp.py runs after tools/mobs.py (its templates hold the mobs' blocks)
     channeling(port, res, conv)
     for d in conv.dropped:
         print(f"loot entry left out until its source is backported: {d}")

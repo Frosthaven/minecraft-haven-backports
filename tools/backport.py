@@ -34,6 +34,7 @@ import creaking   # noqa: E402
 import frostbite   # noqa: E402
 import spear   # noqa: E402
 import extras   # noqa: E402
+import camp   # noqa: E402
 import mobs   # noqa: E402
 from sources import COLORS, VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
@@ -177,7 +178,8 @@ RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "s
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
 OURS = (set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(biomes.BIOMES) | set(cube.ENTITIES) | set(creaking.ENTITIES)
-        | set(frostbite.ENTITIES) | set(spear.ITEMS) | set(spear.IDS) | set(extras.OTHER_ITEMS) | set(mobs.ENTITIES))
+        | set(frostbite.ENTITIES) | set(spear.ITEMS) | set(spear.IDS) | set(extras.OTHER_ITEMS) | set(mobs.ENTITIES)
+        | set(camp.STRUCTURES))
 
 
 class Port(data.DataPort):
@@ -431,6 +433,7 @@ class Port(data.DataPort):
         spear.run(self, RES, lang_new, lang)
         extras.run(self, RES, lang_new, lang)
         mobs.run(self, RES, lang_new, lang)
+        camp.run(self, RES, self.loot_conv, lang_new, lang)
         import fuels   # imported here: it reads this module's constants
         fuels.run(self, RES, OURS)
         woods.data_maps(self, RES, [sid for sid, _, _, nether in self.modded_shelves if not nether])

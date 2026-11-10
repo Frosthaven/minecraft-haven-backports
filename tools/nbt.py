@@ -1,5 +1,6 @@
 """Minimal NBT (gzipped, big endian) reader and writer, enough for structure templates; and 26.x -> 1.21.1 template
-conversion (tools/biomes.py calls convert_template for the structures a ported feature places).
+conversion (tools/worldgen.py calls convert_template for the structures a ported feature places, tools/camp.py for the
+abandoned camp's pieces, with hooks for their block entities and entities).
 
 26.x templates name palette states {"id", "properties"}; 1.21.1 reads {"Name", "Properties"}. 1.21.1 cannot load a
 template saved by a newer version (DataFixers run forward only), so DataVersion becomes 1.21.1's 3955. Any key the
@@ -112,15 +113,20 @@ def dump(tag: Tag) -> bytes:
     return gzip.compress(f.getvalue(), mtime=0)
 
 
-def convert_template(data: bytes, block_id, where: str) -> bytes:
-    """A 26.x structure template in 1.21.1's form; block_id maps each block id (to ours where we port it)."""
+def convert_template(data: bytes, block_id, where: str, block_entity=None, entity=None) -> bytes:
+    """A 26.x structure template in 1.21.1's form; block_id maps each block id (to ours where we port it).
+    block_entity(compound) and entity(info compound) convert those in place (they stop the run on what they do not
+    know); without them, a template that has any stops the run."""
     root = load(data)
     c = root.value
     known = {"DataVersion", "size", "palette", "palettes", "blocks", "entities"}
     if set(c) - known:
         sys.exit(f"{where}: template keys {sorted(set(c) - known)} need porting by hand")
     if c.get("entities") and c["entities"].value.value:
-        sys.exit(f"{where}: template entities need porting by hand")
+        if entity is None:
+            sys.exit(f"{where}: template entities need porting by hand")
+        for e in c["entities"].value.value:
+            entity(e.value)
     palettes = [c["palette"].value] if "palette" in c else [p.value for p in c["palettes"].value.value]
     for palette in palettes:
         for entry in palette.value:
@@ -134,6 +140,8 @@ def convert_template(data: bytes, block_id, where: str) -> bytes:
                 s["Properties"] = props
     for b in c.get("blocks", Tag(LIST, Tag(LIST, []))).value.value:
         if "nbt" in b.value:
-            sys.exit(f"{where}: block entity data in templates needs porting by hand")
+            if block_entity is None:
+                sys.exit(f"{where}: block entity data in templates needs porting by hand")
+            block_entity(b.value["nbt"].value)
     c["DataVersion"] = Tag(INT, DATA_VERSION_1211)
     return dump(root)
