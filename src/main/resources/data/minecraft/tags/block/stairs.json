@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:cinnabar_stairs",
+    "haven_backports:polished_cinnabar_stairs",
+    "haven_backports:cinnabar_brick_stairs",
+    "haven_backports:sulfur_stairs",
+    "haven_backports:polished_sulfur_stairs",
+    "haven_backports:sulfur_brick_stairs",
     "haven_backports:packed_ice_brick_stairs",
     "haven_backports:snow_brick_stairs",
     "haven_backports:calcite_stairs",

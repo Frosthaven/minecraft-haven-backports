@@ -149,6 +149,7 @@ public final class Content {
                         new Item.Properties(), net.minecraft.core.Direction.DOWN)));
 
         ITEM.put("copper_nugget", ITEMS.registerSimpleItem("copper_nugget"));
+        Stones.register();
 
         // Shelves: of().mapColor(<wood>).instrument(BASS).sound(SHELF).ignitedByLava().strength(2, 3); the nether woods
         // without ignitedByLava. FireBlock: 30/20 for the overworld woods. Map colors as Mojang takes them.
@@ -210,7 +211,7 @@ public final class Content {
     }
 
     /** Stairs, slab and wall of a base block (Mojang's registerStair / registerSlab / registerWall). */
-    private static void family(String prefix, Supplier<? extends Block> base) {
+    static void family(String prefix, Supplier<? extends Block> base) {
         stairs(prefix + "_stairs", base);
         slab(prefix + "_slab", base);
         block(prefix + "_wall", WallBlock::new, () -> Properties.ofLegacyCopy(base.get()).forceSolidOn());
@@ -224,7 +225,7 @@ public final class Content {
         return block(name, SlabBlock::new, () -> Properties.ofLegacyCopy(base.get()));
     }
 
-    private static DeferredBlock<Block> block(String name, Function<Properties, ? extends Block> make, Supplier<Properties> properties) {
+    static DeferredBlock<Block> block(String name, Function<Properties, ? extends Block> make, Supplier<Properties> properties) {
         DeferredBlock<Block> b = BLOCKS.register(name, () -> make.apply(properties.get()));
         ITEM.put(name, ITEMS.registerSimpleBlockItem(b));
         return b;

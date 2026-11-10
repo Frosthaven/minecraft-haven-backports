@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:cinnabar_wall",
+    "haven_backports:polished_cinnabar_wall",
+    "haven_backports:cinnabar_brick_wall",
+    "haven_backports:sulfur_wall",
+    "haven_backports:polished_sulfur_wall",
+    "haven_backports:sulfur_brick_wall",
     "haven_backports:packed_ice_brick_wall",
     "haven_backports:snow_brick_wall",
     "haven_backports:calcite_wall",

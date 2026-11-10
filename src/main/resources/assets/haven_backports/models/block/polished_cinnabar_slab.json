@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "haven_backports:block/polished_cinnabar",
+    "side": "haven_backports:block/polished_cinnabar",
+    "top": "haven_backports:block/polished_cinnabar"
+  }
+}

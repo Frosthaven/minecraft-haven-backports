@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven_backports:cinnabar_bricks"
+  },
+  "result": {
+    "id": "haven_backports:cinnabar_brick_wall"
+  }
+}

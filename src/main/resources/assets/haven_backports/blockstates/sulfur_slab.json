@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven_backports:block/sulfur_slab"
+    },
+    "type=double": {
+      "model": "haven_backports:block/sulfur"
+    },
+    "type=top": {
+      "model": "haven_backports:block/sulfur_slab_top"
+    }
+  }
+}

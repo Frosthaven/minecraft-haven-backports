@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "haven_backports:block/sulfur",
+    "side": "haven_backports:block/sulfur",
+    "top": "haven_backports:block/sulfur"
+  }
+}

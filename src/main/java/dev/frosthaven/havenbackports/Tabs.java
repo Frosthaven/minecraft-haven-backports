@@ -33,6 +33,14 @@ final class Tabs {
             after(e, "calcite", "calcite_pillar", "calcite_stairs", "calcite_slab", "calcite_wall", "polished_calcite",
                     "polished_calcite_stairs", "polished_calcite_slab", "polished_calcite_wall", "polished_calcite_bricks",
                     "polished_calcite_brick_stairs", "polished_calcite_brick_slab", "polished_calcite_brick_wall");
+            // ... cut red sandstone slab, CINNABAR set, SULFUR set (26.4 order) ...
+            List<String> stones = new ArrayList<>();
+            for (String n : new String[]{"cinnabar", "sulfur"}) {
+                stones.addAll(List.of(n, n + "_stairs", n + "_slab", n + "_wall", "chiseled_" + n, "polished_" + n,
+                        "polished_" + n + "_stairs", "polished_" + n + "_slab", "polished_" + n + "_wall",
+                        n + "_bricks", n + "_brick_stairs", n + "_brick_slab", n + "_brick_wall"));
+            }
+            after(e, "cut_red_sandstone_slab", stones.toArray(String[]::new));
             // copper rows: ... cut copper slab, COPPER_BARS, door, trapdoor, bulb, COPPER_CHAIN ... for every stage, waxed too
             for (String waxed : new String[]{"", "waxed_"}) {
                 for (WeatherState s : WeatherState.values()) {
@@ -41,6 +49,9 @@ final class Tabs {
                     after(e, p + "copper_bulb", p + "copper_chain");
                 }
             }
+        } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
+            // ... pointed dripstone, prismarine, CINNABAR, SULFUR (spike and potent sulfur come with the caves)
+            after(e, "prismarine", "cinnabar", "sulfur");
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // torch, soul torch, COPPER_TORCH, redstone torch, lantern, soul lantern, COPPER_LANTERN, chain, COPPER_CHAIN
             after(e, "soul_torch", "copper_torch");

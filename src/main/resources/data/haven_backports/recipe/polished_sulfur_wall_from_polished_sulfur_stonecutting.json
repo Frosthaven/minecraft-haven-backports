@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven_backports:polished_sulfur"
+  },
+  "result": {
+    "id": "haven_backports:polished_sulfur_wall"
+  }
+}

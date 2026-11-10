@@ -54,6 +54,127 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.cinnabar.break": {
+    "sounds": [
+      "haven_backports:block/cinnabar/break1",
+      "haven_backports:block/cinnabar/break2",
+      "haven_backports:block/cinnabar/break3",
+      "haven_backports:block/cinnabar/break4",
+      "haven_backports:block/cinnabar/break5",
+      "haven_backports:block/cinnabar/break6",
+      "haven_backports:block/cinnabar/break7"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cinnabar.fall": {
+    "sounds": [
+      "haven_backports:block/cinnabar/hit1",
+      "haven_backports:block/cinnabar/hit2",
+      "haven_backports:block/cinnabar/hit3",
+      "haven_backports:block/cinnabar/hit4",
+      "haven_backports:block/cinnabar/hit5",
+      "haven_backports:block/cinnabar/hit6",
+      "haven_backports:block/cinnabar/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.cinnabar.hit": {
+    "sounds": [
+      "haven_backports:block/cinnabar/hit1",
+      "haven_backports:block/cinnabar/hit2",
+      "haven_backports:block/cinnabar/hit3",
+      "haven_backports:block/cinnabar/hit4",
+      "haven_backports:block/cinnabar/hit5",
+      "haven_backports:block/cinnabar/hit6",
+      "haven_backports:block/cinnabar/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cinnabar.place": {
+    "sounds": [
+      "haven_backports:block/cinnabar/place1",
+      "haven_backports:block/cinnabar/place2",
+      "haven_backports:block/cinnabar/place3",
+      "haven_backports:block/cinnabar/place4",
+      "haven_backports:block/cinnabar/place5",
+      "haven_backports:block/cinnabar/place6",
+      "haven_backports:block/cinnabar/place7"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cinnabar.step": {
+    "sounds": [
+      "haven_backports:block/cinnabar/step1",
+      "haven_backports:block/cinnabar/step2",
+      "haven_backports:block/cinnabar/step3",
+      "haven_backports:block/cinnabar/step4",
+      "haven_backports:block/cinnabar/step5",
+      "haven_backports:block/cinnabar/step6",
+      "haven_backports:block/cinnabar/step7"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sulfur.break": {
+    "sounds": [
+      "haven_backports:block/sulfur/break1",
+      "haven_backports:block/sulfur/break2",
+      "haven_backports:block/sulfur/break3",
+      "haven_backports:block/sulfur/break4",
+      "haven_backports:block/sulfur/break5",
+      "haven_backports:block/sulfur/break6",
+      "haven_backports:block/sulfur/break7"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sulfur.fall": {
+    "sounds": [
+      "haven_backports:block/sulfur/hit1",
+      "haven_backports:block/sulfur/hit2",
+      "haven_backports:block/sulfur/hit3",
+      "haven_backports:block/sulfur/hit4",
+      "haven_backports:block/sulfur/hit5",
+      "haven_backports:block/sulfur/hit6",
+      "haven_backports:block/sulfur/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.sulfur.hit": {
+    "sounds": [
+      "haven_backports:block/sulfur/hit1",
+      "haven_backports:block/sulfur/hit2",
+      "haven_backports:block/sulfur/hit3",
+      "haven_backports:block/sulfur/hit4",
+      "haven_backports:block/sulfur/hit5",
+      "haven_backports:block/sulfur/hit6",
+      "haven_backports:block/sulfur/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sulfur.place": {
+    "sounds": [
+      "haven_backports:block/sulfur/place1",
+      "haven_backports:block/sulfur/place2",
+      "haven_backports:block/sulfur/place3",
+      "haven_backports:block/sulfur/place4",
+      "haven_backports:block/sulfur/place5",
+      "haven_backports:block/sulfur/place6",
+      "haven_backports:block/sulfur/place7",
+      "haven_backports:block/sulfur/place8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sulfur.step": {
+    "sounds": [
+      "haven_backports:block/sulfur/step1",
+      "haven_backports:block/sulfur/step2",
+      "haven_backports:block/sulfur/step3",
+      "haven_backports:block/sulfur/step4",
+      "haven_backports:block/sulfur/step5",
+      "haven_backports:block/sulfur/step6",
+      "haven_backports:block/sulfur/step7"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.copper_chest.open": {
     "sounds": [
       {

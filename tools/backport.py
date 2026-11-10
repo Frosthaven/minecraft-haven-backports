@@ -55,6 +55,8 @@ CONTENT = {
     "concrete": [f"{c}_concrete_{s}" for c in COLORS for s in ("stairs", "slab")],
     "copper": [f"{w}{st}{s}" for s in COPPER_SETS for w in ("", "waxed_") for st in STAGES] + ["copper_torch", "copper_wall_torch"],
     "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
+    **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
+           *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
 }
 ITEMS_ONLY = ["copper_nugget"]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
@@ -72,6 +74,7 @@ COVERED_BY_PACK = {
 PARTICLES = ["copper_fire_flame"]
 # New sound events 1.21.1 lacks: block sound sets, and the shelf's own (ShelfBlock's SoundEvents.SHELF_*).
 SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
+              "cinnabar": ["break", "fall", "hit", "place", "step"], "sulfur": ["break", "fall", "hit", "place", "step"],
               "copper_chest": ["open", "close"], "copper_chest_weathered": ["open", "close"], "copper_chest_oxidized": ["open", "close"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
