@@ -8,10 +8,6 @@
     {
       "feature": "haven_backports:patch_grass_meadow",
       "replaces": "minecraft:patch_grass_plain"
-    },
-    {
-      "feature": "haven_backports:wildflowers_meadow",
-      "after": "minecraft:trees_meadow"
     }
   ]
 }

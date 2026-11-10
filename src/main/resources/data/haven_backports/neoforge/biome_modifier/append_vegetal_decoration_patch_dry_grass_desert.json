@@ -1,0 +1,12 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:desert"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_dry_grass_desert"
+    }
+  ]
+}

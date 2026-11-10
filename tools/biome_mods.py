@@ -84,22 +84,45 @@ def features(port, res, wg, patched=()):
                 apply(steps[i], e)
             groups.setdefault((STEPS[i], json.dumps(entries)), []).append(f"minecraft:{biome}")
         result[biome] = steps
+    # Replacements stay per biome group, in place. Every new feature is appended by one modifier of its own that names
+    # every biome it goes in, ours too: one modifier runs at one point among all mods' modifiers, so the feature has the
+    # same order against other mods' features in every biome (a different order is a feature order cycle).
+    appends = {}
     for (step, entries), biomes in sorted(groups.items(), key=lambda g: (g[0][0], g[1][0])):
-        name = f"place_{step}_{biomes[0].split(':')[1]}"
+        entries = json.loads(entries)
+        for e in entries:
+            if "replaces" not in e:
+                appends.setdefault((step, e["feature"]), set()).update(biomes)
+        swaps = [e for e in entries if "replaces" in e]
+        if swaps:
+            name = f"place_{step}_{biomes[0].split(':')[1]}"
+            port.write(res / "data" / NS / "neoforge" / "biome_modifier" / f"{name}.json",
+                       {"type": f"{NS}:place_features", "biomes": sorted(biomes), "step": step, "features": swaps})
+            print(f"biome modifier {name}: {[e['feature'] for e in swaps]} in place, {len(biomes)} vanilla biomes")
+    for path in sorted((res / "data" / NS / "worldgen" / "biome").glob("*.json")):
+        biome = json.loads(path.read_text())
+        moved = []
+        for i, step in enumerate(biome["features"]):
+            for f in [f for f in step if (STEPS[i], f) in appends]:
+                step.remove(f)
+                appends[(STEPS[i], f)].add(f"{NS}:{path.stem}")
+                moved.append(f)
+        if moved:
+            port.write(path, biome)
+            print(f"biome {path.stem}: {moved} appended by their modifier, as in the vanilla biomes")
+    for (step, f), biomes in sorted(appends.items()):
+        name = f"append_{step}_{f.split(':')[1]}"
         port.write(res / "data" / NS / "neoforge" / "biome_modifier" / f"{name}.json",
-                   {"type": f"{NS}:place_features", "biomes": sorted(biomes), "step": step, "features": json.loads(entries)})
-        print(f"biome modifier {name}: {[e['feature'] for e in json.loads(entries)]} in {len(biomes)} vanilla biomes")
+                   {"type": f"{NS}:place_features", "biomes": sorted(biomes), "step": step, "features": [{"feature": f}]})
+        print(f"biome modifier {name}: in {len(biomes)} biomes")
     return result
 
 
 def apply(step, e):
-    """PlaceFeaturesModifier's rule on a list of ids (kept in step with the Java)."""
+    """PlaceFeaturesModifier's rule on a list of ids (kept in step with the Java): replace in place or skip, else append."""
     f = e["feature"]
-    if "replaces" in e and e["replaces"] in step:
-        step[step.index(e["replaces"])] = f
-    elif "after" not in e:
-        step.insert(0, f)
-    elif e["after"] in step:
-        step.insert(step.index(e["after"]) + 1, f)
+    if "replaces" in e:
+        if e["replaces"] in step:
+            step[step.index(e["replaces"])] = f
     else:
         step.append(f)

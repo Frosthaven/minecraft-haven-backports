@@ -16,12 +16,13 @@ import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
 
 /**
- * Puts placed features into vanilla biomes where 26.x lists them (NeoForge's add_features only appends to a step, and
- * the order of a step decides which feature sees the other's blocks; a different order between biomes is also a feature
- * order cycle). Each entry, in 26.x order: take the place of `replaces` when the biome still has it, else go after
- * `after` (the last feature before it in 26.x's list that the biome has; none: first in the step), else (another mod
- * took `after` out) at the end of the step. Other mods'
- * modifiers keep working: nothing else in the step moves. tools/biome_mods.py writes these and checks for cycles.
+ * Puts 26.x's placed features into vanilla biomes. An entry with `replaces` takes that feature's place when the biome
+ * still has it, and is left out when it does not (another mod removed what 26.x replaced). Every other entry is
+ * appended to the step, in 26.x order. Inserting next to a vanilla feature (`after`) is not safe in a modded pack:
+ * where a mod rewrites a biome's list (Geophilic) or appends its own features (Molten Vents), the same two features
+ * end up in a different order in two biomes, a feature order cycle that stops chunk generation. Appending keeps one
+ * order everywhere, because modifiers run in the same order for every biome. `after` stays in the data as 26.x's
+ * place, for the record only. tools/biome_mods.py writes these and checks for cycles.
  */
 public record PlaceFeaturesModifier(HolderSet<Biome> biomes, GenerationStep.Decoration step, List<Entry> features) implements BiomeModifier {
     public record Entry(Holder<PlacedFeature> feature, Optional<ResourceKey<PlacedFeature>> after, Optional<ResourceKey<PlacedFeature>> replaces) {
@@ -43,21 +44,14 @@ public record PlaceFeaturesModifier(HolderSet<Biome> biomes, GenerationStep.Deco
         }
         List<Holder<PlacedFeature>> list = builder.getGenerationSettings().getFeatures(this.step);
         for (Entry e : this.features) {
-            int replaced = e.replaces().map(k -> indexOf(list, k)).orElse(-1);
-            if (replaced >= 0) {
-                list.set(replaced, e.feature());
+            if (e.replaces().isPresent()) {
+                int replaced = indexOf(list, e.replaces().get());
+                if (replaced >= 0) {
+                    list.set(replaced, e.feature());
+                }
                 continue;
             }
-            if (e.after().isEmpty()) {
-                list.add(0, e.feature());   // first in 26.x's step
-                continue;
-            }
-            int after = indexOf(list, e.after().get());
-            if (after >= 0) {
-                list.add(after + 1, e.feature());
-            } else {
-                list.add(e.feature());
-            }
+            list.add(e.feature());
         }
     }
 

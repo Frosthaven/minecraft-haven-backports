@@ -1,0 +1,20 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:birch_forest",
+    "minecraft:forest",
+    "minecraft:frozen_river",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:plains",
+    "minecraft:river",
+    "minecraft:windswept_forest",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:windswept_hills"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_bush"
+    }
+  ]
+}

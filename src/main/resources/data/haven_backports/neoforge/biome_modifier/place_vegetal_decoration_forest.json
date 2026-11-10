@@ -8,14 +8,6 @@
     {
       "feature": "haven_backports:trees_birch_and_oak_leaf_litter",
       "replaces": "minecraft:trees_birch_and_oak"
-    },
-    {
-      "feature": "haven_backports:patch_bush",
-      "after": "haven_backports:trees_birch_and_oak_leaf_litter"
-    },
-    {
-      "feature": "haven_backports:patch_firefly_bush_near_water",
-      "after": "minecraft:patch_pumpkin"
     }
   ]
 }

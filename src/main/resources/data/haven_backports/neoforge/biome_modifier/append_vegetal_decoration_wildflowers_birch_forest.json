@@ -1,0 +1,13 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:wildflowers_birch_forest"
+    }
+  ]
+}

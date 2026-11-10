@@ -210,9 +210,7 @@ Not in 1.21.1, so not here: a shulker on brittle ice does not crack it; iron gol
 
 ### Newer flora in vanilla biomes
 
-Newer Minecraft's flora goes into the vanilla biomes it adds them to, at the place in each biome's list where newer
-Minecraft has it (a small biome modifier of ours; NeoForge's own only appends, and the order decides which feature sees
-the other's blocks): bushes in plains, forests, birch forests, rivers and windswept hills; firefly bushes near water
+Newer Minecraft's flora goes into the vanilla biomes it adds them to. A feature newer Minecraft changed in place (the cactus with its flower, forest trees with leaf litter, meadow's grass) takes the vanilla feature's place; every new feature is appended to its step by one biome modifier that names every biome it goes in, ours too. Inserting next to a vanilla feature is not safe in a modded pack: where a mod rewrites a biome's list (Geophilic) or appends its own (Molten Vents), the same two features end up in different orders in two biomes, a feature order cycle that stops chunk generation. One modifier runs at one point among all mods' modifiers, so the order is the same everywhere (checked in the full pack with every dimension's biomes): bushes in plains, forests, birch forests, rivers and windswept hills; firefly bushes near water
 in most overworld biomes and in swamps (and the Pale Garden); wildflowers in birch forests and meadows (meadow's grass
 patch becomes newer Minecraft's); dry grass in deserts and badlands; cactus flowers on generated cacti; leaf litter
 under the trees of forests, dark forests and wooded badlands (newer Minecraft's trees with leaf litter, and its fallen

@@ -1,0 +1,12 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:swamp"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_firefly_bush_swamp"
+    }
+  ]
+}

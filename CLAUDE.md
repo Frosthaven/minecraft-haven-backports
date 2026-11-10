@@ -101,7 +101,10 @@ inventory icons too (a hotbar shot), not only placed blocks. Mob screenshots: th
 (noon, clear, frozen) with the subjects still (`mobscene2 <desert|nautilus> <x> <y> <z>` the same for the desert mobs and
 nautiluses, faces to the south: shoot from the south; a nautilus's face is at its back, so it is summoned at yaw 180); then `look near <eye x y z> <target x y z>` and `shot`. A server test:
 `just smoke --serve` in the pack test copy
-with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client.
+with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client. After any worldgen change, run the proof
+mod's `featcheck` in the full pack (it sorts every dimension's features as chunk generation does): a feature order
+cycle from another mod's biome edits stops chunk generation, and only the full pack shows it. New features go in by
+appending (one modifier per feature, all its biomes, ours too), never next to a vanilla feature.
 
 ## Release
 

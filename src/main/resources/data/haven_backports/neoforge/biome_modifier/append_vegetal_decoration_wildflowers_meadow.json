@@ -1,0 +1,12 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:meadow"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:wildflowers_meadow"
+    }
+  ]
+}

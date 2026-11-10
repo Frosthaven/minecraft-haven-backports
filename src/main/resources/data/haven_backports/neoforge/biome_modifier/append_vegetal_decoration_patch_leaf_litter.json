@@ -1,0 +1,12 @@
+{
+  "type": "haven_backports:place_features",
+  "biomes": [
+    "minecraft:dark_forest"
+  ],
+  "step": "vegetal_decoration",
+  "features": [
+    {
+      "feature": "haven_backports:patch_leaf_litter"
+    }
+  ]
+}

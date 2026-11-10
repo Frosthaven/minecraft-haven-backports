@@ -8,14 +8,6 @@
     {
       "feature": "haven_backports:dark_forest_vegetation",
       "replaces": "minecraft:dark_forest_vegetation"
-    },
-    {
-      "feature": "haven_backports:patch_leaf_litter",
-      "after": "minecraft:red_mushroom_normal"
-    },
-    {
-      "feature": "haven_backports:patch_firefly_bush_near_water",
-      "after": "minecraft:patch_pumpkin"
     }
   ]
 }

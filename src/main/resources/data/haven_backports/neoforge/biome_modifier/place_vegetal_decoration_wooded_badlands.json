@@ -10,16 +10,8 @@
       "replaces": "minecraft:trees_badlands"
     },
     {
-      "feature": "haven_backports:patch_dry_grass_badlands",
-      "after": "minecraft:patch_grass_badlands"
-    },
-    {
       "feature": "haven_backports:patch_cactus_decorated",
       "replaces": "minecraft:patch_cactus_decorated"
-    },
-    {
-      "feature": "haven_backports:patch_firefly_bush_near_water",
-      "after": "haven_backports:patch_cactus_decorated"
     }
   ]
 }
