@@ -58,6 +58,7 @@ CONTENT = {
     "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
     **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
            *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
+    "lightning_rod": extras.RODS,
 }
 ITEMS_ONLY = ["copper_nugget", *extras.ITEMS_ONLY]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
@@ -104,7 +105,8 @@ ALIASES = [
 # 26.x picks the render layer from texture transparency; 1.21.1 needs it set. Each takes its vanilla counterpart's layer
 # from 1.21.1's ItemBlockRenderTypes: iron bars and chain cutout_mipped, torch, wall torch and lantern cutout.
 RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minecraft:cutout_mipped",
-                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout"}
+                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout",
+                "lightning_rod": "minecraft:cutout"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 

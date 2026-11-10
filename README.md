@@ -17,7 +17,7 @@ one block per concept and it looks the way Mojang made it.
 | Calcite | Calcite Pillar, Stairs, Slab, Wall; Polished Calcite with Stairs, Slab, Wall; Polished Calcite Bricks with Stairs, Slab, Wall |
 | Snow and ice | Snow Bricks with Stairs, Slab, Wall; Packed Ice Bricks with Stairs, Slab, Wall; Chiseled Packed Ice (new packed ice sounds) |
 | Wool and concrete | Stairs and Slab for all 16 colors of each; wool ones re-dye with any dye and burn like wool |
-| Copper | Copper Bars, Chain and Lantern in every oxidation stage, waxed or not (honeycomb, axe, rain); Copper Torch; Copper Nugget |
+| Copper | Copper Bars, Chain, Lantern and Lightning Rod in every oxidation stage, waxed or not (honeycomb, axe, rain); Copper Torch; Copper Nugget |
 | Shelves | Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson and Warped Shelf; plus one for each of the pack's 21 modded woods (see below). Pale Oak and Poplar come with their woods |
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
@@ -69,6 +69,17 @@ hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before 
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
+
+## Lightning rods
+
+Newer Minecraft makes the lightning rod copper that ages; its unaffected stage is still `minecraft:lightning_rod`, so
+the vanilla rod is kept and made the head of the chain rather than replaced: NeoForge's oxidizables and waxables data
+maps run vanilla rod -> exposed -> weathered -> oxidized (ours), each waxable, and a small mixin gives the vanilla rod
+the random tick Mojang's WeatheringLightningRodBlock has (LightningRodBlockMixin; only for rods with a next stage, so
+other mods' rods are untouched). Every stage is a lightning rod point of interest (NeoForge's ExtendPoiTypesEvent), in
+`#minecraft:lightning_rods`, and newer Minecraft's Channeling (which names that tag) replaces 1.21.1's. Lightning
+follows newer Minecraft too (LightningBoltMixin): a struck rod goes back to unaffected and the cleaning spreads from
+it, where 1.21.1 reset the block under the rod instead. Rods already placed keep working and start to age.
 
 ## Explorer maps and the cartographer
 

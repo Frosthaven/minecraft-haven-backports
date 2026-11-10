@@ -8,6 +8,8 @@
     "ChestBlockEntityMixin",
     "ComparatorBlockMixin",
     "ItemFrameMixin",
+    "LightningBoltMixin",
+    "LightningRodBlockMixin",
     "MapCloningRecipeMixin",
     "MobMixin"
   ],

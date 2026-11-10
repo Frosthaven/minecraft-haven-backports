@@ -73,10 +73,16 @@ final class Tabs {
                     "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
+            // ... suspicious gravel, LIGHTNING_ROD in every stage, then waxed (Items.LIGHTNING_ROD.forEach) ...
+            after(e, "lightning_rod", "exposed_lightning_rod", "weathered_lightning_rod", "oxidized_lightning_rod", "waxed_lightning_rod",
+                    "waxed_exposed_lightning_rod", "waxed_weathered_lightning_rod", "waxed_oxidized_lightning_rod");
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
             after(e, "chiseled_bookshelf", "oak_shelf");
+            // ... daylight detector, WAXED lightning rod (in the plain rod's place), piston ...
+            after(e, "lightning_rod", "waxed_lightning_rod");
+            e.remove(new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         } else if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             // WOOL, WOOL_STAIRS, WOOL_SLAB, CARPET ... CONCRETE, CONCRETE_STAIRS, CONCRETE_SLAB, CONCRETE_POWDER
             List<String> wool = new ArrayList<>(), concrete = new ArrayList<>();

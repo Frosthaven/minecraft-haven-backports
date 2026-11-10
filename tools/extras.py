@@ -7,6 +7,9 @@ Port.run). Every value is read from the snapshot jar; this file only lists which
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
 - Explorer maps and the cartographer's trades: tools/maps.py.
+- Lightning rods in every copper stage (26.x WeatheringCopperCollection LIGHTNING_ROD, whose unaffected stage is still
+  minecraft:lightning_rod): the vanilla rod heads the oxidation and waxing data maps, and 26.x's channeling, which
+  names #minecraft:lightning_rods, replaces 1.21.1's (that one names minecraft:lightning_rod only).
 """
 import json
 
@@ -14,13 +17,16 @@ import lootfmt
 import maps
 
 NS = "haven_backports"
+STAGES = ["", "exposed_", "weathered_", "oxidized_"]
+# Lightning rods: the vanilla one is the unaffected stage (minecraft:lightning_rod in 26.x too).
+RODS = [f"{w}{st}lightning_rod" for w in ("", "waxed_") for st in STAGES if w or st]
 # disc item -> its jukebox song (data/minecraft/jukebox_song/<song>.json). music_disc_flurry comes with the Ice Caves.
 DISCS = {"music_disc_tears": "tears", "music_disc_lava_chicken": "lava_chicken", "music_disc_bounce": "bounce"}
 # banner pattern item -> its pattern_item tag (data/minecraft/tags/banner_pattern/pattern_item/<tag>.json)
 PATTERNS = {"field_masoned_banner_pattern": "field_masoned", "bordure_indented_banner_pattern": "bordure_indented"}
 ITEMS_ONLY = list(DISCS) + list(PATTERNS) + maps.MAPS
 SOUNDS = [f"music_disc.{s}" for s in DISCS.values()]
-CODE_TAGS = ["clonable_maps"]
+CODE_TAGS = ["clonable_maps", "lightning_rods"]
 # 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
 LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft"]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
@@ -41,6 +47,7 @@ def run(port, res, lang_new, lang):
     for table in LOOT:
         take_loot(port, res, conv, table)
     maps.run(port, res, conv)
+    channeling(port, res, conv)
     for d in conv.dropped:
         print(f"loot entry left out until its source is backported: {d}")
 
@@ -94,9 +101,30 @@ def entry_key(e):
     return name
 
 
+def channeling(port, res, conv):
+    """26.x's channeling enchantment: the trident's hit_block effect asks for #minecraft:lightning_rods."""
+    name = "data/minecraft/enchantment/channeling.json"
+    data = port.read(name)
+    for effects in data["effects"].values():
+        for e in effects:
+            e["requirements"] = conv.condition(e["requirements"])
+    port.write(res / name, data)
+
+
 def finish(port, res):
     """Called at the end of the run, after the copper data maps are written."""
+    for kind, key, pairs in (
+            ("oxidizables", "next_oxidation_stage", [(rod(a), rod(b)) for a, b in zip(STAGES, STAGES[1:])]),
+            ("waxables", "waxed", [(rod(st), rod("waxed_" + st)) for st in STAGES])):
+        f = res / f"data/neoforge/data_maps/block/{kind}.json"
+        data = json.loads(f.read_text())
+        data["values"].update({a: {key: b} for a, b in pairs})
+        port.write(f, data)
     if any(not (res / path).exists() for _, path in BIOMES.values()):
         print("biomes not backported yet (their loot entries wait): "
               f"{[b for b, (_, p) in BIOMES.items() if not (res / p).exists()]}")
 
+
+
+def rod(stage):
+    return "minecraft:lightning_rod" if stage == "" else f"{NS}:{stage}lightning_rod"

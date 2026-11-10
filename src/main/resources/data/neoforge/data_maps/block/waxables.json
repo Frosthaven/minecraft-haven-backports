@@ -47,6 +47,18 @@
     },
     "haven_backports:oxidized_copper_chest": {
       "waxed": "haven_backports:waxed_oxidized_copper_chest"
+    },
+    "minecraft:lightning_rod": {
+      "waxed": "haven_backports:waxed_lightning_rod"
+    },
+    "haven_backports:exposed_lightning_rod": {
+      "waxed": "haven_backports:waxed_exposed_lightning_rod"
+    },
+    "haven_backports:weathered_lightning_rod": {
+      "waxed": "haven_backports:waxed_weathered_lightning_rod"
+    },
+    "haven_backports:oxidized_lightning_rod": {
+      "waxed": "haven_backports:waxed_oxidized_lightning_rod"
     }
   }
 }

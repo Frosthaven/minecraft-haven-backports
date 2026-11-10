@@ -21,6 +21,7 @@ public final class HavenBackports {
         Content.register(modBus);
         Gear.register(modBus);
         Chests.register(modBus);
+        Rods.register(modBus);
         Discs.register();
         BannerPatterns.register();
         for (String id : ExplorerMaps.IDS) {
