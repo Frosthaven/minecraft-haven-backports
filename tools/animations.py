@@ -3,46 +3,19 @@
 26.x keeps entity animations as Java data (client/animation/definitions/*Animation.java: AnimationDefinition.Builder
 with AnimationChannel and Keyframe). 1.21.1's AnimationDefinition, AnimationChannel and Keyframe are the same API,
 and NeoForge 21.1 loads the same data from JSON (AnimationLoader), so the data stays Mojang's and no hand-kept Java
-copy is needed. The class is decompiled from the pinned jar with vineflower (cached in .cache/tools) and read back:
+copy is needed. The class is decompiled from the pinned jar (sources.decompile) and read back:
 withLength, looping, addAnimation(bone, AnimationChannel(target, Keyframe(time, <vec>(x, y, z), interpolation)...)).
 JSON keeps the vector helpers' arguments (degrees for rotation, raw position and scale), as NeoForge's parser expects.
 A keyframe with separate pre and post targets (26.x Keyframe's 4-argument form) has no 1.21.1 form and stops the run.
 """
-import json
 import re
-import subprocess
-import zipfile
 
-from sources import CACHE
+from sources import decompile
 
-VINEFLOWER = CACHE / "tools/vineflower-1.11.1.jar"
 TARGETS = {"ROTATION": ("minecraft:rotation", "degreeVec"), "POSITION": ("minecraft:position", "posVec"),
            "SCALE": ("minecraft:scale", "scaleVec")}
 NUM = r"(-?[0-9.]+(?:E-?[0-9]+)?)F?"
 KEYFRAME = re.compile(rf"new Keyframe\(\s*{NUM}\s*,\s*KeyframeAnimations\.(\w+)\(\s*{NUM}\s*,\s*{NUM}\s*,\s*{NUM}\s*\)\s*,\s*Interpolations\.(\w+)\s*\)")
-
-
-def decompile(jar_path, class_path: str) -> str:
-    """Source of one class from the jar (vineflower, cached by class)."""
-    out = CACHE / "decompiled" / class_path.rsplit("/", 1)[0]
-    src = CACHE / "decompiled" / f"{class_path}.java"
-    if not src.exists():
-        out.mkdir(parents=True, exist_ok=True)
-        tmp = CACHE / "decompiled/_run"
-        subprocess.run(["java", "-jar", str(VINEFLOWER), f"-only={class_path}", str(jar_path), str(tmp)], check=True,
-                       stdout=subprocess.DEVNULL)
-        found = next((p for p in tmp.rglob("*.java") if p.name == class_path.rsplit("/", 1)[1] + ".java"), None)
-        if found is None:
-            raw = next(tmp.rglob("*.jar"), None)
-            if raw is None:
-                raise SystemExit(f"vineflower wrote no source for {class_path}")
-            with zipfile.ZipFile(raw) as z:
-                src.write_text(z.read(f"{class_path}.java").decode())
-        else:
-            src.write_text(found.read_text())
-        import shutil
-        shutil.rmtree(tmp, ignore_errors=True)
-    return src.read_text()
 
 
 def definitions(source: str) -> dict[str, dict]:

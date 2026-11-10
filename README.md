@@ -24,6 +24,7 @@ one block per concept and it looks the way Mojang made it.
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
 | Copper golem | Copper Golem in every oxidation stage, Copper Golem Statue in every stage (waxed or not), Copper Golem Spawn Egg |
+| Cushions | Cushion in all 16 colors (sit on it) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -110,6 +111,17 @@ CopperGolemAnimation, converted by the generator (`tools/animations.py`) into Ne
 1.21.1 lacks the SADDLE equipment slot newer Minecraft keeps the antenna item in: it is the golem's own synced stack,
 saved as `antenna` and always dropped (only the gift fills it, a guaranteed drop in newer Minecraft), so `/data` paths
 differ. The chest's open and close game event has no source entity.
+
+## Cushions
+
+Mojang's Cushion (`decoration/`): crafted from 3 wool slabs of a color (ours), re-dyed with any dye, placed on top of
+a block (on cauldrons, hoppers and composters, on their rim), sat on by right-clicking. It breaks when its support
+goes, in fire, lava or lightning, or when hit, and drops itself with its name. A different thing from Handcrafted's
+cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn.
+
+Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
+slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do
+not burn).
 
 ## Download
 

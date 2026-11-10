@@ -957,5 +957,40 @@
       "haven_backports:block/copper_statue/hit4"
     ],
     "subtitle": "subtitles.block.generic.fall"
+  },
+  "entity.cushion.break": {
+    "sounds": [
+      "haven_backports:entity/cushion/break1",
+      "haven_backports:entity/cushion/break2",
+      "haven_backports:entity/cushion/break3"
+    ],
+    "subtitle": "subtitles.entity.cushion.break"
+  },
+  "entity.cushion.get_up": {
+    "sounds": [
+      "haven_backports:entity/cushion/get_up1",
+      "haven_backports:entity/cushion/get_up2",
+      "haven_backports:entity/cushion/get_up3"
+    ],
+    "subtitle": "subtitles.entity.cushion.get_up"
+  },
+  "entity.cushion.place": {
+    "sounds": [
+      "haven_backports:entity/cushion/place1",
+      "haven_backports:entity/cushion/place2",
+      "haven_backports:entity/cushion/place3",
+      "haven_backports:entity/cushion/place4",
+      "haven_backports:entity/cushion/place5",
+      "haven_backports:entity/cushion/place6"
+    ],
+    "subtitle": "subtitles.entity.cushion.place"
+  },
+  "entity.cushion.sit": {
+    "sounds": [
+      "haven_backports:entity/cushion/sit1",
+      "haven_backports:entity/cushion/sit2",
+      "haven_backports:entity/cushion/sit3"
+    ],
+    "subtitle": "subtitles.entity.cushion.sit"
   }
 }

@@ -324,6 +324,8 @@ class Port:
         self.mod_shelves(lang)
         gear.run(self, RES, lang_new, lang)
         mobs.run(self, RES, lang_new, lang)
+        import fuels   # imported here: it reads this module's constants
+        fuels.run(self, RES, OURS)
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))

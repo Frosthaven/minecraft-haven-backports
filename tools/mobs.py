@@ -17,12 +17,14 @@ HARNESSES = [f"{c}_harness" for c in COLORS]
 STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 STATUES = [f"{w}{st}copper_golem_statue" for w in ("", "waxed_") for st in STAGES]
 BLOCKS = {"ghast": ["dried_ghast"], "golem": STATUES}
-ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg"]
-ENTITIES = ["happy_ghast", "copper_golem"]
+CUSHIONS = [f"{c}_cushion" for c in COLORS]
+ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg", *CUSHIONS]
+ENTITIES = ["happy_ghast", "copper_golem", "cushion"]
 COPPER_SETS = ["copper_golem_statue"]   # oxidation and waxing data maps (tieins.copper_maps)
 ENTITY_TEXTURES = ["entity/ghast/happy_ghast", "entity/ghast/happy_ghast_baby", "entity/ghast/happy_ghast_ropes",
                    *[f"entity/equipment/happy_ghast_body/{h}" for h in HARNESSES],
-                   *[f"entity/copper_golem/copper_golem{e}{s}" for e in ("", "_eyes") for s in ("", "_exposed", "_weathered", "_oxidized")]]
+                   *[f"entity/copper_golem/copper_golem{e}{s}" for e in ("", "_eyes") for s in ("", "_exposed", "_weathered", "_oxidized")],
+                   *[f"entity/cushion/{c}" for c in CUSHIONS]]
 # Keyframe animation classes converted to NeoForge JSON (animations.py): class -> (folder, field prefix)
 ANIMATIONS = {"net/minecraft/client/animation/definitions/CopperGolemAnimation": ("copper_golem", "COPPER_GOLEM_")}
 SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "riding", "equip", "unequip",
@@ -33,11 +35,13 @@ SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "ridin
     + ["item.lead.tied", "item.lead.break"] \
     + [f"entity.copper_golem{st}.{s}" for st in ("", "_weathered", "_oxidized") for s in ("spin", "hurt", "death", "step")] \
     + [f"entity.copper_golem.{s}" for s in ("spawn", "shear", "no_item_get", "no_item_no_get", "item_drop", "item_no_drop")] \
-    + ["entity.copper_golem_become_statue"] + [f"block.copper_golem_statue.{s}" for s in ("break", "step", "place", "hit", "fall")]
+    + ["entity.copper_golem_become_statue"] + [f"block.copper_golem_statue.{s}" for s in ("break", "step", "place", "hit", "fall")] \
+    + [f"entity.cushion.{s}" for s in ("break", "get_up", "place", "sit")]
 # 26.x tags our Java reads (written under minecraft:, with our ids; see tags.py)
 CODE_TAGS = ["happy_ghast_food", "happy_ghast_tempt_items", "harnesses", "can_equip_harness", "followable_friendly_mobs",
              "triggers_ambient_dried_ghast_block_sounds", "happy_ghast_avoids",
-             "copper", "copper_golem_statues", "shearable_from_copper_golem", "accepts_iron_golem_gift", "candidate_for_iron_golem_gift"]
+             "copper", "copper_golem_statues", "shearable_from_copper_golem", "accepts_iron_golem_gift", "candidate_for_iron_golem_gift",
+             "cushion_uses_collision_shape", "cushions"]
 
 
 STATS = ["happy_ghast_one_cm"]   # custom stats (lang stat.<ns>.<id>)
@@ -57,6 +61,8 @@ def run(port, res, lang_new, lang):
     for e in ENTITIES:
         lang[f"entity.{NS}.{e}"] = lang_new[f"entity.minecraft.{e}"]
         name = f"data/minecraft/loot_table/entities/{e}.json"
+        if name not in port.new_names:
+            continue   # noLootTable (the cushion drops itself)
         port.write(res / "data" / NS / "loot_table/entities" / f"{e}.json", port.ids(port.loot(port.read(name))))
 
 

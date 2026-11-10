@@ -90,6 +90,10 @@ final class Tabs {
             for (String c : PALETTE) concrete.add(c + "_concrete_slab");
             after(e, "pink_wool", wool.toArray(String[]::new));
             after(e, "pink_concrete", concrete.toArray(String[]::new));
+            // ... BED (each color), CUSHION (each color), candle ...
+            List<String> cushions = new ArrayList<>();
+            for (String c : PALETTE) cushions.add(c + "_cushion");
+            after(e, "pink_bed", cushions.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");

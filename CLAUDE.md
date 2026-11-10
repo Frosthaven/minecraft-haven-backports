@@ -24,7 +24,9 @@ file plus that one entry). A model equal to 1.21.1's after conversion stays vani
 restyle vanilla (Better Lanterns + `haven-fixes`) apply to ours too. `tools/sources.py` holds the jar download and
 format-neutral compares. `tools/mobs.py` adds the mobs' blocks, items, sounds, tags, entity textures, names and loot
 to the same paths; `tools/tags.py` writes tags (a reference to a 26.x-only tag is inlined in a tag our Java reads and
-left out elsewhere when it holds nothing of ours). Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
+left out elsewhere when it holds nothing of ours); `tools/animations.py` converts 26.x keyframe animation classes to
+NeoForge JSON and `tools/fuels.py` writes fuel and compost data maps from 26.x's Items class, both reading code
+through `sources.decompile` (vineflower, cached in `.cache/decompiled`). Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
 `ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
 
 ## Ported classes
