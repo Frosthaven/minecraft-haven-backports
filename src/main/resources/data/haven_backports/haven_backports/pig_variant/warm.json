@@ -1,0 +1,12 @@
+{
+  "asset_id": "haven_backports:entity/pig/pig_warm",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:spawns_warm_variant_farm_animals"
+      },
+      "priority": 1
+    }
+  ]
+}

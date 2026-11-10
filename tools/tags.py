@@ -18,6 +18,8 @@ def exists_1211(port, kind: str, vid: str) -> bool:
         return False
     if kind == "block":
         return f"assets/minecraft/blockstates/{path}.json" in port.old_names
+    if kind == "worldgen/biome":
+        return f"data/minecraft/worldgen/biome/{path}.json" in port.old_names
     if kind == "entity_type":
         return f"entity.minecraft.{path}" in port.old_lang()
     return port.exists_1211_item(vid)
@@ -27,7 +29,8 @@ def run(port):
     tag_files = {n: port.read(n) for n in port.new_names if n.startswith("data/minecraft/tags/") and n.endswith(".json")}
 
     def kind_of(n):
-        return n.split("/tags/", 1)[1].split("/", 1)[0]
+        rest = n.split("/tags/", 1)[1]
+        return "/".join(rest.split("/", 2)[:2]) if rest.startswith("worldgen/") else rest.split("/", 1)[0]
 
     def ref_file(n, v):
         return n.split("/tags/", 1)[0] + "/tags/" + kind_of(n) + "/" + v[1:].split(":")[-1] + ".json"

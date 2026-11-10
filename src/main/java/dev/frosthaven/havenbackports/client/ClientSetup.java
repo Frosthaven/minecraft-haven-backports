@@ -29,6 +29,7 @@ public final class ClientSetup {
         e.registerEntityRenderer(dev.frosthaven.havenbackports.Golems.COPPER_GOLEM.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemRenderer::new);
         e.registerBlockEntityRenderer(dev.frosthaven.havenbackports.Golems.STATUE_ENTITY.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer::new);
         e.registerEntityRenderer(dev.frosthaven.havenbackports.Cushions.CUSHION.get(), dev.frosthaven.havenbackports.client.decoration.CushionRenderer::new);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.renderers(e);
     }
 
     @SubscribeEvent
@@ -36,6 +37,7 @@ public final class ClientSetup {
         dev.frosthaven.havenbackports.client.ghast.GhastClient.layers(e);
         dev.frosthaven.havenbackports.client.golem.CopperGolemLayers.register(e);
         e.registerLayerDefinition(dev.frosthaven.havenbackports.client.decoration.CushionRenderer.LAYER, dev.frosthaven.havenbackports.client.decoration.CushionRenderer::createBodyLayer);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.layers(e);
     }
 
     @SubscribeEvent

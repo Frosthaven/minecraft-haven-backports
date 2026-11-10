@@ -1,0 +1,46 @@
+{
+  "adult_sounds": {
+    "ambient_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.ambient"
+    },
+    "death_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.death"
+    },
+    "growl_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.growl"
+    },
+    "hurt_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.hurt"
+    },
+    "pant_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.pant"
+    },
+    "step_sound": "minecraft:entity.wolf.step",
+    "whine_sound": {
+      "sound_id": "haven_backports:entity.wolf_grumpy.whine"
+    }
+  },
+  "baby_sounds": {
+    "ambient_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.ambient"
+    },
+    "death_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.death"
+    },
+    "growl_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.growl"
+    },
+    "hurt_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.hurt"
+    },
+    "pant_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.pant"
+    },
+    "step_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.step"
+    },
+    "whine_sound": {
+      "sound_id": "haven_backports:entity.baby_wolf.whine"
+    }
+  }
+}

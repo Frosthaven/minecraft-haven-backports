@@ -39,6 +39,19 @@ def snapshot() -> tuple[zipfile.ZipFile, dict]:
     return zipfile.ZipFile(jar_path), json.loads(index_path.read_text())["objects"]
 
 
+def old_sounds() -> dict:
+    """1.21.1's sounds.json (its asset store index, sha1-checked, cached): the sound events 1.21.1 already has."""
+    path = CACHE / "1.21.1-assets.json"
+    if not path.exists():
+        manifest = json.loads(get(MANIFEST))
+        version = json.loads(get(next(v["url"] for v in manifest["versions"] if v["id"] == "1.21.1")))
+        index = get(version["assetIndex"]["url"])
+        if hashlib.sha1(index).hexdigest() != version["assetIndex"]["sha1"]:
+            sys.exit("1.21.1 asset index: sha1 mismatch")
+        path.write_bytes(index)
+    return json.loads(asset(json.loads(path.read_text())["objects"], "minecraft/sounds.json"))
+
+
 def asset(objects: dict, name: str) -> bytes:
     """A file from Mojang's asset store (sounds live there, not in the jar), checked against the index hash."""
     entry = objects[name]

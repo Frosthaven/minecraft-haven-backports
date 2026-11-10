@@ -320,6 +320,8 @@ class Port:
             data["textures"] = [self.texture("minecraft:particle/" + t.split(":")[-1]).replace("particle/", "") for t in data["textures"]]
             self.write(RES / "assets" / NS / "particles" / f"{p}.json", data)
 
+        import variants
+        self.old_sound_events = variants.collect(self)
         self.sounds(lang, lang_new)
         self.mod_shelves(lang)
         gear.run(self, RES, lang_new, lang)
@@ -377,9 +379,10 @@ final class ModdedShelves {{
             print(f"on_shelf added to vanilla models 26.x also changed otherwise (1.21.1 content kept): {notes}")
 
     def sounds(self, lang, lang_new):
+        import variants
         mojang = json.loads(asset(self.objects, "minecraft/sounds.json"))
         out = {}
-        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + mobs.SOUNDS
+        events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + mobs.SOUNDS + variants.EXTRA_SOUNDS
         if True:
             for event in events:
                 entry = json.loads(json.dumps(mojang[event]))

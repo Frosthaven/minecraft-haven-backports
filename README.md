@@ -26,6 +26,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper golem | Copper Golem in every oxidation stage, Copper Golem Statue in every stage (waxed or not), Copper Golem Spawn Egg |
 | Cushions | Cushion in all 16 colors (sit on it) |
 | Straw bed | Straw Bed (4 from 3 hay bales) |
+| Farm animal variants | Warm and cold pigs, cows and chickens; Blue Egg, Brown Egg; wolf sound variants |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -130,6 +131,20 @@ has no bed rules, so NeoForge events carry them (PlayerSetSpawnEvent, PlayerWake
 (`isBed`), not a BedBlock (no block entity, no bounce, no explosion). You lie at its own height (LivingEntityMixin) and
 it counts "Sleep in a straw bed", not "Sleep in a bed", and not the bed advancement (ServerPlayerMixin). Villagers do
 not claim it, as in newer Minecraft. Not taken: its loot in abandoned camps, a structure 1.21.1 lacks.
+
+## Farm animal variants
+
+Newer Minecraft's climate variants (`variant/`): pigs, cows and chickens that spawn in cold biomes (snowy, frozen,
+taiga, windswept, the end ...) are cold ones and in warm biomes (desert, jungle, savanna, badlands, the nether ...) warm
+ones, by Mojang's pig_variant, cow_variant and chicken_variant data and biome tags; a baby takes a parent's variant.
+Cold and warm ones have Mojang's own models (fur, horns) and textures; temperate ones keep 1.21.1's look. A warm
+chicken lays brown eggs, a cold one blue eggs (Mojang's chicken_lay); they hatch warm and cold chicks, throw and
+dispense like eggs and make cakes and pumpkin pies (Mojang's #eggs recipes). Wolves get one of Mojang's 7 sound
+variants (classic, puglin, sad, angry, grumpy, big, cute) and puppies their own sounds. The variants live on the
+vanilla mobs through small mixins (AgeableMobMixin, PigMixin, CowMixin, ChickenMixin, WolfMixin): server and client
+need the same build. Not taken: newer Minecraft's baby models and baby textures (1.21.1 draws babies as small
+adults), the pig, cow and chicken sound variants (big, mini, moody, picky; their baby sounds), and the spawn tags'
+biomes 1.21.1 lacks (they join when those biomes are backported and the generator reruns).
 
 Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
 slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do

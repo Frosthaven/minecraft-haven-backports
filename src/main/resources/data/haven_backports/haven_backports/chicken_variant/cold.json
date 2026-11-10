@@ -1,0 +1,13 @@
+{
+  "asset_id": "haven_backports:entity/chicken/chicken_cold",
+  "model": "cold",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:spawns_cold_variant_farm_animals"
+      },
+      "priority": 1
+    }
+  ]
+}

@@ -19,7 +19,7 @@ STAGES = ["", "exposed_", "weathered_", "oxidized_"]
 STATUES = [f"{w}{st}copper_golem_statue" for w in ("", "waxed_") for st in STAGES]
 BLOCKS = {"ghast": ["dried_ghast"], "golem": STATUES, "straw_bed": ["straw_bed"]}
 CUSHIONS = [f"{c}_cushion" for c in COLORS]
-ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg", *CUSHIONS]
+ITEMS = [*HARNESSES, "happy_ghast_spawn_egg", "copper_golem_spawn_egg", *CUSHIONS, "blue_egg", "brown_egg"]
 ENTITIES = ["happy_ghast", "copper_golem", "cushion"]
 COPPER_SETS = ["copper_golem_statue"]   # oxidation and waxing data maps (tieins.copper_maps)
 ENTITY_TEXTURES = ["entity/ghast/happy_ghast", "entity/ghast/happy_ghast_baby", "entity/ghast/happy_ghast_ropes",
@@ -43,7 +43,10 @@ SOUNDS = [f"entity.happy_ghast.{s}" for s in ("ambient", "death", "hurt", "ridin
 CODE_TAGS = ["happy_ghast_food", "happy_ghast_tempt_items", "harnesses", "can_equip_harness", "followable_friendly_mobs",
              "triggers_ambient_dried_ghast_block_sounds", "happy_ghast_avoids",
              "copper", "copper_golem_statues", "shearable_from_copper_golem", "accepts_iron_golem_gift", "candidate_for_iron_golem_gift",
-             "cushion_uses_collision_shape", "cushions"]
+             "cushion_uses_collision_shape", "cushions",
+             "spawns_cold_variant_farm_animals", "spawns_warm_variant_farm_animals", "eggs"]
+# 26.x recipes for items 1.21.1 has that take the new eggs (#eggs), taken whole over 1.21.1's
+OVERRIDE_RECIPES = ["cake", "pumpkin_pie"]
 
 
 STATS = ["happy_ghast_one_cm", "sleep_in_straw_bed"]   # custom stats (lang stat.<ns>.<id>)
@@ -56,6 +59,13 @@ def run(port, res, lang_new, lang):
     import animations
     gear.take_loot(port, res, LOOT)
     port.n_animations = animations.run(port, res, NS, ANIMATIONS)
+    import variants
+    variants.run(port, res, port.old_sound_events)
+    for r in OVERRIDE_RECIPES:
+        recipe = port.recipe(port.read(f"data/minecraft/recipe/{r}.json"))
+        if recipe is None:
+            raise SystemExit(f"recipe {r}: 1.21.1 cannot run it")
+        port.write(res / "data/minecraft/recipe" / f"{r}.json", recipe)
     for path in ENTITY_TEXTURES:
         port.copy_texture(f"assets/minecraft/textures/{path}.png", res / "assets" / NS / "textures" / f"{path}.png")
     for st in STATS:

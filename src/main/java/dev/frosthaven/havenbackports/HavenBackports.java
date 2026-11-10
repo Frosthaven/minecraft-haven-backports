@@ -24,6 +24,7 @@ public final class HavenBackports {
         Golems.register(modBus);
         Cushions.register();
         StrawBeds.register(modBus);
+        Variants.register(modBus);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

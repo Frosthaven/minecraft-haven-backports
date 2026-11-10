@@ -107,6 +107,7 @@ final class Tabs {
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... snowball, egg, BROWN_EGG, BLUE_EGG, wind charge ...
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
             // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
             after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
@@ -115,6 +116,7 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... egg, BROWN_EGG, BLUE_EGG, leather ...
         }
     }
 

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:egg",
+    "haven_backports:blue_egg",
+    "haven_backports:brown_egg"
+  ]
+}

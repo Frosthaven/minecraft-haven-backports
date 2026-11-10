@@ -14,7 +14,12 @@
     "CarvedPumpkinBlockMixin",
     "ContainerOpenersCounterMixin",
     "OfferFlowerGoalMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "AgeableMobMixin",
+    "PigMixin",
+    "CowMixin",
+    "ChickenMixin",
+    "WolfMixin"
   ],
   "client": [
     "ItemRendererMixin",
