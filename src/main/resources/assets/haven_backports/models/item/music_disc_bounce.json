@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_music_disc",
+  "textures": {
+    "layer0": "haven_backports:item/music_disc_bounce"
+  }
+}

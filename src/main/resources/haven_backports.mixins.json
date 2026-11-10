@@ -3,10 +3,44 @@
   "minVersion": "0.8",
   "package": "dev.frosthaven.havenbackports.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["AbstractMinecartMixin", "ChestBlockEntityMixin", "ComparatorBlockMixin", "EntityMixin", "LivingEntityInvoker",
-    "LivingEntityMixin", "MeleeAttackMixin", "MobMixin", "PiglinAiMixin", "PiglinMixin", "PlayerAccessor", "PlayerMixin",
-    "ZombieMixin", "ZombifiedPiglinMixin"],
-  "client": ["GameRendererMixin", "GuiMixin", "HumanoidModelMixin", "ItemInHandLayerMixin", "ItemInHandRendererMixin",
-    "ItemRendererMixin", "LocalPlayerMixin", "MinecraftMixin", "MultiPlayerGameModeInvoker", "SheetsMixin", "ZombieArmsMixin"],
-  "injectors": {"defaultRequire": 1}
+  "mixins": [
+    "AbstractMinecartMixin",
+    "BundleItemMixin",
+    "CartographyTableMenuMixin",
+    "ChestBlockEntityMixin",
+    "ComparatorBlockMixin",
+    "EntityMixin",
+    "ItemFrameMixin",
+    "LightningBoltMixin",
+    "LightningRodBlockMixin",
+    "LivingEntityInvoker",
+    "LivingEntityMixin",
+    "MapCloningRecipeMixin",
+    "MeleeAttackMixin",
+    "MobMixin",
+    "PiglinAiMixin",
+    "PiglinMixin",
+    "PlayerAccessor",
+    "PlayerMixin",
+    "ZombieMixin",
+    "ZombifiedPiglinMixin"
+  ],
+  "client": [
+    "AbstractContainerScreenMixin",
+    "GameRendererMixin",
+    "GuiMixin",
+    "HumanoidModelMixin",
+    "ItemInHandLayerMixin",
+    "ItemInHandRendererMixin",
+    "ItemRendererBundleMixin",
+    "ItemRendererMixin",
+    "LocalPlayerMixin",
+    "MinecraftMixin",
+    "MultiPlayerGameModeInvoker",
+    "SheetsMixin",
+    "ZombieArmsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

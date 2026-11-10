@@ -73,10 +73,16 @@ final class Tabs {
                     "dark_oak_shelf", "mangrove_shelf", "cherry_shelf", "bamboo_shelf", "crimson_shelf", "warped_shelf"));
             ModdedShelves.WOODS.stream().filter(w -> ModList.get().isLoaded(w.mod())).forEach(w -> shelves.add(w.id()));
             after(e, "chiseled_bookshelf", shelves.toArray(String[]::new));
+            // ... suspicious gravel, LIGHTNING_ROD in every stage, then waxed (Items.LIGHTNING_ROD.forEach) ...
+            after(e, "lightning_rod", "exposed_lightning_rod", "weathered_lightning_rod", "oxidized_lightning_rod", "waxed_lightning_rod",
+                    "waxed_exposed_lightning_rod", "waxed_weathered_lightning_rod", "waxed_oxidized_lightning_rod");
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
             after(e, "chiseled_bookshelf", "oak_shelf");
+            // ... daylight detector, WAXED lightning rod (in the plain rod's place), piston ...
+            after(e, "lightning_rod", "waxed_lightning_rod");
+            e.remove(new ItemStack(net.minecraft.world.item.Items.LIGHTNING_ROD), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         } else if (tab == CreativeModeTabs.COLORED_BLOCKS) {
             // WOOL, WOOL_STAIRS, WOOL_SLAB, CARPET ... CONCRETE, CONCRETE_STAIRS, CONCRETE_SLAB, CONCRETE_POWDER
             List<String> wool = new ArrayList<>(), concrete = new ArrayList<>();
@@ -89,6 +95,20 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
+            // ... name tag, lead, BUNDLE, the 16 dyed bundles (Items.DYED_BUNDLE.forEach), compass ...
+            // 1.21.1 lists the bundle only with the experimental "bundle" pack; newer Minecraft always.
+            ItemStack bundle = new ItemStack(net.minecraft.world.item.Items.BUNDLE);
+            if (!e.getParentEntries().contains(bundle)) {
+                e.insertAfter(new ItemStack(net.minecraft.world.item.Items.LEAD), bundle, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            }
+            ItemStack previous = bundle;
+            for (String id : dev.frosthaven.havenbackports.bundle.Bundles.DYED) {
+                ItemStack dyed = new ItemStack(Content.ITEM.get(id).get());
+                e.insertAfter(previous, dyed, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                previous = dyed;
+            }
+            // ... relic, 5, pigstep, TEARS, LAVA_CHICKEN, BOUNCE (flurry comes with the Ice Caves)
+            after(e, "music_disc_pigstep", "music_disc_tears", "music_disc_lava_chicken", "music_disc_bounce");
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             // ... golden sword, diamond sword, netherite sword, WOODEN_SPEAR ... NETHERITE_SPEAR, wooden axe ...
@@ -100,6 +120,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");
+            // ... turtle helmet, phantom membrane, FIELD_MASONED, BORDURE_INDENTED, flower banner pattern ...
+            after(e, "phantom_membrane", "field_masoned_banner_pattern", "bordure_indented_banner_pattern");
         }
     }
 

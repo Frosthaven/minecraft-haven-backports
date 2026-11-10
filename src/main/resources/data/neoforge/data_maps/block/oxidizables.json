@@ -35,6 +35,15 @@
     },
     "haven_backports:weathered_copper_chest": {
       "next_oxidation_stage": "haven_backports:oxidized_copper_chest"
+    },
+    "minecraft:lightning_rod": {
+      "next_oxidation_stage": "haven_backports:exposed_lightning_rod"
+    },
+    "haven_backports:exposed_lightning_rod": {
+      "next_oxidation_stage": "haven_backports:weathered_lightning_rod"
+    },
+    "haven_backports:weathered_lightning_rod": {
+      "next_oxidation_stage": "haven_backports:oxidized_lightning_rod"
     }
   }
 }

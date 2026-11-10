@@ -33,6 +33,7 @@
     "haven_backports:sulfur_brick_stairs",
     "haven_backports:chiseled_sulfur",
     "#minecraft:copper_chests",
+    "#minecraft:lightning_rods",
     "#minecraft:lanterns",
     "#minecraft:chains",
     "#minecraft:bars",
@@ -79,6 +80,7 @@
     "haven_backports:polished_calcite_bricks",
     "haven_backports:polished_calcite_brick_slab",
     "haven_backports:polished_calcite_brick_stairs",
-    "haven_backports:polished_calcite_brick_wall"
+    "haven_backports:polished_calcite_brick_wall",
+    "haven_backports:chiseled_soulshale"
   ]
 }

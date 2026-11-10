@@ -1,0 +1,14 @@
+{
+  "type": "haven_backports:crafting_transmute",
+  "category": "equipment",
+  "group": "bundle_dye",
+  "input": {
+    "tag": "minecraft:bundles"
+  },
+  "material": {
+    "item": "minecraft:brown_dye"
+  },
+  "result": {
+    "id": "haven_backports:brown_bundle"
+  }
+}

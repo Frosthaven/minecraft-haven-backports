@@ -41,4 +41,4 @@ repo/
 /.cache/
 
 # symlink to the main checkout's cache in worktrees
-.cache
+/.cache

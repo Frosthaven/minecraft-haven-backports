@@ -1,0 +1,7 @@
+{
+  "parent": "haven_backports:block/template_lightning_rod",
+  "textures": {
+    "texture": "minecraft:block/lightning_rod"
+  },
+  "render_type": "minecraft:cutout"
+}

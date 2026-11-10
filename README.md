@@ -17,12 +17,17 @@ one block per concept and it looks the way Mojang made it.
 | Calcite | Calcite Pillar, Stairs, Slab, Wall; Polished Calcite with Stairs, Slab, Wall; Polished Calcite Bricks with Stairs, Slab, Wall |
 | Snow and ice | Snow Bricks with Stairs, Slab, Wall; Packed Ice Bricks with Stairs, Slab, Wall; Chiseled Packed Ice (new packed ice sounds) |
 | Wool and concrete | Stairs and Slab for all 16 colors of each; wool ones re-dye with any dye and burn like wool |
-| Copper | Copper Bars, Chain and Lantern in every oxidation stage, waxed or not (honeycomb, axe, rain); Copper Torch; Copper Nugget |
+| Copper | Copper Bars, Chain, Lantern and Lightning Rod in every oxidation stage, waxed or not (honeycomb, axe, rain); Copper Torch; Copper Nugget |
 | Shelves | Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson and Warped Shelf; plus one for each of the pack's 21 modded woods (see below). Pale Oak and Poplar come with their woods |
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
 | Spears | Wooden, Stone, Copper, Iron, Golden, Diamond and Netherite Spear; the Lunge enchantment (see below) |
+| Music discs | Tears (a ghast killed by a player with its own fireball), Lava Chicken (a player kills a baby zombie riding a chicken), Bounce (mineshaft chests in the Sulfur Caves: the chest entry waits for that biome); Mojang's songs, lengths and comparator values |
+| Banner patterns | Field Masoned (paper + bricks) and Bordure Indented (paper + vines) Banner Patterns; as in newer Minecraft, the loom offers those two patterns only with their pattern item |
+| Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer) and the Buried Treasure Map (shipwreck and underwater ruin chests) |
+| Ancient city | Chiseled Soulshale (ancient city chests, with its own sounds; newer Minecraft's ancient city chest table) |
+| Bundles | The Bundle without the experiment (string over leather; village chests), the 16 dyed Bundles (bundle + dye keeps the contents), newer Minecraft's bundle behaviour and tooltip |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -67,7 +72,7 @@ and stays out of the creative tab. Adding a wood: one line in `MOD_WOODS`, then 
 Mojang's CopperChestBlock on the vanilla chest block entity (as newer Minecraft). Two mixins carry what 1.21.1 hard-codes: the
 hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before the holiday one (Sheets.chooseMaterial).
 
-Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
+Not taken: recipes 1.21.1 cannot run or already has (the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
 
 ## Spears
@@ -98,6 +103,54 @@ hand (1.21.1 sends no swing animation). Not ported: newer Minecraft-only sources
 need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
 weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears do not smelt into nuggets: newer Minecraft's
 nugget recipes also name nautilus armor.
+## Lightning rods
+
+Newer Minecraft makes the lightning rod copper that ages; its unaffected stage is still `minecraft:lightning_rod`, so
+the vanilla rod is kept and made the head of the chain rather than replaced: NeoForge's oxidizables and waxables data
+maps run vanilla rod -> exposed -> weathered -> oxidized (ours), each waxable, and a small mixin gives the vanilla rod
+the random tick Mojang's WeatheringLightningRodBlock has (LightningRodBlockMixin; only for rods with a next stage, so
+other mods' rods are untouched). Every stage is a lightning rod point of interest (NeoForge's ExtendPoiTypesEvent), in
+`#minecraft:lightning_rods`, and newer Minecraft's Channeling (which names that tag) replaces 1.21.1's. Lightning
+follows newer Minecraft too (LightningBoltMixin): a struck rod goes back to unaffected and the cleaning spreads from
+it, where 1.21.1 reset the block under the rod instead. Rods already placed keep working and start to age.
+
+## Explorer maps and the cartographer
+
+The cartographer trades as in newer Minecraft: Mojang's trade set read from the snapshot (`tools/maps.py`), each trade
+one 1.21.1 trade listing (`map/CartographerTrades`, NeoForge's VillagerTradesEvent at the highest priority, so other
+mods' cartographer trades still add to it). Village maps depend on the villager's own type, banners too; levels 2, 3
+and 5 sell the explorer maps. The maps are filled by Mojang's 26.x loot functions, ported under our ids
+(`haven_backports:exploration_map`, `filtered`, `discard`, the `map_id` item predicate), with the villager or chest as
+the origin; a map that finds no structure is not offered. Three mixins open 1.21.1's map hard-codes to every map item
+as newer Minecraft does: the cartography table and item frame (any item with a map id) and map cloning
+(`#minecraft:clonable_maps`). Shipwreck and underwater ruin chests keep 1.21.1's tables with newer Minecraft's Buried
+Treasure Map entry until the nautilus armor and spears they also name are in. Left out: the Abandoned Camp Map and the
+Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps, whose only source is the Abandoned
+Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
+sells no maps in newer Minecraft, so it is unchanged.
+
+## Bundles
+
+1.21.1's `minecraft:bundle` item has no feature flag (Items.BUNDLE sets no required features); only its creative tab
+place and its recipe live in the experimental "bundle" data pack. So nothing per world is switched on: the item already
+loads in every world and on a dedicated server, and the mod adds newer Minecraft's recipe (`haven_backports:bundle`),
+its tab place (only where 1.21.1 did not already put it), and newer Minecraft's village chests that hold one. Worlds
+made with the experiment keep its rabbit hide recipe as well. Every bundle behaves as newer Minecraft's
+(BundleItemMixin -> `bundle/BundleLogic`, Mojang's 26.x BundleItem): scroll over a bundle in a container to pick the
+item that comes out next (sent to the server, never saved, as in newer Minecraft), right-click takes that one out,
+holding use drops the contents one item at a time, a full bundle shows a red bar and "Full", an item it refuses plays
+its own sound. The tooltip is newer Minecraft's grid with the selected item named and a fullness bar
+(`client/BundleTooltipRenderer`); in the GUI a bundle with a selected item opens around it (`client/BundleRenderer`,
+ItemRendererBundleMixin), and a shift-click or hotbar swap clears the pick (AbstractContainerScreenMixin, newer
+Minecraft's slot-click hook). Dye recipes keep the contents through `haven_backports:crafting_transmute`, a port of
+Mojang's TransmuteRecipe. Kept from 1.21.1: the bundle's texture (newer Minecraft redrew it); the "filled" look is
+gone, as newer Minecraft dropped it; the first-person use animation (newer Minecraft only adds an arm swing).
+
+## Not ported
+
+The mannequin (newer Minecraft's `minecraft:mannequin` entity): a player-shaped figure for map makers that Mojang gives
+no item, spawn egg, recipe, loot or structure; it exists only through `/summon`. With no way to obtain it in
+survival, it is left out.
 
 ## Download
 

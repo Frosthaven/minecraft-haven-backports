@@ -27,6 +27,7 @@ import models   # noqa: E402
 import modshelves   # noqa: E402
 import gear   # noqa: E402
 import spear   # noqa: E402
+import extras   # noqa: E402
 from sources import VERSION, asset, canon, models_in, old_format, pixels, snapshot   # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -58,13 +59,14 @@ CONTENT = {
     "shelf": [f"{w}_shelf" for w in SHELF_WOODS],
     **{n: [n, *stairs_slab_wall(n), f"polished_{n}", *stairs_slab_wall(f"polished_{n}"), f"{n}_bricks",
            *stairs_slab_wall(f"{n}_brick"), f"chiseled_{n}"] for n in ("cinnabar", "sulfur")},
+    "lightning_rod": extras.RODS,
+    "soulshale": ["chiseled_soulshale"],
 }
-ITEMS_ONLY = ["copper_nugget"]
+ITEMS_ONLY = ["copper_nugget", *extras.ITEMS_ONLY]
 NO_ITEM = {"copper_wall_torch"}   # its item is the copper torch, as for the vanilla torch
 FULL_CHISEL = {"calcite": ["polished_calcite", "polished_calcite_bricks", "calcite_pillar"]}
 # New snapshot recipes for items 1.21.1 already has are taken when 1.21.1 can run them and has no equal one, except:
 EXTRA_EXCLUDE = {
-    "bundle": "1.21.1's bundle sits behind an experimental feature flag; enabling bundles is its own backport",
     "suspicious_stew_from_": "1.21.1's special suspicious stew recipe already makes every one of these",
 }
 # Snapshot recipes for our own items that a pack mod already provides in the same shape and counts (duplicates in JEI):
@@ -80,7 +82,7 @@ SOUND_SETS = {"packed_ice": ["break", "fall", "hit", "place", "step"],
               "shelf": ["break", "fall", "hit", "place", "step",
                         "activate", "deactivate", "take_item", "single_swap", "place_item", "multi_swap"]}
 # Snapshot tags our Java reads (ShelfBlock.isConnectable: #minecraft:wooden_shelves), written with our values.
-CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests", *spear.CODE_TAGS]
+CODE_TAGS = ["wooden_shelves", "incorrect_for_copper_tool", "repairs_copper_armor", "copper_chests", *spear.CODE_TAGS, *extras.CODE_TAGS]
 
 # Other mods' copies of the same block or item: Mojang's look is the reference, so they become ours.
 ALIASES = [
@@ -104,12 +106,13 @@ ALIASES = [
 # 26.x picks the render layer from texture transparency; 1.21.1 needs it set. Each takes its vanilla counterpart's layer
 # from 1.21.1's ItemBlockRenderTypes: iron bars and chain cutout_mipped, torch, wall torch and lantern cutout.
 RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minecraft:cutout_mipped",
-                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout"}
+                "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout",
+                "lightning_rod": "minecraft:cutout"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
 BLOCKS = [b for family in CONTENT.values() for b in family]
-OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(spear.ITEMS) | set(spear.IDS)
+OURS = set(BLOCKS) | set(ITEMS_ONLY) | set(gear.ITEMS) | set(spear.ITEMS) | set(spear.IDS) | set(extras.OTHER_ITEMS)
 
 
 class Port:
@@ -324,6 +327,7 @@ class Port:
         self.mod_shelves(lang)
         gear.run(self, RES, lang_new, lang)
         spear.run(self, RES, lang_new, lang)
+        extras.run(self, RES, lang_new, lang)
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
@@ -337,6 +341,7 @@ class Port:
         tieins.tie_ins(self)
         tieins.copper_maps(self)
         tieins.amendments(self)
+        extras.finish(self, RES)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})
         print(f"{VERSION}: {len(BLOCKS)} blocks, {len(ITEMS_ONLY)} items, {len(self.ours_models)} models, "
@@ -446,6 +451,8 @@ class Port:
             for v in values:
                 if v.startswith("#"):
                     queue.append(n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/" + v[1:].split(":")[-1] + ".json")
+        import tieins   # imported here: it reads this module's constants
+        tieins.prune_tags(self, written)
         for kind in ("block", "item"):
             f = RES / f"data/minecraft/tags/{kind}/wooden_shelves.json"
             data = json.loads(f.read_text())
