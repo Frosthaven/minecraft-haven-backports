@@ -104,16 +104,22 @@ def run(port, res, lang_new, lang):
     copper["override_armor_materials"] = {f"{NS}:copper": "copper_darker"}
     port.write(res / "data/minecraft/trim_material/copper.json", copper)
 
+    take_loot(port, res, LOOT)
+
+
+def take_loot(port, res, tables):
+    """Mojang's 26.x loot tables, whole, when every item they name exists in 1.21.1 or is ours (the run prints what
+    26.x changed in each); the others stay at 1.21.1 and are reported."""
     waiting = {}
-    for table in LOOT:
+    for table in tables:
         name = f"data/minecraft/loot_table/{table}.json"
-        new = port.ids(port.loot(json.loads(jar.read(name))))
+        new = port.ids(port.loot(json.loads(port.jar.read(name))))
         missing = sorted({n for n in names_in(new) if not port.exists_1211_item(n) or n in FEATURE_FLAGGED})
         if missing:   # e.g. nautilus armor, until it is backported
             waiting[table] = missing
             continue
         port.write(res / name, new)
-        port.loot_changes[table] = changes(plain(json.loads(old.read(name))), plain(new))
+        port.loot_changes[table] = changes(plain(json.loads(port.old.read(name))), plain(new))
     if waiting:
         print(f"loot tables kept at 1.21.1 until these exist: {waiting}")
 

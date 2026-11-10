@@ -126,6 +126,28 @@ public class CopperChestBlock extends ChestBlock {
         return Optional.ofNullable(DataMapHooks.getBlockUnwaxed(state.getBlock())).map(b -> b.withPropertiesOf(state));
     }
 
+    /** 26.x COPPER_TO_COPPER_CHEST_MAPPING: WeatheringCopperCollection.zipApply(COPPER_BLOCK, COPPER_CHEST), waxed to waxed. */
+    private static final com.google.common.base.Supplier<java.util.Map<Block, Block>> COPPER_TO_COPPER_CHEST = com.google.common.base.Suppliers.memoize(() -> {
+        java.util.Map<Block, Block> map = new java.util.HashMap<>();
+        int i = 0;
+        for (String waxed : new String[]{"", "waxed_"}) {
+            for (WeatherState stage : WeatherState.values()) {
+                String copper = waxed + (stage == WeatherState.UNAFFECTED ? "copper_block" : stage.getSerializedName() + "_copper");
+                map.put(net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(copper)),
+                        dev.frosthaven.havenbackports.Chests.ALL.get(i++).get());
+            }
+        }
+        return map;
+    });
+
+    /** 26.x CopperChestBlock.getFromCopperBlock: the chest a copper golem leaves where its copper block was. */
+    public static BlockState getFromCopperBlock(Block copperBlock, Direction facing, Level level, BlockPos pos) {
+        CopperChestBlock block = (CopperChestBlock) COPPER_TO_COPPER_CHEST.get().getOrDefault(copperBlock, dev.frosthaven.havenbackports.Chests.ALL.get(0).get());
+        ChestType type = block.getChestType(level, pos, facing);
+        BlockState state = block.defaultBlockState().setValue(FACING, facing).setValue(TYPE, type);
+        return leastOxidizedOfConnected(state, level, pos);
+    }
+
     /** 26.x ChestBlock.updateShape with chestCanConnectTo, then CopperChestBlock's: a joined pair shares one block. */
     @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighbour, LevelAccessor level, BlockPos pos, BlockPos neighbourPos) {

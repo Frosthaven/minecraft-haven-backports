@@ -28,6 +28,11 @@ one block per concept and it looks the way Mojang made it.
 | Explorer maps | Each explorer map is its own item, as in newer Minecraft: Ocean Monument, Woodland Mansion, Buried Trial Chambers, Jungle Pyramid, Swamp Hut, Desert, Plains, Savanna, Snowy and Taiga Village Maps (cartographer) and the Buried Treasure Map (shipwreck and underwater ruin chests) |
 | Ancient city | Chiseled Soulshale (ancient city chests, with its own sounds; newer Minecraft's ancient city chest table) |
 | Bundles | The Bundle without the experiment (string over leather; village chests), the 16 dyed Bundles (bundle + dye keeps the contents), newer Minecraft's bundle behaviour and tooltip |
+| Happy ghast | Happy Ghast (ghastling and adult), Dried Ghast, Harness in 16 colors, Happy Ghast Spawn Egg |
+| Copper golem | Copper Golem in every oxidation stage, Copper Golem Statue in every stage (waxed or not), Copper Golem Spawn Egg |
+| Cushions | Cushion in all 16 colors (sit on it) |
+| Straw bed | Straw Bed (4 from 3 hay bales) |
+| Farm animal variants | Warm and cold pigs, cows and chickens; Blue Egg, Brown Egg; wolf sound variants |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -103,6 +108,7 @@ hand (1.21.1 sends no swing animation). Not ported: newer Minecraft-only sources
 need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
 weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears do not smelt into nuggets: newer Minecraft's
 nugget recipes also name nautilus armor.
+
 ## Lightning rods
 
 Newer Minecraft makes the lightning rod copper that ages; its unaffected stage is still `minecraft:lightning_rod`, so
@@ -119,7 +125,7 @@ it, where 1.21.1 reset the block under the rod instead. Rods already placed keep
 The cartographer trades as in newer Minecraft: Mojang's trade set read from the snapshot (`tools/maps.py`), each trade
 one 1.21.1 trade listing (`map/CartographerTrades`, NeoForge's VillagerTradesEvent at the highest priority, so other
 mods' cartographer trades still add to it). Village maps depend on the villager's own type, banners too; levels 2, 3
-and 5 sell the explorer maps. The maps are filled by Mojang's 26.x loot functions, ported under our ids
+and 5 sell the explorer maps. The maps are filled by Mojang's newer loot functions, ported under our ids
 (`haven_backports:exploration_map`, `filtered`, `discard`, the `map_id` item predicate), with the villager or chest as
 the origin; a map that finds no structure is not offered. Three mixins open 1.21.1's map hard-codes to every map item
 as newer Minecraft does: the cartography table and item frame (any item with a map id) and map cloning
@@ -136,7 +142,7 @@ place and its recipe live in the experimental "bundle" data pack. So nothing per
 loads in every world and on a dedicated server, and the mod adds newer Minecraft's recipe (`haven_backports:bundle`),
 its tab place (only where 1.21.1 did not already put it), and newer Minecraft's village chests that hold one. Worlds
 made with the experiment keep its rabbit hide recipe as well. Every bundle behaves as newer Minecraft's
-(BundleItemMixin -> `bundle/BundleLogic`, Mojang's 26.x BundleItem): scroll over a bundle in a container to pick the
+(BundleItemMixin -> `bundle/BundleLogic`, Mojang's newer BundleItem): scroll over a bundle in a container to pick the
 item that comes out next (sent to the server, never saved, as in newer Minecraft), right-click takes that one out,
 holding use drops the contents one item at a time, a full bundle shows a red bar and "Full", an item it refuses plays
 its own sound. The tooltip is newer Minecraft's grid with the selected item named and a fullness bar
@@ -145,6 +151,84 @@ ItemRendererBundleMixin), and a shift-click or hotbar swap clears the pick (Abst
 Minecraft's slot-click hook). Dye recipes keep the contents through `haven_backports:crafting_transmute`, a port of
 Mojang's TransmuteRecipe. Kept from 1.21.1: the bundle's texture (newer Minecraft redrew it); the "filled" look is
 gone, as newer Minecraft dropped it; the first-person use animation (newer Minecraft only adds an arm swing).
+
+## Happy ghast
+
+Mojang's HappyGhast, method for method (`ghast/`). How to get one, as in newer Minecraft: a Dried Ghast (crafted from 8
+ghast tears around soul sand; piglin bartering, weight 10, from newer Minecraft's table; lying in half of all nether
+fossils, NetherFossilPieceMixin) in water hydrates every 5000 ticks and at level 3 becomes a ghastling; out of water it
+dries back. A ghastling grows up like any baby animal (snowballs speed it up). Harnesses (leather, glass, wool; dye
+recipes) go on an adult by hand or from a dispenser and come off with shears. A harnessed adult carries up to 4
+players; the first one steers (look and move, jump to rise). Players can stand and build on top of it: it holds still
+while one is there. Third person sits 8 blocks back. It heals fast in clouds or rain. Its own lead is newer
+Minecraft's spring lead (elastic at 10, snaps at 16); sneak-clicking it moves the mobs on your leads onto it. Mobs on
+a lead to a happy ghast use newer Minecraft's spring lead too (elastic at 6, snaps at 12), and horses, donkeys, mules,
+camels, zombie and skeleton horses, sniffers and boats hang from it on four ropes (the quad leash), with the ghast's
+rope harness showing (GhastEntityMixin for the tick, EntityRendererMixin for the ropes; llamas keep one rope, as in newer
+Minecraft).
+
+1.21.1 lacks parts of the engine this uses. Each has a small equivalent: the harness is a 1.21.1 `Equipable` with
+Mojang's equip, dispense and shear rules (no `equippable` component); the camera distance comes from NeoForge's
+`CalculateDetachedCameraDistanceEvent`; the precise position sync while it holds still is a teleport packet per
+tick; the riding statistic, standing on top, the allow-flight kick fix and the dried ghast in fossils are mixins
+(ServerPlayerMixin, GhastEntityMixin, ServerGamePacketListenerImplMixin, NetherFossilPieceMixin); `LivingEntity.jumping` is
+opened by the access transformer. Not taken: newer Minecraft's leash changes for leashes not tied to a happy ghast
+(spring physics, shears cutting leads, the wider single rope); the plain ghast as a quad-leash holder; sneaking with a lead in hand leashes the ghast (1.21.1 handles leads before the mob does); the
+`place_dried_ghast_in_water` advancement. Clouds are at newer Minecraft's height (192.33 to 196.33) in dimensions
+that draw overworld clouds.
+
+## Copper golem
+
+Mojang's CopperGolem, method for method (`golem/`). A carved pumpkin or jack o'lantern on any copper block (waxed or
+not) makes one, in that block's age; the block becomes the matching copper chest (CarvedPumpkinBlockMixin, and
+dispensers place pumpkins for it). It carries up to 16 items at a time from copper chests to chests and trapped chests
+that already hold that item or are empty (Mojang's rule: no other containers), opening the lid as it works
+(ContainerOpenersCounterMixin) and waiting while someone else has it open. It ages like copper unless waxed
+(honeycomb); an axe takes off the wax or a stage, lightning a stage. A fully oxidized golem may become a statue in a
+random pose that keeps its name; any item but an axe changes the pose (comparators read it), an axe on an unaffected
+statue wakes it. Statues age, wax and scrape like copper blocks. Iron golems give poppies to copper golems too
+(OfferFlowerGoalMixin); shears take the poppy off its antenna. Its walk, idle and chest animations are Mojang's
+CopperGolemAnimation, converted by the generator (`tools/animations.py`) into NeoForge JSON animations.
+
+1.21.1 lacks the SADDLE equipment slot newer Minecraft keeps the antenna item in: it is the golem's own synced stack,
+saved as `antenna` and always dropped (only the gift fills it, a guaranteed drop in newer Minecraft), so `/data` paths
+differ. The chest's open and close game event has no source entity.
+
+## Cushions
+
+Mojang's Cushion (`decoration/`): crafted from 3 wool slabs of a color (ours), re-dyed with any dye, placed on top of
+a block (on cauldrons, hoppers and composters, on their rim), sat on by right-clicking. It breaks when its support
+goes, in fire, lava or lightning, or when hit, and drops itself with its name. A different thing from Handcrafted's
+cushions (seat blocks): kept apart, no merge. Not taken: the short time a cushion dropped by lightning cannot burn,
+and the cushions in abandoned camp barrels (a structure 1.21.1 lacks).
+
+## Straw bed
+
+Mojang's StrawBedBlock with the AbstractBedBlock newer Minecraft gives every bed (`block/StrawBedBlock`): a low bed
+of block models. In the overworld you sleep in it when it is dark like any bed, but it never sets your spawn point and
+it breaks when you get up; in the nether and the end it breaks when used (newer Minecraft's straw_bed_rule). 1.21.1
+has no bed rules, so NeoForge events carry them (PlayerSetSpawnEvent, PlayerWakeUpEvent) and it is a bed to NeoForge
+(`isBed`), not a BedBlock (no block entity, no bounce, no explosion). You lie at its own height (StrawBedLivingEntityMixin) and
+it counts "Sleep in a straw bed", not "Sleep in a bed", and not the bed advancement (ServerPlayerMixin). Villagers do
+not claim it, as in newer Minecraft. Not taken: its loot in abandoned camps, a structure 1.21.1 lacks.
+
+## Farm animal variants
+
+Newer Minecraft's climate variants (`variant/`): pigs, cows and chickens that spawn in cold biomes (snowy, frozen,
+taiga, windswept, the end ...) are cold ones and in warm biomes (desert, jungle, savanna, badlands, the nether ...) warm
+ones, by Mojang's pig_variant, cow_variant and chicken_variant data and biome tags; a baby takes a parent's variant.
+Cold and warm ones have Mojang's own models (fur, horns) and textures; temperate ones keep 1.21.1's look. A warm
+chicken lays brown eggs, a cold one blue eggs (Mojang's chicken_lay); they hatch warm and cold chicks, throw and
+dispense like eggs and make cakes and pumpkin pies (Mojang's #eggs recipes). Wolves get one of Mojang's 7 sound
+variants (classic, puglin, sad, angry, grumpy, big, cute) and puppies their own sounds. The variants live on the
+vanilla mobs through small mixins (AgeableMobMixin, PigMixin, CowMixin, ChickenMixin, WolfMixin): server and client
+need the same build. Not taken: newer Minecraft's baby models and baby textures (1.21.1 draws babies as small
+adults), the pig, cow and chicken sound variants (big, mini, moody, picky; their baby sounds), and the spawn tags'
+biomes 1.21.1 lacks (they join when those biomes are backported and the generator reruns).
+
+Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
+slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do
+not burn).
 
 ## Not ported
 

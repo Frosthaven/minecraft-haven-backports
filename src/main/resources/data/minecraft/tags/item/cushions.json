@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "haven_backports:white_cushion",
+    "haven_backports:orange_cushion",
+    "haven_backports:magenta_cushion",
+    "haven_backports:light_blue_cushion",
+    "haven_backports:yellow_cushion",
+    "haven_backports:lime_cushion",
+    "haven_backports:pink_cushion",
+    "haven_backports:gray_cushion",
+    "haven_backports:light_gray_cushion",
+    "haven_backports:cyan_cushion",
+    "haven_backports:purple_cushion",
+    "haven_backports:blue_cushion",
+    "haven_backports:brown_cushion",
+    "haven_backports:green_cushion",
+    "haven_backports:red_cushion",
+    "haven_backports:black_cushion"
+  ]
+}

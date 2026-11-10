@@ -36,6 +36,11 @@ public final class HavenBackports {
             Content.ITEM.put(id, Content.ITEMS.registerItem(id, Bundles::make, Bundles.properties()));
         }
         Bundles.register(modBus);
+        Ghasts.register(modBus);
+        Golems.register(modBus);
+        Cushions.register();
+        StrawBeds.register(modBus);
+        Variants.register(modBus);
         modBus.addListener(net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent.class, Tabs::build);
     }
 }

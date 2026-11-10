@@ -25,12 +25,31 @@ public final class ClientSetup {
     @SubscribeEvent
     static void renderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerBlockEntityRenderer(Content.SHELF_ENTITY.get(), ShelfRenderer::new);
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.renderers(e);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Golems.COPPER_GOLEM.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemRenderer::new);
+        e.registerBlockEntityRenderer(dev.frosthaven.havenbackports.Golems.STATUE_ENTITY.get(), dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer::new);
+        e.registerEntityRenderer(dev.frosthaven.havenbackports.Cushions.CUSHION.get(), dev.frosthaven.havenbackports.client.decoration.CushionRenderer::new);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.renderers(e);
+    }
+
+    @SubscribeEvent
+    static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.layers(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemLayers.register(e);
+        e.registerLayerDefinition(dev.frosthaven.havenbackports.client.decoration.CushionRenderer.LAYER, dev.frosthaven.havenbackports.client.decoration.CushionRenderer::createBodyLayer);
+        dev.frosthaven.havenbackports.client.variant.FarmRenderers.layers(e);
+    }
+
+    @SubscribeEvent
+    static void setup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent e) {
+        dev.frosthaven.havenbackports.client.ghast.GhastClient.init();
     }
 
     @SubscribeEvent
     static void chestItems(net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent e) {
         ChestTextures.items(e);
         dev.frosthaven.havenbackports.client.spear.SpearClient.register(e);
+        dev.frosthaven.havenbackports.client.golem.CopperGolemStatueRenderer.items(e);
     }
 
     @SubscribeEvent

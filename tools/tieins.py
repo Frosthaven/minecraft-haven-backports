@@ -5,7 +5,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, extras, gear, spear
+from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, extras, gear, mobs, spear
 from sources import asset
 
 
@@ -48,7 +48,7 @@ def copper_maps(port):
     """Mojang's WeatheringCopperCollection: unaffected -> exposed -> weathered -> oxidized, each with a waxed twin.
     NeoForge reads these data maps for random oxidation, honeycomb waxing and axe scraping."""
     oxidizables, waxables = {}, {}
-    for s in COPPER_SETS:
+    for s in COPPER_SETS + mobs.COPPER_SETS:
         for a, b in zip(STAGES, STAGES[1:]):
             oxidizables[f"{NS}:{a}{s}"] = {"next_oxidation_stage": f"{NS}:{b}{s}"}
         for st in STAGES:
@@ -67,9 +67,12 @@ def renames(port, lang_new):
 
 
 def sounds(port, lang, lang_new):
+    """Every sound event of ours, Mojang's entries and files; variants.EXTRA_SOUNDS is filled by variants.collect."""
+    import variants
     mojang = json.loads(asset(port.objects, "minecraft/sounds.json"))
     out = {}
-    events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + spear.SOUNDS + extras.SOUNDS
+    events = ([f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + spear.SOUNDS + extras.SOUNDS +
+              mobs.SOUNDS + variants.EXTRA_SOUNDS)
     if True:
         for event in events:
             entry = json.loads(json.dumps(mojang[event]))
@@ -88,25 +91,3 @@ def sounds(port, lang, lang_new):
                 lang[entry["subtitle"]] = lang_new[entry["subtitle"]]   # Mojang's subtitle text, in our lang
             out[event] = entry
     port.write(RES / "assets" / NS / "sounds.json", out)
-
-
-def prune_tags(port, written):
-    """Drops references to snapshot sub-tags that were left unwritten (their values went into the 1.21.1 tags they
-    name, e.g. #minecraft:melee_weapon -> #swords): a dangling reference makes 1.21.1 reject the whole tag."""
-    changed = True
-    while changed:
-        changed = False
-        for n in sorted(written):
-            f = RES / n
-            data = json.loads(f.read_text())
-            base = n.split("/tags/", 1)[0] + "/tags/" + n.split("/tags/", 1)[1].split("/", 1)[0] + "/"
-            keep = [v for v in data["values"] if not v.startswith("#") or
-                    (ref := base + v[1:].split(":")[-1] + ".json") in written or ref in port.old_names]
-            if keep == data["values"]:
-                continue
-            changed = True
-            if keep:
-                port.write(f, {**data, "values": keep})
-            else:
-                f.unlink()
-                written.discard(n)

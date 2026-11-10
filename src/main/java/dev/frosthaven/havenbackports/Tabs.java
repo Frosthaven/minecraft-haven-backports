@@ -52,6 +52,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             // ... pointed dripstone, prismarine, CINNABAR, SULFUR (spike and potent sulfur come with the caves)
             after(e, "prismarine", "cinnabar", "sulfur");
+            // ... turtle egg, sniffer egg, DRIED_GHAST, wheat seeds ...
+            after(e, "sniffer_egg", "dried_ghast");
         } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // torch, soul torch, COPPER_TORCH, redstone torch, lantern, soul lantern, COPPER_LANTERN, chain, COPPER_CHAIN
             after(e, "soul_torch", "copper_torch");
@@ -76,6 +78,10 @@ final class Tabs {
             // ... suspicious gravel, LIGHTNING_ROD in every stage, then waxed (Items.LIGHTNING_ROD.forEach) ...
             after(e, "lightning_rod", "exposed_lightning_rod", "weathered_lightning_rod", "oxidized_lightning_rod", "waxed_lightning_rod",
                     "waxed_exposed_lightning_rod", "waxed_weathered_lightning_rod", "waxed_oxidized_lightning_rod");
+            // ... respawn anchor, BED (each color), STRAW_BED, candle ...
+            after(e, "pink_bed", "straw_bed");
+            // ... end portal frame, vault, ender eye, COPPER_GOLEM_STATUE (each stage, then waxed), infested stone ...
+            after(e, "ender_eye", Golems.STATUES.stream().map(b -> b.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.REDSTONE_BLOCKS) {
             // ... barrel, chiseled bookshelf, OAK_SHELF, furnace ...
             after(e, "chest", "waxed_copper_chest");
@@ -92,6 +98,10 @@ final class Tabs {
             for (String c : PALETTE) concrete.add(c + "_concrete_slab");
             after(e, "pink_wool", wool.toArray(String[]::new));
             after(e, "pink_concrete", concrete.toArray(String[]::new));
+            // ... BED (each color), CUSHION (each color), candle ...
+            List<String> cushions = new ArrayList<>();
+            for (String c : PALETTE) cushions.add(c + "_cushion");
+            after(e, "pink_bed", cushions.toArray(String[]::new));
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
@@ -109,6 +119,8 @@ final class Tabs {
             }
             // ... relic, 5, pigstep, TEARS, LAVA_CHICKEN, BOUNCE (flurry comes with the Ice Caves)
             after(e, "music_disc_pigstep", "music_disc_tears", "music_disc_lava_chicken", "music_disc_bounce");
+            // ... saddle, HARNESS (each color, DyeColor order), carrot on a stick ...
+            after(e, "saddle", Ghasts.HARNESS.stream().map(h -> h.getId().getPath()).toArray(String[]::new));
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             // ... golden sword, diamond sword, netherite sword, WOODEN_SPEAR ... NETHERITE_SPEAR, wooden axe ...
@@ -117,11 +129,18 @@ final class Tabs {
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... snowball, egg, BROWN_EGG, BLUE_EGG, wind charge ...
+        } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
+            // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
+            after(e, "ghast_spawn_egg", "happy_ghast_spawn_egg");
+            // ... sniffer, (sulfur cube,) COPPER_GOLEM_SPAWN_EGG, iron golem ...
+            after(e, "sniffer_spawn_egg", "copper_golem_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");
             // ... turtle helmet, phantom membrane, FIELD_MASONED, BORDURE_INDENTED, flower banner pattern ...
             after(e, "phantom_membrane", "field_masoned_banner_pattern", "bordure_indented_banner_pattern");
+            after(e, "egg", "brown_egg", "blue_egg");   // ... egg, BROWN_EGG, BLUE_EGG, leather ...
         }
     }
 

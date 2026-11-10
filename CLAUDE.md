@@ -25,7 +25,11 @@ registry entry of ours (`spear/Lunge`). `tools/models.py` converts 26.x model JS
 run; `on_shelf` -> `haven_backports:on_shelf`) and writes the vanilla models 26.x gives an on_shelf transform (1.21.1's
 file plus that one entry). A model equal to 1.21.1's after conversion stays vanilla, so pack resource packs that
 restyle vanilla (Better Lanterns + `haven-fixes`) apply to ours too. `tools/sources.py` holds the jar download and
-format-neutral compares. Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
+format-neutral compares. `tools/mobs.py` adds the mobs' blocks, items, sounds, tags, entity textures, names and loot
+to the same paths; `tools/tags.py` writes tags (a reference to a 26.x-only tag is inlined in a tag our Java reads and
+left out elsewhere when it holds nothing of ours); `tools/animations.py` converts 26.x keyframe animation classes to
+NeoForge JSON and `tools/fuels.py` writes fuel and compost data maps from 26.x's Items class, both reading code
+through `sources.decompile` (vineflower, cached in `.cache/decompiled`). Java registers the blocks the way Mojang's helpers do (`registerStair` = `ofFullCopy(base)`, `registerSlab` =
 `ofLegacyCopy(base)`, `registerWall` = `ofLegacyCopy(base).forceSolidOn()`).
 
 ## Ported classes
@@ -37,6 +41,11 @@ the piglin spear behaviors) and `client/spear/` its animations (SpearAnimations,
 `.cache/tools/vineflower-1.11.1.jar` (`-only=<class path>`). Mixins (`haven_backports.mixins.json`) only carry
 behaviour 1.21.1 hard-codes: keep them to a minimum.
 
+Mobs (`ghast/`, `entity/`, `client/ghast/`) are Mojang's 26.x classes the same way; 26.x engine helpers they need
+(`entity/Traversal`, `entity/Leash26`, `entity/Navigations`) are copied once and shared. 1.21.1 lacks
+TEMPT_RANGE and CAMERA_DISTANCE attributes: the values are constants. A test run of the dev server (`./gradlew
+runServer`) loads every mixin target at start only when a temporary audit hook is added; do not commit one.
+
 ## Merges
 
 Haven Consolidated reads `META-INF/haven_consolidated/aliases.json` from every mod jar at common setup and aliases
@@ -47,7 +56,9 @@ block only when it is the same block as Mojang's; keep blocks of a mod's own cro
 
 The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
 "Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
-inventory icons too (a hotbar shot), not only placed blocks. A server test: `just smoke --serve` in the pack test copy
+inventory icons too (a hotbar shot), not only placed blocks. Mob screenshots: the proof mod's `mobscene <ghast|golem|decor|variants> <x> <y> <z>` builds a 40 x 40 plains scene
+(noon, clear, frozen) with the subjects still; then `look near <eye x y z> <target x y z>` and `shot`. A server test:
+`just smoke --serve` in the pack test copy
 with this jar in mods/, then the proof mod's `join`, `ccmd`, `useon` steps from the client.
 
 ## Release

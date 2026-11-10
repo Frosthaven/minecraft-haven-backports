@@ -532,5 +532,1040 @@
       "haven_backports:item/bundle/insert_fail"
     ],
     "subtitle": "subtitles.item.bundle.insert_fail"
+  },
+  "entity.happy_ghast.ambient": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/ambient1",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient2",
+        "weight": 3
+      },
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient3",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient4",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient5",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient6",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient7",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient8",
+      "haven_backports:mob/happy_ghast/ambient9",
+      "haven_backports:mob/happy_ghast/ambient10",
+      "haven_backports:mob/happy_ghast/ambient11",
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient12",
+        "weight": 2
+      },
+      {
+        "name": "haven_backports:mob/happy_ghast/ambient13",
+        "weight": 2
+      },
+      "haven_backports:mob/happy_ghast/ambient14"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.ambient"
+  },
+  "entity.happy_ghast.death": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/death"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.death"
+  },
+  "entity.happy_ghast.hurt": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/hurt1",
+      "haven_backports:mob/happy_ghast/hurt2",
+      "haven_backports:mob/happy_ghast/hurt3",
+      "haven_backports:mob/happy_ghast/hurt4",
+      "haven_backports:mob/happy_ghast/hurt5",
+      "haven_backports:mob/happy_ghast/hurt6"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.hurt"
+  },
+  "entity.happy_ghast.riding": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/ghast_ride"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.riding"
+  },
+  "entity.happy_ghast.equip": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/harness_equip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.equip"
+  },
+  "entity.happy_ghast.unequip": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/harness_unequip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.unequip"
+  },
+  "entity.happy_ghast.harness_goggles_up": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/goggles_up"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_up"
+  },
+  "entity.happy_ghast.harness_goggles_down": {
+    "sounds": [
+      "haven_backports:mob/happy_ghast/goggles_down"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_down"
+  },
+  "entity.ghastling.ambient": {
+    "sounds": [
+      "haven_backports:mob/ghastling/ghastling1",
+      "haven_backports:mob/ghastling/ghastling2",
+      "haven_backports:mob/ghastling/ghastling3",
+      "haven_backports:mob/ghastling/ghastling4",
+      "haven_backports:mob/ghastling/ghastling5",
+      "haven_backports:mob/ghastling/ghastling6",
+      "haven_backports:mob/ghastling/ghastling7"
+    ],
+    "subtitle": "subtitles.entity.ghastling.ambient"
+  },
+  "entity.ghastling.death": {
+    "sounds": [
+      "haven_backports:mob/ghastling/death"
+    ],
+    "subtitle": "subtitles.entity.ghastling.death"
+  },
+  "entity.ghastling.hurt": {
+    "sounds": [
+      "haven_backports:mob/ghastling/hurt1",
+      "haven_backports:mob/ghastling/hurt2",
+      "haven_backports:mob/ghastling/hurt3",
+      "haven_backports:mob/ghastling/hurt4",
+      "haven_backports:mob/ghastling/hurt5"
+    ],
+    "subtitle": "subtitles.entity.ghastling.hurt"
+  },
+  "entity.ghastling.spawn": {
+    "sounds": [
+      "haven_backports:mob/ghastling/spawn"
+    ],
+    "subtitle": "subtitles.entity.ghastling.spawn"
+  },
+  "block.dried_ghast.break": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dried_ghast.step": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/step1",
+      "haven_backports:block/dried_ghast/step2",
+      "haven_backports:block/dried_ghast/step3",
+      "haven_backports:block/dried_ghast/step4",
+      "haven_backports:block/dried_ghast/step5",
+      "haven_backports:block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.dried_ghast.fall": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/step1",
+      "haven_backports:block/dried_ghast/step2",
+      "haven_backports:block/dried_ghast/step3",
+      "haven_backports:block/dried_ghast/step4",
+      "haven_backports:block/dried_ghast/step5",
+      "haven_backports:block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.dried_ghast.ambient": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/ambient1",
+      "haven_backports:block/dried_ghast/ambient2",
+      "haven_backports:block/dried_ghast/ambient3",
+      "haven_backports:block/dried_ghast/ambient4"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient"
+  },
+  "block.dried_ghast.ambient_water": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/ambient_water1",
+      "haven_backports:block/dried_ghast/ambient_water2"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient_water"
+  },
+  "block.dried_ghast.place": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/place1",
+      "haven_backports:block/dried_ghast/place2",
+      "haven_backports:block/dried_ghast/place3",
+      "haven_backports:block/dried_ghast/place4",
+      "haven_backports:block/dried_ghast/place5",
+      "haven_backports:block/dried_ghast/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dried_ghast.place_in_water": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/placeinwater"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.place_in_water"
+  },
+  "block.dried_ghast.transition": {
+    "sounds": [
+      "haven_backports:block/dried_ghast/transition"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.transition"
+  },
+  "item.lead.tied": {
+    "sounds": [
+      "haven_backports:entity/leashknot/leash1",
+      "haven_backports:entity/leashknot/leash2",
+      "haven_backports:entity/leashknot/leash3"
+    ],
+    "subtitle": "subtitles.item.lead.tied"
+  },
+  "item.lead.break": {
+    "sounds": [
+      "haven_backports:entity/leashknot/break"
+    ],
+    "subtitle": "subtitles.item.lead.break"
+  },
+  "entity.copper_golem.spin": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/spin7"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.spin"
+  },
+  "entity.copper_golem.hurt": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/regular/hurt1",
+      "haven_backports:mob/coppergolem/regular/hurt2",
+      "haven_backports:mob/coppergolem/regular/hurt3",
+      "haven_backports:mob/coppergolem/regular/hurt4"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.hurt"
+  },
+  "entity.copper_golem.death": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/regular/death"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.death"
+  },
+  "entity.copper_golem.step": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step7"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step8"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/regular/step9"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.copper_golem_weathered.spin": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/spin7"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.spin"
+  },
+  "entity.copper_golem_weathered.hurt": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/weathered/hurt1",
+      "haven_backports:mob/coppergolem/weathered/hurt2",
+      "haven_backports:mob/coppergolem/weathered/hurt3",
+      "haven_backports:mob/coppergolem/weathered/hurt4"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.hurt"
+  },
+  "entity.copper_golem_weathered.death": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/weathered/death"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.death"
+  },
+  "entity.copper_golem_weathered.step": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step7"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step8"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/weathered/step9"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.copper_golem_oxidized.spin": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/spin7"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.spin"
+  },
+  "entity.copper_golem_oxidized.hurt": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/oxidized/hurt1",
+      "haven_backports:mob/coppergolem/oxidized/hurt2",
+      "haven_backports:mob/coppergolem/oxidized/hurt3",
+      "haven_backports:mob/coppergolem/oxidized/hurt4"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.hurt"
+  },
+  "entity.copper_golem_oxidized.death": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/oxidized/death"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.death"
+  },
+  "entity.copper_golem_oxidized.step": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step3"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step4"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step5"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step6"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step7"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step8"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/oxidized/step9"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.copper_golem.spawn": {
+    "sounds": [
+      "haven_backports:mob/coppergolem/spawn"
+    ],
+    "subtitle": "subtitles.entity.copper_golem.spawn"
+  },
+  "entity.copper_golem.shear": {
+    "sounds": [
+      "haven_backports:mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
+  "entity.copper_golem.no_item_get": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/no_item_get"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.no_item_get"
+  },
+  "entity.copper_golem.no_item_no_get": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/no_item_no_get"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.no_item_no_get"
+  },
+  "entity.copper_golem.item_drop": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/item_drop"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.item_drop"
+  },
+  "entity.copper_golem.item_no_drop": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "haven_backports:mob/coppergolem/item_no_drop"
+      }
+    ],
+    "subtitle": "subtitles.entity.copper_golem.item_no_drop"
+  },
+  "entity.copper_golem_become_statue": {
+    "sounds": [
+      "haven_backports:block/copper_statue/become_statue1",
+      "haven_backports:block/copper_statue/become_statue2",
+      "haven_backports:block/copper_statue/become_statue3",
+      "haven_backports:block/copper_statue/become_statue4"
+    ],
+    "subtitle": "subtitles.entity.copper_golem_become_statue"
+  },
+  "block.copper_golem_statue.break": {
+    "sounds": [
+      "haven_backports:block/copper_statue/break1",
+      "haven_backports:block/copper_statue/break2",
+      "haven_backports:block/copper_statue/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.copper_golem_statue.step": {
+    "sounds": [
+      "haven_backports:block/copper_statue/hit1",
+      "haven_backports:block/copper_statue/hit2",
+      "haven_backports:block/copper_statue/hit3",
+      "haven_backports:block/copper_statue/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.copper_golem_statue.place": {
+    "sounds": [
+      "haven_backports:block/copper_statue/place1",
+      "haven_backports:block/copper_statue/place2",
+      "haven_backports:block/copper_statue/place3",
+      "haven_backports:block/copper_statue/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.copper_golem_statue.hit": {
+    "sounds": [
+      "haven_backports:block/copper_statue/hit1",
+      "haven_backports:block/copper_statue/hit2",
+      "haven_backports:block/copper_statue/hit3",
+      "haven_backports:block/copper_statue/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.copper_golem_statue.fall": {
+    "sounds": [
+      "haven_backports:block/copper_statue/hit1",
+      "haven_backports:block/copper_statue/hit2",
+      "haven_backports:block/copper_statue/hit3",
+      "haven_backports:block/copper_statue/hit4"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "entity.cushion.break": {
+    "sounds": [
+      "haven_backports:entity/cushion/break1",
+      "haven_backports:entity/cushion/break2",
+      "haven_backports:entity/cushion/break3"
+    ],
+    "subtitle": "subtitles.entity.cushion.break"
+  },
+  "entity.cushion.get_up": {
+    "sounds": [
+      "haven_backports:entity/cushion/get_up1",
+      "haven_backports:entity/cushion/get_up2",
+      "haven_backports:entity/cushion/get_up3"
+    ],
+    "subtitle": "subtitles.entity.cushion.get_up"
+  },
+  "entity.cushion.place": {
+    "sounds": [
+      "haven_backports:entity/cushion/place1",
+      "haven_backports:entity/cushion/place2",
+      "haven_backports:entity/cushion/place3",
+      "haven_backports:entity/cushion/place4",
+      "haven_backports:entity/cushion/place5",
+      "haven_backports:entity/cushion/place6"
+    ],
+    "subtitle": "subtitles.entity.cushion.place"
+  },
+  "entity.cushion.sit": {
+    "sounds": [
+      "haven_backports:entity/cushion/sit1",
+      "haven_backports:entity/cushion/sit2",
+      "haven_backports:entity/cushion/sit3"
+    ],
+    "subtitle": "subtitles.entity.cushion.sit"
+  },
+  "block.straw_bed.break": {
+    "sounds": [
+      "haven_backports:block/straw_bed/break1",
+      "haven_backports:block/straw_bed/break2",
+      "haven_backports:block/straw_bed/break3",
+      "haven_backports:block/straw_bed/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.straw_bed.step": {
+    "sounds": [
+      "haven_backports:block/straw_bed/step1",
+      "haven_backports:block/straw_bed/step2",
+      "haven_backports:block/straw_bed/step3",
+      "haven_backports:block/straw_bed/step4",
+      "haven_backports:block/straw_bed/step5",
+      "haven_backports:block/straw_bed/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.straw_bed.place": {
+    "sounds": [
+      "haven_backports:block/straw_bed/place1",
+      "haven_backports:block/straw_bed/place2",
+      "haven_backports:block/straw_bed/place3",
+      "haven_backports:block/straw_bed/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.straw_bed.hit": {
+    "sounds": [
+      "haven_backports:block/straw_bed/hit1",
+      "haven_backports:block/straw_bed/hit2",
+      "haven_backports:block/straw_bed/hit3",
+      "haven_backports:block/straw_bed/hit4",
+      "haven_backports:block/straw_bed/hit5",
+      "haven_backports:block/straw_bed/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.straw_bed.fall": {
+    "sounds": [
+      "haven_backports:block/straw_bed/hit1",
+      "haven_backports:block/straw_bed/hit2",
+      "haven_backports:block/straw_bed/hit3",
+      "haven_backports:block/straw_bed/hit4",
+      "haven_backports:block/straw_bed/hit5",
+      "haven_backports:block/straw_bed/hit6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.straw_bed.break_leave": {
+    "sounds": [
+      "haven_backports:block/straw_bed/break_leave"
+    ],
+    "subtitle": "subtitles.block.straw_bed.break_leave"
+  },
+  "entity.wolf_angry.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/bark1",
+      "haven_backports:mob/wolf/angry/bark2",
+      "haven_backports:mob/wolf/angry/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_angry.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_angry.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/growl1",
+      "haven_backports:mob/wolf/angry/growl2",
+      "haven_backports:mob/wolf/angry/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_angry.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/hurt1",
+      "haven_backports:mob/wolf/angry/hurt2",
+      "haven_backports:mob/wolf/angry/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_angry.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_angry.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/angry/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
+  },
+  "entity.baby_wolf.ambient": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient1",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient2",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient3",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient4",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient5",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient6",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient7",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/ambient8",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.ambient"
+  },
+  "entity.baby_wolf.death": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/death",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.death"
+  },
+  "entity.baby_wolf.growl": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/angry1",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/angry2",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/angry3",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/angry4",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.growl"
+  },
+  "entity.baby_wolf.hurt": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/hurt1",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/hurt2",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/hurt3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.hurt"
+  },
+  "entity.baby_wolf.pant": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/pant1",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/pant2",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/pant3",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.pant"
+  },
+  "entity.baby_wolf.step": {
+    "sounds": [
+      "haven_backports:mob/wolf/baby/step1",
+      "haven_backports:mob/wolf/baby/step2",
+      "haven_backports:mob/wolf/baby/step3",
+      "haven_backports:mob/wolf/baby/step4",
+      "haven_backports:mob/wolf/baby/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.baby_wolf.whine": {
+    "sounds": [
+      {
+        "name": "haven_backports:mob/wolf/baby/whine1",
+        "pitch": 0.75
+      },
+      {
+        "name": "haven_backports:mob/wolf/baby/whine2",
+        "pitch": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.baby_wolf.whine"
+  },
+  "entity.wolf_big.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/bark1",
+      "haven_backports:mob/wolf/big/bark2",
+      "haven_backports:mob/wolf/big/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_big.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_big.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/growl1",
+      "haven_backports:mob/wolf/big/growl2",
+      "haven_backports:mob/wolf/big/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_big.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/hurt1",
+      "haven_backports:mob/wolf/big/hurt2",
+      "haven_backports:mob/wolf/big/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_big.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_big.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/big/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
+  },
+  "entity.wolf_cute.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/bark1",
+      "haven_backports:mob/wolf/cute/bark2",
+      "haven_backports:mob/wolf/cute/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_cute.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_cute.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/growl1",
+      "haven_backports:mob/wolf/cute/growl2",
+      "haven_backports:mob/wolf/cute/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_cute.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/hurt1",
+      "haven_backports:mob/wolf/cute/hurt2",
+      "haven_backports:mob/wolf/cute/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_cute.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_cute.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/cute/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
+  },
+  "entity.wolf_grumpy.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/bark1",
+      "haven_backports:mob/wolf/grumpy/bark2",
+      "haven_backports:mob/wolf/grumpy/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_grumpy.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_grumpy.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/growl1",
+      "haven_backports:mob/wolf/grumpy/growl2",
+      "haven_backports:mob/wolf/grumpy/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_grumpy.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/hurt1",
+      "haven_backports:mob/wolf/grumpy/hurt2",
+      "haven_backports:mob/wolf/grumpy/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_grumpy.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_grumpy.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/grumpy/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
+  },
+  "entity.wolf_puglin.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/bark1",
+      "haven_backports:mob/wolf/puglin/bark2",
+      "haven_backports:mob/wolf/puglin/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_puglin.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_puglin.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/growl1",
+      "haven_backports:mob/wolf/puglin/growl2",
+      "haven_backports:mob/wolf/puglin/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_puglin.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/hurt1",
+      "haven_backports:mob/wolf/puglin/hurt2",
+      "haven_backports:mob/wolf/puglin/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_puglin.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_puglin.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/puglin/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
+  },
+  "entity.wolf_sad.ambient": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/bark1",
+      "haven_backports:mob/wolf/sad/bark2",
+      "haven_backports:mob/wolf/sad/bark3"
+    ],
+    "subtitle": "subtitles.entity.wolf.bark"
+  },
+  "entity.wolf_sad.death": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/death"
+    ],
+    "subtitle": "subtitles.entity.wolf.death"
+  },
+  "entity.wolf_sad.growl": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/growl1",
+      "haven_backports:mob/wolf/sad/growl2",
+      "haven_backports:mob/wolf/sad/growl3"
+    ],
+    "subtitle": "subtitles.entity.wolf.growl"
+  },
+  "entity.wolf_sad.hurt": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/hurt1",
+      "haven_backports:mob/wolf/sad/hurt2",
+      "haven_backports:mob/wolf/sad/hurt3"
+    ],
+    "subtitle": "subtitles.entity.wolf.hurt"
+  },
+  "entity.wolf_sad.pant": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/panting"
+    ],
+    "subtitle": "subtitles.entity.wolf.pant"
+  },
+  "entity.wolf_sad.whine": {
+    "sounds": [
+      "haven_backports:mob/wolf/sad/whine"
+    ],
+    "subtitle": "subtitles.entity.wolf.whine"
   }
 }

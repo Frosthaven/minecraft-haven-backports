@@ -1,6 +1,8 @@
 """Mojang's files: the pinned snapshot jar and asset store (sha1-checked, cached), and format-neutral comparisons."""
 import hashlib
 import json
+import shutil
+import subprocess
 import sys
 import urllib.request
 import zipfile
@@ -8,6 +10,9 @@ from pathlib import Path
 
 VERSION = "26.4-snapshot-7"
 CACHE = Path(__file__).resolve().parent.parent / ".cache"
+# Mojang's DyeColor order (ColorCollection, item and block registration order).
+COLORS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
+          "purple", "blue", "brown", "green", "red", "black"]
 MANIFEST = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
 
 
@@ -32,6 +37,19 @@ def snapshot() -> tuple[zipfile.ZipFile, dict]:
             sys.exit(f"{VERSION} asset index: sha1 mismatch")
         index_path.write_bytes(index)
     return zipfile.ZipFile(jar_path), json.loads(index_path.read_text())["objects"]
+
+
+def old_sounds() -> dict:
+    """1.21.1's sounds.json (its asset store index, sha1-checked, cached): the sound events 1.21.1 already has."""
+    path = CACHE / "1.21.1-assets.json"
+    if not path.exists():
+        manifest = json.loads(get(MANIFEST))
+        version = json.loads(get(next(v["url"] for v in manifest["versions"] if v["id"] == "1.21.1")))
+        index = get(version["assetIndex"]["url"])
+        if hashlib.sha1(index).hexdigest() != version["assetIndex"]["sha1"]:
+            sys.exit("1.21.1 asset index: sha1 mismatch")
+        path.write_bytes(index)
+    return json.loads(asset(json.loads(path.read_text())["objects"], "minecraft/sounds.json"))
 
 
 def asset(objects: dict, name: str) -> bytes:
@@ -85,3 +103,30 @@ def canon(r: dict) -> str:
         if k in r:
             parts[k] = json.dumps(sorted((ing(x) for x in r[k]), key=lambda x: json.dumps(x)) if k == "ingredients" else ing(r[k]))
     return json.dumps(parts, sort_keys=True, default=str)
+
+
+VINEFLOWER = CACHE / "tools/vineflower-1.11.1.jar"
+
+
+def decompile(jar_path, class_path: str) -> str:
+    """Source of one class from the jar (vineflower, cached by class)."""
+    out = CACHE / "decompiled" / class_path.rsplit("/", 1)[0]
+    src = CACHE / "decompiled" / f"{class_path}.java"
+    if not src.exists():
+        if not VINEFLOWER.exists():
+            sys.exit(f"{VINEFLOWER} is missing (vineflower 1.11.1, see CLAUDE.md)")
+        out.mkdir(parents=True, exist_ok=True)
+        tmp = CACHE / "decompiled/_run"
+        subprocess.run(["java", "-jar", str(VINEFLOWER), f"-only={class_path}", str(jar_path), str(tmp)], check=True,
+                       stdout=subprocess.DEVNULL)
+        found = next((p for p in tmp.rglob("*.java") if p.name == class_path.rsplit("/", 1)[1] + ".java"), None)
+        if found is None:
+            raw = next(tmp.rglob("*.jar"), None)
+            if raw is None:
+                raise SystemExit(f"vineflower wrote no source for {class_path}")
+            with zipfile.ZipFile(raw) as z:
+                src.write_text(z.read(f"{class_path}.java").decode())
+        else:
+            src.write_text(found.read_text())
+        shutil.rmtree(tmp, ignore_errors=True)
+    return src.read_text()

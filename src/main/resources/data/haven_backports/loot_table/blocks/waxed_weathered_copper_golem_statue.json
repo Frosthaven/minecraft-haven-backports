@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "include": [
+                "minecraft:custom_name"
+              ],
+              "source": "block_entity",
+              "function": "minecraft:copy_components"
+            },
+            {
+              "block": "haven_backports:waxed_weathered_copper_golem_statue",
+              "properties": [
+                "copper_golem_pose"
+              ],
+              "function": "minecraft:copy_state"
+            }
+          ],
+          "name": "haven_backports:waxed_weathered_copper_golem_statue"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "minecraft:blocks/waxed_weathered_copper_golem_statue"
+}
