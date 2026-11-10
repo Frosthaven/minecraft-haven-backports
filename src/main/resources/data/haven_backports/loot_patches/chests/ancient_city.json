@@ -1,0 +1,121 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:amethyst_shard",
+        "minecraft:item minecraft:bone",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:candle",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:compass",
+        "minecraft:item minecraft:diamond_hoe",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:diamond_leggings",
+        "minecraft:item minecraft:disc_fragment_5",
+        "minecraft:item minecraft:echo_shard",
+        "minecraft:item minecraft:enchanted_golden_apple",
+        "minecraft:item minecraft:experience_bottle",
+        "minecraft:item minecraft:glow_berries",
+        "minecraft:item minecraft:iron_leggings",
+        "minecraft:item minecraft:lead",
+        "minecraft:item minecraft:music_disc_13",
+        "minecraft:item minecraft:music_disc_cat",
+        "minecraft:item minecraft:music_disc_otherside",
+        "minecraft:item minecraft:name_tag",
+        "minecraft:item minecraft:potion",
+        "minecraft:item minecraft:saddle",
+        "minecraft:item minecraft:sculk",
+        "minecraft:item minecraft:sculk_catalyst",
+        "minecraft:item minecraft:sculk_sensor",
+        "minecraft:item minecraft:soul_torch"
+      ],
+      "remove": [
+        {
+          "name": "minecraft:name_tag",
+          "type": "minecraft:item",
+          "weight": 2
+        }
+      ],
+      "change": [
+        {
+          "from": {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:saddle",
+            "type": "minecraft:item",
+            "weight": 2
+          },
+          "to": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item",
+            "weight": 2
+          }
+        }
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "function": "minecraft:enchant_with_levels",
+                "levels": {
+                  "max": 39,
+                  "min": 20,
+                  "type": "minecraft:uniform"
+                },
+                "options": "#minecraft:on_random_loot"
+              }
+            ],
+            "name": "minecraft:iron_leggings",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "entry": {
+            "name": "haven_backports:chiseled_soulshale",
+            "type": "minecraft:item",
+            "weight": 3
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 10,
+          "min": 5,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:chiseled_soulshale",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 84
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:silence_armor_trim_smithing_template",
+        "minecraft:item minecraft:ward_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

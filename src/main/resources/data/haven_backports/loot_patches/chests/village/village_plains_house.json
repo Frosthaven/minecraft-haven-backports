@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:apple",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:dandelion",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:feather",
+        "minecraft:item minecraft:gold_nugget",
+        "minecraft:item minecraft:oak_sapling",
+        "minecraft:item minecraft:poppy",
+        "minecraft:item minecraft:potato"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

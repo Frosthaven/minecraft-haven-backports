@@ -1,0 +1,113 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:apple",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:iron_boots",
+        "minecraft:item minecraft:iron_chestplate",
+        "minecraft:item minecraft:iron_helmet",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:iron_leggings",
+        "minecraft:item minecraft:iron_pickaxe",
+        "minecraft:item minecraft:iron_sword",
+        "minecraft:item minecraft:oak_sapling",
+        "minecraft:item minecraft:obsidian",
+        "minecraft:item minecraft:saddle"
+      ],
+      "add": [
+        {
+          "after": {
+            "name": "minecraft:iron_sword",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          "entry": {
+            "name": "haven_backports:iron_spear",
+            "type": "minecraft:item",
+            "weight": 5
+          }
+        },
+        {
+          "after": {
+            "name": "haven_backports:iron_spear",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          "entry": {
+            "name": "haven_backports:copper_spear",
+            "type": "minecraft:item",
+            "weight": 7
+          }
+        },
+        {
+          "after": {
+            "name": "minecraft:saddle",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 8,
+          "min": 3,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:iron_spear",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          {
+            "name": "haven_backports:copper_spear",
+            "type": "minecraft:item",
+            "weight": 7
+          },
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 94
+          }
+        ]
+      }
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

@@ -339,6 +339,8 @@ class Port:
         fuels.run(self, RES, OURS)
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
+        import lootpatch
+        lootpatch.report()
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
         tieins.renames(self, lang_new)
         self.shelf_displays()

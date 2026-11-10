@@ -6,8 +6,8 @@ mobs.py's (items, entities, textures, sounds, tags) and what only they need (cal
   path, as are the inventory screen's background and slot sprites and the effect icon.
 - The zombie nautilus's variant registry (zombie_nautilus_variant: temperate, warm with corals) has the farm variants'
   shape: variants.py writes it (FARM).
-- Loot that names nautilus armor: buried treasure and the shipwreck supply and treasure chests here (lootfmt, taken
-  whole once every item exists); shipwreck_map and the underwater ruins through maps.py (same rule).
+- Loot that names nautilus armor: buried treasure and the shipwreck supply and treasure chests here (lootfmt, patched
+  once every item exists); shipwreck_map and the underwater ruins through maps.py (same rule).
 - Smelting and blasting to nuggets: 26.x's iron and gold nugget recipes add the iron and golden spear and nautilus
   armor to 1.21.1's (written over 1.21.1's file, as mobs.OVERRIDE_RECIPES); the copper nugget ones are ours and come
   through backport.py's recipe path once their ingredients exist.

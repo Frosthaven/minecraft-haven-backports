@@ -44,9 +44,13 @@ armor (CSA: 131 uses, +0 damage, iron mining level, armor 2/6/5/1; Mojang: 190 u
 armor 2/4/3/1).
 
 Mobs pick armor as in newer Minecraft (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
-newer Minecraft's. newer Minecraft's chest loot that names our items is taken whole (copper horse armor, spears; leather in place of saddles, which
-newer Minecraft makes craftable); so are buried treasure, shipwreck and underwater ruin chests (nautilus armor, the buried
-treasure map, spears) and the village weaponsmith (bundles are available).
+newer Minecraft's. Vanilla loot that newer Minecraft changes for our items (copper horse armor, spears; leather in place of
+saddles, which newer Minecraft makes craftable; buried treasure, shipwreck and underwater ruin chests with nautilus armor,
+the buried treasure map and spears; village chests with bundles; mob drops) is a patch on top of the table that loads, not
+a replacement: with no other mod in the table it is newer Minecraft's table exactly, and a mod's or datapack's own version
+(e.g. Luki's Grand Capitals' village chests) keeps all of its entries and gets our additions. Removals and changes apply only
+where the vanilla entry is still there; when a mod reshapes a pool so that no pool holds its vanilla entries, our additions
+go in a pool of their own with the same chance per roll, and the server log names the table.
 
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).

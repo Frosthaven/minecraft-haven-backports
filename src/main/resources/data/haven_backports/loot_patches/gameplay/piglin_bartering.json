@@ -1,0 +1,75 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:blackstone",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:crying_obsidian",
+        "minecraft:item minecraft:ender_pearl",
+        "minecraft:item minecraft:fire_charge",
+        "minecraft:item minecraft:gravel",
+        "minecraft:item minecraft:iron_boots",
+        "minecraft:item minecraft:iron_nugget",
+        "minecraft:item minecraft:leather",
+        "minecraft:item minecraft:nether_brick",
+        "minecraft:item minecraft:obsidian",
+        "minecraft:item minecraft:potion",
+        "minecraft:item minecraft:quartz",
+        "minecraft:item minecraft:soul_sand",
+        "minecraft:item minecraft:spectral_arrow",
+        "minecraft:item minecraft:splash_potion",
+        "minecraft:item minecraft:string"
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "count": {
+                  "max": 4,
+                  "min": 2,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:ender_pearl",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          "entry": {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:dried_ghast",
+            "type": "minecraft:item",
+            "weight": 10
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": 1,
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:dried_ghast",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 459
+          }
+        ]
+      }
+    }
+  ]
+}

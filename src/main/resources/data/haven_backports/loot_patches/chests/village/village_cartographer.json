@@ -1,0 +1,37 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:compass",
+        "minecraft:item minecraft:map",
+        "minecraft:item minecraft:paper",
+        "minecraft:item minecraft:stick"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

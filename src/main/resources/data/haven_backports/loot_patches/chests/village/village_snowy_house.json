@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:beetroot_seeds",
+        "minecraft:item minecraft:beetroot_soup",
+        "minecraft:item minecraft:blue_ice",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:furnace",
+        "minecraft:item minecraft:potato",
+        "minecraft:item minecraft:snow_block",
+        "minecraft:item minecraft:snowball"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:enchanted_golden_apple",
+        "minecraft:item minecraft:golden_apple",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:music_disc_13",
+        "minecraft:item minecraft:music_disc_cat",
+        "minecraft:item minecraft:music_disc_otherside",
+        "minecraft:item minecraft:name_tag",
+        "minecraft:item minecraft:saddle"
+      ],
+      "change": [
+        {
+          "from": {
+            "name": "minecraft:saddle",
+            "type": "minecraft:item",
+            "weight": 20
+          },
+          "to": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item",
+            "weight": 20
+          }
+        }
+      ],
+      "add": [
+        {
+          "after": {
+            "name": "minecraft:golden_horse_armor",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item",
+            "weight": 15
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 3,
+          "min": 1,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item",
+            "weight": 15
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 129
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:beetroot_seeds",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:bucket",
+        "minecraft:item minecraft:coal",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:melon_seeds",
+        "minecraft:item minecraft:pumpkin_seeds",
+        "minecraft:item minecraft:redstone",
+        "minecraft:item minecraft:wheat"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:bone",
+        "minecraft:item minecraft:gunpowder",
+        "minecraft:item minecraft:rotten_flesh",
+        "minecraft:item minecraft:string"
+      ]
+    }
+  ]
+}

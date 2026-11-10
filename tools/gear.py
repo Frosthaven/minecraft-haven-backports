@@ -7,11 +7,13 @@
   haven_backports:netherite; the latter only for the horse: 1.21.1's netherite gives a horse 11 armor, 26.x 19).
 - Copper trims on copper armor use Mojang's darker copper palette, as iron on iron does in 1.21.1: the palette,
   atlas permutations and the trim material's override.
-- Loot tables that 26.x gives our items are written as Mojang's 26.x table when every item in it exists in 1.21.1 or
-  is ours. 26.x's other changes to those tables come with them (saddle -> leather: saddles are craftable in 26.x, a
+- Loot tables that 26.x gives our items get 26.x's changes as a patch (lootpatch) when every item in the 26.x table
+  exists in 1.21.1 or is ours. 26.x's other changes to those tables come with them (saddle -> leather: saddles are craftable in 26.x, a
   recipe this mod backports); the run prints them. Tables naming items not backported yet stay at 1.21.1.
 """
 import json
+
+import lootpatch
 
 NS = "haven_backports"
 TOOLS = ["copper_sword", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe"]
@@ -109,8 +111,8 @@ def run(port, res, lang_new, lang):
 
 
 def take_loot(port, res, tables):
-    """Mojang's 26.x loot tables, whole, when every item they name exists in 1.21.1 or is ours (the run prints what
-    26.x changed in each); the others stay at 1.21.1 and are reported."""
+    """Mojang's 26.x loot tables as patches (lootpatch), when every item they name exists in 1.21.1 or is ours (the run
+    prints what 26.x changed in each); the others stay at 1.21.1 and are reported."""
     waiting = {}
     for table in tables:
         name = f"data/minecraft/loot_table/{table}.json"
@@ -119,7 +121,7 @@ def take_loot(port, res, tables):
         if missing:   # e.g. nautilus armor, until it is backported
             waiting[table] = missing
             continue
-        port.write(res / name, new)
+        lootpatch.write(port, res, table, new)
         port.loot_changes[table] = changes(plain(json.loads(port.old.read(name))), plain(new))
     if waiting:
         print(f"loot tables kept at 1.21.1 until these exist: {waiting}")

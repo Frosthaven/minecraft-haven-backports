@@ -2,7 +2,7 @@
 Port.run). Every value is read from the snapshot jar; this file only lists which items are ours.
 
 - Music discs (26.x JukeboxSongs and Items): the jukebox song files, Mojang's sound events (asset store, streamed),
-  and the 26.x loot tables that drop them, taken whole when 1.21.1 has every item they name (lootfmt converts).
+  and the 26.x loot tables that drop them, as patches (lootpatch) when 1.21.1 has every item they name (lootfmt converts).
 - Banner patterns Field Masoned and Bordure Indented: 26.x gives the loom's bricks and curly_border patterns an item
   each (pattern_item tags) and takes them out of #no_item_required (NeoForge's tag `remove`, so packs that add to
   the tag keep their entries).
@@ -16,6 +16,7 @@ import json
 
 import bundles
 import lootfmt
+import lootpatch
 import maps
 
 NS = "haven_backports"
@@ -30,7 +31,7 @@ ITEMS_ONLY = list(DISCS) + list(PATTERNS) + maps.MAPS
 OTHER_ITEMS = bundles.DYED   # ours, with item models written by their own module
 SOUNDS = [f"music_disc.{s}" for s in DISCS.values()] + [f"block.chiseled_soulshale.{k}" for k in ("break", "fall", "hit", "place", "step")] + bundles.SOUNDS
 CODE_TAGS = ["clonable_maps", "lightning_rods", "bundles"]
-# 26.x tables that name our items. Taken whole when every item in them exists on 1.21.1 or is ours.
+# 26.x tables that name our items. Patched (lootpatch) when every item in them exists on 1.21.1 or is ours.
 LOOT = ["entities/ghast", "entities/zombie", "chests/abandoned_mineshaft", "chests/ancient_city", *bundles.LOOT]
 # Biomes 26.x loot conditions name, and the file our biome port writes (absent: the entry waits for the biome).
 BIOMES = {"minecraft:sulfur_caves": (f"{NS}:sulfur_caves", "data/haven_backports/worldgen/biome/sulfur_caves.json")}
@@ -78,7 +79,7 @@ def take_loot(port, res, conv, table, patch=None):
         if old and not added and not removed:   # e.g. its only new entry waits for a biome
             print(f"loot {table}: 26.x adds nothing 1.21.1 can have yet, kept at 1.21.1")
             return
-        port.write(res / name, new)
+        write_loot(port, res, table, new)
         print(f"loot {table}: 26.x table taken (adds {added}, removes {removed})")
         return
     if not patch:
@@ -92,9 +93,19 @@ def take_loot(port, res, conv, table, patch=None):
                 ours[e["name"]] = e
     for pool in old["pools"]:
         pool["entries"] = [ours[patch[key]] if (key := entry_key(e)) in patch else e for e in pool["entries"]]
-    port.write(res / name, old)
+    write_loot(port, res, table, old)
     print(f"loot {table}: 1.21.1 table with 26.x's {sorted(set(patch.values()))} entries "
           f"(the rest waits for: {missing})")
+
+
+def write_loot(port, res, table, data):
+    """A table 1.21.1 has becomes a patch (lootpatch: other mods' versions keep their entries); one it lacks is ours
+    alone and is written whole."""
+    name = f"data/minecraft/loot_table/{table}.json"
+    if name in port.old_names:
+        lootpatch.write(port, res, table, data)
+    else:
+        port.write(res / name, data)
 
 
 def entry_key(e):

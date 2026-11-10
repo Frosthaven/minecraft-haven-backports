@@ -1,0 +1,40 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:cactus",
+        "minecraft:item minecraft:clay_ball",
+        "minecraft:item minecraft:dead_bush",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:green_dye",
+        "minecraft:item minecraft:wheat"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

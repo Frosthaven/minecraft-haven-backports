@@ -1,0 +1,40 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:leather",
+        "minecraft:item minecraft:leather_boots",
+        "minecraft:item minecraft:leather_chestplate",
+        "minecraft:item minecraft:leather_helmet",
+        "minecraft:item minecraft:leather_leggings",
+        "minecraft:item minecraft:saddle"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

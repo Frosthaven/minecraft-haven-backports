@@ -1,0 +1,90 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:bamboo",
+        "minecraft:item minecraft:bone",
+        "minecraft:item minecraft:book",
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:diamond_horse_armor",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:golden_horse_armor",
+        "minecraft:item minecraft:iron_horse_armor",
+        "minecraft:item minecraft:iron_ingot",
+        "minecraft:item minecraft:rotten_flesh",
+        "minecraft:item minecraft:saddle"
+      ],
+      "change": [
+        {
+          "from": {
+            "name": "minecraft:saddle",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "to": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item",
+            "weight": 3
+          }
+        }
+      ],
+      "add": [
+        {
+          "after": {
+            "functions": [
+              {
+                "count": {
+                  "max": 5,
+                  "min": 1,
+                  "type": "minecraft:uniform"
+                },
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:leather",
+            "type": "minecraft:item",
+            "weight": 3
+          },
+          "entry": {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          }
+        }
+      ],
+      "fallback": {
+        "rolls": {
+          "max": 6,
+          "min": 2,
+          "type": "minecraft:uniform"
+        },
+        "entries": [
+          {
+            "name": "haven_backports:copper_horse_armor",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 88
+          }
+        ]
+      }
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:wild_armor_trim_smithing_template"
+      ]
+    }
+  ]
+}

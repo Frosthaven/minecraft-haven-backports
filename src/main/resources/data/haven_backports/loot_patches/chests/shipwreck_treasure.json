@@ -1,0 +1,84 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:diamond",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:experience_bottle",
+        "minecraft:item minecraft:gold_ingot",
+        "minecraft:item minecraft:iron_ingot"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:item minecraft:gold_nugget",
+        "minecraft:item minecraft:iron_nugget",
+        "minecraft:item minecraft:lapis_lazuli"
+      ]
+    },
+    {
+      "match": [
+        "minecraft:empty ",
+        "minecraft:item minecraft:coast_armor_trim_smithing_template"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 2,
+      "pool": {
+        "entries": [
+          {
+            "type": "minecraft:empty",
+            "weight": 148
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:copper_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 20
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:iron_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 10
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:golden_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 5
+          },
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "haven_backports:diamond_nautilus_armor",
+            "type": "minecraft:item",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

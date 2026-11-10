@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "match": [
+        "minecraft:item minecraft:acacia_sapling",
+        "minecraft:item minecraft:bread",
+        "minecraft:item minecraft:bucket",
+        "minecraft:item minecraft:emerald",
+        "minecraft:item minecraft:gold_nugget",
+        "minecraft:item minecraft:saddle",
+        "minecraft:item minecraft:short_grass",
+        "minecraft:item minecraft:tall_grass",
+        "minecraft:item minecraft:torch",
+        "minecraft:item minecraft:wheat_seeds"
+      ]
+    }
+  ],
+  "add_pools": [
+    {
+      "after": 0,
+      "pool": {
+        "entries": [
+          {
+            "functions": [
+              {
+                "count": 1,
+                "function": "minecraft:set_count"
+              }
+            ],
+            "name": "minecraft:bundle",
+            "type": "minecraft:item"
+          },
+          {
+            "type": "minecraft:empty",
+            "weight": 2
+          }
+        ],
+        "rolls": 1
+      }
+    }
+  ]
+}

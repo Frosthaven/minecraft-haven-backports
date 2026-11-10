@@ -60,9 +60,9 @@ OVERRIDE_RECIPES = ["cake", "pumpkin_pie", *nautilus.OVERRIDE_RECIPES]
 
 
 STATS = ["happy_ghast_one_cm", "sleep_in_straw_bed"]   # custom stats (lang stat.<ns>.<id>)
-# 26.x loot tables that name our items, taken whole (gear.take_loot): piglin bartering adds the dried ghast (weight 10).
+# 26.x loot tables that name our items, patched (gear.take_loot): piglin bartering adds the dried ghast (weight 10).
 LOOT = ["gameplay/piglin_bartering"]
-# 26.x tables that name our entities, taken whole through lootfmt (extras.take_loot): a husk riding a camel husk drops
+# 26.x tables that name our entities, patched through lootfmt (extras.take_loot): a husk riding a camel husk drops
 # a rabbit's foot.
 ENTITY_LOOT = ["entities/husk"]
 # NeoForge's parrot_imitations data map: the 26.x Parrot.MOB_SOUND_MAP entries of our mobs (entity -> sound event).
