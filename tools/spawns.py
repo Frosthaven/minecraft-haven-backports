@@ -6,7 +6,8 @@ under spawners. For every 26.x biome 1.21.1 has, the two lists are compared per 
   as in 26.x's list);
 - a 1.21.1 entry whose weight 26.x changed in the same biome and category as one of ours (the desert skeleton,
   100 -> 50 with the parched at 50) becomes a haven_backports:spawn_weight modifier (Java: SpawnWeightModifier), which
-  only touches an entry still at 1.21.1's weight, so a pack's own change wins;
+  only touches an entry still at 1.21.1's weight, so a pack's own change wins; not when 26.x makes the same change
+  where none of ours is added (the snowy plains zombie, 95 -> 90, goes with the zombie horse, as in plains);
 - other 26.x changes (mobs not backported, 26.x-only biomes) are printed, not ported.
 """
 import json
@@ -26,6 +27,7 @@ def counts(entry):
 def run(port, res, entities):
     ours = {f"minecraft:{e}" for e in entities}
     adds, weights, other = {}, {}, set()
+    elsewhere = set()   # weight changes 26.x also makes where none of ours is added: other newer content's (zombie horse)
     for n in sorted(port.new_names):
         if not (n.startswith("data/minecraft/worldgen/biome/") and n.endswith(".json")) or n not in port.old_names:
             continue
@@ -49,6 +51,9 @@ def run(port, res, entities):
                         weights.setdefault((s["type"], before["weight"], s["weight"]), []).append(biome)
                     else:
                         other.add(f"{biome} {cat} {s['type']}")
+                        if before is not None:
+                            elsewhere.add((s["type"], before["weight"], s["weight"]))
+    weights = {k: v for k, v in weights.items() if k not in elsewhere}
     out = res / "data" / NS / "neoforge/biome_modifier"
     for (etype, weight, lo, hi), biomes in sorted(adds.items()):
         port.write(out / f"spawn_{etype.split(':')[1]}_{weight}.json", {
