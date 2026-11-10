@@ -1,5 +1,6 @@
 {
   "type": "minecraft:entity",
+  "random_sequence": "minecraft:entities/camel_husk",
   "pools": [
     {
       "entries": [
@@ -29,6 +30,5 @@
       ],
       "rolls": 1
     }
-  ],
-  "random_sequence": "minecraft:entities/camel_husk"
+  ]
 }

@@ -532,6 +532,20 @@
         ]
       },
       "trigger": "minecraft:player_killed_entity"
+    },
+    "haven_backports:zombie_nautilus": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "haven_backports:zombie_nautilus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
     }
   },
   "display": {
@@ -661,6 +675,9 @@
     ],
     [
       "haven_backports:parched"
+    ],
+    [
+      "haven_backports:zombie_nautilus"
     ]
   ],
   "rewards": {

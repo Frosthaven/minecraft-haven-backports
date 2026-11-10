@@ -16,6 +16,7 @@
     "ComparatorBlockMixin",
     "ContainerOpenersCounterMixin",
     "CowMixin",
+    "DrownedMixin",
     "EntityMixin",
     "GhastEntityMixin",
     "HuskMixin",

@@ -34,6 +34,7 @@ one block per concept and it looks the way Mojang made it.
 | Straw bed | Straw Bed (4 from 3 hay bales) |
 | Farm animal variants | Warm and cold pigs, cows and chickens; Blue Egg, Brown Egg; wolf sound variants |
 | Desert mobs | Camel Husk, Parched, their Spawn Eggs |
+| Nautilus | Nautilus, Zombie Nautilus, their Spawn Eggs; Copper, Iron, Golden, Diamond and Netherite Nautilus Armor; Breath of the Nautilus |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -44,9 +45,8 @@ armor 2/4/3/1).
 
 Mobs pick armor as in newer Minecraft (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
 newer Minecraft's. newer Minecraft's chest loot that names our items is taken whole (copper horse armor, spears; leather in place of saddles, which
-newer Minecraft makes craftable). Tables that also name items not backported stay at 1.21.1: buried treasure and underwater ruins
-(nautilus armor, buried treasure map) and the village weaponsmith (newer Minecraft adds a bundle, which 1.21.1 keeps behind an
-experimental feature flag).
+newer Minecraft makes craftable); so are buried treasure, shipwreck and underwater ruin chests (nautilus armor, the buried
+treasure map, spears) and the village weaponsmith (bundles are available).
 
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).
@@ -107,8 +107,8 @@ Spellbooks staves) keep their enchantments.
 after a jab (other items keep 1.21.1's dip, owner's choice), and the swing length comes from the spear in the swinging
 hand (1.21.1 sends no swing animation). Husks also ride camel husks with an iron spear (see Desert mobs). Not ported: newer Minecraft-only sources (zombie
 horse jockeys, which need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
-weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears do not smelt into nuggets: newer Minecraft's
-nugget recipes also name nautilus armor.
+weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears and nautilus armor smelt and blast into
+nuggets, as in newer Minecraft (its iron and gold nugget recipes replace 1.21.1's).
 
 ## Lightning rods
 
@@ -130,8 +130,8 @@ and 5 sell the explorer maps. The maps are filled by Mojang's newer loot functio
 (`haven_backports:exploration_map`, `filtered`, `discard`, the `map_id` item predicate), with the villager or chest as
 the origin; a map that finds no structure is not offered. Three mixins open 1.21.1's map hard-codes to every map item
 as newer Minecraft does: the cartography table and item frame (any item with a map id) and map cloning
-(`#minecraft:clonable_maps`). Shipwreck and underwater ruin chests keep 1.21.1's tables with newer Minecraft's Buried
-Treasure Map entry until the nautilus armor and spears they also name are in. Left out: the Abandoned Camp Map and the
+(`#minecraft:clonable_maps`). Shipwreck and underwater ruin chests are newer Minecraft's tables, with the Buried Treasure
+Map (and nautilus armor and spears). Left out: the Abandoned Camp Map and the
 Buried Ancient City, Buried Mineshaft, Desert Pyramid and Warm Ocean Ruins Maps, whose only source is the Abandoned
 Camp's chests (a structure 1.21.1 lacks). Maps made before keep working as 1.21.1 filled maps. The wandering trader
 sells no maps in newer Minecraft, so it is unchanged.
@@ -241,6 +241,30 @@ rotten flesh. Its own sounds come through CamelHusk (and CamelMixin for the dash
 inline); a mob-ridden camel husk does not panic (CamelPanicMixin). Parrots imitate both (NeoForge's parrot_imitations
 data map). Monster Hunter and Monsters Hunted count them, as in newer Minecraft. Not taken: newer Minecraft's ridden
 camels floating in water (an engine change for every horse and camel).
+
+## Nautilus
+
+Mojang's Nautilus and ZombieNautilus (`nautilus/`). Nautiluses spawn alone in the oceans as in newer Minecraft
+(weight 5 in ocean, lukewarm, warm and their deep forms; 2 in cold and frozen ones), 5 to 25 blocks below sea level;
+a natural or structure drowned with a trident rides a zombie nautilus half of the time (DrownedMixin; not babies, not in
+rivers). Out of water a nautilus dries out. Feed an untamed one a pufferfish (or a pufferfish bucket, which gives the
+water bucket back): 1 in 3 tames it. Tame ones breed with fish, heal from fish, stay within 32 blocks of home (16 when
+saddled or a baby) and take a saddle and nautilus armor by hand, from a dispenser or in their inventory screen
+(sneak-use); shears take the armor off, then the saddle. Ride one by using it: with a saddle you steer by looking, the
+jump key charges a dash along your view (stronger in water), and while riding you have Breath of the Nautilus (you do
+not run out of air, it does not refill). Unprovoked ones charge fish (pufferfish) now and then, and anything that hurts
+them. A zombie nautilus is faster, never a baby, burns in daylight unless armored, and in warm oceans grows corals
+(hidden under armor). Nautilus armor comes from buried treasure, shipwreck and underwater ruin chests (netherite by
+smithing); armor values 4 (copper), 5, 7, 11, 19. Parrots imitate zombie nautiluses; nautiluses count for Two by Two,
+zombie nautiluses for Monster Hunter and Monsters Hunted, the effect for How Did We Get Here?.
+
+1.21.1 lacks parts of the engine this uses. The saddle slot newer Minecraft adds is the nautilus's own synced stack
+(saved as `saddle`; it drops on death); nautilus armor is a body ArmorItem with Mojang's equip rules (no equippable
+component); the inventory screen is a NeoForge menu (1.21.1 opens mount screens only for horses); the effect's air
+rule is NeoForge's LivingBreatheEvent; the zombie nautilus variant registry is data (`zombie_nautilus_variant`, the farm
+variants' shape); poison immunity and staying off boats read newer Minecraft's tags on the nautilus only. Not taken: the
+smithing table's empty nautilus armor slot icon, the `player_sheared_equipment` advancement trigger, and the variant as
+an item component (spawn eggs give the biome's variant).
 
 Furnace fuel and composting follow newer Minecraft's Items class for every item of ours (`tools/fuels.py`): wool
 slabs and cushions burn 50 ticks, wool stairs 100, shelves 300 (the modded-wood shelves are not Mojang items and do

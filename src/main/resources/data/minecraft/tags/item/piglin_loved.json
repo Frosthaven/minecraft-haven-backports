@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven_backports:golden_nautilus_armor",
     "haven_backports:golden_spear"
   ]
 }

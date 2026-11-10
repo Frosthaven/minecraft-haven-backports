@@ -1,5 +1,6 @@
 {
   "type": "minecraft:entity",
+  "random_sequence": "minecraft:entities/parched",
   "pools": [
     {
       "entries": [
@@ -95,6 +96,5 @@
       ],
       "rolls": 1
     }
-  ],
-  "random_sequence": "minecraft:entities/parched"
+  ]
 }

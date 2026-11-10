@@ -129,6 +129,9 @@ final class Tabs {
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");
             after(e, "diamond_horse_armor", "netherite_horse_armor");
+            // ... netherite horse armor, wolf armor, COPPER ... NETHERITE_NAUTILUS_ARMOR, totem of undying ...
+            after(e, "wolf_armor", "copper_nautilus_armor", "iron_nautilus_armor", "golden_nautilus_armor", "diamond_nautilus_armor",
+                    "netherite_nautilus_armor");
             after(e, "egg", "brown_egg", "blue_egg");   // ... snowball, egg, BROWN_EGG, BLUE_EGG, wind charge ...
         } else if (tab == CreativeModeTabs.SPAWN_EGGS) {
             // ... ghast spawn egg, HAPPY_GHAST_SPAWN_EGG, hoglin spawn egg ...
@@ -138,6 +141,9 @@ final class Tabs {
             // ... bogged, CAMEL_HUSK_SPAWN_EGG, drowned ...; ... husk, PARCHED_SPAWN_EGG, skeleton ...
             after(e, "bogged_spawn_egg", "camel_husk_spawn_egg");
             after(e, "husk_spawn_egg", "parched_spawn_egg");
+            // ... glow squid, NAUTILUS_SPAWN_EGG, pufferfish ...; ... zombie horse, ZOMBIE_NAUTILUS_SPAWN_EGG, zombie villager ...
+            after(e, "glow_squid_spawn_egg", "nautilus_spawn_egg");
+            after(e, "zombie_horse_spawn_egg", "zombie_nautilus_spawn_egg");
         } else if (tab == CreativeModeTabs.INGREDIENTS) {
             // ... diamond, ancient debris, COPPER_NUGGET, iron nugget ...
             after(e, "ancient_debris", "copper_nugget");

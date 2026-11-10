@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:undead",
+    "haven_backports:nautilus",
+    "haven_backports:zombie_nautilus",
+    "minecraft:spider",
+    "minecraft:cave_spider"
+  ]
+}
