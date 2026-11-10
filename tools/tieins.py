@@ -5,7 +5,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, gear
+from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, gear, spear
 from sources import asset
 
 
@@ -69,7 +69,7 @@ def renames(port, lang_new):
 def sounds(port, lang, lang_new):
     mojang = json.loads(asset(port.objects, "minecraft/sounds.json"))
     out = {}
-    events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS
+    events = [f"block.{sset}.{kind}" for sset, kinds in SOUND_SETS.items() for kind in kinds] + gear.SOUNDS + spear.SOUNDS
     if True:
         for event in events:
             entry = json.loads(json.dumps(mojang[event]))

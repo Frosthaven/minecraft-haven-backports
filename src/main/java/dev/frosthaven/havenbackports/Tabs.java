@@ -91,6 +91,8 @@ final class Tabs {
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
+            // ... golden sword, diamond sword, netherite sword, WOODEN_SPEAR ... NETHERITE_SPEAR, wooden axe ...
+            after(e, "netherite_sword", Spears.IDS.toArray(String[]::new));
             after(e, "stone_axe", "copper_axe");
             after(e, "leather_boots", "copper_helmet", "copper_chestplate", "copper_leggings", "copper_boots");
             after(e, "leather_horse_armor", "copper_horse_armor");

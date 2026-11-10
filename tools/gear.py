@@ -20,8 +20,12 @@ HORSE = ["copper_horse_armor", "netherite_horse_armor"]
 ITEMS = TOOLS + ARMOR + HORSE
 SOUNDS = ["item.armor.equip_copper"]
 LOOT = ["chests/nether_bridge", "chests/desert_pyramid", "chests/simple_dungeon", "chests/jungle_temple",
-        "chests/end_city_treasure", "chests/stronghold_corridor", "chests/village/village_weaponsmith"]
-# chests/abandoned_camp_common_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
+        "chests/end_city_treasure", "chests/stronghold_corridor", "chests/village/village_weaponsmith",
+        # tables 26.x gives spears (tools/spear.py); those still naming items not backported print and stay 1.21.1
+        "chests/bastion_treasure", "chests/buried_treasure", "chests/underwater_ruin_big", "chests/underwater_ruin_small"]
+# chests/abandoned_camp_common_chest, abandoned_camp_secret_chest: the abandoned camp is a 26.x structure 1.21.1 lacks.
+# 1.21.1 items behind an experimental feature flag (off in the pack): a table naming one counts as incomplete.
+FEATURE_FLAGGED = {"minecraft:bundle"}
 TEXTURES = {  # 26.x equipment texture -> ours
     "entity/equipment/humanoid/copper": "models/armor/copper_layer_1",
     "entity/equipment/humanoid_leggings/copper": "models/armor/copper_layer_2",
@@ -104,8 +108,8 @@ def run(port, res, lang_new, lang):
     for table in LOOT:
         name = f"data/minecraft/loot_table/{table}.json"
         new = port.ids(port.loot(json.loads(jar.read(name))))
-        missing = sorted({n for n in names_in(new) if not port.exists_1211_item(n)})
-        if missing:   # e.g. spears, until they are backported
+        missing = sorted({n for n in names_in(new) if not port.exists_1211_item(n) or n in FEATURE_FLAGGED})
+        if missing:   # e.g. nautilus armor, until it is backported
             waiting[table] = missing
             continue
         port.write(res / name, new)

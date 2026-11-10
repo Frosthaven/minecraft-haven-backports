@@ -22,6 +22,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
+| Spears | Wooden, Stone, Copper, Iron, Golden, Diamond and Netherite Spear; the Lunge enchantment (see below) |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;
@@ -31,8 +32,10 @@ armor (CSA: 131 uses, +0 damage, iron mining level, armor 2/6/5/1; Mojang: 190 u
 armor 2/4/3/1).
 
 Mobs pick armor as in newer Minecraft (MobMixin): the tiers are leather, copper, gold, chainmail, iron, diamond, and the roll is
-newer Minecraft's. newer Minecraft's chest loot that names our items is taken whole (copper horse armor; leather in place of saddles, which
-newer Minecraft makes craftable); tables that name spears stay at 1.21.1 until spears are in.
+newer Minecraft's. newer Minecraft's chest loot that names our items is taken whole (copper horse armor, spears; leather in place of saddles, which
+newer Minecraft makes craftable). Tables that also name items not backported stay at 1.21.1: buried treasure and underwater ruins
+(nautilus armor, buried treasure map) and the village weaponsmith (newer Minecraft adds a bundle, which 1.21.1 keeps behind an
+experimental feature flag).
 
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).
@@ -66,6 +69,35 @@ hinge sounds per age (ChestBlockEntity.playSound) and the copper texture before 
 
 Not taken: recipes 1.21.1 cannot run or already has (bundle, which 1.21.1 keeps behind a feature flag; the per-flower
 suspicious stews 1.21.1's special recipe already makes; dyes and stews from flowers 1.21.1 lacks).
+
+## Spears
+
+Mojang's newer Minecraft spear, part for part (`spear/` holds the ported classes, `client/spear/` the animations). Left click is
+the jab: at full attack charge it hits every entity on a line 2 to 4.5 blocks ahead (creative 6.5) and costs 1
+durability per entity hit; a spear never breaks blocks. Holding right click is the charge: no slowdown, sprint allowed;
+after the tier's delay, an entity on the line takes knockback, then damage (1 + relative speed x tier multiplier) and
+a mount loses its rider while the attacker is fast enough, each until the tier's time runs out, at most once per 10 ticks
+per entity. "Mob Kabob" (5 mobs in one charge) is `haven_backports:adventure/spear_many_mobs`.
+
+Mobs: zombies (husks and zombie villagers too) roll an iron spear in 1 of 6 weapon rolls, zombified piglins carry a
+golden spear 1 time in 20, piglins 1 in 10 of their non-crossbow spawns; all charge with it (newer Minecraft SpearUseGoal, and the
+piglin brain's spear behaviors). Drowned and skeletons do not pick spears up. Piglins love golden spears.
+
+Lunge (enchanting table, librarian books, enchanted loot and mob gear, as every non-treasure enchantment; spears only):
+each jab pushes the player 0.458 blocks per level forward, costs 4 exhaustion per level and 1 durability; not while
+riding, gliding, in water, or with food below 7 (creative: always). Spears also take Sharpness, Smite, Bane of
+Arthropods, Knockback, Fire Aspect, Looting, Unbreaking, Mending and Curse of Vanishing, not Sweeping Edge: those six
+vanilla enchantment files are overridden with newer Minecraft's `#enchantable/melee_weapon` targets (1.21.1's file otherwise),
+and that tag also lists 1.21.1's `#enchantable/sword`, so other mods' additions to it (Farmer's Delight knives, Iron's
+Spellbooks staves) keep their enchantments.
+
+1.21.1 has none of newer Minecraft's item components, so a spear is a `SpearItem` holding them; the jab is a payload of its own
+(newer Minecraft adds a STAB player action). Engine-wide newer Minecraft changes are kept for spears only: the first-person hand does not dip
+after a jab (other items keep 1.21.1's dip, owner's choice), and the swing length comes from the spear in the swinging
+hand (1.21.1 sends no swing animation). Not ported: newer Minecraft-only sources (husk camel jockeys, zombie horse jockeys, which
+need natural zombie horse spawns; abandoned camp loot), the smithing table's empty spear slot icon, and newer Minecraft's mob
+weapon preference (`piglin_preferred_weapons`). Iron, golden and copper spears do not smelt into nuggets: newer Minecraft's
+nugget recipes also name nautilus armor.
 
 ## Download
 

@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
 /** Client: the copper fire flame draws like vanilla's flame (Mojang's 26.x ParticleResources: FlameParticle.Provider);
- *  shelves draw their items (26.x BlockEntityRenderers: SHELF -> ShelfRenderer). */
+ *  shelves draw their items (26.x BlockEntityRenderers: SHELF -> ShelfRenderer); spears' hands and arm pose. */
 @EventBusSubscriber(modid = HavenBackports.ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class ClientSetup {
     private ClientSetup() {}
@@ -30,6 +30,7 @@ public final class ClientSetup {
     @SubscribeEvent
     static void chestItems(net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent e) {
         ChestTextures.items(e);
+        dev.frosthaven.havenbackports.client.spear.SpearClient.register(e);
     }
 
     @SubscribeEvent
