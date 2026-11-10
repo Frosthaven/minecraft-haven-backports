@@ -22,6 +22,7 @@ one block per concept and it looks the way Mojang made it.
 | Copper chest | Copper Chest in every oxidation stage, waxed or not; keeps its items when it ages, is waxed or scraped |
 | Copper gear | Copper Sword, Shovel, Pickaxe, Axe, Hoe; Copper Helmet, Chestplate, Leggings, Boots (trims; copper on copper uses Mojang's darker copper) |
 | Horse armor | Copper Horse Armor (chest loot, as newer Minecraft), Netherite Horse Armor (smithing) |
+| Music discs | Tears (a ghast killed by a player with its own fireball), Lava Chicken (a player kills a baby zombie riding a chicken), Bounce (mineshaft chests in the Sulfur Caves: the chest entry waits for that biome); Mojang's songs, lengths and comparator values |
 | Recipes | Name Tag (paper + metal nugget), Saddle; stonecutter: cobblestone set from stone, every deepslate variant from deepslate |
 
 Merged into the backported ones (Haven Consolidated): New Slab Variants' calcite, wool and concrete slabs; Chipped's calcite bricks, calcite pillar and packed ice bricks; Create's calcite pillar;

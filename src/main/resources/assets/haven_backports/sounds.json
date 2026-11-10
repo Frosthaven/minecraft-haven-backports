@@ -390,5 +390,29 @@
       "haven_backports:item/armor/equip_copper6"
     ],
     "subtitle": "subtitles.item.armor.equip_copper"
+  },
+  "music_disc.tears": {
+    "sounds": [
+      {
+        "name": "haven_backports:records/tears",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.lava_chicken": {
+    "sounds": [
+      {
+        "name": "haven_backports:records/lava_chicken",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.bounce": {
+    "sounds": [
+      {
+        "name": "haven_backports:records/bounce",
+        "stream": true
+      }
+    ]
   }
 }

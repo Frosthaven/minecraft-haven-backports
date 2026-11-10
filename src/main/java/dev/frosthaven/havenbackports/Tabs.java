@@ -89,6 +89,8 @@ final class Tabs {
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // ... stone hoe, COPPER_SHOVEL, COPPER_PICKAXE, COPPER_AXE, COPPER_HOE, iron shovel ...
             after(e, "stone_hoe", "copper_shovel", "copper_pickaxe", "copper_axe", "copper_hoe");
+            // ... relic, 5, pigstep, TEARS, LAVA_CHICKEN, BOUNCE (flurry comes with the Ice Caves)
+            after(e, "music_disc_pigstep", "music_disc_tears", "music_disc_lava_chicken", "music_disc_bounce");
         } else if (tab == CreativeModeTabs.COMBAT) {
             after(e, "stone_sword", "copper_sword");
             after(e, "stone_axe", "copper_axe");
