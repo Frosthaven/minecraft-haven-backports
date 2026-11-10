@@ -97,7 +97,7 @@ and must match. If the default `java` is newer than Gradle supports (Java 27: "U
 `./gradlew runServer`; enable RCON in `run/server.properties` to drive it (`/locate biome haven_backports:...`).
 
 The throwaway proof mod in `../proof` (steps: `scene`, `cmd`, `look`, `calcitecheck`, `shot`) in the Prism instance
-"Haven IP Test": a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
+a test copy of "Haven Dev" (made for the test, deleted after; the generator's `--mods` can read Haven Dev's mods folder): a grass platform in a plains biome (`fillbiome`, under 32768 blocks), one grid per family. Check
 inventory icons too (a hotbar shot), not only placed blocks. Mob screenshots: the proof mod's `mobscene <ghast|golem|decor|variants> <x> <y> <z>` builds a 40 x 40 plains scene
 (noon, clear, frozen) with the subjects still (`mobscene2 <desert|nautilus> <x> <y> <z>` the same for the desert mobs and
 nautiluses, faces to the south: shoot from the south; a nautilus's face is at its back, so it is summoned at yaw 180); then `look near <eye x y z> <target x y z>` and `shot`. A server test:
