@@ -54,3 +54,12 @@ def copper_maps(port):
             waxables[f"{NS}:{st}{s}"] = {"waxed": f"{NS}:waxed_{st}{s}"}
     port.write(RES / "data/neoforge/data_maps/block/oxidizables.json", {"values": oxidizables})
     port.write(RES / "data/neoforge/data_maps/block/waxables.json", {"values": waxables})
+
+
+# Vanilla items newer Minecraft renamed (id kept: changing it would break every mod naming the old id). Mojang's new
+# name from its own lang file is written over 1.21.1's key.
+RENAMED = {"block.minecraft.chain": "block.minecraft.iron_chain"}
+
+
+def renames(port, lang_new):
+    port.write(RES / "assets/minecraft/lang/en_us.json", {old: lang_new[new] for old, new in RENAMED.items()})

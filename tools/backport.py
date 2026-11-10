@@ -104,9 +104,6 @@ ALIASES = [
 # from 1.21.1's ItemBlockRenderTypes: iron bars and chain cutout_mipped, torch, wall torch and lantern cutout.
 RENDER_TYPES = {"copper_bars": "minecraft:cutout_mipped", "copper_chain": "minecraft:cutout_mipped",
                 "copper_lantern": "minecraft:cutout", "copper_torch": "minecraft:cutout", "copper_wall_torch": "minecraft:cutout"}
-# Vanilla items newer Minecraft renamed (id kept: changing it would break every mod naming the old id). Mojang's new
-# name from its own lang file is written over 1.21.1's key.
-RENAMED = {"block.minecraft.chain": "block.minecraft.iron_chain"}
 RECIPE_TYPES_1211 = {"crafting_shaped", "crafting_shapeless", "stonecutting", "smelting", "blasting", "smoking",
                      "campfire_cooking", "smithing_transform"}
 
@@ -327,7 +324,8 @@ class Port:
         for table, change in self.loot_changes.items():
             print(f"loot {table}: 26.x adds {change['added']}, removes {change['removed']}")
         self.write(RES / "assets" / NS / "lang/en_us.json", dict(sorted(lang.items())))
-        self.write(RES / "assets/minecraft/lang/en_us.json", {old: lang_new[new] for old, new in RENAMED.items()})
+        import tieins   # imported here: it reads this module's constants
+        tieins.renames(self, lang_new)
         self.shelf_displays()
         self.recipes()
         self.tags()
