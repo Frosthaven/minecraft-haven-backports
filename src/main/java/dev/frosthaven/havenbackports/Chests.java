@@ -8,14 +8,19 @@ import java.util.function.Supplier;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.Container;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
@@ -60,5 +65,11 @@ public final class Chests {
         }
         modBus.addListener(BlockEntityTypeAddBlocksEvent.class,
                 e -> e.modify(BlockEntityType.CHEST, ALL.stream().map(DeferredBlock::get).toArray(Block[]::new)));
+        // NeoForge gives the chest inventory to pipes, funnels and other mods' item movers per block, only for Chest and
+        // Trapped Chest (CapabilityHooks.registerVanillaProviders): the same provider for copper chests, joined halves too.
+        modBus.addListener(RegisterCapabilitiesEvent.class, e -> e.registerBlock(Capabilities.ItemHandler.BLOCK, (level, pos, state, be, side) -> {
+            Container container = ChestBlock.getContainer((ChestBlock) state.getBlock(), state, level, pos, true);
+            return container == null ? null : new InvWrapper(container);
+        }, ALL.stream().map(DeferredBlock::get).toArray(Block[]::new)));
     }
 }
