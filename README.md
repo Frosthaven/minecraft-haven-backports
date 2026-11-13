@@ -58,6 +58,13 @@ a replacement: with no other mod in the table it is newer Minecraft's table exac
 where the vanilla entry is still there; when a mod reshapes a pool so that no pool holds its vanilla entries, our additions
 go in a pool of their own with the same chance per roll, and the server log names the table.
 
+Other mods' wood recipes: pale oak and poplar get each recipe a pack mod ships for every vanilla overworld wood
+through vanilla items only (Mekanism's Precision Sawmill: logs, boats, doors, fence gates, hanging signs, pressure
+plates, trapdoors; Farmer's Delight's cutting board: bark from logs and wood, chest boats taken apart), written by the
+generator from the mods' own files. Create's saw makes its recipes for every wood by itself. Not covered: mods with
+a block per wood (Macaw's, Handcrafted, Storage Drawers, Sophisticated Storage's wood chests and barrels, and others)
+have no pale oak or poplar version.
+
 Kept apart: TFMG's colored concrete slabs and stairs (TFMG's own concrete, its own textures); Handcrafted's shelves
 (a different block: decoration, no slots).
 

@@ -98,6 +98,9 @@ COVERED_BY_PACK = {
     "copper_nugget": "Create's crafting/materials/copper_nugget (1 c:ingots/copper -> 9; Create's nugget merges into ours)",
     "copper_ingot_from_nuggets": "Create's crafting/materials/copper_ingot (9 c:nuggets/copper -> 1)",
 }
+# Vanilla ids newer Minecraft renamed, as 1.21.1 names them (tieins.RENAMED holds the display names): without this a
+# recipe that names one is dropped as unobtainable (every hanging sign: two chains).
+RENAMED_IDS = {"minecraft:iron_chain": "minecraft:chain"}
 PARTICLES = ["copper_fire_flame", "red_poplar_leaves", "orange_poplar_leaves", "yellow_poplar_leaves",
              "sulfur_bubbles", "noxious_gas", "geyser_base", "geyser_poof", "geyser_plume",   # (geyser, gas cloud: no sprites)
              "pale_oak_leaves", "trail", "firefly", *creaking.PARTICLES, *frostbite.PARTICLES]
@@ -264,7 +267,8 @@ class Port(data.DataPort):
     # ---------- ids ----------
     @staticmethod
     def id(value: str) -> str:
-        """minecraft:<one of ours> -> haven_backports:<it>."""
+        """minecraft:<one of ours> -> haven_backports:<it>; an item newer Minecraft renamed -> its 1.21.1 id."""
+        value = RENAMED_IDS.get(value, value)
         if value.startswith("minecraft:") and value[10:] in OURS:
             return f"{NS}:{value[10:]}"
         return value
@@ -451,6 +455,7 @@ class Port(data.DataPort):
         tieins.copper_maps(self)
         tieins.amendments(self)
         tieins.sulfur_dust(self)
+        tieins.wood_recipes(self)
         extras.finish(self, RES)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})

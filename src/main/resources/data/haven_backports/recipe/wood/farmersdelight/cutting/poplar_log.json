@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven_backports:poplar_log"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "haven_backports:stripped_poplar_log"
+      }
+    },
+    {
+      "item": {
+        "count": 1,
+        "id": "farmersdelight:tree_bark"
+      }
+    }
+  ],
+  "sound": {
+    "sound_id": "minecraft:item.axe.strip"
+  },
+  "tool": [
+    {
+      "type": "farmersdelight:item_ability",
+      "action": "axe_strip"
+    },
+    {
+      "tag": "minecraft:axes"
+    }
+  ]
+}

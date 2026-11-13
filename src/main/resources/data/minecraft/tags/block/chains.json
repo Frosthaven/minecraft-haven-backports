@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chain",
     "haven_backports:copper_chain",
     "haven_backports:exposed_copper_chain",
     "haven_backports:weathered_copper_chain",

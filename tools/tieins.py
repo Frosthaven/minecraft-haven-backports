@@ -5,7 +5,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-from backport import COPPER_SETS, FULL_CHISEL, NS, RES, SOUND_SETS, STAGES, extras, gear, mobs, spear
+from backport import COPPER_SETS, FULL_CHISEL, NS, OURS, RES, SOUND_SETS, STAGES, extras, gear, mobs, spear
 from sources import asset
 
 
@@ -79,6 +79,83 @@ def sulfur_dust(port):
             "ingredients": [{"item": f"{NS}:{block}"}],
             "processing_time": ore["processing_time"],
             "results": [{**r, "id": "haven_consolidated:sulfur_dust"} for r in ore["results"]]})
+
+
+OUR_WOODS = ("pale_oak", "poplar")
+# the vanilla overworld woods with the same item set as ours: a recipe is "per wood" when a mod ships it for each
+TWIN_WOODS = ("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry")
+
+
+def wood_recipes(port):
+    """Other mods' per-wood recipes, for our woods (Mekanism's sawing, Farmer's Delight's cutting: 1.21.1 mods list
+    the vanilla woods one by one, so ours had none). A recipe is taken when its mod ships the same recipe for every
+    vanilla overworld wood and it names wood only through vanilla ids: ours is that recipe with the wood swapped,
+    each id checked (an item of ours, a tag we write). Recipes that name a mod's own wood item or a wood type in a
+    component (Sophisticated Storage, furniture mods) need that mod's blocks and are left out. Create is not here:
+    it builds its saw recipes for every mod's wood at run time."""
+    mods = sys.argv[sys.argv.index("--mods") + 1] if "--mods" in sys.argv else os.environ.get("HAVEN_MODS")
+    if not mods:
+        print("wood recipes: no --mods / HAVEN_MODS given, other mods' per-wood recipes left out")
+        return
+    import re
+    wood_id = re.compile(r"^minecraft:(stripped_)?acacia_(\w+)$")
+    n = 0
+    for jar in sorted(Path(mods).glob("*.jar")):
+        try:
+            z = zipfile.ZipFile(jar)
+        except zipfile.BadZipFile:
+            continue
+        recipes = {}
+        for name in z.namelist():
+            parts = name.split("/")
+            if len(parts) > 3 and parts[0] == "data" and parts[2] == "recipe" and name.endswith(".json") and parts[1] != NS:
+                text = z.read(name).decode("utf-8", "replace")
+                if any(f"minecraft:{w}_" in text or f"minecraft:stripped_{w}_" in text for w in TWIN_WOODS):
+                    try:
+                        recipes[name] = json.loads(text)
+                    except ValueError:
+                        pass
+        if not recipes:
+            continue
+        known = {json.dumps(r, sort_keys=True) for r in recipes.values()}
+
+        def swap(value, wood, ours, key=None):
+            """The recipe with acacia swapped for `wood`; None when it names something we cannot give."""
+            if isinstance(value, dict):
+                out = {k: swap(v, wood, ours, k) for k, v in value.items()}
+                return None if any(v is None for v in out.values()) else out
+            if isinstance(value, list):
+                out = [swap(v, wood, ours, key) for v in value]
+                return None if any(v is None for v in out) else out
+            if not isinstance(value, str) or "acacia" not in value:
+                return value
+            m = wood_id.match(value)
+            if not m:
+                return None   # a mod's own acacia item, a wood type name
+            name = f"{m.group(1) or ''}{wood}_{m.group(2)}"
+            if not ours:
+                return f"minecraft:{name}"
+            if key == "tag":
+                return f"minecraft:{name}" if (RES / f"data/minecraft/tags/item/{name}.json").exists() else None
+            return f"{NS}:{name}" if name in OURS else None
+
+        for name, recipe in sorted(recipes.items()):
+            if "acacia" not in json.dumps(recipe):
+                continue
+            twins = [swap(recipe, w, False) for w in TWIN_WOODS]
+            if any(t is None or json.dumps(t, sort_keys=True) not in known for t in twins):
+                continue
+            ns, rid = name.split("/")[1], name.split("/", 3)[3][:-5]
+            for wood in OUR_WOODS:
+                ours = swap(recipe, wood, True)
+                if ours is None:
+                    print(f"wood recipes: {ns}:{rid} left out for {wood} (names an item or tag we do not have)")
+                    continue
+                conditions = [{"type": "neoforge:mod_loaded", "modid": ns}] + ours.pop("neoforge:conditions", [])
+                port.write(RES / f"data/{NS}/recipe/wood/{ns}/{rid.replace('acacia', wood)}.json",
+                           {"neoforge:conditions": conditions, **ours})
+                n += 1
+    print(f"wood recipes: {n} per-wood recipes of other mods written for {', '.join(OUR_WOODS)}")
 
 
 # Vanilla items newer Minecraft renamed (id kept: changing it would break every mod naming the old id). Mojang's new

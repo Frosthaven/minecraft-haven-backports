@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_hanging_sign",
+  "key": {
+    "#": {
+      "item": "haven_backports:stripped_pale_oak_log"
+    },
+    "X": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "X X",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "haven_backports:pale_oak_hanging_sign"
+  }
+}
