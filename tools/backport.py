@@ -456,6 +456,7 @@ class Port(data.DataPort):
         tieins.amendments(self)
         tieins.sulfur_dust(self)
         tieins.wood_recipes(self)
+        tieins.tree_attachments(self)
         extras.finish(self, RES)
         self.write(RES / "META-INF/haven_consolidated/aliases.json",
                    {"aliases": [{"old": o, "new": f"{NS}:{n}", "block": blk} for o, n, blk in ALIASES]})

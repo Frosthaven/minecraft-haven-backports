@@ -61,7 +61,8 @@ go in a pool of their own with the same chance per roll, and the server log name
 Other mods' wood recipes: pale oak and poplar get each recipe a pack mod ships for every vanilla overworld wood
 through vanilla items only (Mekanism's Precision Sawmill: logs, boats, doors, fence gates, hanging signs, pressure
 plates, trapdoors; Farmer's Delight's cutting board: bark from logs and wood, chest boats taken apart), written by the
-generator from the mods' own files. Create's saw makes its recipes for every wood by itself. Not covered: mods with
+generator from the mods' own files. Create's saw makes its recipes for every wood by itself. A Create saw that fells a tree also takes what grows on it
+(shelf mushrooms, pale hanging moss, resin clumps), as it does vines and cocoa. Not covered: mods with
 a block per wood (Macaw's, Handcrafted, Storage Drawers, Sophisticated Storage's wood chests and barrels, and others)
 have no pale oak or poplar version.
 

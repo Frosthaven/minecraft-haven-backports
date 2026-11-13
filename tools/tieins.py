@@ -18,6 +18,20 @@ def tie_ins(port):
             "type": "rechiseled:chiseling", "overwrite": False,
             "entries": [{"item": f"minecraft:{family}"}] + [{"item": f"{NS}:{b}"} for b in blocks]})
 
+# What grows on our trees: Create's saw cuts a tree's logs and leaves and whatever is in its tree_attachments tag
+# (vanilla: vines, cocoa, bee nests, moss carpet), and takes those drops into the contraption. Without the tag ours
+# fell off as loose items on the ground.
+TREE_ATTACHMENTS = ["shelf_mushroom", "pale_hanging_moss", "resin_clump"]
+
+
+def tree_attachments(port):
+    missing = [b for b in TREE_ATTACHMENTS if b not in OURS]
+    if missing:
+        sys.exit(f"tree attachments: {missing} are not blocks of ours")
+    port.write(RES / "data/create/tags/block/tree_attachments.json",
+               {"replace": False, "values": [f"{NS}:{b}" for b in TREE_ATTACHMENTS]})
+
+
 def amendments(port):
     """Amendments hangs every lantern on walls through its own blockstates and bracket models; it ships them for
     other mods' copper lanterns (its "oxidized" set) and a bracket texture per copper stage. Ours reuse that exact
