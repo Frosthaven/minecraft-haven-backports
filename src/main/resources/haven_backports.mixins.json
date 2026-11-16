@@ -28,6 +28,7 @@
     "ChickenMixin",
     "ComparatorBlockMixin",
     "ContainerOpenersCounterMixin",
+    "SophisticatedOpenersCounterMixin",
     "CowMixin",
     "CubeDispenserBlockMixin",
     "DrownedMixin",

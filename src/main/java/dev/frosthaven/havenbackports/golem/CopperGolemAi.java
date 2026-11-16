@@ -108,14 +108,23 @@ public final class CopperGolemAi {
         };
     }
 
-    /** The chest (both halves of a double one) recounts its openers. */
+    /**
+     * The chest (both halves of a double one) recounts its openers. Another mod's chest recounts on its scheduled
+     * block tick, as vanilla's ChestBlock.tick does (not Mojang's: for Sophisticated Storage's chests).
+     */
     private static void recheck(Level level, TransportTarget target) {
-        if (target.blockEntity() instanceof ChestBlockEntity chest) {
-            chest.recheckOpen();
-        }
+        recheck(level, target.pos());
         BlockPos other = target.connectedPos();
-        if (other != null && level.getBlockEntity(other) instanceof ChestBlockEntity chest) {
+        if (other != null) {
+            recheck(level, other);
+        }
+    }
+
+    private static void recheck(Level level, BlockPos pos) {
+        if (level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
             chest.recheckOpen();
+        } else {
+            level.scheduleTick(pos, level.getBlockState(pos).getBlock(), 1);
         }
     }
 

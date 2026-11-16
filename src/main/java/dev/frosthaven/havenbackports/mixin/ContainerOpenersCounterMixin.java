@@ -2,12 +2,10 @@ package dev.frosthaven.havenbackports.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.frosthaven.havenbackports.golem.CopperGolem;
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,8 +22,6 @@ abstract class ContainerOpenersCounterMixin {
 
     @ModifyExpressionValue(method = "recheckOpeners", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
     private int haven_backports$copperGolems(int players, Level level, BlockPos pos, BlockState state) {
-        List<CopperGolem> golems = level.getEntitiesOfClass(CopperGolem.class, new AABB(pos).inflate(Math.max(this.maxInteractionRange, 3.0) + 4.0),
-                g -> !g.isSpectator() && g.hasContainerOpen(pos));
-        return players + golems.size();
+        return players + CopperGolem.countWithContainerOpen(level, pos, this.maxInteractionRange);
     }
 }

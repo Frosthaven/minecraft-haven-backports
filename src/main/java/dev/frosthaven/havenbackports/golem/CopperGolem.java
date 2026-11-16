@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -375,8 +376,15 @@ public class CopperGolem extends AbstractGolem implements Shearable {
             return false;
         }
         BlockState state = this.level().getBlockState(this.openedChestPos);
-        return this.openedChestPos.equals(pos) || state.getBlock() instanceof ChestBlock && state.getValue(ChestBlock.TYPE) != ChestType.SINGLE
-                && this.openedChestPos.relative(ChestBlock.getConnectedDirection(state)).equals(pos);
+        // Mojang: a ChestBlock. By its properties, so another mod's double chest with vanilla's properties counts too.
+        return this.openedChestPos.equals(pos) || state.hasProperty(ChestBlock.TYPE) && state.hasProperty(ChestBlock.FACING)
+                && state.getValue(ChestBlock.TYPE) != ChestType.SINGLE && this.openedChestPos.relative(ChestBlock.getConnectedDirection(state)).equals(pos);
+    }
+
+    /** The copper golems that have the container at pos open, found in the box 26.x searches (range: the counter's interaction range). */
+    public static int countWithContainerOpen(Level level, BlockPos pos, double range) {
+        return level.getEntitiesOfClass(CopperGolem.class, new AABB(pos).inflate(Math.max(range, 3.0) + 4.0),
+                g -> !g.isSpectator() && g.hasContainerOpen(pos)).size();
     }
 
     @Override

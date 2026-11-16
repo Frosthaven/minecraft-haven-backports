@@ -343,8 +343,10 @@ dispensers place pumpkins for it). It carries up to 16 items at a time from copp
 that already hold that item or are empty, opening the lid as it works (ContainerOpenersCounterMixin) and waiting
 while someone else has it open. Not Mojang's, by the maintainer's wish: every other mod's chest in `c:chests` is a
 destination too (Sophisticated Storage's chests, single or double), reached through its NeoForge item handler
-(`ItemHandlerContainer`), so that chest's own stack limits and filters apply; such a lid does not open. Copper chests
-are never destinations. It ages like copper unless waxed
+(`ItemHandlerContainer`), so that chest's own stack limits and filters apply (tested: a stack upgrade, a filter
+upgrade). Its lid opens when the chest counts openers the way vanilla does: the golem schedules the chest's block tick
+(the recount), and `SophisticatedOpenersCounterMixin` (pseudo, optional) adds golems to Sophisticated Storage's own
+recount. Copper chests are never destinations. It ages like copper unless waxed
 (honeycomb); an axe takes off the wax or a stage, lightning a stage. A fully oxidized golem may become a statue in a
 random pose that keeps its name; any item but an axe changes the pose (comparators read it), an axe on an unaffected
 statue wakes it. Statues age, wax and scrape like copper blocks. Iron golems give poppies to copper golems too
