@@ -29,6 +29,8 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 
 /**
  * Mojang's 26.x CopperGolemAi. Opening and closing a chest: 26.x calls Container.startOpen / stopOpen with the golem
@@ -55,7 +57,7 @@ public final class CopperGolemAi {
                 new CountDownCooldownTicks(Golems.TRANSPORT_ITEMS_COOLDOWN_TICKS.get())));
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new TransportItemsBetweenContainers(1.0F, state -> state.is(CopperChestBlock.COPPER_CHESTS),
-                        state -> state.is(Blocks.CHEST) || state.is(Blocks.TRAPPED_CHEST), 32, 8, interactions(), CopperGolemAi::onTravelling,
+                        CopperGolemAi::isDestination, 32, 8, interactions(), CopperGolemAi::onTravelling,
                         CopperGolemAi::shouldQueueForTarget)),
                 Pair.of(1, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(40, 80))),
                 Pair.of(2, new RunOne<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT,
@@ -69,6 +71,14 @@ public final class CopperGolemAi {
 
     static void updateActivity(CopperGolem body) {
         body.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE));
+    }
+
+    /**
+     * Mojang: chest or trapped chest. Also every other mod's chest (c:chests, for example Sophisticated Storage's), but
+     * never a copper chest: those are the sources.
+     */
+    private static boolean isDestination(BlockState state) {
+        return state.is(Blocks.CHEST) || state.is(Blocks.TRAPPED_CHEST) || state.is(Tags.Blocks.CHESTS) && !state.is(CopperChestBlock.COPPER_CHESTS);
     }
 
     private static Map<TransportItemsBetweenContainers.ContainerInteractionState, TransportItemsBetweenContainers.OnTargetReachedInteraction> interactions() {

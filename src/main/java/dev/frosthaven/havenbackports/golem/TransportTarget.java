@@ -7,6 +7,8 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /** Mojang's 26.x TransportItemsBetweenContainers.TransportItemTarget (a chest-like container a golem can use). */
@@ -29,7 +31,12 @@ public record TransportTarget(BlockPos pos, BlockEntity blockEntity, BlockState 
         if (state.getBlock() instanceof ChestBlock chest) {
             return ChestBlock.getContainer(chest, state, level, pos, false);
         }
-        return blockEntity instanceof Container container ? container : null;
+        if (blockEntity instanceof Container container) {
+            return container;
+        }
+        // Not Mojang's: another mod's chest that keeps its items in a NeoForge item handler.
+        IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, blockEntity, null);
+        return handler != null ? new ItemHandlerContainer(handler, blockEntity) : null;
     }
 
     @Nullable

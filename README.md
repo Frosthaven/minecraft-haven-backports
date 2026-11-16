@@ -340,8 +340,11 @@ that draw overworld clouds.
 Mojang's CopperGolem, method for method (`golem/`). A carved pumpkin or jack o'lantern on any copper block (waxed or
 not) makes one, in that block's age; the block becomes the matching copper chest (CarvedPumpkinBlockMixin, and
 dispensers place pumpkins for it). It carries up to 16 items at a time from copper chests to chests and trapped chests
-that already hold that item or are empty (Mojang's rule: no other containers), opening the lid as it works
-(ContainerOpenersCounterMixin) and waiting while someone else has it open. It ages like copper unless waxed
+that already hold that item or are empty, opening the lid as it works (ContainerOpenersCounterMixin) and waiting
+while someone else has it open. Not Mojang's, by the maintainer's wish: every other mod's chest in `c:chests` is a
+destination too (Sophisticated Storage's chests, single or double), reached through its NeoForge item handler
+(`ItemHandlerContainer`), so that chest's own stack limits and filters apply; such a lid does not open. Copper chests
+are never destinations. It ages like copper unless waxed
 (honeycomb); an axe takes off the wax or a stage, lightning a stage. A fully oxidized golem may become a statue in a
 random pose that keeps its name; any item but an axe changes the pose (comparators read it), an axe on an unaffected
 statue wakes it. Statues age, wax and scrape like copper blocks. Iron golems give poppies to copper golems too

@@ -241,10 +241,11 @@ public class TransportItemsBetweenContainers extends Behavior<PathfinderMob> {
             LevelChunk chunk = level.getChunkSource().getChunkNow(chunkPos.x, chunkPos.z);
             if (chunk != null) {
                 for (BlockEntity candidate : chunk.getBlockEntities().values()) {
-                    if (candidate instanceof ChestBlockEntity chest) {
-                        double distance = chest.getBlockPos().distToCenterSqr(body.position());
+                    // Mojang: ChestBlockEntity only. Also any block entity of a wanted block (other mods' chests).
+                    if (candidate instanceof ChestBlockEntity || isWantedBlock(body, candidate.getBlockState())) {
+                        double distance = candidate.getBlockPos().distToCenterSqr(body.position());
                         if (distance < closest) {
-                            TransportTarget valid = targetValidToPick(body, level, chest, visited, unreachable, area);
+                            TransportTarget valid = targetValidToPick(body, level, candidate, visited, unreachable, area);
                             if (valid != null) {
                                 best = valid;
                                 closest = distance;
@@ -263,11 +264,14 @@ public class TransportItemsBetweenContainers extends Behavior<PathfinderMob> {
         if (!area.contains(pos.getX(), pos.getY(), pos.getZ())) {
             return null;
         }
+        if (!isWantedBlock(body, blockEntity.getBlockState())) {   // before tryCreate: it may ask a mod for its item handler
+            return null;
+        }
         TransportTarget t = TransportTarget.tryCreate(blockEntity, level);
         if (t == null) {
             return null;
         }
-        return isWantedBlock(body, t.state()) && !isPositionAlreadyVisited(visited, unreachable, t, level) && !isContainerLocked(t) ? t : null;
+        return !isPositionAlreadyVisited(visited, unreachable, t, level) && !isContainerLocked(t) ? t : null;
     }
 
     private static boolean isContainerLocked(TransportTarget t) {
@@ -422,6 +426,9 @@ public class TransportItemsBetweenContainers extends Behavior<PathfinderMob> {
     /** Mojang's, including its count arithmetic (the hand stack loses the room left, not the count moved). */
     private static ItemStack addItemsToContainer(PathfinderMob body, Container container) {
         ItemStack hand = body.getMainHandItem();
+        if (container instanceof ItemHandlerContainer other) {
+            return other.insert(hand);
+        }
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
             ItemStack inSlot = container.getItem(slot);
             if (inSlot.isEmpty()) {
